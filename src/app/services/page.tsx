@@ -7,11 +7,11 @@ import { LinkButton } from "@/components/ui/button";
 import { services } from "@/lib/data/content";
 import { formatCurrency } from "@/lib/utils";
 
-export const metadata: Metadata = { title: "Dota 2 Coaching Services", description: "Compare live coaching, replay analysis, role mastery, hero mastery, guided improvement, and team coaching.", alternates: { canonical: "/services" } };
+export const metadata: Metadata = { title: "Dota 2 Boosting Services", description: "Compare self-play rank boosts, win packages, calibration support, duo lane boosts, MMR sprints, and stack coverage.", alternates: { canonical: "/services" } };
 
 export default function ServicesPage() {
   return (
-    <><PageHero eyebrow="Coaching services" title="Choose the format. Keep the control." description="One focused replay or a structured month of work—every plan is delivered with you on your own account." aside={<div className="rounded-2xl border border-cyan/20 bg-cyan/[0.06] p-5 text-sm leading-6 text-[#c0cdca]"><strong className="text-cyan">Account safety:</strong> We never request Steam passwords, login codes, or recovery codes.</div>} />
+    <><PageHero eyebrow="Boosting services" title="Choose the target. Keep the control." description="From a five-win push to a complete rank sprint, every service is customer-controlled and tracked match by match." aside={<div className="rounded-2xl border border-cyan/20 bg-cyan/[0.06] p-5 text-sm leading-6 text-[#c0cdca]"><strong className="text-cyan">Self-play standard:</strong> You play every match. We never request Steam passwords, login codes, or remote access.</div>} />
       <section className="section-pad container-shell">
         <div className="grid gap-5 lg:grid-cols-2">
           {services.map((service, index) => (
@@ -23,7 +23,7 @@ export default function ServicesPage() {
             </article>
           ))}
         </div>
-        <div className="mt-16 flex flex-col items-center rounded-[1.8rem] border border-white/[0.09] bg-panel/60 px-6 py-12 text-center"><p className="eyebrow before:hidden">Not sure where to start?</p><h2 className="mt-5 text-3xl font-black">Build a brief first. Choose a coach second.</h2><p className="mt-4 max-w-xl text-sm leading-6 text-mist">The configurator turns your role, goals, schedule, and preferred format into a clear starting plan.</p><LinkButton href="/pricing" className="mt-7" arrow>Build my plan</LinkButton></div>
+        <div className="mt-16 flex flex-col items-center rounded-[1.8rem] border border-white/[0.09] bg-panel/60 px-6 py-12 text-center"><p className="eyebrow before:hidden">Not sure where to start?</p><h2 className="mt-5 text-3xl font-black">Set a target first. Choose a booster second.</h2><p className="mt-4 max-w-xl text-sm leading-6 text-mist">The configurator turns your bracket, target, region, role, package size, and queue format into a server-verified estimate.</p><LinkButton href="/pricing" className="mt-7" arrow>Configure my boost</LinkButton></div>
       </section>
     </>
   );

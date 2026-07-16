@@ -4,7 +4,7 @@ import { MobileNav } from "@/components/layout/mobile-nav";
 
 const links = [
   ["Services", "/services"],
-  ["Coaches", "/coaches"],
+  ["Boosters", "/boosters"],
   ["How it works", "/how-it-works"],
   ["Pricing", "/pricing"],
   ["Reviews", "/reviews"],
@@ -13,7 +13,7 @@ const links = [
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-white/[0.07] bg-ink/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-white/[0.07] bg-ink/80 shadow-[0_10px_40px_rgb(0_0_0_/_0.2)] backdrop-blur-xl">
       <div className="container-shell flex h-[76px] items-center justify-between gap-5">
         <Logo />
         <nav aria-label="Primary navigation" className="hidden items-center gap-5 lg:flex">
@@ -21,7 +21,7 @@ export function SiteHeader() {
         </nav>
         <div className="hidden items-center gap-2 md:flex">
           <Link href="/auth/sign-in" className="rounded-full px-4 py-2.5 text-xs font-semibold text-mist transition hover:text-white">Sign in</Link>
-          <Link href="/pricing" className="rounded-full bg-crimson px-5 py-2.5 text-xs font-bold text-white transition hover:bg-[#e05c5c]">Get started</Link>
+          <Link href="/pricing" className="rounded-full bg-crimson px-5 py-2.5 text-xs font-bold text-white shadow-[0_10px_30px_rgb(214_79_82_/_0.2)] transition hover:bg-[#e05c5c]">Start a boost</Link>
         </div>
         <MobileNav />
       </div>

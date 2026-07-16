@@ -8,7 +8,7 @@ export function ReviewPreview() {
   return (
     <section className="section-pad container-shell">
       <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-        <SectionHeading eyebrow="Completed orders only" title="Proof attached to real work." description="A verified label appears only when feedback belongs to a completed, paid coaching order." />
+        <SectionHeading eyebrow="Completed boosts only" title="Proof attached to real delivery." description="A verified label appears only when feedback belongs to a completed, paid boost order." />
         <LinkButton href="/reviews" variant="secondary">Read all reviews</LinkButton>
       </div>
       <div className="mt-14 grid gap-4 lg:grid-cols-3">

@@ -29,15 +29,16 @@ async function ensureOrder({ seedKey, customerId, serviceSlug, total, status, co
   const { data: existing, error: existingError } = await supabase.from("orders").select("id, status").contains("requirements", { seed_key: seedKey }).maybeSingle();
   if (existingError) throw existingError;
   if (existing) return existing.id;
-  const requirements = { seed_key: seedKey, service: serviceSlug, currentRank: "Legend", targetGoal: "Improve decision making", role: "Carry", region: "North America", language: "English", sessionCount: 2, sessionDuration: "60", replayCount: 1, coachTier: "Master", priority: "Standard", teamSize: 1, preferredHeroes: [] };
-  const { data: orderId, error } = await supabase.rpc("create_pending_order", { p_customer_id: customerId, p_service_slug: serviceSlug, p_requirements: requirements, p_subtotal: total, p_discount: 0, p_total: total, p_currency: "cad" });
+  const requirements = { seed_key: seedKey, service: serviceSlug, currentRank: "Legend", targetRank: "Ancient", role: "Carry", region: "North America", language: "English", winCount: 10, queueMode: "Duo Lane", boosterTier: "Master", priority: "Standard", partySize: 1, preferredHeroes: [] };
+  const { data: created, error } = await supabase.rpc("create_checkout_order_v2", { p_customer_id: customerId, p_service_slug: serviceSlug, p_requirements: requirements, p_subtotal: total, p_package_discount: 0, p_pre_discount_total: total, p_currency: "cad", p_discount_code: null });
   if (error) throw error;
+  const orderId = created.order_id;
   if (status === "payment_pending") return orderId;
   const checkoutId = `cs_seed_${seedKey}`;
   const intentId = `pi_seed_${seedKey}`;
   const { error: paymentError } = await supabase.from("payments").insert({ order_id: orderId, customer_id: customerId, checkout_session_id: checkoutId, currency: "cad", gross_amount: total, status: "pending" });
   if (paymentError) throw paymentError;
-  const { error: finalizeError } = await supabase.rpc("finalize_paid_order", { p_order_id: orderId, p_checkout_session_id: checkoutId, p_payment_intent_id: intentId, p_amount_total: total });
+  const { error: finalizeError } = await supabase.rpc("finalize_paid_order_v2", { p_order_id: orderId, p_checkout_session_id: checkoutId, p_payment_intent_id: intentId, p_stripe_customer_id: null, p_amount_subtotal: total, p_tax_amount: 0, p_amount_total: total, p_event_created: Math.floor(Date.now() / 1000) });
   if (finalizeError) throw finalizeError;
   const { error: assignmentError } = await supabase.from("order_assignments").insert({ order_id: orderId, coach_id: coachId, status: status === "completed" ? "completed" : "accepted", compensation_amount: Math.round(total * 0.7), assigned_by: adminId, accepted_at: new Date().toISOString(), ended_at: status === "completed" ? new Date().toISOString() : null });
   if (assignmentError) throw assignmentError;
@@ -55,23 +56,23 @@ const customerOne = await ensureUser("customer.one@highground.local", "Reza", "c
 const customerTwo = await ensureUser("customer.two@highground.local", "Ari", "customer");
 
 for (const coach of [
-  { id: northstar.id, slug: "northstar-seed", current_rank: "Immortal 1,420", peak_rank: "Immortal 780", biography: "A calm, systems-first coach who turns difficult matches into a short list of repeatable decisions players can practice.", coaching_style: "Direct, analytical, and encouraging, using questions before targeted correction.", region: "North America", languages: ["English", "French"], roles: ["Carry", "Mid"], hero_specialties: ["Tempo", "Laning"], time_zone: "America/Toronto", tier: "Elite", starting_price: 7900 },
-  { id: lantern.id, slug: "lantern-seed", current_rank: "Immortal 3,410", peak_rank: "Immortal 1,890", biography: "A structured support specialist who helps players measure impact through better lanes, information, and fight preparation.", coaching_style: "Patient and structured, emphasizing decision triggers rather than rigid rules.", region: "Southeast Asia", languages: ["English", "Mandarin"], roles: ["Hard Support", "Soft Support"], hero_specialties: ["Vision", "Shotcalling"], time_zone: "Asia/Singapore", tier: "Pro", starting_price: 5900 }
+  { id: northstar.id, slug: "northstar-seed", current_rank: "Immortal 1,420", peak_rank: "Immortal 780", biography: "A calm, systems-first booster known for stable lanes, disciplined calls, and converting small leads without unnecessary risk.", coaching_style: "Measured and communication-first, with concise party calls and reliable scheduling.", region: "North America", languages: ["English", "French"], roles: ["Carry", "Mid"], hero_specialties: ["Tempo", "Laning"], time_zone: "America/Toronto", tier: "Elite", starting_price: 7900 },
+  { id: lantern.id, slug: "lantern-seed", current_rank: "Immortal 3,410", peak_rank: "Immortal 1,890", biography: "A structured support specialist who creates clean lanes and turns information into calm, decisive party calls.", coaching_style: "Patient and structured, with low-noise communication and reliable support play.", region: "Southeast Asia", languages: ["English", "Mandarin"], roles: ["Hard Support", "Soft Support"], hero_specialties: ["Vision", "Shotcalling"], time_zone: "Asia/Singapore", tier: "Pro", starting_price: 5900 }
 ]) {
   const { id, ...profile } = coach;
   const { error } = await supabase.from("coach_profiles").upsert({ profile_id: id, ...profile, verification_status: "verified", is_public: true }, { onConflict: "profile_id" });
   if (error) throw error;
 }
 
-const activeOrder = await ensureOrder({ seedKey: "active-coaching", customerId: customerOne.id, serviceSlug: "live-coaching", total: 17000, status: "in_progress", coachId: northstar.id, adminId: admin.id });
-const completedOrder = await ensureOrder({ seedKey: "completed-replay", customerId: customerTwo.id, serviceSlug: "replay-analysis", total: 4500, status: "completed", coachId: lantern.id, adminId: admin.id });
-await ensureOrder({ seedKey: "unpaid-plan", customerId: customerOne.id, serviceSlug: "role-mastery", total: 18900, status: "payment_pending", coachId: northstar.id, adminId: admin.id });
+const activeOrder = await ensureOrder({ seedKey: "active-rank-boost", customerId: customerOne.id, serviceSlug: "rank-boost", total: 18800, status: "in_progress", coachId: northstar.id, adminId: admin.id });
+const completedOrder = await ensureOrder({ seedKey: "completed-win-boost", customerId: customerTwo.id, serviceSlug: "win-boost", total: 8750, status: "completed", coachId: lantern.id, adminId: admin.id });
+await ensureOrder({ seedKey: "unpaid-duo", customerId: customerOne.id, serviceSlug: "duo-lane-boost", total: 12900, status: "payment_pending", coachId: northstar.id, adminId: admin.id });
 
 const { data: conversation } = await supabase.from("conversations").select("id").eq("order_id", activeOrder).single();
 if (conversation) {
   const messages = [
-    { client_id: "10000000-0000-4000-8000-000000000001", conversation_id: conversation.id, sender_id: northstar.id, kind: "text", body: "I reviewed the first match ID. The main opportunity is how early you commit the farming route." },
-    { client_id: "10000000-0000-4000-8000-000000000002", conversation_id: conversation.id, sender_id: customerOne.id, kind: "text", body: "Should I tag the moment I decide the route, or when I realize it is unsafe?" },
+    { client_id: "10000000-0000-4000-8000-000000000001", conversation_id: conversation.id, sender_id: northstar.id, kind: "text", body: "I can cover your lane again Friday. I added two hero pairings to the queue plan before we start." },
+    { client_id: "10000000-0000-4000-8000-000000000002", conversation_id: conversation.id, sender_id: customerOne.id, kind: "text", body: "Friday works. I prefer the safer lane pairing for the first two games." },
     { client_id: "10000000-0000-4000-8000-000000000003", conversation_id: conversation.id, sender_id: northstar.id, kind: "audio", body: null }
   ];
   for (const message of messages) {
@@ -88,10 +89,12 @@ const { data: activeSession } = await supabase.from("sessions").select("id").eq(
 if (!activeSession) await supabase.from("sessions").insert({ order_id: activeOrder, coach_id: northstar.id, customer_id: customerOne.id, status: "confirmed", starts_at: new Date(Date.now() + 86400000).toISOString(), ends_at: new Date(Date.now() + 90000000).toISOString(), customer_time_zone: "America/Toronto", coach_time_zone: "America/Toronto", meeting_provider: "discord", created_by: northstar.id });
 
 const { data: review } = await supabase.from("reviews").select("id").eq("order_id", completedOrder).maybeSingle();
-if (!review) await supabase.from("reviews").insert({ order_id: completedOrder, customer_id: customerTwo.id, coach_id: lantern.id, rating: 5, feedback: "The review separated isolated mistakes from the positioning pattern that kept repeating.", service_type: "Replay Analysis", rank_before: "Ancient", role: "Hard Support", is_public: true });
+if (!review) await supabase.from("reviews").insert({ order_id: completedOrder, customer_id: customerTwo.id, coach_id: lantern.id, rating: 5, feedback: "Everything was scoped before queue and every assisted win appeared in the workspace.", service_type: "Win Boost", rank_before: "Ancient", role: "Carry", is_public: true });
 
 const { data: application } = await supabase.from("coach_applications").select("id").eq("email", "candidate@highground.local").maybeSingle();
-if (!application) await supabase.from("coach_applications").insert({ legal_name: "Development Candidate", display_name: "Orion", email: "candidate@highground.local", country: "Canada", time_zone: "America/Vancouver", languages: ["English"], current_rank: "Immortal 1,760", peak_rank: "Immortal 920", main_roles: ["Offlane"], best_heroes: ["Public seed specialty"], public_gameplay_profile: "https://example.com/public-profile", coaching_experience: "Synthetic development application used to exercise the administrator review queue.", weekly_availability: "Weekday evenings", preferred_compensation: "Per session", biography: "Synthetic seed biography with enough detail to exercise the private application review experience safely.", sample_replay_analysis: "Synthetic sample analysis that identifies an information gap, explains the decision trigger, and proposes a repeatable practice goal for development testing.", why_join: "Synthetic motivation statement used only for local development and administrator workflow testing.", agreement_accepted_at: new Date().toISOString(), status: "under_review" });
+if (!application) await supabase.from("coach_applications").insert({ legal_name: "Development Candidate", display_name: "Orion", email: "candidate@highground.local", country: "Canada", time_zone: "America/Vancouver", languages: ["English"], current_rank: "Immortal 1,760", peak_rank: "Immortal 920", main_roles: ["Offlane"], best_heroes: ["Public seed specialty"], public_gameplay_profile: "https://example.com/public-profile", coaching_experience: "Synthetic booster application used to exercise the administrator review queue.", weekly_availability: "Weekday evenings", preferred_compensation: "Per package", biography: "Synthetic seed biography with enough detail to exercise the private booster review experience safely.", sample_replay_analysis: "Synthetic queue plan that describes role coverage, safe communication, hero pairing, and match milestones for development testing.", why_join: "Synthetic motivation statement used only for local development and administrator workflow testing.", agreement_accepted_at: new Date().toISOString(), status: "under_review" });
+
+await supabase.from("discount_codes").upsert({ code: "DEVBOOST10", discount_type: "percentage", discount_value: 10, max_redemptions: 1000, minimum_amount: 5000, maximum_discount: 5000, per_customer_limit: 5, is_active: true, created_by: admin.id }, { onConflict: "code" });
 
 console.log("Highground seed complete.");
 console.log(`Local password for seeded users: ${password}`);

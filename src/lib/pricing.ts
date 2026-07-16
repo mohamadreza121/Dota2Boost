@@ -1,31 +1,42 @@
 import type { PricingInput } from "@/lib/validation/pricing";
 
-const basePrice: Record<PricingInput["service"], number> = {
-  "live-coaching": 6900,
-  "replay-analysis": 4500,
-  "role-mastery": 6300,
-  "hero-mastery": 7200,
-  "guided-rank-improvement": 8900,
-  "team-coaching": 12900,
-  "monthly-membership": 24900
+const basePerWin: Record<PricingInput["service"], number> = {
+  "rank-boost": 1600,
+  "win-boost": 1400,
+  "calibration-support": 2300,
+  "duo-lane-boost": 1850,
+  "mmr-sprint": 1750,
+  "stack-boost": 1900,
+  "priority-membership": 1500
 };
 
-const durationFactor: Record<PricingInput["sessionDuration"], number> = {
-  "60": 1,
-  "90": 1.42,
-  "120": 1.82
+const rankFactor: Record<PricingInput["currentRank"], number> = {
+  Herald: 0.85,
+  Guardian: 0.9,
+  Crusader: 1,
+  Archon: 1.1,
+  Legend: 1.25,
+  Ancient: 1.5,
+  Divine: 1.9,
+  Immortal: 2.6
 };
 
-const tierFactor: Record<PricingInput["coachTier"], number> = {
+const queueFactor: Record<PricingInput["queueMode"], number> = {
+  "Party Queue": 1,
+  "Duo Lane": 1.12,
+  "Full Stack": 1.2
+};
+
+const tierFactor: Record<PricingInput["boosterTier"], number> = {
   Pro: 1,
-  Master: 1.25,
-  Elite: 1.55
+  Master: 1.15,
+  Elite: 1.35
 };
 
 const priorityFactor: Record<PricingInput["priority"], number> = {
-  Flexible: 0.95,
+  Flexible: 0.94,
   Standard: 1,
-  Priority: 1.2
+  Priority: 1.18
 };
 
 export interface QuoteLine {
@@ -42,35 +53,41 @@ export interface PriceQuote {
   note: string;
 }
 
+function volumeDiscountRate(winCount: number) {
+  if (winCount >= 20) return 0.1;
+  if (winCount >= 15) return 0.07;
+  if (winCount >= 10) return 0.05;
+  return 0;
+}
+
 export function calculateQuote(input: PricingInput): PriceQuote {
-  const isMembership = input.service === "monthly-membership";
-  const isReplayOnly = input.service === "replay-analysis";
-  const isTeam = input.service === "team-coaching";
-  const quantity = isMembership ? 1 : isReplayOnly ? Math.max(1, input.replayCount) : input.sessionCount;
-  const duration = isReplayOnly || isMembership ? 1 : durationFactor[input.sessionDuration];
-  const team = isTeam ? 1 + (input.teamSize - 1) * 0.13 : 1;
-  const serviceAmount = Math.round(basePrice[input.service] * quantity * duration * team);
-  const tierAdjustment = Math.round(serviceAmount * (tierFactor[input.coachTier] - 1));
-  const replayAddOn = isReplayOnly || isMembership ? 0 : input.replayCount * 3200;
-  const beforePriority = serviceAmount + tierAdjustment + replayAddOn;
-  const priorityAdjustment = Math.round(beforePriority * (priorityFactor[input.priority] - 1));
-  const volumeDiscount = input.sessionCount >= 6 && !isMembership ? Math.round(beforePriority * 0.08) : 0;
-  const total = Math.max(2500, beforePriority + priorityAdjustment - volumeDiscount);
+  const baseAmount = basePerWin[input.service] * input.winCount;
+  const rankedAmount = Math.round(baseAmount * rankFactor[input.currentRank]);
+  const queuedAmount = Math.round(rankedAmount * queueFactor[input.queueMode]);
+  const partyFactor = input.service === "stack-boost" || input.queueMode === "Full Stack"
+    ? 1 + Math.max(0, input.partySize - 1) * 0.18
+    : 1;
+  const partyAmount = Math.round(queuedAmount * partyFactor);
+  const tierAmount = Math.round(partyAmount * tierFactor[input.boosterTier]);
+  const subtotal = Math.round(tierAmount * priorityFactor[input.priority]);
+  const discount = Math.round(subtotal * volumeDiscountRate(input.winCount));
+  const total = Math.max(2500, subtotal - discount);
 
   const lines: QuoteLine[] = [
-    { label: isReplayOnly ? `${quantity} replay review${quantity === 1 ? "" : "s"}` : isMembership ? "Monthly coaching membership" : `${quantity} × ${input.sessionDuration}-minute session${quantity === 1 ? "" : "s"}`, amount: serviceAmount }
+    { label: `${input.winCount} assisted win${input.winCount === 1 ? "" : "s"}`, amount: baseAmount }
   ];
-
-  if (tierAdjustment > 0) lines.push({ label: `${input.coachTier} coach tier`, amount: tierAdjustment });
-  if (replayAddOn > 0) lines.push({ label: `${input.replayCount} replay review add-on${input.replayCount === 1 ? "" : "s"}`, amount: replayAddOn });
-  if (priorityAdjustment !== 0) lines.push({ label: `${input.priority} scheduling`, amount: priorityAdjustment });
+  if (rankedAmount !== baseAmount) lines.push({ label: `${input.currentRank} bracket`, amount: rankedAmount - baseAmount });
+  if (queuedAmount !== rankedAmount) lines.push({ label: input.queueMode, amount: queuedAmount - rankedAmount });
+  if (partyAmount !== queuedAmount) lines.push({ label: `${input.partySize}-player stack coverage`, amount: partyAmount - queuedAmount });
+  if (tierAmount !== partyAmount) lines.push({ label: `${input.boosterTier} booster tier`, amount: tierAmount - partyAmount });
+  if (subtotal !== tierAmount) lines.push({ label: `${input.priority} delivery`, amount: subtotal - tierAmount });
 
   return {
     currency: "cad",
-    subtotal: beforePriority + priorityAdjustment,
-    discount: volumeDiscount,
+    subtotal,
+    discount,
     total,
     lines,
-    note: "Final availability and price are verified securely before checkout. Results and MMR gains are not guaranteed."
+    note: "The customer plays every match on their own account. Taxes are calculated at checkout. Rank and MMR results are not guaranteed."
   };
 }

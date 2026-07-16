@@ -19,7 +19,7 @@ export const coachApplicationSchema = z.object({
   sampleReplayAnalysis: z.string().trim().min(80).max(4000),
   sampleCoachingVideoUrl: z.union([z.literal(""), z.url().max(500)]),
   whyJoin: z.string().trim().min(40).max(1500),
-  agreement: z.boolean().refine((accepted) => accepted, "You must accept the coaching standards."),
+  agreement: z.boolean().refine((accepted) => accepted, "You must accept the booster conduct standards."),
   turnstileToken: z.string().max(2048).optional()
 });
 
