@@ -9,15 +9,17 @@
 ## Phase 2 — public website: delivered
 
 - Boosting-specific homepage and premium command-center visual system
-- Services, booster marketplace and profiles, How It Works, pricing, reviews, Work With Us, FAQ, and legal pages
+- MMR-first services, booster marketplace and profiles, How It Works, pricing, reviews, Work With Us, FAQ, and legal pages
+- MMR Boost in Solo/Duo modes, MMR Calibration, Behavior Score Boost, Win Boost, secondary Coaching, and a Herald-to-Immortal medal ladder
 - Original local battlefield art and video, responsive/mobile states, metadata, structured data, sitemap, and accessibility fallbacks
 - Compatibility redirects from the former coaching URLs
 
-## Phase 3 — commerce: foundation delivered
+## Phase 3 — commerce: delivered
 
-- Service configurator and server-authoritative price calculation
-- Transactional order and discount reservation, Stripe Checkout, webhook reconciliation, payment confirmation, receipts, Billing Portal, and refund foundation
-- Remaining production work: deployed database concurrency tests, Stripe test-mode integration tests, regional/add-on rule evaluation, and tax configuration review
+- Service-aware configurator and debounced server-authoritative pricing for MMR, calibration, behavior score, wins, and coaching
+- Transactional order and discount reservation, Stripe Checkout, replay-safe webhook reconciliation, asynchronous payment handling, and authenticated payment confirmation
+- Hosted receipts, Billing Portal, customer refund intake, and idempotent audited admin refund execution
+- Production gate: deployed database concurrency tests, Stripe test-mode integration tests, regional/add-on rule evaluation, tax review, and publisher-policy review
 
 ## Phase 4 — customer portal: foundation delivered, operations next
 

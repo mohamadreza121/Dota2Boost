@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 
 const links = [
-  ["Services", "/services"],
+  ["MMR Boost", "/services/mmr-boost"],
   ["Boosters", "/boosters"],
   ["How it works", "/how-it-works"],
   ["Pricing", "/pricing"],

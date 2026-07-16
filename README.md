@@ -1,6 +1,6 @@
 # Highground Boosting
 
-Highground is a production-oriented Dota 2 boosting marketplace for customer-controlled party queue services. Customers choose a boost, rank range, role, region, queue mode, and verified booster tier, then manage the order through a private delivery workspace.
+Highground is a production-oriented Dota 2 MMR boosting marketplace. MMR Boost is the primary product, with Solo Assist and Duo Queue modes; MMR Calibration, Behavior Score Boost, Win Boost, and secondary Coaching share the same server-priced commerce flow and private delivery workspace.
 
 The service model never asks for Steam credentials: boosters play from their own accounts alongside the customer. Availability and fulfilment remain subject to regional matchmaking, party eligibility, and publisher rules. No MMR, rank, or match outcome is guaranteed.
 
@@ -15,17 +15,20 @@ The service model never asks for Steam credentials: boosters play from their own
 ### Phase 2 — public website
 
 - Cinematic, responsive boosting storefront with original battlefield artwork, a lightweight local video loop, and reduced-motion fallbacks
-- Rank, win, calibration, duo-lane, MMR sprint, stack, and priority membership services
+- MMR-first storefront with MMR Boost, MMR Calibration, Behavior Score Boost, Win Boost, and secondary Coaching
+- Herald-through-Immortal rank-medal ladder, Solo/Duo mode selection, and service-specific configuration
 - Verified booster directory and profiles, service landing pages, process, pricing, reviews, FAQ, recruitment, and legal pages
 - Mobile-first navigation, metadata, structured data, sitemap, accessibility states, and premium esports command-center styling
 
-### Phase 3 — commerce foundation
+### Phase 3 — commerce
 
 - Server-authoritative pricing and database-backed catalog/package/rule controls
+- Service-aware pricing units for MMR, calibration matches, behavior score, wins, and coaching sessions
 - Transactional discount reservation and per-customer/global redemption limits
 - Stripe Checkout with customer reuse, automatic tax, invoices, billing portal, and hosted receipts
-- Signature-verified webhook processing with replay, stale-claim, and out-of-order protection
-- Full and partial refund workflow with Stripe idempotency keys, balance checks, and mandatory audit reasons
+- Signature-verified webhook processing with replay, stale-claim, out-of-order, and asynchronous-payment handling
+- Authenticated payment-confirmation polling that never trusts the success redirect
+- Customer full/partial refund intake plus audited admin Stripe execution with idempotency and balance checks
 - Admin commerce console and pure webhook ordering tests
 
 See [Commerce foundation](./docs/COMMERCE.md) for the operating model.
@@ -39,7 +42,7 @@ See [Commerce foundation](./docs/COMMERCE.md) for the operating model.
 - Card data stays on Stripe-hosted surfaces and never enters the application.
 - Automated booster payouts remain disabled until legal, platform, tax, and payment reviews are complete.
 
-The visual assets in `public/media` are original, generated MOBA-inspired artwork. The project does not bundle Valve logos, hero portraits, game footage, or extracted Dota 2 assets.
+The battlefield visuals in `public/media` are original, generated MOBA-inspired artwork. The rank-medal assets are pinned from OpenDota and remain Valve property; see [media attribution](./docs/MEDIA_ATTRIBUTION.md). The project does not bundle Valve logos, hero portraits, or game footage.
 
 ## Stack
 
@@ -70,7 +73,7 @@ Start from [.env.example](./.env.example). Values prefixed with `NEXT_PUBLIC_` m
 ### Supabase
 
 1. Link a project with `supabase link --project-ref <ref>`.
-2. Apply both migrations with `supabase db push`.
+2. Apply all versioned migrations with `supabase db push`.
 3. Add the production origin and `/auth/callback` to Auth redirect URLs.
 4. Confirm `private-chat` and `coach-applications` remain private buckets.
 5. Run role-based RLS tests before adding production data.
@@ -79,7 +82,7 @@ Start from [.env.example](./.env.example). Values prefixed with `NEXT_PUBLIC_` m
 
 1. Configure `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, and the browser publishable key.
 2. Register `https://your-domain/api/stripe/webhook` in Stripe Workbench.
-3. Subscribe to the events handled by `src/app/api/stripe/webhook/route.ts`.
+3. Subscribe to the Checkout Session, PaymentIntent, Charge, refund-related Charge, dispute, account, transfer, and payout events handled by `src/app/api/stripe/webhook/route.ts`.
 4. Enable automatic tax only after the business address, registrations, and product tax codes are reviewed.
 5. Create a Billing Portal configuration and test Checkout, expiry, receipt, replay, refund, and portal flows in test mode.
 
@@ -111,5 +114,6 @@ npm run build
 - [Authentication and authorization](./docs/AUTHORIZATION.md)
 - [Security review](./docs/SECURITY.md)
 - [Roadmap](./docs/ROADMAP.md)
+- [Media attribution](./docs/MEDIA_ATTRIBUTION.md)
 
 Legal pages are product-safe placeholders, not legal advice. Replace them with jurisdiction-specific, professionally reviewed documents before accepting real customers or payments.

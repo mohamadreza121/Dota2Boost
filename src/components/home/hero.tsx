@@ -1,12 +1,13 @@
 import { ArrowDown, Check, Headphones, ShieldCheck, Swords, Zap } from "lucide-react";
+import { RankMedal } from "@/components/commerce/rank-medal";
 import { Badge } from "@/components/ui/badge";
 import { LinkButton } from "@/components/ui/button";
 
 const orderRows = [
   ["Current rank", "Legend III"],
   ["Target rank", "Ancient I"],
-  ["Queue format", "Duo lane"],
-  ["Package", "10 assisted wins"],
+  ["Boost mode", "Duo Queue"],
+  ["MMR scope", "+500 MMR"],
 ] as const;
 
 export function Hero() {
@@ -23,19 +24,19 @@ export function Hero() {
 
       <div className="container-shell relative grid min-h-[calc(100svh-76px)] items-center gap-14 py-20 lg:grid-cols-[1.08fr_.72fr] lg:py-16">
         <div className="max-w-4xl">
-          <Badge tone="gold"><span className="mr-2 size-1.5 animate-pulse rounded-full bg-amber" />Self-play Dota 2 boosting · Global coverage</Badge>
+          <Badge tone="gold"><span className="mr-2 size-1.5 animate-pulse rounded-full bg-amber" />MMR Boost · Calibration · Behavior Score</Badge>
           <h1 className="display-type mt-7 text-balance text-[clamp(4.4rem,9.5vw,8.8rem)] font-black uppercase">
-            Boost your rank.<br /><span className="text-crimson">Keep control.</span>
+            Dota 2 MMR<br /><span className="text-crimson">boosting.</span>
           </h1>
           <p className="mt-7 max-w-2xl text-balance text-lg leading-8 text-[#c4cac7] md:text-xl">
-            Queue beside verified high-MMR boosters, track every assisted win, and reach for your next medal—without sharing your account.
+            MMR boosting is the main service. Configure an exact climb in Solo Assist or Duo Queue, add calibration or behavior-score recovery, and track it from checkout to completion.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <LinkButton href="/pricing" arrow className="sm:min-w-48">Configure my boost</LinkButton>
             <LinkButton href="/boosters" variant="secondary" className="sm:min-w-44">Browse boosters</LinkButton>
           </div>
           <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-xs font-semibold text-[#b3bbb7]">
-            <span className="flex items-center gap-2"><ShieldCheck className="size-4 text-cyan" />Self-play only</span>
+            <span className="flex items-center gap-2"><ShieldCheck className="size-4 text-cyan" />Solo + Duo modes</span>
             <span className="flex items-center gap-2"><Check className="size-4 text-cyan" />Verified boosters</span>
             <span className="flex items-center gap-2"><Headphones className="size-4 text-cyan" />Human support</span>
           </div>
@@ -45,17 +46,12 @@ export function Hero() {
           <div aria-hidden="true" className="absolute -inset-16 bg-[radial-gradient(circle,rgb(210_72_72_/_0.2),transparent_66%)] blur-2xl" />
           <div className="command-card relative overflow-hidden rounded-[1.8rem] border border-white/[0.13] bg-[#0b0e0e]/80 shadow-[0_30px_100px_rgb(0_0_0_/_0.55)] backdrop-blur-xl">
             <div className="flex items-center justify-between border-b border-white/[0.08] px-5 py-4">
-              <div><p className="text-[0.58rem] font-bold tracking-[0.17em] text-mist uppercase">Live order</p><p className="mt-1 text-sm font-black">HG-4281 · Rank Boost</p></div>
+              <div><p className="text-[0.58rem] font-bold tracking-[0.17em] text-mist uppercase">Live order</p><p className="mt-1 text-sm font-black">HG-4281 · MMR Boost</p></div>
               <Badge tone="cyan"><span className="mr-1.5 size-1.5 rounded-full bg-cyan" />Matching</Badge>
             </div>
             <div className="p-5">
-              <div className="flex items-center justify-between">
-                {["Crusader", "Archon", "Legend", "Ancient"].map((rank, index) => (
-                  <div key={rank} className="flex flex-1 flex-col items-center">
-                    <span className={`relative z-10 grid size-8 place-items-center rounded-xl border text-[0.58rem] font-black ${index === 2 ? "border-crimson bg-crimson text-white shadow-[0_0_24px_rgb(210_83_83_/_0.42)]" : index < 2 ? "border-cyan/25 bg-cyan/10 text-cyan" : "border-white/15 bg-panel text-mist"}`}>{index < 2 ? "✓" : index + 1}</span>
-                    <p className={`mt-2 text-[0.55rem] font-bold ${index === 2 ? "text-white" : "text-[#7e8783]"}`}>{rank}</p>
-                  </div>
-                ))}
+              <div className="grid grid-cols-4 gap-2">
+                {(["Crusader", "Archon", "Legend", "Ancient"] as const).map((rank) => <RankMedal key={rank} rank={rank} size="sm" selected={rank === "Legend" || rank === "Ancient"} />)}
               </div>
               <div className="mt-6 divide-y divide-white/[0.07] rounded-xl border border-white/[0.08] bg-black/20 px-4">
                 {orderRows.map(([label, value]) => <div key={label} className="flex items-center justify-between gap-5 py-3 text-xs"><span className="text-mist">{label}</span><span className="font-bold">{value}</span></div>)}
@@ -63,7 +59,7 @@ export function Hero() {
               <div className="mt-4 rounded-xl border border-amber/15 bg-amber/[0.06] p-4">
                 <div className="flex items-center justify-between"><span className="flex items-center gap-2 text-[0.62rem] font-bold tracking-wider text-amber uppercase"><Zap className="size-3.5" />Match readiness</span><strong className="text-sm">92%</strong></div>
                 <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/[0.07]"><div className="h-full w-[92%] rounded-full bg-gradient-to-r from-crimson via-amber to-cyan" /></div>
-                <p className="mt-3 text-[0.58rem] text-mist">3 compatible boosters · estimated start 18 min</p>
+                <p className="mt-3 text-[0.58rem] text-mist">Duo Queue · 3 compatible boosters · live milestone tracking</p>
               </div>
             </div>
           </div>

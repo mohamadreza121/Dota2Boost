@@ -11,7 +11,7 @@
 | `/boosters/[slug]` | Public verified booster profile | Static params |
 | `/coaches`, `/coaches/[slug]` | Permanent compatibility redirects | Server |
 | `/how-it-works` | Scope, party queue, tracking, completion, and support flow | Server |
-| `/pricing` | Dynamic rank/win configurator and estimate | Server shell + client form |
+| `/pricing` | MMR/calibration/behavior/win/coaching configurator with server quote | Server shell + client form |
 | `/reviews` | Verified paid-order feedback | Server |
 | `/work-with-us` | Booster recruitment and application | Server shell + client form |
 | `/faq` | Safety, eligibility, payments, privacy, and support | Server |
@@ -23,7 +23,7 @@
 |---|---|---|
 | `/dashboard` | customer | Boost overview, queue schedule, progress, and actions |
 | `/dashboard/orders/[id]` | owning customer | Private timeline, booster chat, media, schedule, and delivery |
-| `/dashboard/billing` | customer | Payment history, hosted receipts, and Stripe Billing Portal |
+| `/dashboard/billing` | customer | Payment history, hosted receipts, Stripe Billing Portal, and refund request intake |
 | `/coach` | booster (`coach` database role) | Assignments, active boosts, schedule, earnings, and performance |
 | `/admin` | admin, owner | Operations overview |
 | `/admin/commerce` | admin, owner | Catalog, pricing rules, discounts, and audited refunds |
@@ -34,9 +34,11 @@
 |---|---|---|
 | `/api/pricing` | POST | Shared validation; informational quote/discount preview |
 | `/api/checkout` | POST | Customer auth; server pricing; transactional reservation; Stripe Checkout |
+| `/api/checkout/status` | GET | Customer auth; session ownership; read-only webhook confirmation state |
 | `/api/stripe/webhook` | POST | Raw signature; replay claim; event ordering; amount reconciliation |
 | `/api/billing/portal` | POST | Customer auth; Stripe Customer ownership |
 | `/api/orders/[id]/receipt` | GET | Customer ownership or authorized staff; Stripe-hosted URL allowlist |
+| `/api/orders/[id]/refund-request` | POST | Customer ownership; paid balance lock; rate limit; audit-only intake |
 | `/api/admin/catalog` | GET, POST | Admin/owner; Zod; privileged writes with audit reason |
 | `/api/admin/discounts` | GET, POST | Admin/owner; limits/windows; audit reason |
 | `/api/admin/refunds` | POST | Admin/owner; idempotency key; balance lock; Stripe refund; audit trail |

@@ -47,9 +47,11 @@ sequenceDiagram
     S-->>C: Hosted checkout
     S->>A: Signed completion webhook
     A->>D: Reconcile tax, payment, discount, workspace
+    C->>A: Poll owned confirmation state
+    A-->>C: Confirm only reconciled payment
 ```
 
-The success redirect is informational only. Versioned Phase 2 database functions lock inventory/discount state, reconcile the paid amount and tax, order webhook events, and create the private workspace transactionally.
+The success redirect is informational only. Versioned commerce functions lock catalog/discount state, reconcile the paid amount and tax, order webhook events, and create the private workspace transactionally. The confirmation endpoint is read-only and scoped to the authenticated customer and Checkout Session.
 
 ## Chat and media
 

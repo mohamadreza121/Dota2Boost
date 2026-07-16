@@ -6,6 +6,8 @@
 - Server-side authentication and role authorization
 - RLS on every application table
 - Column-level protection for roles, verification, orders, reviews, payments, and audit data
+- Read-only, ownership-scoped Checkout confirmation; a success redirect cannot activate an order
+- Customer refund intake with rate limits, locked refundable balance, revoked direct inserts, and separate idempotent admin execution
 - Private storage buckets and signed upload authorization
 - File MIME and size allowlists with server-chosen extensions
 - Raw Stripe payload signature verification

@@ -29,7 +29,7 @@ async function ensureOrder({ seedKey, customerId, serviceSlug, total, status, co
   const { data: existing, error: existingError } = await supabase.from("orders").select("id, status").contains("requirements", { seed_key: seedKey }).maybeSingle();
   if (existingError) throw existingError;
   if (existing) return existing.id;
-  const requirements = { seed_key: seedKey, service: serviceSlug, currentRank: "Legend", targetRank: "Ancient", role: "Carry", region: "North America", language: "English", winCount: 10, queueMode: "Duo Lane", boosterTier: "Master", priority: "Standard", partySize: 1, preferredHeroes: [] };
+  const requirements = { seed_key: seedKey, service: serviceSlug, boostMode: "Duo", currentRank: "Legend", targetRank: "Ancient", mmrAmount: 500, matchCount: 5, behaviorScoreAmount: 2000, winCount: 10, sessionCount: 1, role: "Carry", region: "North America", language: "English", boosterTier: "Master", priority: "Standard", preferredHeroes: [] };
   const { data: created, error } = await supabase.rpc("create_checkout_order_v2", { p_customer_id: customerId, p_service_slug: serviceSlug, p_requirements: requirements, p_subtotal: total, p_package_discount: 0, p_pre_discount_total: total, p_currency: "cad", p_discount_code: null });
   if (error) throw error;
   const orderId = created.order_id;
@@ -64,9 +64,9 @@ for (const coach of [
   if (error) throw error;
 }
 
-const activeOrder = await ensureOrder({ seedKey: "active-rank-boost", customerId: customerOne.id, serviceSlug: "rank-boost", total: 18800, status: "in_progress", coachId: northstar.id, adminId: admin.id });
+const activeOrder = await ensureOrder({ seedKey: "active-mmr-boost", customerId: customerOne.id, serviceSlug: "mmr-boost", total: 18800, status: "in_progress", coachId: northstar.id, adminId: admin.id });
 const completedOrder = await ensureOrder({ seedKey: "completed-win-boost", customerId: customerTwo.id, serviceSlug: "win-boost", total: 8750, status: "completed", coachId: lantern.id, adminId: admin.id });
-await ensureOrder({ seedKey: "unpaid-duo", customerId: customerOne.id, serviceSlug: "duo-lane-boost", total: 12900, status: "payment_pending", coachId: northstar.id, adminId: admin.id });
+await ensureOrder({ seedKey: "unpaid-calibration", customerId: customerOne.id, serviceSlug: "mmr-calibration", total: 12900, status: "payment_pending", coachId: northstar.id, adminId: admin.id });
 
 const { data: conversation } = await supabase.from("conversations").select("id").eq("order_id", activeOrder).single();
 if (conversation) {

@@ -8,11 +8,11 @@ export function ServiceGrid() {
   return (
     <section className="section-pad container-shell">
       <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-        <SectionHeading eyebrow="Boost services" title="Choose the climb. See the scope." description="Pick a rank target, a fixed win package, a duo lane, or a complete stack. Every format keeps you in the game and in control." />
+        <SectionHeading eyebrow="MMR boosting first" title="Choose the climb. Configure the scope." description="Start with MMR Boost, Calibration, Behavior Score, or assisted wins. Coaching remains available as a secondary service." />
         <Link href="/services" className="group inline-flex items-center gap-2 text-sm font-bold text-amber">Compare every service <ArrowUpRight className="size-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></Link>
       </div>
       <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {services.slice(0, 6).map((service, index) => (
+        {services.map((service, index) => (
           <Link key={service.slug} href={`/services/${service.slug}`} className={`boost-card group relative flex min-h-[22rem] flex-col overflow-hidden rounded-[1.7rem] border p-6 transition duration-300 hover:-translate-y-1 ${index === 0 ? "border-crimson/30 bg-[linear-gradient(145deg,rgb(112_32_36_/_0.3),rgb(18_21_21_/_0.96)_65%)] md:col-span-2 lg:col-span-1" : "border-white/[0.08] bg-panel/75 hover:border-white/20"}`}>
             <div className="flex items-center justify-between"><span className="text-[0.6rem] font-black tracking-[0.17em] text-mist uppercase">0{index + 1} · {service.eyebrow}</span><Target className={`size-4 ${index === 0 ? "text-crimson" : "text-[#5e6562]"}`} /></div>
             <h3 className="mt-7 text-2xl font-black tracking-tight">{service.name}</h3>

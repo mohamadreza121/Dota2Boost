@@ -3,7 +3,7 @@ import { Logo } from "@/components/layout/logo";
 import { MobileNav } from "@/components/layout/mobile-nav";
 
 const links = [
-  ["Services", "/services"],
+  ["MMR Boost", "/services/mmr-boost"],
   ["Boosters", "/boosters"],
   ["How it works", "/how-it-works"],
   ["Pricing", "/pricing"],

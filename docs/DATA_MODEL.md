@@ -34,6 +34,7 @@ erDiagram
 - Refund totals cannot exceed captured totals.
 - Concurrent discount reservations count toward global and per-customer limits and are committed only after payment.
 - Stripe event timestamps prevent older webhook events from downgrading newer terminal payment state.
+- Customer refund intake locks the paid balance and reserves pending request amounts; only the separate admin execution boundary can call Stripe.
 - Storage paths are private metadata; the database never stores public chat URLs.
 - Admin-sensitive changes are intended to append audit records with before/after state and reason.
 
