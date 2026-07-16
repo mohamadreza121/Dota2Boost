@@ -7,7 +7,7 @@ import { Logo } from "@/components/layout/logo";
 
 const links = [
   ["Services", "/services"],
-  ["Coaches", "/coaches"],
+  ["Boosters", "/boosters"],
   ["How it works", "/how-it-works"],
   ["Pricing", "/pricing"],
   ["Reviews", "/reviews"],
@@ -45,7 +45,7 @@ export function MobileNav() {
           </nav>
           <div className="mt-8 grid grid-cols-2 gap-3">
             <Link href="/auth/sign-in" className="rounded-full border border-white/15 px-5 py-3 text-center text-sm font-semibold">Sign in</Link>
-            <Link href="/pricing" className="rounded-full bg-crimson px-5 py-3 text-center text-sm font-semibold">Get started</Link>
+            <Link href="/pricing" className="rounded-full bg-crimson px-5 py-3 text-center text-sm font-semibold">Start a boost</Link>
           </div>
         </div>
       ) : null}

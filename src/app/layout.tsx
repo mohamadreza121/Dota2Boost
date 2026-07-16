@@ -7,18 +7,19 @@ import { absoluteUrl } from "@/lib/utils";
 
 export const metadata: Metadata = {
   metadataBase: new URL(absoluteUrl()),
-  title: { default: "Highground — Private Dota 2 Coaching", template: "%s | Highground" },
-  description: "Private Dota 2 coaching, replay analysis, role mastery, and guided improvement from verified high-rank coaches.",
+  title: { default: "Highground — Premium Dota 2 Boosting", template: "%s | Highground" },
+  description: "Customer-controlled Dota 2 rank boosting, assisted win packages, calibration support, and verified high-MMR party teammates.",
   applicationName: "Highground",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Highground — Climb Smarter",
-    description: "Private coaching, replay analysis, and improvement plans for Dota 2 players.",
+    title: "Highground — Boost Your Rank. Keep Control.",
+    description: "Self-play Dota 2 rank boosts and assisted win packages from verified high-MMR party teammates.",
     type: "website",
     url: "/",
-    siteName: "Highground"
+    siteName: "Highground",
+    images: [{ url: "/media/highground-battlefield.webp", width: 1600, height: 900, alt: "Highground original MOBA battlefield artwork" }]
   },
-  twitter: { card: "summary_large_image", title: "Highground — Private Dota 2 Coaching", description: "Climb smarter. Understand Dota. Win more consistently." },
+  twitter: { card: "summary_large_image", title: "Highground — Premium Dota 2 Boosting", description: "Boost your rank. Keep control.", images: ["/media/highground-battlefield.webp"] },
   robots: { index: true, follow: true }
 };
 
@@ -27,9 +28,9 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Highground Coaching",
+  name: "Highground Boosting",
   url: absoluteUrl(),
-  description: "A private Dota 2 coaching marketplace and improvement workspace.",
+  description: "A customer-controlled Dota 2 boosting marketplace and private delivery workspace.",
   sameAs: []
 };
 

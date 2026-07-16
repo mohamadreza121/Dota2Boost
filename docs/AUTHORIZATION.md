@@ -5,7 +5,7 @@
 | Role | Creation | Core scope |
 |---|---|---|
 | `customer` | Public email registration | Own profile, orders, conversations, sessions, payments, notifications, reviews, disputes |
-| `coach` | Approved application or invitation | Own profile, assigned orders, relevant customers, conversations, sessions, deliverables, notes, earnings |
+| `coach` (booster UI) | Approved application or invitation | Own profile, assigned boosts, relevant customers, conversations, queue schedule, deliverables, notes, earnings |
 | `support` | Admin/owner invitation | Assigned operational cases and approved customer/order context |
 | `admin` | Owner invitation | Platform operations, assignments, applications, refunds, disputes, pricing, audit reads |
 | `owner` | Controlled administrative provisioning | All admin capabilities plus role and platform governance |
@@ -21,7 +21,7 @@
 
 ## Registration rules
 
-The `handle_new_auth_user` trigger ignores requested role metadata and always inserts `customer`. Coach, support, admin, and owner roles must be granted through a controlled server-side invitation or application approval workflow. UI visibility is never treated as authorization.
+The `handle_new_auth_user` trigger ignores requested role metadata and always inserts `customer`. Booster (`coach` in the compatibility schema), support, admin, and owner roles must be granted through a controlled server-side invitation or application approval workflow. UI visibility is never treated as authorization.
 
 ## Session rules
 

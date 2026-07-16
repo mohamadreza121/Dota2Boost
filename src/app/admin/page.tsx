@@ -33,7 +33,7 @@ const nav: PortalNavItem[] = [
   { label: "Overview", href: "/admin", icon: Home, active: true },
   { label: "Orders", href: "/admin#orders", icon: ClipboardList, badge: "6" },
   { label: "Customers", href: "/admin#customers", icon: UsersRound },
-  { label: "Coaches", href: "/admin#coaches", icon: ShieldCheck },
+  { label: "Boosters", href: "/admin#boosters", icon: ShieldCheck },
   {
     label: "Applications",
     href: "/admin#applications",
@@ -41,7 +41,7 @@ const nav: PortalNavItem[] = [
     badge: "4",
   },
   { label: "Messages", href: "/admin#messages", icon: MessageSquareText },
-  { label: "Services & pricing", href: "/admin#pricing", icon: Tags },
+  { label: "Commerce", href: "/admin/commerce", icon: Tags },
   { label: "Payments", href: "/admin#payments", icon: WalletCards },
   { label: "Disputes", href: "/admin#disputes", icon: Scale, badge: "2" },
   { label: "Analytics", href: "/admin#analytics", icon: BarChart3 },
@@ -60,7 +60,7 @@ export default async function AdminDashboardPage() {
           </p>
           <h1 className="mt-2 text-3xl font-black">Command center.</h1>
           <p className="mt-2 text-sm text-mist">
-            Revenue, orders, assignment, risk, and coach quality in one view.
+            Revenue, boost orders, assignment, risk, and booster quality in one view.
           </p>
         </div>
         <div className="flex items-center gap-2 text-[0.62rem] text-mist">
@@ -124,10 +124,10 @@ export default async function AdminDashboardPage() {
               </thead>
               <tbody className="divide-y divide-white/[0.06] text-xs">
                 {[
-                  ["HG-2134", "Live coaching", "Unassigned", "Today"],
-                  ["HG-2128", "Replay analysis", "Delivery review", "5h"],
-                  ["HG-2117", "Role mastery", "Reschedule", "Tomorrow"],
-                  ["HG-2109", "Team coaching", "Payment review", "2d"],
+                  ["HG-4281", "Rank boost", "Unassigned", "Today"],
+                  ["HG-4278", "Win boost", "Milestone review", "5h"],
+                  ["HG-4267", "Duo lane boost", "Reschedule", "Tomorrow"],
+                  ["HG-4259", "Stack boost", "Payment review", "2d"],
                 ].map(([id, service, status, deadline]) => (
                   <tr key={id}>
                     <td className="px-5 py-4 font-bold">{id}</td>
@@ -153,7 +153,7 @@ export default async function AdminDashboardPage() {
             {[
               [BadgeDollarSign, "Refund rate", "2.4%", "Within guardrail"],
               [Star, "Customer satisfaction", "4.91", "124 completed"],
-              [CalendarDays, "Upcoming sessions", "18", "Next 24 hours"],
+              [CalendarDays, "Upcoming queues", "18", "Next 24 hours"],
               [Headphones, "Median support reply", "11m", "Last 7 days"],
             ].map(([Icon, label, value, detail]) => {
               const HealthIcon = Icon as typeof Star;
@@ -181,7 +181,7 @@ export default async function AdminDashboardPage() {
           className="rounded-2xl border border-white/[0.08] bg-black/15 p-5"
         >
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-black">Coach application queue</h2>
+            <h2 className="text-sm font-black">Booster application queue</h2>
             <button className="text-[0.62rem] font-bold text-amber">
               View all
             </button>
@@ -235,7 +235,7 @@ export default async function AdminDashboardPage() {
             ))}
           </div>
           <p className="mt-4 text-[0.58rem] leading-5 text-mist">
-            Refunds, coach adjustments, role changes, and resolutions create
+            Refunds, booster adjustments, role changes, and resolutions create
             immutable audit events.
           </p>
         </section>

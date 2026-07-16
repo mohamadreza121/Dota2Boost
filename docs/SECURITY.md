@@ -9,7 +9,9 @@
 - Private storage buckets and signed upload authorization
 - File MIME and size allowlists with server-chosen extensions
 - Raw Stripe payload signature verification
-- Idempotent webhook event claims and amount reconciliation
+- Recoverable idempotent webhook claims, event ordering, terminal-state guards, and amount reconciliation
+- Transactional discount reservations with global and per-customer limits
+- Refund balance locks, Stripe idempotency keys, and mandatory audit events
 - Database-backed application rate limits
 - Turnstile production fail-closed behavior
 - Secure default headers, CSP, frame denial, referrer policy, and browser permission policy
@@ -24,7 +26,7 @@
 - Payment card or bank data
 - Private message bodies
 - Private signed URLs or upload tokens
-- Coach legal names or application samples
+- Booster legal names or application samples
 - Direct personal identifiers in PostHog or Sentry event properties
 
 ## Required hardening before paid production
@@ -33,7 +35,7 @@
 - Add a durable distributed rate limiter to sign-in and message endpoints.
 - Add malware scanning and media thumbnail background jobs before enabling arbitrary document/video delivery.
 - Add signed-download issuance and attachment metadata finalization after upload.
-- Add audit-writing server actions for assignment, deadline, refund, dispute, role, price, and coach-status changes.
+- Extend the existing commerce audit actions to assignment, deadline, dispute, role, and booster-status changes.
 - Configure Sentry filtering and PostHog property allowlists.
 - Review CSP against the exact production analytics, Sentry, Stripe, and Turnstile hosts.
 - Perform threat modeling, dependency scanning, secret scanning, and external penetration testing.

@@ -1,107 +1,107 @@
-import type { Coach, Review, ServiceDefinition } from "@/types/domain";
+import type { Booster, Review, ServiceDefinition } from "@/types/domain";
 
 export const services: ServiceDefinition[] = [
   {
-    slug: "live-coaching",
-    eyebrow: "Live review",
-    name: "Live Coaching",
-    shortDescription: "Real-time guidance focused on decisions you can repeat—not instructions you forget.",
+    slug: "rank-boost",
+    eyebrow: "Most popular",
+    name: "Rank Boost",
+    shortDescription: "Queue with a verified high-MMR booster and turn a rank target into a tracked self-play plan.",
     description:
-      "Work one-to-one with a verified coach while you play, review a live match, or walk through a focused scenario. Every session ends with clear priorities for your next games.",
-    priceFrom: 6900,
-    duration: "60–120 min",
-    highlights: ["Private one-to-one session", "Session notes", "7-day follow-up chat"],
-    idealFor: ["Players stuck in repeating patterns", "Role-specific decision making", "Focused live feedback"],
-    sessionStructure: ["Pre-session goal check", "Live observation and coaching", "Decision review", "Personal action plan"],
+      "A structured party-queue boost for customers who stay in control of their own account and play every match. We match region, role, language, rank compatibility, and schedule before delivery begins.",
+    priceFrom: 7900,
+    duration: "3–20 wins",
+    highlights: ["Customer-controlled gameplay", "Verified party teammate", "Live progress tracking"],
+    idealFor: ["Breaking a rank plateau", "Reliable party coordination", "A clearly scoped win target"],
+    sessionStructure: ["Rank and region check", "Booster assignment", "Scheduled party queue", "Milestone review"],
     accent: "crimson"
   },
   {
-    slug: "replay-analysis",
-    eyebrow: "Deep review",
-    name: "Replay Analysis",
-    shortDescription: "A structured breakdown of the decisions, timings, and habits shaping your matches.",
+    slug: "win-boost",
+    eyebrow: "Fixed outcome scope",
+    name: "Win Boost",
+    shortDescription: "Buy a defined set of assisted party wins with transparent status and no account hand-off.",
     description:
-      "Send a match ID and receive a coach-led review that separates isolated mistakes from repeatable patterns. Includes timestamps, priorities, and drills.",
-    priceFrom: 4500,
-    duration: "1–3 replays",
-    highlights: ["Timestamped findings", "Written improvement brief", "Private Q&A"],
-    idealFor: ["Understanding recurring losses", "Efficient asynchronous learning", "Preparing for live coaching"],
-    sessionStructure: ["Context intake", "Replay review", "Pattern diagnosis", "Prioritized training plan"],
-    accent: "cyan"
-  },
-  {
-    slug: "role-mastery",
-    eyebrow: "Position program",
-    name: "Role Mastery",
-    shortDescription: "Build the map-reading, timing, and responsibility framework for one position.",
-    description:
-      "A multi-session program for carry, mid, offlane, soft support, or hard support players who want a complete role framework.",
-    priceFrom: 18900,
-    duration: "3 sessions",
-    highlights: ["Role-specific curriculum", "Replay assignments", "Weekly progress check"],
-    idealFor: ["Role transitions", "Plateaued specialists", "Players seeking consistency"],
-    sessionStructure: ["Baseline assessment", "Role framework", "Applied replay work", "Progress review"],
+      "Choose a win package and play alongside an eligible booster. Each completed match is logged in your private workspace, with support available throughout the order.",
+    priceFrom: 4900,
+    duration: "3–20 wins",
+    highlights: ["Fixed win package", "Match-by-match updates", "Flexible scheduling"],
+    idealFor: ["Short ranked pushes", "Recovering momentum", "Players who prefer a fixed scope"],
+    sessionStructure: ["Package selection", "Eligibility check", "Party sessions", "Completion confirmation"],
     accent: "amber"
   },
   {
-    slug: "hero-mastery",
-    eyebrow: "Hero program",
-    name: "Hero Mastery",
-    shortDescription: "Go beyond builds and learn the lane, timings, matchups, and win conditions.",
+    slug: "calibration-support",
+    eyebrow: "Placement games",
+    name: "Calibration Support",
+    shortDescription: "A high-focus party plan for calibration or recalibration matches, with every game played by you.",
     description:
-      "A focused program built around one hero or a compact pool, using matchup planning and targeted replay work.",
-    priceFrom: 14900,
-    duration: "2 sessions",
-    highlights: ["Matchup map", "Timing checklist", "Hero-pool plan"],
-    idealFor: ["Hero spammers", "New signature picks", "Tournament preparation"],
-    sessionStructure: ["Pool audit", "Matchup framework", "Replay application", "Refinement plan"],
+      "Prepare and queue calibration games with a compatible high-rank teammate. The service includes draft alignment, role planning, and a private delivery workspace.",
+    priceFrom: 11900,
+    duration: "5 or 10 games",
+    highlights: ["Pre-queue readiness check", "Role and draft alignment", "Priority scheduling"],
+    idealFor: ["Fresh calibration", "Returning players", "Recalibration periods"],
+    sessionStructure: ["Account-status check without credentials", "Pool and role plan", "Party queue", "Calibration summary"],
+    accent: "cyan"
+  },
+  {
+    slug: "duo-lane-boost",
+    eyebrow: "Lane pairing",
+    name: "Duo Lane Boost",
+    shortDescription: "Queue with a specialist whose hero pool and role complement yours from minute zero.",
+    description:
+      "A coordinated duo service for carry/support or mid/roaming combinations. Booster selection prioritizes lane synergy, region, language, and rank compatibility.",
+    priceFrom: 8900,
+    duration: "3–15 wins",
+    highlights: ["Role-synergy matching", "Shared hero-pool plan", "Voice-ready coordination"],
+    idealFor: ["Carry and support pairs", "Lane consistency", "Communication-first players"],
+    sessionStructure: ["Role pairing", "Hero-pool check", "Scheduled duo queue", "Progress update"],
+    accent: "cyan"
+  },
+  {
+    slug: "mmr-sprint",
+    eyebrow: "Time-boxed push",
+    name: "MMR Sprint",
+    shortDescription: "A concentrated multi-day party-queue plan with daily milestones and priority matching.",
+    description:
+      "Designed for active players who want a focused ranked push. Your order is split into manageable daily blocks with clear availability and progress checkpoints.",
+    priceFrom: 15900,
+    duration: "3–7 days",
+    highlights: ["Daily queue blocks", "Priority booster continuity", "Milestone alerts"],
+    idealFor: ["Focused ranked weekends", "High-volume players", "Time-sensitive goals"],
+    sessionStructure: ["Sprint scope", "Daily availability", "Tracked queue blocks", "Final progress report"],
     accent: "crimson"
   },
   {
-    slug: "guided-rank-improvement",
-    eyebrow: "Personal program",
-    name: "Guided Rank Improvement",
-    shortDescription: "A measured coaching plan connecting sessions, replay work, and weekly goals.",
+    slug: "stack-boost",
+    eyebrow: "Party service",
+    name: "Stack Boost",
+    shortDescription: "Add one or more verified players to your stack for organized, role-balanced ranked sessions.",
     description:
-      "Your coach builds a personalized improvement plan around your role, time, and current weaknesses. Outcomes are tracked, but rank gains are never guaranteed.",
-    priceFrom: 28900,
-    duration: "4 weeks",
-    highlights: ["Weekly coaching", "Progress workspace", "Ongoing coach support"],
-    idealFor: ["Committed improvement", "Accountable practice", "Longer-term coaching"],
-    sessionStructure: ["Baseline", "Weekly coaching", "Practice assignments", "Monthly review"],
+      "A flexible service for two-to-five-player parties that need stronger role coverage, leadership, and queue coordination while everyone remains on their own account.",
+    priceFrom: 12900,
+    duration: "2–5 players",
+    highlights: ["Role-balanced roster", "Region-compatible queue", "Shared order workspace"],
+    idealFor: ["Friend groups", "Incomplete stacks", "Role coverage gaps"],
+    sessionStructure: ["Stack audit", "Role coverage", "Party queue", "Group completion review"],
     accent: "amber"
   },
   {
-    slug: "team-coaching",
-    eyebrow: "Five-player review",
-    name: "Team Coaching",
-    shortDescription: "Improve drafts, communication, lanes, and teamfight plans as one unit.",
+    slug: "priority-membership",
+    eyebrow: "Ongoing access",
+    name: "Priority Membership",
+    shortDescription: "Recurring access to preferred boosters, priority matching, and lower per-win pricing.",
     description:
-      "Structured coaching for stacks and competitive teams, with a shared review and role-specific takeaways.",
-    priceFrom: 21900,
-    duration: "90 min",
-    highlights: ["Full-team session", "Draft and comms review", "Shared playbook"],
-    idealFor: ["Five-stacks", "Amateur teams", "Tournament preparation"],
-    sessionStructure: ["Team intake", "Replay or scrim review", "Communication framework", "Shared action plan"],
-    accent: "cyan"
-  },
-  {
-    slug: "monthly-membership",
-    eyebrow: "Ongoing support",
-    name: "Monthly Membership",
-    shortDescription: "A consistent coaching cadence with private chat and recurring progress reviews.",
-    description:
-      "Combine live coaching, replay reviews, and a persistent improvement workspace in a monthly plan.",
+      "A monthly plan for regular ranked players who value continuity. Includes reserved queue blocks, a persistent workspace, and member package pricing.",
     priceFrom: 24900,
     duration: "Monthly",
-    highlights: ["Recurring sessions", "Replay allowance", "Priority coach chat"],
-    idealFor: ["Long-term development", "High-volume players", "Players who value continuity"],
-    sessionStructure: ["Monthly plan", "Recurring sessions", "Async reviews", "Progress report"],
+    highlights: ["Preferred booster continuity", "Reserved weekly blocks", "Member package rates"],
+    idealFor: ["Regular ranked players", "Longer-term targets", "Players who value continuity"],
+    sessionStructure: ["Monthly target", "Reserved queue windows", "Weekly milestones", "Renewal review"],
     accent: "amber"
   }
 ];
 
-export const coaches: Coach[] = [
+export const boosters: Booster[] = [
   {
     slug: "northstar",
     displayName: "Northstar",
@@ -110,18 +110,18 @@ export const coaches: Coach[] = [
     peakRank: "Immortal 780",
     rating: 4.98,
     reviewCount: 86,
-    sessions: 312,
+    winsDelivered: 684,
     roles: ["Carry", "Mid"],
-    specialties: ["Tempo", "Laning", "Map pressure"],
-    coachingTypes: ["Live Coaching", "Replay Analysis", "Role Mastery"],
+    specialties: ["Tempo", "Laning", "Closing games"],
+    boostingTypes: ["Rank Boost", "Win Boost", "MMR Sprint"],
     languages: ["English", "French"],
     region: "North America",
     timeZone: "America/Toronto",
-    availability: "Today",
+    availability: "Online now",
     startingPrice: 7900,
     tier: "Elite",
-    biography: "A calm, systems-first coach who turns difficult matches into a short list of repeatable decisions.",
-    coachingStyle: "Direct, analytical, and encouraging. Sessions use questions first, then targeted corrections."
+    biography: "A calm, systems-first Immortal player known for stable lanes, disciplined calls, and converting small leads without unnecessary risk.",
+    playStyle: "Measured and communication-first. Best for carry and mid players who want a composed party leader."
   },
   {
     slug: "aegis",
@@ -131,18 +131,18 @@ export const coaches: Coach[] = [
     peakRank: "Immortal 1,105",
     rating: 4.96,
     reviewCount: 64,
-    sessions: 227,
+    winsDelivered: 512,
     roles: ["Offlane", "Soft Support"],
     specialties: ["Initiation", "Vision", "Teamfights"],
-    coachingTypes: ["Live Coaching", "Replay Analysis", "Team Coaching"],
+    boostingTypes: ["Rank Boost", "Stack Boost", "Duo Lane Boost"],
     languages: ["English", "Spanish"],
     region: "Europe West",
     timeZone: "Europe/Madrid",
-    availability: "Tomorrow",
+    availability: "Today",
     startingPrice: 6900,
     tier: "Master",
-    biography: "Specializes in space creation and teamfight clarity for players who feel active but struggle to convert pressure.",
-    coachingStyle: "Collaborative and visual, with short checkpoints and specific replay assignments."
+    biography: "A proactive space-maker who keeps parties organized through clear objectives, early rotations, and reliable initiation.",
+    playStyle: "Direct and energetic, with concise voice calls and a strong preference for role-balanced drafts."
   },
   {
     slug: "lantern",
@@ -152,18 +152,18 @@ export const coaches: Coach[] = [
     peakRank: "Immortal 1,890",
     rating: 4.94,
     reviewCount: 51,
-    sessions: 184,
+    winsDelivered: 438,
     roles: ["Hard Support", "Soft Support"],
     specialties: ["Lane equilibrium", "Warding", "Shotcalling"],
-    coachingTypes: ["Replay Analysis", "Role Mastery", "Live Coaching"],
+    boostingTypes: ["Duo Lane Boost", "Calibration Support", "Stack Boost"],
     languages: ["English", "Mandarin"],
     region: "Southeast Asia",
     timeZone: "Asia/Singapore",
     availability: "This week",
     startingPrice: 5900,
     tier: "Pro",
-    biography: "Helps support players build impact they can measure through lane plans, information, and fight preparation.",
-    coachingStyle: "Patient and structured, with an emphasis on decision triggers rather than rigid rules."
+    biography: "A support specialist who creates clean lanes and turns information into calm, decisive party calls.",
+    playStyle: "Patient and structured, ideal for customers who prefer low-noise communication and reliable support play."
   },
   {
     slug: "vector",
@@ -173,18 +173,18 @@ export const coaches: Coach[] = [
     peakRank: "Immortal 420",
     rating: 4.99,
     reviewCount: 104,
-    sessions: 405,
+    winsDelivered: 902,
     roles: ["Mid", "Carry"],
-    specialties: ["Matchups", "Mechanics", "Closing games"],
-    coachingTypes: ["Live Coaching", "Hero Mastery", "Guided Rank Improvement"],
+    specialties: ["Matchups", "Mechanics", "Fast tempo"],
+    boostingTypes: ["Priority Membership", "MMR Sprint", "Rank Boost"],
     languages: ["English", "German"],
     region: "Europe West",
     timeZone: "Europe/Berlin",
     availability: "Limited",
     startingPrice: 9900,
     tier: "Elite",
-    biography: "High-intensity specialist for experienced players who want detailed matchup work and cleaner conversions.",
-    coachingStyle: "Precise and demanding without being dismissive; best for players who enjoy detailed review."
+    biography: "A top-tier core specialist for difficult brackets and ambitious sprints, with a track record of fast, controlled conversions.",
+    playStyle: "Precise and high-tempo. Best for experienced players comfortable with short, decisive voice communication."
   }
 ];
 
@@ -192,36 +192,36 @@ export const reviews: Review[] = [
   {
     id: "review-1",
     customer: "M.K.",
-    coach: "Northstar",
+    booster: "Northstar",
     rating: 5,
-    service: "Live Coaching",
+    service: "Rank Boost",
     role: "Carry",
     rank: "Legend",
-    quote: "I stopped treating every loss as a mechanical problem. The three priorities from our session changed how I read the first fifteen minutes.",
+    quote: "Everything was clear before we queued: region, roles, schedule, and the number of wins. The order tracker made the whole push feel controlled.",
     date: "June 2026",
     verified: true
   },
   {
     id: "review-2",
     customer: "Ari P.",
-    coach: "Lantern",
+    booster: "Lantern",
     rating: 5,
-    service: "Replay Analysis",
-    role: "Hard Support",
+    service: "Duo Lane Boost",
+    role: "Carry",
     rank: "Ancient",
-    quote: "The timestamps were useful, but the real value was understanding why the same positioning mistake kept happening before fights.",
+    quote: "Lantern fit my lane pool immediately. We played on our own accounts, stayed in voice, and each completed win appeared in the workspace.",
     date: "May 2026",
     verified: true
   },
   {
     id: "review-3",
     customer: "Jon C.",
-    coach: "Aegis",
+    booster: "Aegis",
     rating: 5,
-    service: "Role Mastery",
+    service: "Stack Boost",
     role: "Offlane",
     rank: "Divine",
-    quote: "Clear, professional, and honest. No promises—just a plan I could actually follow and review each week.",
+    quote: "Professional from assignment to completion. No vague promises—just a compatible player, strong calls, and a clean delivery record.",
     date: "May 2026",
     verified: true
   }
@@ -229,35 +229,43 @@ export const reviews: Review[] = [
 
 export const faqs = [
   {
-    question: "Do you ever need my Steam password or login code?",
-    answer: "No. Highground never asks for, collects, transmits, or stores Steam credentials, authentication codes, or recovery codes. You remain in control of your own account at all times."
+    question: "Is this account boosting or self-play boosting?",
+    answer: "Highground provides customer-controlled self-play services. You play every match on your own account while an eligible booster queues alongside you on theirs."
   },
   {
-    question: "Does coaching guarantee MMR or a specific rank?",
-    answer: "No. Coaching can improve your process, understanding, and practice quality, but results depend on many factors and no rank or MMR outcome is guaranteed."
+    question: "Do you ever need my Steam password or Steam Guard code?",
+    answer: "No. We never request, collect, transmit, or store Steam credentials, authentication codes, recovery codes, or remote access."
   },
   {
-    question: "How is a coach verified?",
-    answer: "Applicants complete identity, rank, communication, and coaching-quality checks. Approved coaches remain subject to customer feedback and internal quality review."
+    question: "Is a specific rank or amount of MMR guaranteed?",
+    answer: "No. Packages define the service scope, such as assisted wins or scheduled queue blocks. Matchmaking, eligibility, publisher rules, and game outcomes can change, so rank and MMR results are not guaranteed."
   },
   {
-    question: "What happens after I pay?",
-    answer: "A private workspace is created and our team assigns an eligible coach. You can then message, share a match ID, schedule sessions, and track deliverables in one place."
+    question: "How are boosters verified?",
+    answer: "Applicants complete identity, rank-history, region, communication, conduct, and service-quality checks before their profiles become public."
   },
   {
-    question: "Can I reschedule a session?",
-    answer: "Yes, subject to the notice window shown during booking. Your workspace keeps both time zones visible and records reschedule requests."
+    question: "What happens after checkout?",
+    answer: "A private workspace opens and operations assigns a compatible booster. You confirm queue times, communicate, and track every milestone in one place."
+  },
+  {
+    question: "Can I pause or reschedule an order?",
+    answer: "Yes, subject to the notice window and progress already delivered. Your workspace records schedule changes and support requests."
   },
   {
     question: "How do refunds work?",
-    answer: "Eligibility depends on service progress, coach work already delivered, and the current Refund Policy. Support reviews each eligible request and can issue full or partial refunds."
+    answer: "Eligibility depends on delivered progress, completed matches, reserved time, and the Refund Policy. Approved full or partial refunds are recorded in the order audit trail."
   },
   {
-    question: "Which regions and languages are supported?",
-    answer: "Coach coverage varies by time zone and language. The marketplace shows each coach’s region, languages, and current availability before you book."
+    question: "Which regions are supported?",
+    answer: "Coverage varies with queue population, rank compatibility, party rules, and booster availability. Your region is verified before an order begins."
   },
   {
-    question: "When is coach payment released?",
-    answer: "Coach payment is released after the service is completed and the applicable review period has passed. Initial payouts may be handled manually while the platform’s payout program is reviewed."
+    question: "Does Highground follow game and platform rules?",
+    answer: "Services may be limited, changed, or declined where party eligibility, matchmaking rules, regional requirements, or publisher policies do not permit delivery."
+  },
+  {
+    question: "When is booster payment released?",
+    answer: "Booster payment is released after the service is completed and the applicable review period has passed, subject to refunds, disputes, and platform terms."
   }
 ];

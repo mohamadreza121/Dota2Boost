@@ -2,13 +2,13 @@ export const roles = ["customer", "coach", "support", "admin", "owner"] as const
 export type AppRole = (typeof roles)[number];
 
 export type ServiceSlug =
-  | "live-coaching"
-  | "replay-analysis"
-  | "role-mastery"
-  | "hero-mastery"
-  | "guided-rank-improvement"
-  | "team-coaching"
-  | "monthly-membership";
+  | "rank-boost"
+  | "win-boost"
+  | "calibration-support"
+  | "duo-lane-boost"
+  | "mmr-sprint"
+  | "stack-boost"
+  | "priority-membership";
 
 export interface ServiceDefinition {
   slug: ServiceSlug;
@@ -24,7 +24,7 @@ export interface ServiceDefinition {
   accent: "crimson" | "amber" | "cyan";
 }
 
-export interface Coach {
+export interface Booster {
   slug: string;
   displayName: string;
   initials: string;
@@ -32,10 +32,10 @@ export interface Coach {
   peakRank: string;
   rating: number;
   reviewCount: number;
-  sessions: number;
+  winsDelivered: number;
   roles: string[];
   specialties: string[];
-  coachingTypes: string[];
+  boostingTypes: string[];
   languages: string[];
   region: string;
   timeZone: string;
@@ -43,13 +43,13 @@ export interface Coach {
   startingPrice: number;
   tier: "Elite" | "Master" | "Pro";
   biography: string;
-  coachingStyle: string;
+  playStyle: string;
 }
 
 export interface Review {
   id: string;
   customer: string;
-  coach: string;
+  booster: string;
   rating: number;
   service: string;
   role: string;

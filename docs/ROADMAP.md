@@ -1,64 +1,47 @@
 # Phased implementation roadmap
 
-## Delivered foundation
+## Phase 1 — foundation: delivered
 
-- Architecture, route map, data model, roles, design tokens, public layout, error/empty states
-- Public pages and original premium esports visual system
-- Customer registration and cookie authentication
-- Invitation-only non-customer roles and portal gates
-- Customer, coach, and admin dashboard foundations
-- Dynamic configurator and server pricing model
-- Stripe Checkout and webhook foundation
-- Private order workspace, message API, voice recorder, and signed upload authorization
-- Coach application and review foundations
-- PostgreSQL schema, RLS, indexes, triggers, private buckets, and seed script
+- Project architecture, design tokens, Supabase schema, authentication, roles, RLS, shared layout, navigation, and error handling
+- Customer-only public registration with controlled booster/staff role elevation
+- Private storage, delivery records, audit schema, development seed data, and deployment configuration
 
-## Phase 2 — Complete commerce operations
+## Phase 2 — public website: delivered
 
-- Database-backed admin service/package/pricing editor
-- Discount redemption with transactional usage limits
-- Taxes and Stripe customer reuse
-- Receipt links and billing portal
-- Refund server actions with Stripe idempotency keys and mandatory audit reasons
-- Webhook replay and out-of-order integration tests
+- Boosting-specific homepage and premium command-center visual system
+- Services, booster marketplace and profiles, How It Works, pricing, reviews, Work With Us, FAQ, and legal pages
+- Original local battlefield art and video, responsive/mobile states, metadata, structured data, sitemap, and accessibility fallbacks
+- Compatibility redirects from the former coaching URLs
 
-## Phase 3 — Complete customer portal
+## Phase 3 — commerce: foundation delivered
 
-- Live database queries for every dashboard card
-- Order list, status timeline, approval, support, dispute, billing, and notification pages
-- Progress history and customer-visible/private note rules
-- Complete empty, loading, and error states
+- Service configurator and server-authoritative price calculation
+- Transactional order and discount reservation, Stripe Checkout, webhook reconciliation, payment confirmation, receipts, Billing Portal, and refund foundation
+- Remaining production work: deployed database concurrency tests, Stripe test-mode integration tests, regional/add-on rule evaluation, and tax configuration review
 
-## Phase 4 — Complete coach operations
+## Phase 4 — customer portal: foundation delivered, operations next
 
-- Admin assignment workflow and coach acceptance
-- Availability editor, blocked dates, breaks, notice windows, and vacation status
-- Deliverable upload, goal editor, notes, earnings ledger, and performance views
-- Stripe Connect Express onboarding status without enabling automatic payout
+- Existing overview, order workspace, messaging/media controls, schedule, progress, and billing surfaces
+- Next: replace demonstration cards with live order queries and complete approvals, reschedules, disputes, notifications, settings, and failure states
 
-## Phase 5 — Production chat
+## Phase 5 — booster portal: foundation delivered, operations next
 
-- Cursor pagination and virtualized message list
-- Supabase Realtime channels, presence, typing, read receipts, retries, and reactions
-- Attachment finalization, malware scan, thumbnails, signed download URLs, and resumable video upload
-- Message edit/delete windows, reporting, moderation, search, and support escalation
-- Accessible recording announcements and duration validation from media metadata
+- Existing assignment, active boost, schedule, customer, earnings, and performance surfaces
+- Next: assignment acceptance, availability, win verification, deliverables, notes, and Connect onboarding status
 
-## Phase 6 — Admin and background jobs
+## Phase 6 — production chat
 
-- Applications, interviews, trials, suspensions, coach warnings, and payout status
-- Order moderation, refund/dispute workbench, review moderation with retained originals
-- Inngest reminders, message digests, thumbnail jobs, webhook recovery, and stale-order alerts
-- Resend templates and per-user notification preferences
-- Full audit log viewer and export
+- Realtime delivery, presence, typing, read receipts, reactions, pagination, search, retries, and moderation
+- Attachment finalization, malware scanning, thumbnails, resumable uploads, and signed downloads
 
-## Phase 7 — Production hardening
+## Phase 7 — admin platform
 
-- RLS, authorization, webhook, upload, and rate-limit test suites
-- Sentry and privacy-safe PostHog
-- Accessibility and cross-device QA
-- Lighthouse/Core Web Vitals budgets
-- Database backup/restore drill and incident runbooks
-- Legal, tax, privacy, publisher-policy, and Stripe marketplace review
+- Complete order, application, booster, customer, payment, dispute, review, analytics, and audit workflows
+- Expand the commerce console into fully transactional service/add-on/tier/regional pricing operations
 
-Automatic coach matching, built-in video conferencing, automated payouts, AI coaching, community forums, native mobile apps, and gamification remain intentionally out of scope until the core workflow is stable.
+## Phase 8 — production hardening
+
+- RLS/authorization and Stripe integration suites, rate limiting, upload security, observability, accessibility, mobile/performance QA, backups, and incident runbooks
+- Legal, tax, privacy, publisher-policy, and payment-marketplace review
+
+Automatic matchmaking, built-in video calls, automated payouts, AI play, community forums, native apps, and large gamification systems remain out of scope until the core workflow is proven.

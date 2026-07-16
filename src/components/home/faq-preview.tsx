@@ -6,7 +6,7 @@ export function FaqPreview() {
   return (
     <section className="section-pad border-t border-white/[0.07] bg-[#0b0d0d]">
       <div className="container-shell grid gap-14 lg:grid-cols-[.75fr_1.25fr]">
-        <div><SectionHeading eyebrow="Straight answers" title="Know what you are buying." description="No credential sharing. No MMR guarantees. No vague delivery process." /><LinkButton href="/faq" variant="secondary" className="mt-8">View every question</LinkButton></div>
+        <div><SectionHeading eyebrow="Straight answers" title="Know exactly what a boost means here." description="Self-play only. No credential sharing. No rank guarantees. No vague delivery process." /><LinkButton href="/faq" variant="secondary" className="mt-8">View every question</LinkButton></div>
         <div className="divide-y divide-white/[0.09] border-y border-white/[0.09]">
           {faqs.slice(0, 5).map((faq, index) => (
             <details key={faq.question} className="group py-5" open={index === 0}>

@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     const admin = createAdminClient();
     const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
     const key = createHash("sha256").update(`${process.env.TURNSTILE_SECRET_KEY ?? "highground"}:${forwarded}`).digest("hex");
-    const { data: allowed, error: limitError } = await admin.rpc("consume_rate_limit", { p_key: `coach_application:${key}`, p_limit: 5, p_window_seconds: 3600 });
+    const { data: allowed, error: limitError } = await admin.rpc("consume_rate_limit", { p_key: `booster_application:${key}`, p_limit: 5, p_window_seconds: 3600 });
     if (limitError) throw limitError;
     if (!allowed) return NextResponse.json({ error: "Too many applications from this connection. Try again later." }, { status: 429 });
 
@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     await sendApplicationReceipt({ to: input.email, displayName: input.displayName, applicationId: application.id }).catch((emailError) => console.error("application_email_failed", { applicationId: application.id, message: emailError instanceof Error ? emailError.message : "unknown" }));
     return NextResponse.json({ accepted: true, applicationId: application.id }, { status: 201 });
   } catch (error) {
-    console.error("coach_application_failed", { message: error instanceof Error ? error.message : "unknown" });
+    console.error("booster_application_failed", { message: error instanceof Error ? error.message : "unknown" });
     return NextResponse.json({ error: "Applications are temporarily unavailable. Please try again." }, { status: 503 });
   }
 }
