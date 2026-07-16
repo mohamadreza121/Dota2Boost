@@ -1,7 +1,7 @@
 import { BadgeCheck, ChartNoAxesCombined, CreditCard, Headphones, KeyRound, UserRoundCheck } from "lucide-react";
 
 const items = [
-  [UserRoundCheck, "Self-play only", "You play every match"],
+  [UserRoundCheck, "Solo + Duo", "Customer-operated delivery"],
   [BadgeCheck, "Verified boosters", "Rank and identity reviewed"],
   [CreditCard, "Secure checkout", "Stripe-hosted payment"],
   [ChartNoAxesCombined, "Live order tracker", "Wins and milestones logged"],

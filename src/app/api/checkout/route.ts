@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { checkoutSchema } from "@/lib/validation/pricing";
-import { calculateQuote } from "@/lib/pricing";
+import { calculateQuote, describePricingInput } from "@/lib/pricing";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getStripe } from "@/lib/payments/stripe";
@@ -75,7 +75,7 @@ export async function POST(request: Request) {
       billing_address_collection: "required",
       tax_id_collection: { enabled: true },
       invoice_creation: { enabled: true },
-      line_items: [{ quantity: 1, price_data: { currency: quote.currency, unit_amount: order.checkout_amount, product_data: { name: "Highground self-play boost", description: `${parsed.data.service.replaceAll("-", " ")} · ${parsed.data.currentRank} to ${parsed.data.targetRank} · ${parsed.data.winCount} wins` } } }],
+      line_items: [{ quantity: 1, price_data: { currency: quote.currency, unit_amount: order.checkout_amount, product_data: { name: "Highground Dota 2 service", description: describePricingInput(parsed.data) } } }],
       metadata: { order_id: orderId, customer_id: user.id, service: parsed.data.service, public_reference: order.public_reference },
       payment_intent_data: { receipt_email: user.email, metadata: { order_id: orderId, customer_id: user.id, service: parsed.data.service } },
       success_url: `${absoluteUrl("/checkout/success")}?session_id={CHECKOUT_SESSION_ID}`,

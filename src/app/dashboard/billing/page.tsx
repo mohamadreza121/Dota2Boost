@@ -20,7 +20,12 @@ const nav: PortalNavItem[] = [
 export default async function BillingPage() {
   const user = await requireRole(["customer"]);
   const supabase = await createClient();
-  const { data } = await supabase.from("payments").select("id, order_id, gross_amount, currency, status, paid_at").eq("customer_id", user.id).order("created_at", { ascending: false }).limit(25);
-  const payments: BillingPayment[] = (data ?? []).map((payment) => ({ id: payment.id as string, orderId: payment.order_id as string, amount: payment.gross_amount as number, currency: payment.currency as string, status: payment.status as string, paidAt: payment.paid_at as string | null }));
+  const [{ data }, { data: refunds }] = await Promise.all([
+    supabase.from("payments").select("id, order_id, gross_amount, refunded_amount, currency, status, paid_at").eq("customer_id", user.id).order("created_at", { ascending: false }).limit(25),
+    supabase.from("refund_requests").select("order_id, status, created_at").eq("requested_by", user.id).order("created_at", { ascending: false }).limit(100)
+  ]);
+  const latestRefund = new Map<string, string>();
+  for (const refund of refunds ?? []) if (!latestRefund.has(refund.order_id as string)) latestRefund.set(refund.order_id as string, refund.status as string);
+  const payments: BillingPayment[] = (data ?? []).map((payment) => ({ id: payment.id as string, orderId: payment.order_id as string, amount: payment.gross_amount as number, refundedAmount: payment.refunded_amount as number, currency: payment.currency as string, status: payment.status as string, paidAt: payment.paid_at as string | null, refundStatus: latestRefund.get(payment.order_id as string) ?? null }));
   return <PortalShell user={user} label="Customer" navigation={nav}><BillingPanel payments={payments} /></PortalShell>;
 }

@@ -13,7 +13,7 @@ export function SiteFooter() {
       <div className="container-shell grid gap-12 py-16 lg:grid-cols-[1.2fr_2fr]">
         <div>
           <Logo />
-          <p className="mt-6 max-w-sm text-sm leading-6 text-mist">Premium, customer-controlled Dota 2 rank boosting with verified party teammates and transparent delivery.</p>
+          <p className="mt-6 max-w-sm text-sm leading-6 text-mist">Dota 2 MMR boosting in Solo and Duo modes, with server-priced checkout and transparent delivery.</p>
           <div className="mt-7 inline-flex items-center gap-2 rounded-full border border-cyan/20 bg-cyan/[0.06] px-3 py-2 text-[0.68rem] font-bold tracking-wider text-cyan uppercase">
             <span className="size-1.5 rounded-full bg-cyan" /> No credentials required
           </div>

@@ -2,102 +2,74 @@ import type { Booster, Review, ServiceDefinition } from "@/types/domain";
 
 export const services: ServiceDefinition[] = [
   {
-    slug: "rank-boost",
+    slug: "mmr-boost",
     eyebrow: "Most popular",
-    name: "Rank Boost",
-    shortDescription: "Queue with a verified high-MMR booster and turn a rank target into a tracked self-play plan.",
+    name: "MMR Boost",
+    shortDescription: "Choose an exact MMR climb with Solo Assist or Duo Queue delivery and a private progress tracker.",
     description:
-      "A structured party-queue boost for customers who stay in control of their own account and play every match. We match region, role, language, rank compatibility, and schedule before delivery begins.",
-    priceFrom: 7900,
-    duration: "3–20 wins",
-    highlights: ["Customer-controlled gameplay", "Verified party teammate", "Live progress tracking"],
-    idealFor: ["Breaking a rank plateau", "Reliable party coordination", "A clearly scoped win target"],
-    sessionStructure: ["Rank and region check", "Booster assignment", "Scheduled party queue", "Milestone review"],
+      "Set your current medal, target medal, and MMR amount, then pick Solo Assist or Duo Queue. Solo Assist keeps you at the controls with live expert direction; Duo Queue pairs you with a compatible high-MMR teammate. Neither mode requires an account hand-off.",
+    priceFrom: 4900,
+    duration: "100–3,000 MMR scope",
+    highlights: ["Solo Assist and Duo Queue", "Herald-to-Immortal medal targeting", "MMR milestone workspace"],
+    idealFor: ["A defined MMR target", "Breaking a ranked plateau", "Players who want a tracked climb"],
+    sessionStructure: ["Rank and MMR scope", "Mode and eligibility check", "Booster assignment", "Milestone tracking"],
     accent: "crimson"
+  },
+  {
+    slug: "mmr-calibration",
+    eyebrow: "Calibration",
+    name: "MMR Calibration",
+    shortDescription: "Configure a five- or ten-match calibration block with bracket-aware matching and live tracking.",
+    description:
+      "A high-focus service for calibration or recalibration matches. Select Solo Assist or Duo Queue, your role, region, and match count; every game stays attached to a private order timeline.",
+    priceFrom: 9900,
+    duration: "5 or 10 matches",
+    highlights: ["Five- and ten-match packages", "Solo or Duo mode", "Match-by-match calibration log"],
+    idealFor: ["Fresh calibration", "Returning ranked players", "Recalibration windows"],
+    sessionStructure: ["Calibration status check", "Role and hero plan", "Scheduled match blocks", "Completion summary"],
+    accent: "amber"
+  },
+  {
+    slug: "behavior-score-boost",
+    eyebrow: "Conduct recovery",
+    name: "Behavior Score Boost",
+    shortDescription: "Set a behavior-score recovery amount and receive a structured, customer-operated match plan.",
+    description:
+      "A scoped behavior-score recovery service built around queue planning, communication standards, match reviews, and progress checkpoints. You continue playing on your own account and no outcome is guaranteed.",
+    priceFrom: 3900,
+    duration: "500–6,000 score scope",
+    highlights: ["Score-based package sizing", "Conduct and queue checklist", "Private progress checkpoints"],
+    idealFor: ["Behavior-score recovery", "Communication reset", "A structured return to ranked play"],
+    sessionStructure: ["Current-score snapshot", "Recovery scope", "Match conduct plan", "Score checkpoints"],
+    accent: "cyan"
   },
   {
     slug: "win-boost",
-    eyebrow: "Fixed outcome scope",
+    eyebrow: "Fixed package",
     name: "Win Boost",
-    shortDescription: "Buy a defined set of assisted party wins with transparent status and no account hand-off.",
+    shortDescription: "Buy a defined set of assisted Duo Queue wins with transparent order status and scheduling.",
     description:
-      "Choose a win package and play alongside an eligible booster. Each completed match is logged in your private workspace, with support available throughout the order.",
+      "Choose a three-to-twenty win package and queue with a compatible booster on separate accounts. Completed games, schedule changes, and support notes appear in the order workspace.",
     priceFrom: 4900,
-    duration: "3–20 wins",
-    highlights: ["Fixed win package", "Match-by-match updates", "Flexible scheduling"],
-    idealFor: ["Short ranked pushes", "Recovering momentum", "Players who prefer a fixed scope"],
-    sessionStructure: ["Package selection", "Eligibility check", "Party sessions", "Completion confirmation"],
+    duration: "3–20 assisted wins",
+    highlights: ["Fixed win package", "Duo Queue matching", "Match-by-match updates"],
+    idealFor: ["Short ranked pushes", "A fixed delivery scope", "Role-synergy queueing"],
+    sessionStructure: ["Win package", "Eligibility check", "Duo sessions", "Completion confirmation"],
     accent: "amber"
   },
   {
-    slug: "calibration-support",
-    eyebrow: "Placement games",
-    name: "Calibration Support",
-    shortDescription: "A high-focus party plan for calibration or recalibration matches, with every game played by you.",
+    slug: "coaching",
+    eyebrow: "Secondary service",
+    name: "Dota 2 Coaching",
+    shortDescription: "Book a focused private session for role, hero-pool, replay, or decision-making improvement.",
     description:
-      "Prepare and queue calibration games with a compatible high-rank teammate. The service includes draft alignment, role planning, and a private delivery workspace.",
-    priceFrom: 11900,
-    duration: "5 or 10 games",
-    highlights: ["Pre-queue readiness check", "Role and draft alignment", "Priority scheduling"],
-    idealFor: ["Fresh calibration", "Returning players", "Recalibration periods"],
-    sessionStructure: ["Account-status check without credentials", "Pool and role plan", "Party queue", "Calibration summary"],
+      "Coaching remains available as an add-on or standalone service, but it sits behind MMR boosting, calibration, behavior score, and assisted-win products in the storefront.",
+    priceFrom: 6900,
+    duration: "1–8 sessions",
+    highlights: ["Live private session", "Replay or role focus", "Written action plan"],
+    idealFor: ["Mechanical improvement", "Replay diagnosis", "Long-term skill development"],
+    sessionStructure: ["Goal selection", "Coach matching", "Live session", "Action plan"],
     accent: "cyan"
-  },
-  {
-    slug: "duo-lane-boost",
-    eyebrow: "Lane pairing",
-    name: "Duo Lane Boost",
-    shortDescription: "Queue with a specialist whose hero pool and role complement yours from minute zero.",
-    description:
-      "A coordinated duo service for carry/support or mid/roaming combinations. Booster selection prioritizes lane synergy, region, language, and rank compatibility.",
-    priceFrom: 8900,
-    duration: "3–15 wins",
-    highlights: ["Role-synergy matching", "Shared hero-pool plan", "Voice-ready coordination"],
-    idealFor: ["Carry and support pairs", "Lane consistency", "Communication-first players"],
-    sessionStructure: ["Role pairing", "Hero-pool check", "Scheduled duo queue", "Progress update"],
-    accent: "cyan"
-  },
-  {
-    slug: "mmr-sprint",
-    eyebrow: "Time-boxed push",
-    name: "MMR Sprint",
-    shortDescription: "A concentrated multi-day party-queue plan with daily milestones and priority matching.",
-    description:
-      "Designed for active players who want a focused ranked push. Your order is split into manageable daily blocks with clear availability and progress checkpoints.",
-    priceFrom: 15900,
-    duration: "3–7 days",
-    highlights: ["Daily queue blocks", "Priority booster continuity", "Milestone alerts"],
-    idealFor: ["Focused ranked weekends", "High-volume players", "Time-sensitive goals"],
-    sessionStructure: ["Sprint scope", "Daily availability", "Tracked queue blocks", "Final progress report"],
-    accent: "crimson"
-  },
-  {
-    slug: "stack-boost",
-    eyebrow: "Party service",
-    name: "Stack Boost",
-    shortDescription: "Add one or more verified players to your stack for organized, role-balanced ranked sessions.",
-    description:
-      "A flexible service for two-to-five-player parties that need stronger role coverage, leadership, and queue coordination while everyone remains on their own account.",
-    priceFrom: 12900,
-    duration: "2–5 players",
-    highlights: ["Role-balanced roster", "Region-compatible queue", "Shared order workspace"],
-    idealFor: ["Friend groups", "Incomplete stacks", "Role coverage gaps"],
-    sessionStructure: ["Stack audit", "Role coverage", "Party queue", "Group completion review"],
-    accent: "amber"
-  },
-  {
-    slug: "priority-membership",
-    eyebrow: "Ongoing access",
-    name: "Priority Membership",
-    shortDescription: "Recurring access to preferred boosters, priority matching, and lower per-win pricing.",
-    description:
-      "A monthly plan for regular ranked players who value continuity. Includes reserved queue blocks, a persistent workspace, and member package pricing.",
-    priceFrom: 24900,
-    duration: "Monthly",
-    highlights: ["Preferred booster continuity", "Reserved weekly blocks", "Member package rates"],
-    idealFor: ["Regular ranked players", "Longer-term targets", "Players who value continuity"],
-    sessionStructure: ["Monthly target", "Reserved queue windows", "Weekly milestones", "Renewal review"],
-    accent: "amber"
   }
 ];
 
@@ -113,7 +85,7 @@ export const boosters: Booster[] = [
     winsDelivered: 684,
     roles: ["Carry", "Mid"],
     specialties: ["Tempo", "Laning", "Closing games"],
-    boostingTypes: ["Rank Boost", "Win Boost", "MMR Sprint"],
+    boostingTypes: ["MMR Boost", "Win Boost", "MMR Calibration"],
     languages: ["English", "French"],
     region: "North America",
     timeZone: "America/Toronto",
@@ -134,7 +106,7 @@ export const boosters: Booster[] = [
     winsDelivered: 512,
     roles: ["Offlane", "Soft Support"],
     specialties: ["Initiation", "Vision", "Teamfights"],
-    boostingTypes: ["Rank Boost", "Stack Boost", "Duo Lane Boost"],
+    boostingTypes: ["MMR Boost", "Win Boost", "Behavior Score Boost"],
     languages: ["English", "Spanish"],
     region: "Europe West",
     timeZone: "Europe/Madrid",
@@ -155,7 +127,7 @@ export const boosters: Booster[] = [
     winsDelivered: 438,
     roles: ["Hard Support", "Soft Support"],
     specialties: ["Lane equilibrium", "Warding", "Shotcalling"],
-    boostingTypes: ["Duo Lane Boost", "Calibration Support", "Stack Boost"],
+    boostingTypes: ["MMR Calibration", "MMR Boost", "Dota 2 Coaching"],
     languages: ["English", "Mandarin"],
     region: "Southeast Asia",
     timeZone: "Asia/Singapore",
@@ -176,7 +148,7 @@ export const boosters: Booster[] = [
     winsDelivered: 902,
     roles: ["Mid", "Carry"],
     specialties: ["Matchups", "Mechanics", "Fast tempo"],
-    boostingTypes: ["Priority Membership", "MMR Sprint", "Rank Boost"],
+    boostingTypes: ["MMR Boost", "MMR Calibration", "Win Boost"],
     languages: ["English", "German"],
     region: "Europe West",
     timeZone: "Europe/Berlin",
@@ -194,7 +166,7 @@ export const reviews: Review[] = [
     customer: "M.K.",
     booster: "Northstar",
     rating: 5,
-    service: "Rank Boost",
+    service: "MMR Boost · Duo",
     role: "Carry",
     rank: "Legend",
     quote: "Everything was clear before we queued: region, roles, schedule, and the number of wins. The order tracker made the whole push feel controlled.",
@@ -206,7 +178,7 @@ export const reviews: Review[] = [
     customer: "Ari P.",
     booster: "Lantern",
     rating: 5,
-    service: "Duo Lane Boost",
+    service: "MMR Calibration · Duo",
     role: "Carry",
     rank: "Ancient",
     quote: "Lantern fit my lane pool immediately. We played on our own accounts, stayed in voice, and each completed win appeared in the workspace.",
@@ -218,7 +190,7 @@ export const reviews: Review[] = [
     customer: "Jon C.",
     booster: "Aegis",
     rating: 5,
-    service: "Stack Boost",
+    service: "MMR Boost · Solo Assist",
     role: "Offlane",
     rank: "Divine",
     quote: "Professional from assignment to completion. No vague promises—just a compatible player, strong calls, and a clean delivery record.",
@@ -229,8 +201,8 @@ export const reviews: Review[] = [
 
 export const faqs = [
   {
-    question: "Is this account boosting or self-play boosting?",
-    answer: "Highground provides customer-controlled self-play services. You play every match on your own account while an eligible booster queues alongside you on theirs."
+    question: "What is the difference between Solo and Duo MMR Boost?",
+    answer: "Solo Assist keeps you at the controls while a verified expert directs the live plan. Duo Queue pairs you with a compatible booster playing on a separate account. Neither mode requires account credentials or an account hand-off."
   },
   {
     question: "Do you ever need my Steam password or Steam Guard code?",
@@ -238,7 +210,7 @@ export const faqs = [
   },
   {
     question: "Is a specific rank or amount of MMR guaranteed?",
-    answer: "No. Packages define the service scope, such as assisted wins or scheduled queue blocks. Matchmaking, eligibility, publisher rules, and game outcomes can change, so rank and MMR results are not guaranteed."
+    answer: "No. The configurator defines a paid service scope—such as an MMR amount, calibration matches, behavior-score amount, assisted wins, or sessions. Matchmaking, publisher rules, conduct systems, and game outcomes can change, so a result is not guaranteed."
   },
   {
     question: "How are boosters verified?",
@@ -254,7 +226,7 @@ export const faqs = [
   },
   {
     question: "How do refunds work?",
-    answer: "Eligibility depends on delivered progress, completed matches, reserved time, and the Refund Policy. Approved full or partial refunds are recorded in the order audit trail."
+    answer: "Customers can submit a full or partial request from Billing. Eligibility depends on delivered progress, completed matches, reserved time, and the Refund Policy; approval and Stripe processing are recorded in the order audit trail."
   },
   {
     question: "Which regions are supported?",

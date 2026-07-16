@@ -2,13 +2,11 @@ export const roles = ["customer", "coach", "support", "admin", "owner"] as const
 export type AppRole = (typeof roles)[number];
 
 export type ServiceSlug =
-  | "rank-boost"
+  | "mmr-boost"
+  | "mmr-calibration"
+  | "behavior-score-boost"
   | "win-boost"
-  | "calibration-support"
-  | "duo-lane-boost"
-  | "mmr-sprint"
-  | "stack-boost"
-  | "priority-membership";
+  | "coaching";
 
 export interface ServiceDefinition {
   slug: ServiceSlug;

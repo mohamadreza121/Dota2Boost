@@ -8,18 +8,18 @@ import { absoluteUrl } from "@/lib/utils";
 export const metadata: Metadata = {
   metadataBase: new URL(absoluteUrl()),
   title: { default: "Highground — Premium Dota 2 Boosting", template: "%s | Highground" },
-  description: "Customer-controlled Dota 2 rank boosting, assisted win packages, calibration support, and verified high-MMR party teammates.",
+  description: "Dota 2 MMR boosting in Solo and Duo modes, MMR calibration, behavior score services, assisted wins, and secondary coaching.",
   applicationName: "Highground",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Highground — Boost Your Rank. Keep Control.",
-    description: "Self-play Dota 2 rank boosts and assisted win packages from verified high-MMR party teammates.",
+    title: "Highground — Dota 2 MMR Boosting",
+    description: "Configure MMR Boost, MMR Calibration, Behavior Score Boost, or assisted Duo Queue wins.",
     type: "website",
     url: "/",
     siteName: "Highground",
     images: [{ url: "/media/highground-battlefield.webp", width: 1600, height: 900, alt: "Highground original MOBA battlefield artwork" }]
   },
-  twitter: { card: "summary_large_image", title: "Highground — Premium Dota 2 Boosting", description: "Boost your rank. Keep control.", images: ["/media/highground-battlefield.webp"] },
+  twitter: { card: "summary_large_image", title: "Highground — Dota 2 MMR Boosting", description: "MMR first. Solo or Duo. Server-priced commerce.", images: ["/media/highground-battlefield.webp"] },
   robots: { index: true, follow: true }
 };
 

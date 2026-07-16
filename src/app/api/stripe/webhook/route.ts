@@ -60,7 +60,8 @@ async function handleStripeEvent(event: Stripe.Event) {
   }
 
   switch (event.type) {
-    case "checkout.session.completed": {
+    case "checkout.session.completed":
+    case "checkout.session.async_payment_succeeded": {
       const session = event.data.object;
       const orderId = session.metadata?.order_id ?? session.client_reference_id;
       if (!orderId || session.payment_status !== "paid") return;
@@ -81,6 +82,20 @@ async function handleStripeEvent(event: Stripe.Event) {
         const { error: invoiceError } = await admin.from("payments").update({ stripe_invoice_id: invoice.id, hosted_invoice_url: invoice.hosted_invoice_url, invoice_pdf_url: invoice.invoice_pdf, updated_at: new Date().toISOString() }).eq("order_id", orderId);
         if (invoiceError) throw invoiceError;
       }
+      break;
+    }
+    case "checkout.session.async_payment_failed": {
+      const session = event.data.object;
+      const orderId = session.metadata?.order_id ?? session.client_reference_id;
+      if (!orderId) break;
+      const { error } = await admin.rpc("record_payment_status_v2", {
+        p_order_id: orderId,
+        p_payment_intent_id: typeof session.payment_intent === "string" ? session.payment_intent : null,
+        p_status: "failed",
+        p_failure_code: "async_payment_failed",
+        p_event_created: event.created
+      });
+      if (error) throw error;
       break;
     }
     case "checkout.session.expired": {

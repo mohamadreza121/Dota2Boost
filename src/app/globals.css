@@ -187,6 +187,22 @@ button:disabled {
   content: "";
 }
 
+.rank-medal-track {
+  position: relative;
+  isolation: isolate;
+}
+
+.rank-medal-track::before {
+  position: absolute;
+  top: 28px;
+  right: 4%;
+  left: 4%;
+  z-index: -1;
+  height: 1px;
+  background: linear-gradient(90deg, rgb(119 164 99 / 0.35), rgb(216 173 96 / 0.45), rgb(214 79 82 / 0.5));
+  content: "";
+}
+
 .hero-orbit {
   animation: orbit 24s linear infinite;
   transform-origin: center;

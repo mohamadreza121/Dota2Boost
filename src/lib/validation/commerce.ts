@@ -34,3 +34,8 @@ export const refundMutationSchema = z.object({
   amount: z.number().int().positive().max(1000000),
   reason: auditReason
 });
+
+export const customerRefundRequestSchema = z.object({
+  amount: z.number().int().min(100).max(1000000),
+  reason: z.string().trim().min(20).max(500)
+});
