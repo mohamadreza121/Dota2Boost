@@ -1,0 +1,3 @@
+import { ShieldX } from "lucide-react";
+import { LinkButton } from "@/components/ui/button";
+export default function UnauthorizedPage() { return <section className="container-shell flex min-h-[70vh] flex-col items-center justify-center py-20 text-center"><ShieldX className="size-10 text-crimson" /><h1 className="mt-6 text-4xl font-black">This workspace is not assigned to your role.</h1><p className="mt-4 max-w-md text-sm leading-6 text-mist">Sign in with the correct invited account or return to your customer portal.</p><div className="mt-7 flex gap-3"><LinkButton href="/dashboard">Customer portal</LinkButton><LinkButton href="/auth/sign-in" variant="secondary">Change account</LinkButton></div></section>; }

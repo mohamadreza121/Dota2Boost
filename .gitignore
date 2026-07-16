@@ -1,0 +1,26 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# testing and builds
+/coverage
+/.next
+/out
+/dist
+
+# local environment
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# platform and editors
+.DS_Store
+*.pem
+.vercel
+*.tsbuildinfo
+
+# Supabase local runtime
+/supabase/.branches
+/supabase/.temp
