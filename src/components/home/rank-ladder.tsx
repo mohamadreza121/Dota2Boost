@@ -1,25 +1,49 @@
-import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight, ChevronRight } from "lucide-react";
 import { RankMedal } from "@/components/commerce/rank-medal";
-import { LinkButton } from "@/components/ui/button";
 import { rankFamilies } from "@/lib/data/ranks";
+
+const divisions = ["I", "II", "III", "IV", "V"] as const;
 
 export function RankLadder() {
   return (
-    <section className="legacy-rank-section relative overflow-hidden border-b border-amber/15 bg-[#090b0b] py-14 sm:py-20">
-      <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgb(214_79_82_/_0.12),transparent_55%)]" />
-      <div className="container-shell relative" data-reveal>
-        <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+    <section className="war-ranks war-section">
+      <div className="war-ranks__glow" aria-hidden="true" />
+      <div className="container-shell">
+        <div className="war-section-heading war-section-heading--split" data-reveal>
           <div>
-            <p className="legacy-kicker">The medal vault</p>
-            <h2 className="mt-4 max-w-3xl font-serif text-3xl font-black tracking-tight text-[#eee4d1] sm:text-5xl">Herald I to Immortal. Every division matters.</h2>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-[#bcb5a7]">Choose the exact I–V medal route, your MMR scope, and Solo or Duo delivery mode before the queue begins.</p>
+            <div className="war-chapter"><span>03</span><i /> Medal archive</div>
+            <h2>Every star.<br /><em>Every division.</em></h2>
           </div>
-          <LinkButton href="/pricing" variant="secondary">Build MMR order <ArrowRight className="size-4" /></LinkButton>
+          <div>
+            <p>No vague “Legend to Ancient” packages. Choose the exact I–V starting point and the exact medal you want to pursue.</p>
+            <Link href="/pricing">Open medal configurator <ArrowUpRight /></Link>
+          </div>
         </div>
-        <div className="mt-9 overflow-x-auto pb-3">
-          <div className="rank-medal-track grid min-w-[760px] grid-cols-8 gap-3">
-            {rankFamilies.map((rank) => <RankMedal key={rank} rank={rank} />)}
-          </div>
+
+        <div className="war-rank-path" data-reveal>
+          <div className="war-rank-path__line" aria-hidden="true" />
+          {rankFamilies.map((rank, index) => (
+            <div key={rank} className={`war-rank-step ${rank === "Legend" ? "is-current" : ""} ${rank === "Ancient" ? "is-target" : ""}`}>
+              <span className="war-rank-step__index">{String(index + 1).padStart(2, "0")}</span>
+              <RankMedal rank={rank} size="lg" className="war-rank-step__medal" />
+              {rank === "Immortal" ? (
+                <div className="war-rank-step__divisions"><b>Leaderboard</b></div>
+              ) : (
+                <div className="war-rank-step__divisions">
+                  {divisions.map((division) => <span key={division}>{division}</span>)}
+                </div>
+              )}
+              {rank !== "Immortal" ? <ChevronRight className="war-rank-step__arrow" aria-hidden="true" /> : null}
+            </div>
+          ))}
+        </div>
+
+        <div className="war-rank-example" data-reveal>
+          <span><small>Example start</small><strong>Legend III</strong></span>
+          <i />
+          <span><small>Example target</small><strong>Ancient I</strong></span>
+          <p>Exact route: 3 medal divisions · +500 MMR scope · Duo Queue</p>
         </div>
       </div>
     </section>

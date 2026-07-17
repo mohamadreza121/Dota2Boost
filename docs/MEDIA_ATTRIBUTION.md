@@ -7,10 +7,12 @@ The visual-overhaul branch includes optimized derivatives of artwork supplied di
 - `public/media/dota/legacy-battle.webp` from `470662.jpg`
 - `public/media/dota/hero-mosaic.webp` from `429385.png`
 - `public/media/dota/vengeful-wall.webp` from `508437.jpg`
-- `public/media/dota/radiant-battle.webp` from `585088.jpg`
-- `public/media/dota/hero-collage.webp` from `5651866.jpg`
 
-These files are used as low-opacity section and hero backgrounds. The project owner must confirm that production usage rights cover each supplied image before commercial launch; otherwise replace them with licensed or original equivalents.
+These files are used as cinematic section artwork. The project owner must confirm that production usage rights cover each supplied image before commercial launch; otherwise replace them with licensed or original equivalents.
+
+## Original campaign map
+
+`public/media/dota/campaign-map.webp` was generated specifically for this project with OpenAI image generation. It depicts an original, top-down three-lane fantasy arena in an old-school strategy-map style. The prompt deliberately excluded copied maps, logos, interface elements, text, and recognizable game characters. Review the final asset as part of the normal commercial-rights and brand review before launch.
 
 The Herald-through-Immortal medal files in `public/media/ranks` are the Dota 2 rank medal assets distributed in the MIT-licensed [OpenDota web repository](https://github.com/odota/web/tree/b308436d5f5fa300deaafcef15c3d9155a104f44/public/assets/images/dota2/rank_icons). The source revision is pinned for reproducibility.
 

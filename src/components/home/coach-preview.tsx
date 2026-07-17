@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 export function CoachPreview() {
   return (
-    <section className="section-pad container-shell" data-reveal>
+    <section className="section-pad container-shell">
       <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
         <SectionHeading eyebrow="Verified roster" title="Built for ranked pressure." description="Filter high-MMR boosters by role, region, language, tier, service type, and live availability." />
         <LinkButton href="/boosters" variant="secondary" arrow>View all boosters</LinkButton>

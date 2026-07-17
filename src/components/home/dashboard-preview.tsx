@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 export function DashboardPreview() {
   return (
     <section className="section-pad overflow-hidden border-y border-white/[0.07] bg-[#090b0b]">
-      <div className="container-shell" data-reveal>
+      <div className="container-shell">
         <SectionHeading eyebrow="Private delivery workspace" title="Every win. Every message. One order timeline." description="Track assignment, queue windows, completed matches, billing, support, and your next milestone without chasing updates across apps." />
         <div className="surface mt-14 overflow-hidden rounded-[1.9rem] lg:grid lg:grid-cols-[220px_1fr]">
           <aside className="hidden border-r border-white/[0.08] bg-black/15 p-5 lg:block">
