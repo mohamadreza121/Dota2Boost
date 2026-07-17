@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import { rankMedals, type RankName } from "@/lib/data/ranks";
+import { rankFamilyOf, rankMedals, type RankFamily, type RankName } from "@/lib/data/ranks";
 import { cn } from "@/lib/utils";
 
 export function RankMedal({
@@ -10,13 +10,13 @@ export function RankMedal({
   selected = false,
   className
 }: {
-  rank: RankName;
+  rank: RankName | RankFamily;
   size?: "sm" | "md" | "lg";
   label?: boolean;
   selected?: boolean;
   className?: string;
 }) {
-  const medal = rankMedals[rank];
+  const medal = rankMedals[rankFamilyOf(rank)];
   const dimensions = size === "lg" ? 128 : size === "sm" ? 56 : 88;
 
   return (
