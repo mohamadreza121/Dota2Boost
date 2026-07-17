@@ -1,29 +1,21 @@
 import type { PricingInput } from "@/lib/validation/pricing";
+import { rankRoute } from "@/lib/data/ranks";
 
-const rankFactor: Record<PricingInput["currentRank"], number> = {
-  Herald: 0.85,
-  Guardian: 0.9,
-  Crusader: 1,
-  Archon: 1.1,
-  Legend: 1.25,
-  Ancient: 1.5,
-  Divine: 1.9,
-  Immortal: 2.6
-};
+const rankFactor = (rank: PricingInput["currentRank"]) => 0.8 + Math.min(0.55, Math.max(0, (rank === "Immortal" ? 35 : rankRoute("Herald I", rank)) * 0.015));
 
 const modeFactor: Record<PricingInput["boostMode"], number> = {
   Solo: 1,
-  Duo: 1.15
+  Duo: 1.2
 };
 
 const tierFactor: Record<PricingInput["boosterTier"], number> = {
   Pro: 1,
-  Master: 1.15,
-  Elite: 1.35
+  Master: 1.1,
+  Elite: 1.25
 };
 
 const priorityFactor: Record<PricingInput["priority"], number> = {
-  Flexible: 0.94,
+  Flexible: 0.92,
   Standard: 1,
   Priority: 1.18
 };
@@ -55,34 +47,37 @@ function scope(input: PricingInput) {
   switch (input.service) {
     case "mmr-boost": {
       const units = input.mmrAmount / 100;
-      return { amount: units * 1800, units, label: `${input.mmrAmount.toLocaleString()} MMR climb`, summary: `${input.currentRank} to ${input.targetRank} · ${input.mmrAmount} MMR · ${input.boostMode}` };
+      const medalHops = rankRoute(input.currentRank, input.targetRank);
+      // Customer-operated Duo/Solo market rate: price the larger of declared MMR scope or exact medal route.
+      const amount = Math.max(units * 825, medalHops * 950);
+      return { amount, units: Math.max(units, medalHops), label: `${input.currentRank} → ${input.targetRank} · ${medalHops} medal steps`, summary: `${input.currentRank} to ${input.targetRank} · ${input.mmrAmount} MMR · ${input.boostMode}` };
     }
     case "mmr-calibration":
-      return { amount: input.matchCount * 2400, units: input.matchCount, label: `${input.matchCount} calibration matches`, summary: `${input.matchCount} matches · ${input.currentRank} · ${input.boostMode}` };
+      return { amount: input.matchCount * 1000, units: input.matchCount, label: `${input.matchCount} calibration matches`, summary: `${input.matchCount} matches · ${input.currentRank} · ${input.boostMode}` };
     case "behavior-score-boost": {
       const units = input.behaviorScoreAmount / 500;
-      return { amount: units * 1400, units, label: `${input.behaviorScoreAmount.toLocaleString()} behavior score`, summary: `${input.behaviorScoreAmount} score recovery scope` };
+      return { amount: units * 450, units, label: `${input.behaviorScoreAmount.toLocaleString()} behavior score`, summary: `${input.behaviorScoreAmount} score recovery scope` };
     }
     case "win-boost":
-      return { amount: input.winCount * 1700, units: input.winCount, label: `${input.winCount} assisted win${input.winCount === 1 ? "" : "s"}`, summary: `${input.winCount} wins · ${input.currentRank} · Duo` };
+      return { amount: input.winCount * 750, units: input.winCount, label: `${input.winCount} assisted win${input.winCount === 1 ? "" : "s"}`, summary: `${input.winCount} wins · ${input.currentRank} · Duo` };
     case "coaching":
-      return { amount: input.sessionCount * 6900, units: input.sessionCount, label: `${input.sessionCount} coaching session${input.sessionCount === 1 ? "" : "s"}`, summary: `${input.sessionCount} private session${input.sessionCount === 1 ? "" : "s"}` };
+      return { amount: input.sessionCount * 3900, units: input.sessionCount, label: `${input.sessionCount} coaching session${input.sessionCount === 1 ? "" : "s"}`, summary: `${input.sessionCount} private session${input.sessionCount === 1 ? "" : "s"}` };
   }
 }
 
 function bracketFactor(input: PricingInput) {
-  if (input.service === "mmr-boost") return (rankFactor[input.currentRank] + rankFactor[input.targetRank]) / 2;
-  if (input.service === "mmr-calibration" || input.service === "win-boost") return rankFactor[input.currentRank];
+  if (input.service === "mmr-boost") return (rankFactor(input.currentRank) + rankFactor(input.targetRank)) / 2;
+  if (input.service === "mmr-calibration" || input.service === "win-boost") return rankFactor(input.currentRank);
   return 1;
 }
 
 function volumeDiscountRate(input: PricingInput, units: number) {
   if (input.service === "mmr-boost") {
-    if (units >= 20) return 0.1;
-    if (units >= 10) return 0.06;
+    if (units >= 20) return 0.12;
+    if (units >= 10) return 0.07;
     if (units >= 5) return 0.03;
   }
-  if (input.service === "mmr-calibration" && units >= 10) return 0.06;
+  if (input.service === "mmr-calibration" && units >= 10) return 0.1;
   if (input.service === "behavior-score-boost") {
     if (units >= 8) return 0.08;
     if (units >= 4) return 0.04;
