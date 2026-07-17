@@ -12,6 +12,7 @@ import "./home-v2-draft.css";
 import "./home-v2-ranks-map.css";
 import "./home-v2-roster.css";
 import "./home-v2-final.css";
+import "./home-v3-map-finale.css";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
