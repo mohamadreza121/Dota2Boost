@@ -1,27 +1,29 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { MobileNav } from "@/components/layout/mobile-nav";
 
 const links = [
-  ["MMR Boost", "/services/mmr-boost"],
-  ["Boosters", "/boosters"],
-  ["How it works", "/how-it-works"],
-  ["Pricing", "/pricing"],
-  ["Reviews", "/reviews"],
-  ["Work with us", "/work-with-us"]
+  ["01", "MMR Boost", "/services/mmr-boost"],
+  ["02", "Services", "/services"],
+  ["03", "Roster", "/boosters"],
+  ["04", "How it works", "/how-it-works"],
+  ["05", "Reviews", "/reviews"]
 ] as const;
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-white/[0.07] bg-ink/80 shadow-[0_10px_40px_rgb(0_0_0_/_0.2)] backdrop-blur-xl">
-      <div className="container-shell flex h-[76px] items-center justify-between gap-5">
+    <header className="citadel-header sticky top-0 z-40">
+      <div className="container-shell citadel-header__inner">
         <Logo />
-        <nav aria-label="Primary navigation" className="hidden items-center gap-5 lg:flex">
-          {links.map(([label, href]) => <Link key={href} href={href} className="text-xs font-semibold text-mist transition hover:text-white">{label}</Link>)}
+        <nav aria-label="Primary navigation" className="citadel-header__nav">
+          {links.map(([number, label, href]) => (
+            <Link key={href} href={href}><small>{number}</small>{label}</Link>
+          ))}
         </nav>
-        <div className="hidden items-center gap-2 md:flex">
-          <Link href="/auth/sign-in" className="rounded-full px-4 py-2.5 text-xs font-semibold text-mist transition hover:text-white">Sign in</Link>
-          <Link href="/pricing" className="rounded-full bg-crimson px-5 py-2.5 text-xs font-bold text-white shadow-[0_10px_30px_rgb(214_79_82_/_0.2)] transition hover:bg-[#e05c5c]">Start a boost</Link>
+        <div className="citadel-header__actions">
+          <Link href="/auth/sign-in">Sign in</Link>
+          <Link href="/pricing">Configure boost <ArrowUpRight /></Link>
         </div>
         <MobileNav />
       </div>
