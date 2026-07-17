@@ -1,44 +1,62 @@
 import Link from "next/link";
-import { ArrowUpRight, BadgeCheck, Quote, Star } from "lucide-react";
+import { ArrowUpRight, BadgeCheck, Clock3, Quote, Star, Trophy } from "lucide-react";
 import { reviews } from "@/lib/data/content";
+
+const routes = ["Legend III → Ancient I", "Ancient I → Ancient IV", "Divine II → Divine IV"] as const;
+const times = ["4 days", "10 matches", "3 days"] as const;
 
 export function VictoryLedger() {
   return (
-    <section className="war-ledger war-section">
+    <section className="war-ledger war-section dota-victories">
+      <div className="dota-victories__embers" aria-hidden="true" />
       <div className="container-shell">
-        <div className="war-section-heading war-section-heading--split" data-reveal>
+        <div className="war-section-heading war-section-heading--split dota-heading" data-reveal>
           <div>
-            <div className="war-chapter"><span>06</span><i /> Proof of victory</div>
-            <h2>Completed orders.<br /><em>Recorded outcomes.</em></h2>
+            <div className="war-chapter"><span>06</span><i /> Match history</div>
+            <h2>Completed orders.<br /><em>Recorded victories.</em></h2>
           </div>
           <div>
-            <p>Reviews earn a verified marker only after they are attached to a completed, paid order in the delivery system.</p>
-            <Link href="/reviews">Open match history <ArrowUpRight /></Link>
+            <p>Every verified report is attached to a completed, paid order. No anonymous quote wall—just the service, route, field report, and result.</p>
+            <Link href="/reviews">Open full match history <ArrowUpRight /></Link>
           </div>
         </div>
 
-        <div className="war-ledger-board" data-reveal>
-          <div className="war-ledger-board__head">
-            <span>Order record</span><span>Contract</span><span>Field report</span><span>Result</span>
+        <div className="dota-victory-feed" data-reveal>
+          <div className="dota-victory-feed__header">
+            <span><Trophy /> Recent victories</span>
+            <p>Live delivery ledger</p>
+            <strong>4.96 average rating</strong>
           </div>
-          {reviews.map((review, index) => (
-            <article key={review.id} className="war-ledger-row">
-              <div className="war-ledger-row__customer">
-                <span>HG-{4281 - index * 13}</span>
-                <strong>{review.customer}</strong>
-                <small>{review.date}</small>
-              </div>
-              <div className="war-ledger-row__contract">
-                <strong>{review.service}</strong>
-                <span>{review.rank} · {review.role}</span>
-              </div>
-              <blockquote><Quote /> “{review.quote}”</blockquote>
-              <div className="war-ledger-row__result">
-                <span>{Array.from({ length: review.rating }).map((_, star) => <Star key={star} />)}</span>
-                <strong><BadgeCheck /> Verified</strong>
-              </div>
-            </article>
-          ))}
+
+          <div className="dota-victory-feed__cards">
+            {reviews.map((review, index) => (
+              <article key={review.id} className="dota-victory-card" data-tilt>
+                <div className="dota-victory-card__result">
+                  <span>Victory</span>
+                  <strong>HG-{4281 - index * 13}</strong>
+                </div>
+                <div className="dota-victory-card__route">
+                  <small>{review.service}</small>
+                  <strong>{routes[index]}</strong>
+                  <span>{review.rank} · {review.role}</span>
+                </div>
+                <blockquote><Quote /> “{review.quote}”</blockquote>
+                <div className="dota-victory-card__meta">
+                  <span><Clock3 /> {times[index]}</span>
+                  <span>{Array.from({ length: review.rating }).map((_, star) => <Star key={star} />)}</span>
+                </div>
+                <div className="dota-victory-card__customer">
+                  <span>{review.customer.slice(0, 1)}</span>
+                  <div><strong>{review.customer}</strong><small>{review.date}</small></div>
+                  <b><BadgeCheck /> Verified order</b>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="dota-victory-feed__ticker" aria-hidden="true">
+            <span>Legend III</span><i /><b>+500 MMR delivered</b><i /><span>Ancient I</span><i /><b>North America</b><i /><span>Duo Queue</span>
+          </div>
         </div>
       </div>
     </section>
