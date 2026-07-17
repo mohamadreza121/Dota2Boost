@@ -16,11 +16,11 @@ import { Logo } from "@/components/layout/logo";
 import { MobileNav } from "@/components/layout/mobile-nav";
 
 const links = [
-  { number: "01", label: "MMR Boost", href: "/services/mmr-boost" },
+  { number: "01", label: "MMR Boost", href: "/services/mmr-boost", panel: false },
   { number: "02", label: "Services", href: "/services", panel: true },
-  { number: "03", label: "Roster", href: "/boosters" },
-  { number: "04", label: "How it works", href: "/how-it-works" },
-  { number: "05", label: "Reviews", href: "/reviews" }
+  { number: "03", label: "Roster", href: "/boosters", panel: false },
+  { number: "04", label: "How it works", href: "/how-it-works", panel: false },
+  { number: "05", label: "Reviews", href: "/reviews", panel: false }
 ] as const;
 
 const serviceLinks = [
