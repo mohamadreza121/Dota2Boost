@@ -1,8 +1,19 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, Check, Target } from "lucide-react";
 import { services } from "@/lib/data/content";
 import { formatCurrency } from "@/lib/utils";
 import { SectionHeading } from "@/components/ui/section-heading";
+
+const fallbackHeroArt = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png";
+
+const serviceHeroArt: Record<string, string> = {
+  "mmr-boost": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/juggernaut.png",
+  "mmr-calibration": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
+  "behavior-score-boost": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crystal_maiden.png",
+  "win-boost": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png",
+  coaching: fallbackHeroArt
+};
 
 export function ServiceGrid() {
   return (
@@ -14,6 +25,8 @@ export function ServiceGrid() {
       <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {services.map((service, index) => (
           <Link key={service.slug} href={`/services/${service.slug}`} className={`boost-card group relative flex min-h-[22rem] flex-col overflow-hidden rounded-[1.7rem] border p-6 transition duration-300 hover:-translate-y-1 ${index === 0 ? "border-crimson/30 bg-[linear-gradient(145deg,rgb(112_32_36_/_0.3),rgb(18_21_21_/_0.96)_65%)] md:col-span-2 lg:col-span-1" : "border-white/[0.08] bg-panel/75 hover:border-white/20"}`}>
+            <Image src={serviceHeroArt[service.slug] ?? fallbackHeroArt} alt="" aria-hidden="true" fill sizes="(max-width: 768px) 64vw, (max-width: 1024px) 32vw, 21vw" className="service-hero-art object-cover opacity-0 transition duration-500 group-hover:opacity-100" />
+            <div aria-hidden="true" className="service-hero-veil absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100" />
             <div className="flex items-center justify-between"><span className="text-[0.6rem] font-black tracking-[0.17em] text-mist uppercase">0{index + 1} · {service.eyebrow}</span><Target className={`size-4 ${index === 0 ? "text-crimson" : "text-[#5e6562]"}`} /></div>
             <h3 className="mt-7 text-2xl font-black tracking-tight">{service.name}</h3>
             <p className="mt-3 max-w-sm text-sm leading-6 text-mist">{service.shortDescription}</p>

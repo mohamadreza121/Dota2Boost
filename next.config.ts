@@ -14,7 +14,7 @@ const securityHeaders = [
       "form-action 'self' https://checkout.stripe.com",
       "frame-ancestors 'none'",
       "object-src 'none'",
-      "img-src 'self' data: blob: https://*.supabase.co",
+      "img-src 'self' data: blob: https://*.supabase.co https://cdn.cloudflare.steamstatic.com",
       "media-src 'self' blob: https://*.supabase.co",
       "font-src 'self'",
       "style-src 'self' 'unsafe-inline'",
@@ -29,6 +29,11 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "cdn.cloudflare.steamstatic.com", pathname: "/apps/dota2/images/**" }
+    ]
+  },
   experimental: {
     optimizePackageImports: ["lucide-react"]
   },
