@@ -64,8 +64,8 @@ export function BattlefieldCampaign() {
           </div>
           <div>
             <p>
-              A strategic campaign board—not a fake minimap. Start from Radiant territory,
-              inspect each service path, and choose the contract that matches how you want to climb.
+              A strategic operations board built around your climb. Start from Radiant territory,
+              inspect each service path, and choose the contract that matches how you want to play.
             </p>
             <span className="war-map-key">
               <i className="is-radiant" /> Starting territory
