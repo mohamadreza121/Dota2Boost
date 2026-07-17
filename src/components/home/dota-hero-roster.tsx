@@ -38,10 +38,10 @@ export function DotaHeroRoster() {
     <section className="relative overflow-hidden border-b border-white/[0.07] bg-[#090c0d] py-16 sm:py-24">
       <div aria-hidden="true" className="rune-field absolute inset-0" />
       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber/55 to-transparent" />
-      <div className="container-shell relative">
+      <div className="container-shell relative" data-reveal>
         <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
           <div>
-            <p className="eyebrow">The Dota 2 draft</p>
+            <p className="legacy-kicker">The hero draft</p>
             <h2 className="display-type mt-5 text-balance text-[clamp(3.25rem,6vw,6.4rem)] font-black uppercase">Your role is the first pick.</h2>
             <p className="mt-5 max-w-xl text-sm leading-7 text-mist sm:text-base">We match a queue plan around the role, hero pool, server, and communication style you actually play. MMR is the destination; the draft is how you get there.</p>
             <div className="mt-7 flex flex-wrap gap-3 text-[0.66rem] font-bold tracking-wide text-[#c6cdca] uppercase">

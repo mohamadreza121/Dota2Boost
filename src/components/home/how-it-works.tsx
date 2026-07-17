@@ -11,10 +11,10 @@ const steps = [
 export function HowItWorks() {
   return (
     <section className="section-pad bg-[#090b0b]">
-      <div className="container-shell">
+      <div className="container-shell" data-reveal>
         <SectionHeading eyebrow="Four clear steps" title="From MMR target to tracked delivery." description="The mode, medal, scope, and price are clear before Stripe Checkout; the paid order stays visible through every milestone." />
         <div className="mt-14 grid gap-px overflow-hidden rounded-[1.8rem] border border-white/[0.08] bg-white/[0.08] lg:grid-cols-4">
-          {steps.map(([number, title, body], index) => <article key={number} className="relative min-h-72 bg-panel p-6 lg:p-7"><span className="text-xs font-black tracking-[0.16em] text-crimson">{number}</span><h3 className="mt-12 text-xl font-black">{title}</h3><p className="mt-4 text-sm leading-6 text-mist">{body}</p>{index < steps.length - 1 ? <div aria-hidden="true" className="absolute right-0 top-9 hidden h-px w-7 bg-crimson lg:block" /> : <CheckCircle2 aria-hidden="true" className="absolute right-6 top-6 size-5 text-cyan" />}</article>)}
+          {steps.map(([number, title, body], index) => <article key={number} className="quest-log-card relative min-h-72 bg-panel p-6 lg:p-7"><span className="font-serif text-xs font-black tracking-[0.16em] text-amber">QUEST {number}</span><h3 className="mt-12 font-serif text-xl font-black text-[#eee5d4]">{title}</h3><p className="mt-4 text-sm leading-6 text-mist">{body}</p>{index < steps.length - 1 ? <div aria-hidden="true" className="absolute right-0 top-9 hidden h-px w-7 bg-amber lg:block" /> : <CheckCircle2 aria-hidden="true" className="absolute right-6 top-6 size-5 text-cyan" />}</article>)}
         </div>
       </div>
     </section>

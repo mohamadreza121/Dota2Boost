@@ -6,14 +6,14 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 export function ReviewPreview() {
   return (
-    <section className="section-pad container-shell">
+    <section className="section-pad container-shell" data-reveal>
       <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
         <SectionHeading eyebrow="Completed boosts only" title="Proof attached to real delivery." description="A verified label appears only when feedback belongs to a completed, paid boost order." />
         <LinkButton href="/reviews" variant="secondary">Read all reviews</LinkButton>
       </div>
       <div className="mt-14 grid gap-4 lg:grid-cols-3">
         {reviews.map((review) => (
-          <article key={review.id} className="relative flex min-h-80 flex-col rounded-[1.5rem] border border-white/[0.08] bg-panel/70 p-6">
+          <article key={review.id} className="legacy-review-card relative flex min-h-80 flex-col rounded-[1.5rem] border border-white/[0.08] bg-panel/70 p-6">
             <Quote className="size-8 text-crimson/50" />
             <div className="mt-6 flex gap-1" aria-label={`${review.rating} out of 5 stars`}>{Array.from({ length: review.rating }).map((_, index) => <Star key={index} className="size-3.5 fill-amber text-amber" />)}</div>
             <blockquote className="mt-5 text-base leading-7 text-[#d5d8d5]">“{review.quote}”</blockquote>

@@ -44,6 +44,505 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Old-client visual layer: carved metal, parchment-gold trim, and battlefield light. */
+.legacy-home {
+  --legacy-gold: #c8a96b;
+  --legacy-gold-bright: #f0d49a;
+  --legacy-bronze: #70522f;
+  --legacy-stone: #111513;
+  --legacy-dire: #aa3e39;
+  --legacy-radiant: #77b9b4;
+  background:
+    linear-gradient(90deg, rgb(255 255 255 / 0.018) 1px, transparent 1px),
+    linear-gradient(rgb(255 255 255 / 0.012) 1px, transparent 1px),
+    #080a09;
+  background-size: 96px 96px;
+}
+
+.legacy-home .display-type,
+.legacy-title,
+.legacy-section-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-stretch: normal;
+  letter-spacing: -0.055em;
+  line-height: 0.86;
+  text-shadow: 0 3px 0 rgb(0 0 0 / 0.5), 0 20px 60px rgb(0 0 0 / 0.62);
+}
+
+.legacy-kicker {
+  color: var(--legacy-gold-bright);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.legacy-title {
+  color: #f3ead8;
+}
+
+.legacy-title span {
+  color: #d65a4e;
+  -webkit-text-stroke: 1px rgb(255 219 156 / 0.18);
+  text-shadow: 0 2px 0 #4c1918, 0 0 36px rgb(213 74 66 / 0.28), 0 24px 70px rgb(0 0 0 / 0.75);
+}
+
+.legacy-section-title {
+  color: #eee4d1;
+}
+
+.legacy-hero {
+  isolation: isolate;
+  background: #060807;
+}
+
+.legacy-hero::after {
+  position: absolute;
+  inset: 12px;
+  z-index: 2;
+  border: 1px solid rgb(216 173 96 / 0.18);
+  content: "";
+  pointer-events: none;
+}
+
+.legacy-hero-art {
+  filter: saturate(0.82) contrast(1.1) brightness(0.68);
+  object-position: 56% center;
+  transform: scale(1.025);
+  animation: legacy-hero-breathe 18s ease-in-out infinite alternate;
+}
+
+.legacy-hero-shade {
+  z-index: 1;
+  background:
+    linear-gradient(90deg, #070807 0%, rgb(7 8 7 / 0.97) 28%, rgb(7 8 7 / 0.72) 52%, rgb(7 8 7 / 0.18) 83%),
+    linear-gradient(180deg, rgb(5 6 6 / 0.32), transparent 36%, #070908 97%),
+    radial-gradient(circle at 75% 45%, transparent 0 12%, rgb(0 0 0 / 0.26) 58%);
+}
+
+.legacy-runes {
+  z-index: 1;
+  background-image:
+    radial-gradient(circle at 72% 38%, rgb(114 210 216 / 0.12), transparent 17rem),
+    radial-gradient(circle at 38% 80%, rgb(213 74 66 / 0.14), transparent 24rem),
+    repeating-radial-gradient(circle at 82% 42%, transparent 0 45px, rgb(216 173 96 / 0.035) 46px 47px, transparent 48px 76px);
+  mix-blend-mode: screen;
+}
+
+.legacy-corner {
+  z-index: 3;
+  width: 180px;
+  height: 180px;
+  border-top: 2px solid rgb(216 173 96 / 0.42);
+  pointer-events: none;
+}
+
+.legacy-corner::before,
+.legacy-corner::after {
+  position: absolute;
+  background: linear-gradient(#c8a96b, #49341d);
+  content: "";
+}
+
+.legacy-corner::before { top: 12px; width: 80px; height: 1px; }
+.legacy-corner::after { top: 0; width: 1px; height: 80px; }
+.legacy-corner-left { left: 12px; border-left: 2px solid rgb(216 173 96 / 0.42); }
+.legacy-corner-left::before, .legacy-corner-left::after { left: 12px; }
+.legacy-corner-right { right: 12px; border-right: 2px solid rgb(216 173 96 / 0.42); }
+.legacy-corner-right::before { right: 12px; }
+.legacy-corner-right::after { right: 12px; }
+
+.legacy-cta {
+  position: relative;
+  min-height: 3.25rem;
+  border-radius: 0.18rem !important;
+  clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px), 0 10px);
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.legacy-cta::before {
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgb(255 225 168 / 0.18);
+  content: "";
+  pointer-events: none;
+}
+
+.legacy-cta-secondary {
+  background: linear-gradient(180deg, rgb(42 47 43 / 0.84), rgb(16 19 17 / 0.94)) !important;
+}
+
+.legacy-ready-aura {
+  background: radial-gradient(circle, rgb(209 80 71 / 0.25), transparent 64%);
+  filter: blur(24px);
+  animation: ready-aura 4s ease-in-out infinite alternate;
+}
+
+.legacy-ready-card {
+  border: 1px solid rgb(215 177 106 / 0.38);
+  clip-path: polygon(20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px), 0 20px);
+  background:
+    linear-gradient(135deg, rgb(255 255 255 / 0.035), transparent 22%),
+    linear-gradient(160deg, rgb(24 28 25 / 0.96), rgb(8 10 9 / 0.96));
+  box-shadow: inset 0 0 0 4px rgb(0 0 0 / 0.34), inset 0 0 0 5px rgb(216 173 96 / 0.08), 0 34px 100px rgb(0 0 0 / 0.7);
+}
+
+.legacy-panel-cap {
+  border-bottom: 1px solid rgb(216 173 96 / 0.18);
+  background: linear-gradient(180deg, rgb(97 69 38 / 0.34), rgb(18 21 19 / 0.55));
+}
+
+.legacy-order-table {
+  border: 1px solid rgb(216 173 96 / 0.16);
+  background: rgb(0 0 0 / 0.25);
+  box-shadow: inset 0 0 28px rgb(0 0 0 / 0.4);
+}
+
+.legacy-ready-check {
+  border: 1px solid rgb(216 173 96 / 0.18);
+  background: linear-gradient(90deg, rgb(112 39 35 / 0.15), rgb(216 173 96 / 0.06));
+}
+
+.legacy-progress {
+  border: 1px solid rgb(255 255 255 / 0.08);
+  background: #050606;
+  box-shadow: inset 0 2px 6px rgb(0 0 0 / 0.8);
+}
+
+.legacy-progress > div { animation: readiness-glow 2.4s ease-in-out infinite alternate; }
+
+.legacy-floating-seal {
+  border: 1px solid rgb(216 173 96 / 0.25);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  background: linear-gradient(145deg, rgb(23 27 24 / 0.98), rgb(9 11 10 / 0.98));
+  box-shadow: 0 22px 60px rgb(0 0 0 / 0.65);
+}
+
+.legacy-stat {
+  background:
+    linear-gradient(180deg, rgb(34 38 34 / 0.92), rgb(10 12 11 / 0.94)),
+    #0b0d0c;
+  backdrop-filter: blur(12px);
+}
+
+.battle-map-section {
+  min-height: 900px;
+  isolation: isolate;
+  background: #070908;
+}
+
+.battle-map-backdrop {
+  z-index: -2;
+  background:
+    linear-gradient(180deg, #080a09 0%, rgb(8 10 9 / 0.68) 30%, rgb(8 10 9 / 0.82) 78%, #080a09 100%),
+    linear-gradient(90deg, rgb(8 10 9 / 0.92), rgb(8 10 9 / 0.36), rgb(8 10 9 / 0.86)),
+    url("/media/dota/radiant-battle.webp") center 26% / cover no-repeat;
+  filter: saturate(0.74) contrast(1.04);
+}
+
+.battle-map-section::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 18% 72%, rgb(79 161 132 / 0.13), transparent 22rem),
+    radial-gradient(circle at 82% 28%, rgb(180 54 49 / 0.14), transparent 23rem);
+  content: "";
+}
+
+.battle-map {
+  position: relative;
+  min-height: 610px;
+  overflow: hidden;
+  border: 1px solid rgb(216 173 96 / 0.34);
+  clip-path: polygon(4% 0, 96% 0, 100% 7%, 100% 93%, 96% 100%, 4% 100%, 0 93%, 0 7%);
+  background:
+    radial-gradient(circle at 16% 82%, rgb(79 151 119 / 0.3), transparent 23%),
+    radial-gradient(circle at 84% 18%, rgb(144 45 43 / 0.3), transparent 23%),
+    linear-gradient(135deg, #18251e 0%, #111914 48%, #231516 52%, #160f10 100%);
+  box-shadow: inset 0 0 0 5px rgb(0 0 0 / 0.38), inset 0 0 120px rgb(0 0 0 / 0.72), 0 42px 100px rgb(0 0 0 / 0.66);
+}
+
+.battle-map::before {
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgb(216 173 96 / 0.12);
+  clip-path: inherit;
+  content: "";
+  pointer-events: none;
+}
+
+.map-terrain {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-radial-gradient(circle at 25% 75%, transparent 0 22px, rgb(118 169 129 / 0.035) 23px 24px, transparent 25px 44px),
+    repeating-radial-gradient(circle at 75% 25%, transparent 0 28px, rgb(203 92 73 / 0.03) 29px 30px, transparent 31px 50px),
+    linear-gradient(135deg, transparent 48%, rgb(0 0 0 / 0.35) 49% 51%, transparent 52%);
+  opacity: 0.92;
+}
+
+.map-river {
+  position: absolute;
+  top: -18%;
+  left: 48%;
+  width: 7%;
+  height: 138%;
+  background: linear-gradient(90deg, rgb(35 67 68 / 0.45), rgb(80 142 143 / 0.45), rgb(26 49 52 / 0.54));
+  box-shadow: 0 0 25px rgb(85 166 172 / 0.12);
+  transform: rotate(38deg);
+}
+
+.map-lane {
+  position: absolute;
+  height: 3px;
+  background: linear-gradient(90deg, rgb(107 172 128 / 0.18), rgb(232 211 162 / 0.52), rgb(175 73 60 / 0.2));
+  box-shadow: 0 0 12px rgb(228 204 150 / 0.1);
+  transform-origin: left center;
+}
+
+.map-lane::after {
+  position: absolute;
+  inset: -5px 0;
+  border-top: 1px dashed rgb(240 218 166 / 0.16);
+  content: "";
+}
+
+.map-lane-top { top: 75%; left: 12%; width: 79%; transform: rotate(-41deg); }
+.map-lane-mid { top: 78%; left: 12%; width: 79%; transform: rotate(-35deg); }
+.map-lane-bottom { top: 82%; left: 12%; width: 76%; transform: rotate(-17deg); }
+
+.map-base {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  width: 76px;
+  height: 76px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  color: var(--legacy-gold-bright);
+  font-size: 0.5rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  transform: rotate(45deg);
+}
+
+.map-base > * { transform: rotate(-45deg); }
+.map-base span { position: absolute; top: 52px; }
+.map-base-radiant { bottom: 46px; left: 52px; background: rgb(44 112 81 / 0.32); box-shadow: 0 0 38px rgb(90 199 137 / 0.2); }
+.map-base-dire { top: 46px; right: 52px; background: rgb(122 36 37 / 0.34); box-shadow: 0 0 38px rgb(221 74 66 / 0.2); }
+
+.map-tower {
+  position: absolute;
+  z-index: 1;
+  width: 13px;
+  height: 13px;
+  border: 2px solid #c3a86f;
+  background: #28241b;
+  box-shadow: 0 0 0 4px rgb(0 0 0 / 0.36), 0 0 22px rgb(216 173 96 / 0.2);
+  transform: rotate(45deg);
+}
+
+.tower-1 { left: 23%; bottom: 25%; }.tower-2 { left: 37%; bottom: 39%; }.tower-3 { left: 46%; bottom: 25%; }
+.tower-4 { right: 24%; top: 25%; }.tower-5 { right: 39%; top: 39%; }.tower-6 { right: 46%; top: 25%; }
+
+.map-service-grid { position: absolute; inset: 0; z-index: 4; }
+
+.map-service-node {
+  position: absolute;
+  display: grid;
+  width: 220px;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.7rem;
+  border: 1px solid rgb(216 173 96 / 0.25);
+  clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px);
+  background: linear-gradient(145deg, rgb(25 30 26 / 0.96), rgb(8 10 9 / 0.96));
+  padding: 0.75rem;
+  color: #eee7d8;
+  box-shadow: 0 15px 36px rgb(0 0 0 / 0.62), inset 0 0 24px rgb(255 255 255 / 0.015);
+  transition: border-color 260ms ease, box-shadow 260ms ease, transform 260ms ease;
+}
+
+.map-service-node:hover {
+  z-index: 7;
+  border-color: rgb(238 205 137 / 0.72);
+  box-shadow: 0 22px 50px rgb(0 0 0 / 0.72), 0 0 30px rgb(216 173 96 / 0.12);
+  transform: translateY(-5px) scale(1.025);
+}
+
+.map-service-primary {
+  width: 250px;
+  border-color: rgb(210 76 68 / 0.62);
+  background: linear-gradient(145deg, rgb(74 28 26 / 0.97), rgb(12 13 11 / 0.98));
+  box-shadow: 0 20px 50px rgb(0 0 0 / 0.7), 0 0 35px rgb(204 63 56 / 0.17);
+}
+
+.map-node-icon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgb(216 173 96 / 0.25);
+  background: rgb(216 173 96 / 0.08);
+  color: var(--legacy-gold-bright);
+  transform: rotate(45deg);
+}
+
+.map-node-icon svg { transform: rotate(-45deg); }
+.map-node-arrow { color: #7d786d; transition: color 220ms ease, transform 220ms ease; }
+.map-service-node:hover .map-node-arrow { color: var(--legacy-gold-bright); transform: translate(2px, -2px); }
+.map-node-mmr { top: 43%; left: 50%; transform: translate(-50%, -50%); }
+.map-node-mmr:hover { transform: translate(-50%, calc(-50% - 5px)) scale(1.025); }
+.map-node-calibration { top: 14%; left: 22%; }
+.map-node-behavior { top: 22%; right: 18%; }
+.map-node-wins { bottom: 15%; left: 20%; }
+.map-node-coaching { right: 16%; bottom: 16%; }
+
+.legacy-home .rune-field {
+  background:
+    linear-gradient(90deg, rgb(8 10 9 / 0.96), rgb(8 10 9 / 0.66), rgb(8 10 9 / 0.94)),
+    url("/media/dota/hero-mosaic.webp") center / cover no-repeat;
+  mask-image: linear-gradient(to bottom, transparent, black 15%, black 88%, transparent);
+  opacity: 0.82;
+}
+
+.legacy-home .dota-hero-card {
+  border-color: rgb(216 173 96 / 0.2);
+  border-radius: 0.3rem;
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+.legacy-home .dota-hero-card:hover {
+  box-shadow: 0 25px 65px rgb(0 0 0 / 0.62), 0 0 28px rgb(216 173 96 / 0.12);
+  transform: translateY(-5px);
+}
+
+.legacy-home .surface,
+.legacy-home .boost-card {
+  border-color: rgb(216 173 96 / 0.14);
+  border-radius: 0.35rem;
+  background: linear-gradient(145deg, rgb(25 29 26 / 0.93), rgb(9 11 10 / 0.96));
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.018), 0 25px 70px rgb(0 0 0 / 0.35);
+}
+
+.legacy-home .rank-medal-track::before {
+  height: 2px;
+  background: linear-gradient(90deg, rgb(92 158 112 / 0.5), rgb(216 173 96 / 0.72), rgb(211 73 68 / 0.62));
+  box-shadow: 0 0 16px rgb(216 173 96 / 0.16);
+}
+
+.legacy-rank-section {
+  background:
+    linear-gradient(90deg, #090b0a 0%, rgb(9 11 10 / 0.88) 35%, rgb(9 11 10 / 0.54) 62%, #090b0a 100%),
+    linear-gradient(180deg, #090b0a, transparent 30%, #090b0a 100%),
+    url("/media/dota/vengeful-wall.webp") 72% center / cover no-repeat !important;
+}
+
+.legacy-command-section {
+  position: relative;
+  isolation: isolate;
+  background: #080a09 !important;
+}
+
+.legacy-command-section::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgb(8 10 9 / 0.96), rgb(8 10 9 / 0.75), rgb(8 10 9 / 0.9)),
+    url("/media/dota/hero-collage.webp") center / cover no-repeat;
+  content: "";
+  opacity: 0.34;
+}
+
+.quest-log-card {
+  background:
+    linear-gradient(145deg, rgb(42 38 29 / 0.72), rgb(14 17 15 / 0.98)) !important;
+  box-shadow: inset 0 0 0 1px rgb(216 173 96 / 0.08);
+}
+
+.legacy-review-card {
+  border-color: rgb(216 173 96 / 0.2) !important;
+  border-radius: 0.25rem !important;
+  background:
+    radial-gradient(circle at 100% 0%, rgb(216 173 96 / 0.08), transparent 35%),
+    linear-gradient(145deg, rgb(34 31 24 / 0.86), rgb(12 14 13 / 0.97)) !important;
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+.legacy-site-header {
+  background:
+    linear-gradient(180deg, rgb(30 32 28 / 0.96), rgb(8 10 9 / 0.96)),
+    #090b0a;
+  box-shadow: inset 0 -1px rgb(216 173 96 / 0.08), 0 12px 40px rgb(0 0 0 / 0.42);
+}
+
+.legacy-site-header::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(216 173 96 / 0.52), transparent);
+  content: "";
+}
+
+.legacy-nav-link {
+  position: relative;
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.04em;
+}
+
+.legacy-nav-link::after {
+  position: absolute;
+  right: 50%;
+  bottom: -9px;
+  left: 50%;
+  height: 1px;
+  background: var(--color-amber);
+  content: "";
+  transition: right 220ms ease, left 220ms ease;
+}
+
+.legacy-nav-link:hover::after { right: 0; left: 0; }
+
+.legacy-header-cta {
+  border: 1px solid rgb(239 197 120 / 0.32);
+  border-radius: 0.15rem;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.motion-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(34px);
+  transition: opacity 760ms cubic-bezier(.2,.75,.2,1), transform 900ms cubic-bezier(.2,.75,.2,1);
+}
+
+.motion-ready [data-reveal="right"] { transform: translateX(44px); }
+.motion-ready [data-reveal].is-revealed { opacity: 1; transform: none; }
+
+@keyframes legacy-hero-breathe {
+  from { transform: scale(1.025) translate3d(0, 0, 0); }
+  to { transform: scale(1.07) translate3d(-0.7%, -0.4%, 0); }
+}
+
+@keyframes ready-aura {
+  from { opacity: 0.5; transform: scale(0.93); }
+  to { opacity: 0.9; transform: scale(1.05); }
+}
+
+@keyframes readiness-glow {
+  from { filter: brightness(0.85); box-shadow: 0 0 8px rgb(117 198 204 / 0.15); }
+  to { filter: brightness(1.2); box-shadow: 0 0 18px rgb(216 173 96 / 0.3); }
+}
+
 body::-webkit-scrollbar { width: 10px; }
 body::-webkit-scrollbar-track { background: #070909; }
 body::-webkit-scrollbar-thumb { border: 3px solid #070909; border-radius: 999px; background: #2b3230; }
@@ -219,9 +718,13 @@ button:disabled {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.2'/%3E%3C/svg%3E");
+  background-image:
+    radial-gradient(circle at 20% 30%, rgb(255 255 255 / 0.3) 0 0.55px, transparent 0.7px),
+    radial-gradient(circle at 70% 60%, rgb(0 0 0 / 0.55) 0 0.65px, transparent 0.8px);
+  background-position: 0 0, 7px 9px;
+  background-size: 13px 15px, 17px 19px;
   content: "";
-  opacity: 0.025;
+  opacity: 0.055;
   pointer-events: none;
 }
 
@@ -277,11 +780,67 @@ button:disabled {
   .hero-video { display: none; }
 
   .dota-hero-portrait { transition: none; }
+  .legacy-hero-art { animation: none; }
 }
 
 @media (max-width: 767px) {
   .hero-poster { background-position: 68% center; }
   .hero-video { object-position: 68% center; }
+
+  .legacy-hero::after { inset: 6px; }
+  .legacy-hero-art { object-position: 62% center; }
+  .legacy-hero-shade {
+    background: linear-gradient(90deg, rgb(7 8 7 / 0.95), rgb(7 8 7 / 0.68)), linear-gradient(180deg, rgb(5 6 6 / 0.2), transparent 28%, #070908 96%);
+  }
+  .legacy-corner { width: 100px; height: 100px; }
+  .legacy-title { font-size: clamp(3.5rem, 18vw, 6rem); }
+  .battle-map-section { min-height: 0; }
+  .battle-map {
+    min-height: 0;
+    overflow: visible;
+    clip-path: none;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .battle-map::before,
+  .map-terrain,
+  .map-river,
+  .map-lane,
+  .map-base,
+  .map-tower { display: none; }
+  .map-service-grid {
+    position: relative;
+    display: grid;
+    gap: 0.8rem;
+  }
+  .map-service-node,
+  .map-service-primary,
+  .map-node-mmr,
+  .map-node-mmr:hover,
+  .map-node-calibration,
+  .map-node-behavior,
+  .map-node-wins,
+  .map-node-coaching {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    transform: none;
+  }
+  .map-service-node:hover { transform: translateY(-3px); }
+
+  .legacy-home .section-pad { padding-block: 4.5rem; }
+  .legacy-review-card { min-width: min(84vw, 340px); scroll-snap-align: start; }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .battle-map { min-height: 700px; }
+  .map-service-node { width: 205px; }
+  .map-service-primary { width: 225px; }
+  .map-node-calibration { left: 8%; }
+  .map-node-behavior { right: 7%; }
+  .map-node-wins { left: 8%; }
+  .map-node-coaching { right: 7%; }
 }
 
 @media (min-width: 768px) {

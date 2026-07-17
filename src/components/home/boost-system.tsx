@@ -12,8 +12,8 @@ const features = [
 
 export function BoostSystem() {
   return (
-    <section className="section-pad overflow-hidden border-y border-white/[0.07] bg-[#0a0c0c]">
-      <div className="container-shell grid gap-14 xl:grid-cols-[1.05fr_.95fr] xl:items-center">
+    <section className="legacy-command-section section-pad overflow-hidden border-y border-amber/15 bg-[#0a0c0c]">
+      <div className="container-shell grid gap-14 xl:grid-cols-[1.05fr_.95fr] xl:items-center" data-reveal>
         <div className="relative">
           <div className="relative aspect-[3/2] overflow-hidden rounded-[2rem] border border-white/[0.1] shadow-[0_32px_100px_rgb(0_0_0_/_0.45)]">
             <Image src="/media/highground-war-room.webp" alt="Original fantasy MOBA command table showing a three-lane battlefield and rank progression markers" fill sizes="(max-width: 1280px) 100vw, 54vw" className="object-cover" />
@@ -26,7 +26,7 @@ export function BoostSystem() {
           <div aria-hidden="true" className="absolute -bottom-16 -left-16 -z-10 size-72 rounded-full bg-crimson/10 blur-3xl" />
         </div>
         <div>
-          <span className="eyebrow">The boost system</span>
+          <span className="legacy-kicker">The war room</span>
           <h2 className="display-type mt-6 max-w-3xl text-balance text-[clamp(3.5rem,6vw,6.4rem)] font-black uppercase">A real service operation behind every queue.</h2>
           <p className="mt-6 max-w-2xl text-base leading-7 text-mist">Highground combines a verified booster marketplace with a private delivery workspace. You always know who is assigned, what is complete, and what happens next.</p>
           <div className="mt-8 grid gap-3 sm:grid-cols-2">

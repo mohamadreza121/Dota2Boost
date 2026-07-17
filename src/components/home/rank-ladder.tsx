@@ -5,14 +5,14 @@ import { rankFamilies } from "@/lib/data/ranks";
 
 export function RankLadder() {
   return (
-    <section className="relative overflow-hidden border-b border-white/[0.07] bg-[#090b0b] py-12 sm:py-16">
+    <section className="legacy-rank-section relative overflow-hidden border-b border-amber/15 bg-[#090b0b] py-14 sm:py-20">
       <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgb(214_79_82_/_0.12),transparent_55%)]" />
-      <div className="container-shell relative">
+      <div className="container-shell relative" data-reveal>
         <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div>
-            <p className="eyebrow">MMR rank ladder</p>
-            <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">Herald to Immortal. Pick your climb.</h2>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-mist">Choose your current medal, target medal, MMR amount, and Solo or Duo delivery mode in the boost configurator.</p>
+            <p className="legacy-kicker">The medal vault</p>
+            <h2 className="mt-4 max-w-3xl font-serif text-3xl font-black tracking-tight text-[#eee4d1] sm:text-5xl">Herald I to Immortal. Every division matters.</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-[#bcb5a7]">Choose the exact I–V medal route, your MMR scope, and Solo or Duo delivery mode before the queue begins.</p>
           </div>
           <LinkButton href="/pricing" variant="secondary">Build MMR order <ArrowRight className="size-4" /></LinkButton>
         </div>
