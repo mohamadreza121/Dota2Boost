@@ -1,52 +1,100 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, ChevronRight, Menu, ShieldCheck, X } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 
 const links = [
-  ["MMR Boost", "/services/mmr-boost"],
-  ["Boosters", "/boosters"],
-  ["How it works", "/how-it-works"],
-  ["Pricing", "/pricing"],
-  ["Reviews", "/reviews"],
-  ["Work with us", "/work-with-us"]
+  { number: "01", label: "MMR Boost", detail: "Exact medal and MMR route", href: "/services/mmr-boost" },
+  { number: "02", label: "Services", detail: "Select a ranked contract", href: "/services" },
+  { number: "03", label: "Roster", detail: "Inspect Immortal specialists", href: "/boosters" },
+  { number: "04", label: "How it works", detail: "Review the campaign flow", href: "/how-it-works" },
+  { number: "05", label: "Pricing", detail: "Build a live server quote", href: "/pricing" },
+  { number: "06", label: "Reviews", detail: "Open verified match history", href: "/reviews" },
+  { number: "07", label: "Work with us", detail: "Apply to join the roster", href: "/work-with-us" }
 ] as const;
 
 export function MobileNav() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
+  useEffect(() => setOpen(false), [pathname]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [open]);
+
+  function isActive(href: string) {
+    return pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+  }
+
   return (
-    <div className="md:hidden">
+    <div className="dota-mobile-nav">
       <button
         type="button"
         aria-label={open ? "Close navigation" : "Open navigation"}
         aria-expanded={open}
+        aria-controls="dota-mobile-menu"
         onClick={() => setOpen((current) => !current)}
-        className="grid size-11 place-items-center rounded-full border border-white/10 bg-white/[0.04]"
+        className="dota-mobile-trigger"
       >
-        {open ? <X className="size-5" /> : <Menu className="size-5" />}
+        {open ? <X /> : <Menu />}
       </button>
+
       {open ? (
-        <div className="fixed inset-0 z-50 bg-ink/98 px-5 py-5 backdrop-blur-xl">
-          <div className="flex items-center justify-between">
-            <Logo />
-            <button type="button" onClick={() => setOpen(false)} aria-label="Close navigation" className="grid size-11 place-items-center rounded-full border border-white/10">
-              <X className="size-5" />
-            </button>
-          </div>
-          <nav aria-label="Mobile navigation" className="mt-14 flex flex-col">
-            {links.map(([label, href], index) => (
-              <Link key={href} href={href} onClick={() => setOpen(false)} className="flex items-center justify-between border-b border-white/10 py-5 text-2xl font-bold">
-                {label}<span className="text-xs text-mist">0{index + 1}</span>
-              </Link>
-            ))}
-          </nav>
-          <div className="mt-8 grid grid-cols-2 gap-3">
-            <Link href="/auth/sign-in" className="rounded-full border border-white/15 px-5 py-3 text-center text-sm font-semibold">Sign in</Link>
-            <Link href="/pricing" className="rounded-full bg-crimson px-5 py-3 text-center text-sm font-semibold">Start a boost</Link>
-          </div>
+        <div id="dota-mobile-menu" className="dota-mobile-menu" role="dialog" aria-modal="true" aria-label="Site navigation">
+          <button type="button" aria-label="Close navigation" className="dota-mobile-menu__scrim" onClick={() => setOpen(false)} />
+
+          <aside className="dota-mobile-menu__drawer">
+            <div className="dota-mobile-menu__top">
+              <Logo />
+              <button type="button" onClick={() => setOpen(false)} aria-label="Close navigation" className="dota-mobile-close">
+                <X />
+              </button>
+            </div>
+
+            <div className="dota-mobile-menu__status"><i /> Command menu // regional coverage active</div>
+
+            <nav aria-label="Mobile navigation" className="dota-mobile-menu__nav">
+              {links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="dota-mobile-menu__link"
+                  data-active={isActive(link.href)}
+                  aria-current={isActive(link.href) ? "page" : undefined}
+                >
+                  <span className="dota-mobile-menu__number">{link.number}</span>
+                  <span><strong>{link.label}</strong><small>{link.detail}</small></span>
+                  <ChevronRight />
+                </Link>
+              ))}
+            </nav>
+
+            <div className="dota-mobile-menu__bottom">
+              <div className="dota-mobile-menu__actions">
+                <Link href="/auth/sign-in" onClick={() => setOpen(false)} className="dota-mobile-menu__sign-in">Sign in</Link>
+                <Link href="/pricing" onClick={() => setOpen(false)} className="dota-mobile-menu__cta">Build rank route <ArrowUpRight /></Link>
+              </div>
+              <p className="dota-mobile-menu__disclaimer"><ShieldCheck /> Customer-operated Solo and Duo delivery. No Steam credentials or remote access.</p>
+            </div>
+          </aside>
         </div>
       ) : null}
     </div>
