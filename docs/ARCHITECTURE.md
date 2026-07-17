@@ -63,6 +63,13 @@ The success redirect is informational only. Versioned commerce functions lock ca
 - Metadata is recorded only after the upload succeeds; private downloads should be served through time-limited signed URLs.
 - Video thumbnails and malware scanning belong in background jobs before general availability.
 
+## Admin operations
+
+- The admin command center is server-gated to `admin` and `owner` roles and loads operational data with the service-role client only after the user session and role are verified.
+- Browser mutations are validated by a discriminated Zod contract, then passed to the service-role-only `admin_operate_v7` transaction.
+- Assignment/replacement, order status/deadline, profile status, application review, dispute resolution, and review moderation write their before/after state and mandatory reason to `audit_logs` in the same database transaction.
+- Booster replacement removes the previous booster from the order conversation, restores the new booster membership, creates a pending assignment, and notifies the booster.
+
 ## Folder map
 
 ```text
