@@ -1,0 +1,104 @@
+import { createClient } from "@/lib/supabase/server";
+
+export type CustomerOrderStatus = "draft" | "payment_pending" | "paid" | "matching" | "coach_assigned" | "awaiting_customer" | "in_progress" | "delivery_submitted" | "customer_review" | "completed" | "disputed" | "cancelled" | "refunded";
+
+export interface CustomerOrderSummary {
+  id: string;
+  publicReference: string;
+  status: CustomerOrderStatus;
+  serviceName: string;
+  serviceSlug: string;
+  scope: string;
+  progressPercent: number;
+  completedMilestones: number;
+  totalMilestones: number;
+  createdAt: string;
+  requirements: Record<string, unknown>;
+}
+
+type RawOrder = {
+  id: string;
+  public_reference: string;
+  status: CustomerOrderStatus;
+  service_id: string;
+  requirements: Record<string, unknown> | null;
+  created_at: string;
+};
+
+type RawService = { id: string; name: string; slug: string };
+type RawMilestone = { order_id: string; status: string };
+
+function textValue(value: unknown) {
+  return typeof value === "string" && value.trim() ? value.trim() : null;
+}
+
+function numberValue(value: unknown) {
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function describeScope(serviceSlug: string, requirements: Record<string, unknown>) {
+  const currentRank = textValue(requirements.current_rank);
+  const targetRank = textValue(requirements.target_rank);
+  const mmr = numberValue(requirements.mmr_amount);
+  const wins = numberValue(requirements.win_count);
+  const matches = numberValue(requirements.match_count);
+  const score = numberValue(requirements.behavior_score_amount);
+  const mode = textValue(requirements.boost_mode);
+
+  if (serviceSlug === "mmr-boost") return [currentRank && targetRank ? `${currentRank} → ${targetRank}` : null, mmr ? `+${mmr.toLocaleString()} MMR` : null, mode].filter(Boolean).join(" · ") || "Configured MMR climb";
+  if (serviceSlug === "mmr-calibration") return [matches ? `${matches} calibration matches` : "Calibration matches", mode].filter(Boolean).join(" · ");
+  if (serviceSlug === "behavior-score-boost") return score ? `+${score.toLocaleString()} behavior score scope` : "Behavior score recovery";
+  if (serviceSlug === "win-boost") return wins ? `${wins} assisted wins` : "Assisted win package";
+  return "Private Dota 2 coaching";
+}
+
+export async function getCustomerOrders(customerId: string): Promise<CustomerOrderSummary[]> {
+  const supabase = await createClient();
+  const { data: orderRows } = await supabase
+    .from("orders")
+    .select("id, public_reference, status, service_id, requirements, created_at")
+    .eq("customer_id", customerId)
+    .is("deleted_at", null)
+    .order("created_at", { ascending: false });
+
+  const orders = (orderRows ?? []) as unknown as RawOrder[];
+  if (!orders.length) return [];
+
+  const orderIds = orders.map((order) => order.id);
+  const serviceIds = [...new Set(orders.map((order) => order.service_id))];
+  const [{ data: serviceRows }, { data: milestoneRows }] = await Promise.all([
+    supabase.from("services").select("id, name, slug").in("id", serviceIds),
+    supabase.from("order_milestones").select("order_id, status").in("order_id", orderIds)
+  ]);
+  const services = new Map(((serviceRows ?? []) as unknown as RawService[]).map((service) => [service.id, service]));
+  const milestoneMap = new Map<string, RawMilestone[]>();
+  for (const milestone of (milestoneRows ?? []) as unknown as RawMilestone[]) {
+    milestoneMap.set(milestone.order_id, [...(milestoneMap.get(milestone.order_id) ?? []), milestone]);
+  }
+
+  return orders.map((order) => {
+    const service = services.get(order.service_id) ?? { id: order.service_id, name: "Dota 2 service", slug: "coaching" };
+    const milestones = milestoneMap.get(order.id) ?? [];
+    const completed = milestones.filter((milestone) => ["approved", "completed"].includes(milestone.status)).length;
+    const progressPercent = milestones.length ? Math.round((completed / milestones.length) * 100) : 0;
+    const requirements = order.requirements ?? {};
+    return {
+      id: order.id,
+      publicReference: order.public_reference,
+      status: order.status,
+      serviceName: service.name,
+      serviceSlug: service.slug,
+      scope: describeScope(service.slug, requirements),
+      progressPercent,
+      completedMilestones: completed,
+      totalMilestones: milestones.length,
+      createdAt: order.created_at,
+      requirements
+    };
+  });
+}
+
+export async function getCustomerOrder(customerId: string, orderId: string) {
+  const orders = await getCustomerOrders(customerId);
+  return orders.find((order) => order.id === orderId) ?? null;
+}
