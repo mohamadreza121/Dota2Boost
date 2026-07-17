@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { rankOptions } from "@/lib/data/ranks";
+import { rankIndex, rankOptions } from "@/lib/data/ranks";
 
 export { rankOptions };
 
@@ -39,8 +39,8 @@ type ConfigurableInput = {
 };
 
 function validateConfiguration(input: ConfigurableInput, context: z.RefinementCtx) {
-  if (input.service === "mmr-boost" && rankOptions.indexOf(input.targetRank) < rankOptions.indexOf(input.currentRank)) {
-    context.addIssue({ code: "custom", path: ["targetRank"], message: "Target rank cannot be below the current rank." });
+  if (input.service === "mmr-boost" && rankIndex(input.targetRank) <= rankIndex(input.currentRank)) {
+    context.addIssue({ code: "custom", path: ["targetRank"], message: "Choose a target medal above the current medal." });
   }
   if (input.service === "mmr-calibration" && input.matchCount !== 5 && input.matchCount !== 10) {
     context.addIssue({ code: "custom", path: ["matchCount"], message: "Calibration is available in five- or ten-match blocks." });
