@@ -1,32 +1,66 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { FileImage, Mic, Paperclip, Play, Send, Square, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { LoaderCircle, Send } from "lucide-react";
+import { createClient } from "@/lib/supabase/browser";
 
-interface LocalMessage { id: number; author: "You" | "Northstar"; body: string; time: string }
-const seed: LocalMessage[] = [{ id: 1, author: "Northstar", body: "I reviewed the first match ID. The biggest opportunity is how early you commit your farming route before reading the offlane movement.", time: "2:14 PM" }, { id: 2, author: "You", body: "That makes sense. Should I tag the moment I decide the route, or when I realize it is unsafe?", time: "2:19 PM" }, { id: 3, author: "Northstar", body: "Tag the decision moment. We can compare the information you had then with what happened later.", time: "2:20 PM" }];
+type Message = { id: string; client_id: string | null; sender_id: string | null; body: string; kind: string; created_at: string };
+const demo: Message[] = [
+  { id: "demo-1", client_id: null, sender_id: "specialist", body: "Your order workspace is ready. Confirm your queue window here and we will keep every update in one place.", kind: "text", created_at: new Date().toISOString() }
+];
 
-export function OrderChat() {
-  const [messages, setMessages] = useState(seed);
+function time(value: string) {
+  return new Intl.DateTimeFormat("en", { hour: "numeric", minute: "2-digit" }).format(new Date(value));
+}
+
+export function OrderChat({ conversationId, currentUserId }: { conversationId: string | null; currentUserId: string }) {
+  const [messages, setMessages] = useState<Message[]>(conversationId ? [] : demo);
   const [body, setBody] = useState("");
-  const [recording, setRecording] = useState(false);
-  const [seconds, setSeconds] = useState(0);
-  const [audioUrl, setAudioUrl] = useState<string | null>(null);
-  const recorder = useRef<MediaRecorder | null>(null);
-  const stream = useRef<MediaStream | null>(null);
-  const chunks = useRef<Blob[]>([]);
+  const [loading, setLoading] = useState(Boolean(conversationId));
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => { if (!recording) return; const timer = window.setInterval(() => setSeconds((current) => current + 1), 1000); return () => window.clearInterval(timer); }, [recording]);
-  useEffect(() => () => { stream.current?.getTracks().forEach((track) => track.stop()); if (audioUrl) URL.revokeObjectURL(audioUrl); }, [audioUrl]);
+  useEffect(() => {
+    if (!conversationId) return;
+    let active = true;
+    async function load() {
+      try {
+        const response = await fetch(`/api/conversations/${conversationId}/messages`);
+        const payload = await response.json() as { messages?: Message[]; error?: string };
+        if (!response.ok) throw new Error(payload.error ?? "Messages could not be loaded.");
+        if (active) setMessages(payload.messages ?? []);
+      } catch (cause) {
+        if (active) setError(cause instanceof Error ? cause.message : "Messages could not be loaded.");
+      } finally { if (active) setLoading(false); }
+    }
+    void load();
+    const channel = createClient().channel(`order-messages:${conversationId}`).on("postgres_changes", { event: "INSERT", schema: "public", table: "messages", filter: `conversation_id=eq.${conversationId}` }, (payload) => {
+      const next = payload.new as Message;
+      setMessages((current) => current.some((message) => message.id === next.id || (next.client_id && message.client_id === next.client_id)) ? current : [...current, next]);
+    }).subscribe();
+    return () => { active = false; void createClient().removeChannel(channel); };
+  }, [conversationId]);
 
-  function sendMessage() { const clean = body.trim(); if (!clean) return; setMessages((current) => [...current, { id: Date.now(), author: "You", body: clean, time: new Intl.DateTimeFormat("en", { hour: "numeric", minute: "2-digit" }).format(new Date()) }]); setBody(""); }
-  async function startRecording() { try { const media = await navigator.mediaDevices.getUserMedia({ audio: true }); stream.current = media; const nextRecorder = new MediaRecorder(media); chunks.current = []; nextRecorder.addEventListener("dataavailable", (event) => { if (event.data.size) chunks.current.push(event.data); }); nextRecorder.addEventListener("stop", () => { const blob = new Blob(chunks.current, { type: nextRecorder.mimeType }); setAudioUrl(URL.createObjectURL(blob)); media.getTracks().forEach((track) => track.stop()); }); nextRecorder.start(); recorder.current = nextRecorder; setSeconds(0); setRecording(true); } catch { setRecording(false); } }
-  function stopRecording() { recorder.current?.stop(); setRecording(false); }
-  function cancelRecording() { recorder.current?.stop(); setRecording(false); setAudioUrl(null); chunks.current = []; }
+  async function sendMessage() {
+    const clean = body.trim();
+    if (!clean || !conversationId || sending) return;
+    const clientId = crypto.randomUUID();
+    const optimistic: Message = { id: `optimistic-${clientId}`, client_id: clientId, sender_id: currentUserId, body: clean, kind: "text", created_at: new Date().toISOString() };
+    setMessages((current) => [...current, optimistic]); setBody(""); setSending(true); setError(null);
+    try {
+      const response = await fetch(`/api/conversations/${conversationId}/messages`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ body: clean, clientId }) });
+      const payload = await response.json() as { message?: Message; error?: string };
+      if (!response.ok || !payload.message) throw new Error(payload.error ?? "Message could not be sent.");
+      setMessages((current) => current.map((message) => message.client_id === clientId ? payload.message! : message));
+    } catch (cause) {
+      setMessages((current) => current.filter((message) => message.client_id !== clientId));
+      setBody(clean); setError(cause instanceof Error ? cause.message : "Message could not be sent.");
+    } finally { setSending(false); }
+  }
 
-  return <section className="overflow-hidden rounded-2xl border border-white/[0.08] bg-black/15"><header className="flex items-center justify-between border-b border-white/[0.08] p-4"><div className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-xl bg-crimson/10 text-xs font-black text-[#ef9a9a]">NS</span><div><p className="text-sm font-bold">Northstar</p><p className="mt-0.5 flex items-center gap-1.5 text-[0.58rem] text-cyan"><span className="size-1.5 rounded-full bg-cyan" />Available today</p></div></div><button className="rounded-full border border-white/10 px-3 py-1.5 text-[0.62rem] font-bold text-mist">Search chat</button></header>
-    <div aria-live="polite" className="h-[360px] space-y-4 overflow-y-auto p-4 sm:p-5"><div className="flex items-center gap-3 text-[0.58rem] font-bold tracking-wider text-[#676e6b] uppercase before:h-px before:flex-1 before:bg-white/[0.07] after:h-px after:flex-1 after:bg-white/[0.07]">Today</div>{messages.map((message) => <div key={message.id} className={`flex ${message.author === "You" ? "justify-end" : "justify-start"}`}><div className={`max-w-[82%] rounded-2xl px-4 py-3 text-sm leading-6 ${message.author === "You" ? "rounded-br-sm bg-crimson/85 text-white" : "rounded-tl-sm bg-white/[0.07] text-[#d6dad7]"}`}><p>{message.body}</p><p className={`mt-1 text-right text-[0.55rem] ${message.author === "You" ? "text-white/60" : "text-mist"}`}>{message.time}</p></div></div>)}</div>
-    <footer className="border-t border-white/[0.08] p-3">{recording ? <div className="flex items-center gap-3 rounded-xl border border-crimson/20 bg-crimson/[0.07] p-3"><span className="size-2 animate-pulse rounded-full bg-crimson" /><span className="text-xs font-bold">Recording {Math.floor(seconds / 60)}:{String(seconds % 60).padStart(2, "0")}</span><div className="ml-auto flex gap-2"><button onClick={cancelRecording} aria-label="Cancel voice recording" className="grid size-8 place-items-center rounded-full border border-white/10"><X className="size-3.5" /></button><button onClick={stopRecording} aria-label="Stop voice recording" className="grid size-8 place-items-center rounded-full bg-crimson"><Square className="size-3 fill-current" /></button></div></div> : audioUrl ? <div className="flex items-center gap-3 rounded-xl border border-cyan/20 bg-cyan/[0.05] p-3"><Play className="size-4 text-cyan" /><audio className="h-8 max-w-[220px]" controls src={audioUrl} /><button onClick={() => setAudioUrl(null)} className="ml-auto text-mist" aria-label="Discard audio"><X className="size-4" /></button><Button className="min-h-9 px-4 py-1 text-xs">Upload</Button></div> : <div className="flex items-end gap-2"><button aria-label="Attach file" className="grid size-10 shrink-0 place-items-center rounded-full text-mist hover:bg-white/[0.05]"><Paperclip className="size-4" /></button><label className="sr-only" htmlFor="message-body">Message</label><textarea id="message-body" rows={1} value={body} onChange={(event) => setBody(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); sendMessage(); } }} placeholder="Write a message…" className="min-h-10 flex-1 resize-none rounded-xl border border-white/10 bg-panel px-3 py-2.5 text-sm focus:border-cyan/50 focus:outline-none" /><button onClick={startRecording} aria-label="Record voice message" className="grid size-10 shrink-0 place-items-center rounded-full text-mist hover:bg-white/[0.05]"><Mic className="size-4" /></button><button onClick={sendMessage} aria-label="Send message" className="grid size-10 shrink-0 place-items-center rounded-full bg-crimson"><Send className="size-4" /></button></div>}<div className="mt-2 flex gap-4 px-2 text-[0.56rem] text-[#666e6b]"><span className="flex items-center gap-1"><FileImage className="size-3" />Images up to 10 MB</span><span>Voice up to 10 min</span></div></footer>
+  const unavailable = !conversationId;
+  return <section className="overflow-hidden rounded-2xl border border-white/[0.08] bg-black/15"><header className="flex items-center justify-between border-b border-white/[0.08] p-4"><div><p className="text-sm font-bold">Order chat</p><p className="mt-0.5 text-[0.58rem] text-cyan">Private, order-scoped messages</p></div><span className="rounded-full border border-cyan/20 px-3 py-1.5 text-[0.6rem] font-bold text-cyan">Live</span></header>
+    <div aria-live="polite" className="h-[360px] space-y-4 overflow-y-auto p-4 sm:p-5">{loading ? <div className="grid h-full place-items-center"><LoaderCircle className="size-5 animate-spin text-cyan" /></div> : messages.length ? messages.map((message) => { const mine = message.sender_id === currentUserId; return <div key={message.id} className={`flex ${mine ? "justify-end" : "justify-start"}`}><div className={`max-w-[82%] rounded-2xl px-4 py-3 text-sm leading-6 ${mine ? "rounded-br-sm bg-crimson/85 text-white" : "rounded-tl-sm bg-white/[0.07] text-[#d6dad7]"}`}><p>{message.body}</p><p className={`mt-1 text-right text-[0.55rem] ${mine ? "text-white/60" : "text-mist"}`}>{time(message.created_at)}</p></div></div>; }) : <div className="grid h-full place-items-center text-center text-xs text-mist">No messages yet. Start the delivery conversation here.</div>}</div>
+    <footer className="border-t border-white/[0.08] p-3"><div className="flex items-end gap-2"><label className="sr-only" htmlFor="message-body">Message</label><textarea id="message-body" rows={1} value={body} disabled={unavailable || sending} onChange={(event) => setBody(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); void sendMessage(); } }} placeholder={unavailable ? "Chat opens when the paid order workspace is ready." : "Write a message…"} className="min-h-10 flex-1 resize-none rounded-xl border border-white/10 bg-panel px-3 py-2.5 text-sm focus:border-cyan/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" /><button onClick={() => void sendMessage()} disabled={unavailable || sending || !body.trim()} aria-label="Send message" className="grid size-10 shrink-0 place-items-center rounded-full bg-crimson disabled:cursor-not-allowed disabled:opacity-45">{sending ? <LoaderCircle className="size-4 animate-spin" /> : <Send className="size-4" />}</button></div>{error ? <p role="alert" className="mt-2 text-[0.65rem] text-[#ef9a9a]">{error}</p> : <p className="mt-2 px-2 text-[0.56rem] text-[#666e6b]">Messages are stored with your order and update in real time for members of this workspace.</p>}</footer>
   </section>;
 }

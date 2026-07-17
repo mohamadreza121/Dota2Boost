@@ -1,4 +1,4 @@
-export const rankOptions = [
+export const rankFamilies = [
   "Herald",
   "Guardian",
   "Crusader",
@@ -9,9 +9,19 @@ export const rankOptions = [
   "Immortal"
 ] as const;
 
+export type RankFamily = (typeof rankFamilies)[number];
+
+const rankedFamilies = rankFamilies.slice(0, -1) as Exclude<RankFamily, "Immortal">[];
+const divisions = ["I", "II", "III", "IV", "V"] as const;
+
+export const rankOptions = [
+  ...rankedFamilies.flatMap((family) => divisions.map((division) => `${family} ${division}` as const)),
+  "Immortal"
+] as const;
+
 export type RankName = (typeof rankOptions)[number];
 
-export const rankMedals: Record<RankName, { tier: number; image: string; tone: string }> = {
+export const rankMedals: Record<RankFamily, { tier: number; image: string; tone: string }> = {
   Herald: { tier: 1, image: "/media/ranks/rank-icon-1.png", tone: "#77a463" },
   Guardian: { tier: 2, image: "/media/ranks/rank-icon-2.png", tone: "#b18d5c" },
   Crusader: { tier: 3, image: "/media/ranks/rank-icon-3.png", tone: "#56b8bd" },
@@ -21,3 +31,19 @@ export const rankMedals: Record<RankName, { tier: number; image: string; tone: s
   Divine: { tier: 7, image: "/media/ranks/rank-icon-7.png", tone: "#d7bd74" },
   Immortal: { tier: 8, image: "/media/ranks/rank-icon-8.png", tone: "#d64f52" }
 };
+
+export function rankFamilyOf(rank: RankName | RankFamily) {
+  return rank.split(" ")[0] as RankFamily;
+}
+
+export function rankIndex(rank: RankName) {
+  return rankOptions.indexOf(rank);
+}
+
+export function rankRoute(current: RankName, target: RankName) {
+  return Math.max(0, rankIndex(target) - rankIndex(current));
+}
+
+export function rankLabel(rank: RankName | RankFamily) {
+  return rank;
+}

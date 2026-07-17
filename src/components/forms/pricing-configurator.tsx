@@ -7,13 +7,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { PriceQuote } from "@/lib/pricing";
 import { formatCurrency } from "@/lib/utils";
-import { rankOptions, type PricingInput } from "@/lib/validation/pricing";
+import { rankFamilies, rankFamilyOf, rankIndex, rankOptions } from "@/lib/data/ranks";
+import type { PricingInput } from "@/lib/validation/pricing";
 
 const initialInput: PricingInput = {
   service: "mmr-boost",
   boostMode: "Duo",
-  currentRank: "Legend",
-  targetRank: "Ancient",
+  currentRank: "Legend III",
+  targetRank: "Ancient I",
   mmrAmount: 500,
   matchCount: 5,
   behaviorScoreAmount: 2000,
@@ -22,7 +23,7 @@ const initialInput: PricingInput = {
   role: "Carry",
   region: "North America",
   language: "English",
-  boosterTier: "Master",
+  boosterTier: "Pro",
   priority: "Standard",
   preferredHeroes: []
 };
@@ -113,7 +114,7 @@ export function PricingConfigurator({ compact = false }: { compact?: boolean }) 
     setInput((current) => ({
       ...current,
       currentRank: rank,
-      targetRank: current.service === "mmr-boost" && rankOptions.indexOf(current.targetRank) < rankOptions.indexOf(rank) ? rank : current.targetRank
+      targetRank: current.service === "mmr-boost" && rankIndex(current.targetRank) <= rankIndex(rank) ? rankOptions[Math.min(rankIndex(rank) + 1, rankOptions.length - 1)]! : current.targetRank
     }));
     setServerQuote(null);
     setError(null);
@@ -204,19 +205,20 @@ export function PricingConfigurator({ compact = false }: { compact?: boolean }) 
 
         {supportsRanks(input.service) ? (
           <fieldset className="mt-7">
-            <legend className="text-xs font-black tracking-[0.12em] text-mist uppercase">{showModes ? "3" : "2"}. Select rank</legend>
+            <legend className="text-xs font-black tracking-[0.12em] text-mist uppercase">{showModes ? "3" : "2"}. Select exact medal</legend>
             <div className={`mt-4 grid gap-4 ${input.service === "mmr-boost" ? "sm:grid-cols-2" : "max-w-sm"}`}>
               <label className="rounded-2xl border border-white/[0.08] bg-black/15 p-4 text-xs font-bold text-[#cdd1ce]">
                 <span className="flex items-center gap-4"><RankMedal rank={input.currentRank} size="sm" label={false} /><span>Your current rank</span></span>
                 <select className={inputClass} value={input.currentRank} onChange={(event) => updateCurrentRank(event.target.value as PricingInput["currentRank"])}>{rankOptions.map((rank) => <option key={rank}>{rank}</option>)}</select>
               </label>
-              {input.service === "mmr-boost" ? <label className="rounded-2xl border border-white/[0.08] bg-black/15 p-4 text-xs font-bold text-[#cdd1ce]"><span className="flex items-center gap-4"><RankMedal rank={input.targetRank} size="sm" label={false} /><span>Your target rank</span></span><select className={inputClass} value={input.targetRank} onChange={(event) => update("targetRank", event.target.value as PricingInput["targetRank"])}>{rankOptions.filter((rank) => rankOptions.indexOf(rank) >= rankOptions.indexOf(input.currentRank)).map((rank) => <option key={rank}>{rank}</option>)}</select></label> : null}
+              {input.service === "mmr-boost" ? <label className="rounded-2xl border border-white/[0.08] bg-black/15 p-4 text-xs font-bold text-[#cdd1ce]"><span className="flex items-center gap-4"><RankMedal rank={input.targetRank} size="sm" label={false} /><span>Your target rank</span></span><select className={inputClass} value={input.targetRank} onChange={(event) => update("targetRank", event.target.value as PricingInput["targetRank"])}>{rankOptions.filter((rank) => rankIndex(rank) > rankIndex(input.currentRank)).map((rank) => <option key={rank}>{rank}</option>)}</select></label> : null}
             </div>
+            <p className="mt-3 text-[0.68rem] leading-5 text-mist">Pick the real medal division: Herald I–V through Divine I–V, then Immortal. The route is priced by exact medal steps, not just broad rank names.</p>
             <div className="mt-5 overflow-x-auto pb-2">
               <div className="rank-medal-track grid min-w-[700px] grid-cols-8 gap-2">
-                {rankOptions.map((rank) => {
-                  const setsTarget = input.service === "mmr-boost" && rankOptions.indexOf(rank) >= rankOptions.indexOf(input.currentRank);
-                  return <button key={rank} type="button" aria-label={`Set ${rank} as ${setsTarget ? "target" : "current"} rank`} onClick={() => setsTarget ? update("targetRank", rank) : updateCurrentRank(rank)} className="rounded-xl p-1"><RankMedal rank={rank} size="sm" selected={input.service === "mmr-boost" ? input.currentRank === rank || input.targetRank === rank : input.currentRank === rank} /></button>;
+                {rankFamilies.map((family) => {
+                  const selected = rankFamilyOf(input.currentRank) === family || (input.service === "mmr-boost" && rankFamilyOf(input.targetRank) === family);
+                  return <div key={family} className="rounded-xl p-1"><RankMedal rank={family} size="sm" selected={selected} /></div>;
                 })}
               </div>
             </div>

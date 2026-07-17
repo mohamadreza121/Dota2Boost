@@ -5,8 +5,8 @@ import { pricingInputSchema, type PricingInput } from "@/lib/validation/pricing"
 const input: PricingInput = {
   service: "mmr-boost",
   boostMode: "Duo",
-  currentRank: "Legend",
-  targetRank: "Ancient",
+  currentRank: "Legend III",
+  targetRank: "Ancient I",
   mmrAmount: 500,
   matchCount: 5,
   behaviorScoreAmount: 2000,
@@ -23,33 +23,33 @@ const input: PricingInput = {
 describe("calculateQuote", () => {
   it("prices a bracket-aware Duo MMR climb", () => {
     const quote = calculateQuote(input);
-    expect(quote.subtotal).toBe(14231);
-    expect(quote.discount).toBe(427);
-    expect(quote.total).toBe(13804);
+    expect(quote.subtotal).toBe(5705);
+    expect(quote.discount).toBe(171);
+    expect(quote.total).toBe(5534);
     expect(quote.summary).toContain("500 MMR");
-    expect(describePricingInput(input)).toContain("Legend to Ancient");
+    expect(describePricingInput(input)).toContain("Legend III to Ancient I");
   });
 
   it("prices Solo below Duo without trusting a browser total", () => {
     const solo = calculateQuote({ ...input, boostMode: "Solo" });
     const duo = calculateQuote(input);
-    expect(solo.total).toBe(12004);
+    expect(solo.total).toBe(4611);
     expect(duo.total).toBeGreaterThan(solo.total);
   });
 
   it("uses service-specific behavior-score units", () => {
     const quote = calculateQuote({ ...input, service: "behavior-score-boost", boostMode: "Solo", boosterTier: "Master" });
-    expect(quote.subtotal).toBe(6440);
-    expect(quote.discount).toBe(258);
-    expect(quote.total).toBe(6182);
+    expect(quote.subtotal).toBe(1980);
+    expect(quote.discount).toBe(79);
+    expect(quote.total).toBe(2500);
     expect(quote.lines[0]?.label).toContain("2,000 behavior score");
   });
 
   it("applies the ten-match calibration package rate", () => {
-    const quote = calculateQuote({ ...input, service: "mmr-calibration", boostMode: "Solo", currentRank: "Herald", targetRank: "Herald", matchCount: 10, priority: "Flexible" });
-    expect(quote.subtotal).toBe(19176);
-    expect(quote.discount).toBe(1151);
-    expect(quote.total).toBe(18025);
+    const quote = calculateQuote({ ...input, service: "mmr-calibration", boostMode: "Solo", currentRank: "Herald I", targetRank: "Herald I", matchCount: 10, priority: "Flexible" });
+    expect(quote.subtotal).toBe(7360);
+    expect(quote.discount).toBe(736);
+    expect(quote.total).toBe(6624);
   });
 
   it("rejects unsupported hidden mode combinations", () => {

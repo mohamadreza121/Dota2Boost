@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { RankMedal } from "@/components/commerce/rank-medal";
 import { LinkButton } from "@/components/ui/button";
-import { rankOptions } from "@/lib/data/ranks";
+import { rankFamilies } from "@/lib/data/ranks";
 
 export function RankLadder() {
   return (
@@ -18,7 +18,7 @@ export function RankLadder() {
         </div>
         <div className="mt-9 overflow-x-auto pb-3">
           <div className="rank-medal-track grid min-w-[760px] grid-cols-8 gap-3">
-            {rankOptions.map((rank) => <RankMedal key={rank} rank={rank} />)}
+            {rankFamilies.map((rank) => <RankMedal key={rank} rank={rank} />)}
           </div>
         </div>
       </div>

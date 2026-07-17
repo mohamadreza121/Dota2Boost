@@ -37,13 +37,13 @@ function numberValue(value: unknown) {
 }
 
 function describeScope(serviceSlug: string, requirements: Record<string, unknown>) {
-  const currentRank = textValue(requirements.current_rank);
-  const targetRank = textValue(requirements.target_rank);
-  const mmr = numberValue(requirements.mmr_amount);
-  const wins = numberValue(requirements.win_count);
-  const matches = numberValue(requirements.match_count);
-  const score = numberValue(requirements.behavior_score_amount);
-  const mode = textValue(requirements.boost_mode);
+  const currentRank = textValue(requirements.current_rank) ?? textValue(requirements.currentRank);
+  const targetRank = textValue(requirements.target_rank) ?? textValue(requirements.targetRank);
+  const mmr = numberValue(requirements.mmr_amount) ?? numberValue(requirements.mmrAmount);
+  const wins = numberValue(requirements.win_count) ?? numberValue(requirements.winCount);
+  const matches = numberValue(requirements.match_count) ?? numberValue(requirements.matchCount);
+  const score = numberValue(requirements.behavior_score_amount) ?? numberValue(requirements.behaviorScoreAmount);
+  const mode = textValue(requirements.boost_mode) ?? textValue(requirements.boostMode);
 
   if (serviceSlug === "mmr-boost") return [currentRank && targetRank ? `${currentRank} → ${targetRank}` : null, mmr ? `+${mmr.toLocaleString()} MMR` : null, mode].filter(Boolean).join(" · ") || "Configured MMR climb";
   if (serviceSlug === "mmr-calibration") return [matches ? `${matches} calibration matches` : "Calibration matches", mode].filter(Boolean).join(" · ");
@@ -101,4 +101,10 @@ export async function getCustomerOrders(customerId: string): Promise<CustomerOrd
 export async function getCustomerOrder(customerId: string, orderId: string) {
   const orders = await getCustomerOrders(customerId);
   return orders.find((order) => order.id === orderId) ?? null;
+}
+
+export async function getCustomerConversationId(customerId: string, orderId: string) {
+  const supabase = await createClient();
+  const { data } = await supabase.from("conversations").select("id, conversation_members!inner(user_id, removed_at)").eq("order_id", orderId).eq("conversation_members.user_id", customerId).is("conversation_members.removed_at", null).maybeSingle();
+  return data?.id ?? null;
 }
