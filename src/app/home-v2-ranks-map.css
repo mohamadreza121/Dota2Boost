@@ -1,0 +1,274 @@
+/* Medal ascent */
+.dota-rank-journey {
+  --rank-progress: 0;
+  min-height: 255vh;
+  padding: 0;
+  overflow: visible;
+  background:
+    radial-gradient(circle at 50% 28%, rgb(144 105 209 / 0.15), transparent 35rem),
+    radial-gradient(circle at 74% 75%, rgb(224 78 67 / 0.12), transparent 32rem),
+    linear-gradient(180deg, #0c0b09, #090a0c 42%, #100909);
+}
+
+.dota-rank-journey__sticky {
+  position: sticky;
+  top: var(--header-height);
+  min-height: calc(100svh - var(--header-height));
+  overflow: hidden;
+  padding-block: clamp(4rem, 7vw, 6.5rem) 2rem;
+}
+
+.dota-rank-journey__glow {
+  background:
+    radial-gradient(circle at calc(18% + var(--rank-progress) * 68%) 68%, rgb(227 189 114 / 0.22), transparent 17rem),
+    radial-gradient(circle at 50% 100%, rgb(160 52 47 / 0.18), transparent 48rem);
+}
+
+.dota-rank-journey__stars { position: absolute; inset: 0; pointer-events: none; }
+.dota-rank-journey__stars span { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #f1d9a3; box-shadow: 0 0 12px #f1d9a3; animation: dota-star 4s ease-in-out infinite; }
+.dota-rank-journey__stars span:nth-child(1) { top: 19%; left: 14%; }
+.dota-rank-journey__stars span:nth-child(2) { top: 12%; right: 21%; animation-delay: -1s; }
+.dota-rank-journey__stars span:nth-child(3) { top: 62%; left: 48%; animation-delay: -2.2s; }
+.dota-rank-journey__stars span:nth-child(4) { right: 8%; bottom: 17%; animation-delay: -0.8s; }
+
+.dota-rank-journey__hud {
+  display: grid;
+  grid-template-columns: auto 8rem auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  border-block: 1px solid rgb(227 189 114 / 0.13);
+  padding-block: 0.75rem;
+}
+
+.dota-rank-journey__hud small { display: block; color: #696861; font-size: 0.43rem; font-weight: 900; letter-spacing: 0.13em; text-transform: uppercase; }
+.dota-rank-journey__hud strong { display: block; margin-top: 0.2rem; color: #e5dbc7; font-family: Georgia, serif; font-size: 0.85rem; }
+.dota-rank-journey__hud > div { position: relative; height: 1px; background: linear-gradient(90deg, var(--rune-gold), var(--dire)); }
+.dota-rank-journey__hud > div b,
+.dota-rank-journey__hud > div i { position: absolute; top: 50%; width: 0.45rem; height: 0.45rem; border: 1px solid var(--rune-gold); background: #0b0b0a; transform: translateY(-50%) rotate(45deg); }
+.dota-rank-journey__hud > div i:first-child { left: 0; }
+.dota-rank-journey__hud > div b { left: 50%; }
+.dota-rank-journey__hud > div i:last-child { right: 0; border-color: var(--dire); }
+.dota-rank-journey__hud p { display: inline-flex; align-items: center; justify-self: end; gap: 0.45rem; margin: 0; color: #7f7c75; font-size: 0.55rem; }
+.dota-rank-journey__hud p svg { width: 0.75rem; color: var(--arcane); }
+
+.dota-rank-journey__viewport {
+  width: 100%;
+  overflow: visible;
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.dota-rank-journey__track {
+  width: max-content;
+  min-width: 0;
+  grid-template-columns: repeat(8, 14rem);
+  margin: 0;
+  padding-inline: calc((100vw - min(1180px, calc(100vw - 32px))) / 2 + 1rem) 28vw;
+  transform: translate3d(calc(var(--rank-progress) * -44%), 0, 0);
+  transition: transform 80ms linear;
+  will-change: transform;
+}
+
+.dota-rank-journey__line {
+  top: 6.1rem;
+  right: 17vw;
+  left: 4vw;
+  overflow: visible;
+  height: 2px;
+  background: rgb(255 255 255 / 0.055);
+}
+
+.dota-rank-journey__line span {
+  display: block;
+  width: calc(var(--rank-progress) * 100%);
+  height: 100%;
+  background: linear-gradient(90deg, var(--radiant), var(--rune-gold) 55%, var(--dire));
+  box-shadow: 0 0 20px rgb(227 189 114 / 0.48);
+}
+
+.dota-rank-step {
+  min-height: 17rem;
+  padding-inline: 1rem;
+  opacity: 0.52;
+  filter: saturate(0.72);
+  transform: translateY(1rem) scale(0.9);
+  transition: opacity 500ms ease, filter 500ms ease, transform 500ms ease;
+}
+
+.dota-rank-step:hover,
+.dota-rank-step.is-current,
+.dota-rank-step.is-target { z-index: 3; opacity: 1; filter: saturate(1.1); transform: translateY(0) scale(1.04); }
+.dota-rank-step.is-target { transform: translateY(-0.3rem) scale(1.12); }
+
+.dota-rank-step__platform {
+  position: absolute;
+  top: 4.6rem;
+  left: 50%;
+  width: 8.5rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgb(227 189 114 / 0.17), rgb(0 0 0 / 0.42) 55%, transparent 70%);
+  filter: blur(1px);
+  transform: translateX(-50%);
+}
+
+.dota-rank-step__platform i { position: absolute; right: 15%; bottom: 0; left: 15%; height: 1px; background: rgb(227 189 114 / 0.28); }
+.dota-rank-step__platform i:last-child { right: 28%; bottom: -0.45rem; left: 28%; opacity: 0.4; }
+
+.dota-rank-step__medal { margin-top: 0.9rem; transform: translateZ(0); transition: transform 450ms cubic-bezier(.2,.8,.2,1), filter 450ms ease; }
+.dota-rank-step:hover .dota-rank-step__medal,
+.dota-rank-step.is-target .dota-rank-step__medal { filter: drop-shadow(0 0 22px rgb(227 189 114 / 0.23)); transform: translateY(-0.45rem) scale(1.08); }
+.dota-rank-step.is-target .dota-rank-step__medal { filter: drop-shadow(0 0 28px rgb(224 78 67 / 0.3)); }
+
+.dota-rank-step__name { display: block; margin-top: 0.8rem; color: #8a867e; font-family: Georgia, serif; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.04em; }
+.dota-rank-step.is-current .dota-rank-step__name { color: var(--rune-gold-bright); }
+.dota-rank-step.is-target .dota-rank-step__name { color: #f17a70; }
+.dota-rank-step .war-rank-step__divisions span { transition: border-color 180ms ease, color 180ms ease, background 180ms ease; }
+.dota-rank-step:hover .war-rank-step__divisions span { border-color: rgb(227 189 114 / 0.36); color: #c6bfae; background: rgb(227 189 114 / 0.05); }
+.dota-rank-step .war-rank-step__divisions b { display: inline-flex; align-items: center; gap: 0.3rem; color: #d7b978; }
+.dota-rank-step .war-rank-step__divisions b svg { width: 0.65rem; }
+.dota-rank-step .war-rank-step__arrow { top: 6rem; right: -0.4rem; color: rgb(227 189 114 / 0.26); }
+
+.dota-rank-journey__footer {
+  display: grid;
+  grid-template-columns: auto minmax(10rem, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  color: #62645f;
+  font-size: 0.5rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dota-rank-journey__footer > div { height: 2px; background: rgb(255 255 255 / 0.06); }
+.dota-rank-journey__footer > div i { display: block; width: calc(var(--rank-progress) * 100%); height: 100%; background: linear-gradient(90deg, var(--radiant), var(--dire)); }
+.dota-rank-journey__footer p { margin: 0; color: #5f5e59; font-size: inherit; text-align: right; }
+
+/* Tactical map */
+.dota-battlefield {
+  padding-top: clamp(9rem, 13vw, 13rem);
+  background:
+    radial-gradient(circle at 17% 10%, rgb(57 121 99 / 0.12), transparent 30rem),
+    radial-gradient(circle at 91% 72%, rgb(135 39 32 / 0.2), transparent 36rem),
+    linear-gradient(180deg, #09090b, #050706 52%, #0c0505);
+}
+
+.dota-terrain-transition--dire {
+  top: -4rem;
+  background:
+    radial-gradient(ellipse at 15% 100%, #17140f 0 22%, transparent 23%),
+    radial-gradient(ellipse at 42% 100%, #15100e 0 19%, transparent 20%),
+    radial-gradient(ellipse at 68% 100%, #1b0c0b 0 25%, transparent 26%),
+    radial-gradient(ellipse at 91% 100%, #290c0b 0 19%, transparent 20%);
+}
+
+.dota-battlefield__smoke {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 90% 50%, rgb(150 35 30 / 0.1), transparent 35rem);
+  pointer-events: none;
+}
+
+.dota-map-frame {
+  min-height: 46rem;
+  border-color: rgb(227 189 114 / 0.4);
+  clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 16px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0 calc(100% - 16px), 0 16px);
+  box-shadow: inset 0 0 0 5px rgb(0 0 0 / 0.5), inset 0 0 100px rgb(0 0 0 / 0.25), 0 55px 130px rgb(0 0 0 / 0.62);
+}
+
+.dota-map-frame::before,
+.dota-map-frame::after { width: 5.3rem; height: 5.3rem; border-width: 2px; }
+
+.dota-map-frame__art {
+  filter: saturate(0.88) contrast(1.09) brightness(0.68);
+  transform: scale(calc(1.03 + var(--map-progress, 0) * 0.03));
+}
+
+.dota-map-frame:hover .dota-map-frame__art { filter: saturate(1.08) contrast(1.08) brightness(0.79); transform: scale(1.065); }
+
+.dota-map-frame__shade {
+  background:
+    radial-gradient(circle at 18% 78%, rgb(80 185 151 / 0.13), transparent 20rem),
+    radial-gradient(circle at 84% 17%, rgb(224 78 67 / 0.2), transparent 21rem),
+    linear-gradient(180deg, rgb(4 6 5 / 0.16), transparent 40%, rgb(4 6 5 / 0.65)),
+    linear-gradient(90deg, rgb(4 6 5 / 0.2), transparent 24% 76%, rgb(4 6 5 / 0.24));
+}
+
+.dota-map-frame__fog {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(circle 14rem at calc(var(--pointer-x-ratio, .5) * 100%) calc(var(--pointer-y-ratio, .5) * 100%), transparent 0 38%, rgb(2 5 4 / 0.1) 55%, rgb(2 5 4 / 0.44) 100%);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  transition: opacity 500ms ease;
+}
+
+.dota-map-frame:hover .dota-map-frame__fog { opacity: 0.68; }
+
+.dota-map-frame__scan {
+  position: absolute;
+  top: 18%;
+  left: -5rem;
+  z-index: 5;
+  display: grid;
+  width: 4.5rem;
+  height: 4.5rem;
+  place-items: center;
+  border: 1px solid rgb(112 201 176 / 0.35);
+  border-radius: 50%;
+  background: rgb(11 42 34 / 0.26);
+  box-shadow: 0 0 0 1.5rem rgb(112 201 176 / 0.025), 0 0 0 3rem rgb(112 201 176 / 0.02), 0 0 32px rgb(112 201 176 / 0.2);
+  color: var(--radiant);
+  animation: dota-map-scan 9s ease-in-out infinite;
+}
+
+.dota-map-frame__scan svg { width: 1.2rem; }
+
+.dota-map-frame__roshan { position: absolute; top: 47%; left: 56%; z-index: 3; width: 3rem; height: 3rem; border: 1px solid rgb(154 117 222 / 0.24); border-radius: 50%; animation: dota-roshan 3.6s ease-in-out infinite; }
+.dota-map-frame__roshan span { position: absolute; inset: 38%; border-radius: 50%; background: var(--arcane); box-shadow: 0 0 18px var(--arcane); }
+
+.dota-map-route { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; pointer-events: none; }
+.dota-map-route path { fill: none; stroke: rgb(227 189 114 / 0.72); stroke-width: 2.2; stroke-dasharray: 9 12; filter: drop-shadow(0 0 5px rgb(227 189 114 / 0.65)); animation: dota-route 2.2s linear infinite; }
+.dota-map-route circle:first-of-type { fill: var(--radiant); filter: drop-shadow(0 0 8px var(--radiant)); }
+.dota-map-route circle:last-of-type { fill: var(--dire); filter: drop-shadow(0 0 8px var(--dire)); }
+
+.dota-map-node {
+  width: 15.5rem;
+  min-height: 4.6rem;
+  border-color: rgb(227 189 114 / 0.34);
+  background: linear-gradient(145deg, rgb(12 18 14 / 0.96), rgb(5 8 6 / 0.94));
+  padding: 0.78rem;
+  clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px);
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+}
+
+.dota-map-node:hover { border-color: rgb(255 225 164 / 0.72); box-shadow: 0 20px 52px rgb(0 0 0 / 0.65), 0 0 30px rgb(227 189 114 / 0.08); transform: translateY(-4px) scale(1.025); }
+.dota-map-node.war-map-node--mid { border-color: rgb(224 78 67 / 0.65); background: linear-gradient(145deg, rgb(83 26 22 / 0.96), rgb(18 8 7 / 0.95)); transform: translate(-50%, -50%); }
+.dota-map-node.war-map-node--mid:hover { transform: translate(-50%, calc(-50% - 4px)) scale(1.035); }
+
+.dota-map-node__hotkey { position: absolute; top: 0.35rem; right: 0.4rem; display: grid; width: 1.15rem; height: 1.15rem; place-items: center; border: 1px solid rgb(227 189 114 / 0.18); color: #756d5e; font-family: monospace; font-size: 0.45rem; }
+.dota-map-node .war-map-node__beacon { box-shadow: 0 0 20px rgb(227 189 114 / 0.08); }
+.dota-map-node:hover .war-map-node__beacon { animation: dota-beacon 1.2s ease-in-out infinite; }
+
+.dota-map-frame__legend {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.dota-map-frame__legend span { display: inline-flex; align-items: center; gap: 0.35rem; border: 1px solid rgb(255 255 255 / 0.08); background: rgb(4 8 6 / 0.62); padding: 0.38rem 0.55rem; color: #85857e; font-size: 0.45rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; backdrop-filter: blur(8px); }
+.dota-map-frame__legend svg { width: 0.65rem; color: var(--radiant); }
+.dota-map-frame__legend i,
+.dota-map-frame__legend b { width: 0.42rem; height: 0.42rem; border-radius: 50%; background: var(--rune-gold); box-shadow: 0 0 8px var(--rune-gold); }
+.dota-map-frame__legend b { background: var(--dire); box-shadow: 0 0 8px var(--dire); }
+
+.dota-map-frame__caption { background: linear-gradient(90deg, rgb(5 14 10 / 0.88), rgb(25 8 7 / 0.86)); }
