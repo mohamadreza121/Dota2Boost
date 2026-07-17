@@ -1,0 +1,157 @@
+/* Booster draft */
+.dota-roster {
+  padding-block: clamp(8rem, 12vw, 12rem);
+  background: #070504;
+}
+
+.dota-roster__art { filter: saturate(0.92) contrast(1.18) brightness(0.66); transform: scale(1.08); }
+.dota-roster__veil {
+  background:
+    radial-gradient(circle at 50% 28%, rgb(185 52 42 / 0.12), transparent 30rem),
+    linear-gradient(90deg, rgb(5 7 6 / 0.98), rgb(5 7 6 / 0.68) 48%, rgb(7 5 4 / 0.93)),
+    linear-gradient(180deg, #070504, transparent 22%, transparent 74%, #070504);
+}
+
+.dota-roster__smoke { position: absolute; inset: 22% -10% 0; z-index: -1; background: radial-gradient(ellipse, rgb(202 210 200 / 0.08), transparent 66%); filter: blur(24px); animation: dota-roster-smoke 15s ease-in-out infinite alternate; }
+.dota-roster__spotlights { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.dota-roster__spotlights i { position: absolute; top: 0; width: 22rem; height: 75%; background: linear-gradient(180deg, rgb(227 189 114 / 0.08), transparent); clip-path: polygon(45% 0, 55% 0, 100% 100%, 0 100%); filter: blur(10px); opacity: 0.5; }
+.dota-roster__spotlights i:nth-child(1) { left: 8%; transform: rotate(9deg); }
+.dota-roster__spotlights i:nth-child(2) { left: 39%; background: linear-gradient(180deg, rgb(224 78 67 / 0.11), transparent); }
+.dota-roster__spotlights i:nth-child(3) { right: 7%; transform: rotate(-10deg); }
+
+.dota-roster-stage {
+  margin-top: 4rem;
+  border: 1px solid rgb(227 189 114 / 0.22);
+  background: rgb(5 8 6 / 0.68);
+  box-shadow: inset 0 0 80px rgb(0 0 0 / 0.36), 0 45px 120px rgb(0 0 0 / 0.52);
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px);
+  backdrop-filter: blur(8px);
+}
+
+.dota-roster-stage__header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; border-bottom: 1px solid rgb(227 189 114 / 0.15); background: linear-gradient(90deg, rgb(42 73 59 / 0.2), rgb(73 25 21 / 0.23)); padding: 0.85rem 1rem; }
+.dota-roster-stage__header span { display: inline-flex; align-items: center; gap: 0.4rem; color: #7c887f; font-size: 0.48rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; }
+.dota-roster-stage__header span:last-child { justify-self: end; color: #73ad9d; }
+.dota-roster-stage__header svg { width: 0.72rem; }
+.dota-roster-stage__header strong { color: #cbbd9f; font-family: Georgia, serif; font-size: 0.72rem; }
+
+.dota-roster-grid {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin: 0;
+  perspective: 1200px;
+}
+
+.dota-player-card {
+  min-height: 32rem;
+  padding: 1rem;
+  background: linear-gradient(180deg, rgb(12 16 13 / 0.9), rgb(5 8 6 / 0.96));
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 220ms ease, filter 300ms ease, background 300ms ease;
+}
+
+.dota-player-card:hover { background: linear-gradient(180deg, rgb(29 32 24 / 0.96), rgb(8 10 8 / 0.98)); transform: translateY(-8px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); }
+.dota-player-card.is-featured { background: linear-gradient(155deg, rgb(112 38 33 / 0.4), transparent 48%), linear-gradient(180deg, rgb(17 18 14 / 0.95), rgb(6 8 6 / 0.98)); }
+
+.dota-player-card__portrait {
+  position: relative;
+  display: grid;
+  height: 10.5rem;
+  margin: -1rem -1rem 0;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 42%, rgb(227 189 114 / 0.18), transparent 30%),
+    linear-gradient(160deg, rgb(49 62 50 / 0.42), rgb(14 10 8 / 0.92));
+}
+
+.dota-player-card.is-featured .dota-player-card__portrait { background: radial-gradient(circle at 50% 40%, rgb(224 78 67 / 0.24), transparent 33%), linear-gradient(160deg, rgb(82 31 27 / 0.62), rgb(14 9 7 / 0.94)); }
+.dota-player-card__portrait span { position: relative; z-index: 2; color: #e5d4af; font-family: Georgia, serif; font-size: 3.2rem; letter-spacing: -0.08em; text-shadow: 0 18px 45px rgb(0 0 0 / 0.65); transition: transform 500ms cubic-bezier(.2,.8,.2,1), color 300ms ease; }
+.dota-player-card:hover .dota-player-card__portrait span { color: #fff0c7; transform: scale(1.12) translateY(-0.2rem); }
+.dota-player-card__portrait i,
+.dota-player-card__portrait b { position: absolute; width: 8rem; height: 8rem; border: 1px solid rgb(227 189 114 / 0.1); transform: rotate(45deg); transition: transform 700ms cubic-bezier(.2,.8,.2,1); }
+.dota-player-card__portrait b { width: 5rem; height: 5rem; border-color: rgb(224 78 67 / 0.15); transform: rotate(-45deg); }
+.dota-player-card:hover .dota-player-card__portrait i { transform: rotate(95deg) scale(1.1); }
+.dota-player-card:hover .dota-player-card__portrait b { transform: rotate(-105deg) scale(1.08); }
+
+.dota-player-card__frame { position: absolute; inset: 0; pointer-events: none; }
+.dota-player-card__frame i { position: absolute; width: 1.2rem; height: 1.2rem; border-color: rgb(227 189 114 / 0.4); }
+.dota-player-card__frame i:nth-child(1) { top: 0.45rem; left: 0.45rem; border-top: 1px solid; border-left: 1px solid; }
+.dota-player-card__frame i:nth-child(2) { top: 0.45rem; right: 0.45rem; border-top: 1px solid; border-right: 1px solid; }
+.dota-player-card__frame i:nth-child(3) { right: 0.45rem; bottom: 0.45rem; border-right: 1px solid; border-bottom: 1px solid; }
+.dota-player-card__frame i:nth-child(4) { bottom: 0.45rem; left: 0.45rem; border-bottom: 1px solid; border-left: 1px solid; }
+
+.dota-player-card__top { margin-top: 0.9rem; }
+.dota-player-card__identity { margin-top: 1.5rem; }
+.dota-player-card__identity small { color: #706d65; font-size: 0.43rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; }
+.dota-player-card__identity h3 { margin: 0.35rem 0 0; color: #eee5d4; font-size: 1.7rem; line-height: 1; }
+.dota-player-card__identity p { display: flex; align-items: center; gap: 0.4rem; margin: 0.45rem 0 0; color: #baa77f; font-size: 0.6rem; }
+.dota-player-card__identity p svg { width: 0.75rem; color: var(--rune-gold); }
+
+.dota-player-card__specialties { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 1.2rem; }
+.dota-player-card__specialties span { border: 1px solid rgb(227 189 114 / 0.13); background: rgb(227 189 114 / 0.035); padding: 0.35rem 0.48rem; color: #817c72; font-size: 0.45rem; font-weight: 800; text-transform: uppercase; }
+.dota-player-card__roles { margin-top: 1.2rem; }
+.dota-player-card__stats { background: rgb(255 255 255 / 0.06); }
+.dota-player-card__stats span { background: rgb(4 7 5 / 0.78); padding: 0.7rem; }
+.dota-player-card__stats small { display: block; color: #63635d; font-size: 0.42rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; }
+.dota-player-card__stats strong { display: flex; align-items: center; gap: 0.3rem; margin-top: 0.25rem; color: #c9c0af; font-size: 0.62rem; }
+.dota-player-card__stats svg { width: 0.65rem; color: var(--rune-gold); fill: currentColor; }
+.dota-player-card__verification { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.75rem; color: #648e81; font-size: 0.46rem; font-weight: 800; }
+.dota-player-card__verification svg { width: 0.67rem; }
+.dota-player-card__foot { position: absolute; right: 1rem; bottom: 1rem; left: 1rem; z-index: 2; }
+.dota-player-card__foot span { display: inline-flex; align-items: center; gap: 0.35rem; }
+.dota-player-card__foot svg { width: 0.7rem; }
+
+/* Victory feed */
+.dota-victories {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 12% 70%, rgb(112 201 176 / 0.08), transparent 27rem),
+    radial-gradient(circle at 88% 25%, rgb(224 78 67 / 0.15), transparent 32rem),
+    linear-gradient(180deg, #070504, #0b0806);
+}
+
+.dota-victories__embers { position: absolute; inset: 0; background-image: radial-gradient(circle, rgb(235 129 68 / 0.48) 0 1px, transparent 1.6px); background-size: 91px 123px; opacity: 0.16; animation: war-embers 18s linear infinite; pointer-events: none; }
+
+.dota-victory-feed {
+  margin-top: 4rem;
+  border: 1px solid rgb(227 189 114 / 0.2);
+  background: rgb(5 8 6 / 0.75);
+  box-shadow: 0 45px 120px rgb(0 0 0 / 0.5);
+  clip-path: polygon(13px 0, calc(100% - 13px) 0, 100% 13px, 100% calc(100% - 13px), calc(100% - 13px) 100%, 13px 100%, 0 calc(100% - 13px), 0 13px);
+}
+
+.dota-victory-feed__header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; border-bottom: 1px solid rgb(227 189 114 / 0.14); background: linear-gradient(90deg, rgb(40 76 61 / 0.19), rgb(83 25 21 / 0.25)); padding: 0.95rem 1.1rem; }
+.dota-victory-feed__header span { display: inline-flex; align-items: center; gap: 0.45rem; color: #d3b876; font-size: 0.53rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; }
+.dota-victory-feed__header svg { width: 0.8rem; }
+.dota-victory-feed__header p { margin: 0; color: #666860; font-size: 0.48rem; font-weight: 800; text-transform: uppercase; }
+.dota-victory-feed__header strong { justify-self: end; color: #779e90; font-size: 0.54rem; }
+
+.dota-victory-feed__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgb(227 189 114 / 0.13); perspective: 1200px; }
+.dota-victory-card { position: relative; min-width: 0; overflow: hidden; background: linear-gradient(155deg, rgb(20 24 19 / 0.98), rgb(6 9 7 / 0.99)); padding: 1.3rem; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); transition: transform 180ms ease, background 280ms ease; }
+.dota-victory-card:hover { z-index: 2; background: linear-gradient(155deg, rgb(29 30 22 / 0.99), rgb(8 10 8 / 0.99)); transform: translateY(-5px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); }
+.dota-victory-card::after { position: absolute; right: -3.5rem; bottom: -3.5rem; width: 9rem; height: 9rem; border: 1px solid rgb(227 189 114 / 0.07); content: ""; transform: rotate(45deg); }
+
+.dota-victory-card__result { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border-bottom: 1px solid rgb(255 255 255 / 0.07); padding-bottom: 0.85rem; }
+.dota-victory-card__result span { color: #7fc2a9; font-size: 0.54rem; font-weight: 900; letter-spacing: 0.16em; text-transform: uppercase; text-shadow: 0 0 15px rgb(112 201 176 / 0.45); }
+.dota-victory-card__result strong { color: #65675f; font-family: monospace; font-size: 0.52rem; }
+.dota-victory-card__route { margin-top: 1.4rem; }
+.dota-victory-card__route small { display: block; color: #9d8053; font-size: 0.44rem; font-weight: 900; letter-spacing: 0.11em; text-transform: uppercase; }
+.dota-victory-card__route strong { display: block; margin-top: 0.45rem; color: #e6ddca; font-family: Georgia, serif; font-size: 1.05rem; }
+.dota-victory-card__route span { display: block; margin-top: 0.3rem; color: #78786f; font-size: 0.52rem; }
+.dota-victory-card blockquote { min-height: 8.7rem; margin: 1.5rem 0 0; color: #aaa69b; font-family: Georgia, serif; font-size: 0.75rem; line-height: 1.75; }
+.dota-victory-card blockquote svg { width: 1rem; margin-right: 0.35rem; color: rgb(227 189 114 / 0.42); vertical-align: text-top; }
+.dota-victory-card__meta { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border-block: 1px solid rgb(255 255 255 / 0.07); padding-block: 0.75rem; }
+.dota-victory-card__meta span { display: inline-flex; align-items: center; gap: 0.3rem; color: #77796f; font-size: 0.49rem; }
+.dota-victory-card__meta svg { width: 0.65rem; }
+.dota-victory-card__meta span:last-child svg { color: var(--rune-gold); fill: currentColor; }
+.dota-victory-card__customer { position: relative; z-index: 2; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.7rem; margin-top: 1rem; }
+.dota-victory-card__customer > span { display: grid; width: 2.25rem; height: 2.25rem; place-items: center; border: 1px solid rgb(227 189 114 / 0.24); background: rgb(227 189 114 / 0.06); color: #d6bc84; font-family: Georgia, serif; transform: rotate(45deg); }
+.dota-victory-card__customer strong { display: block; color: #ccc4b5; font-size: 0.6rem; }
+.dota-victory-card__customer small { display: block; margin-top: 0.2rem; color: #62645f; font-size: 0.46rem; }
+.dota-victory-card__customer b { display: inline-flex; align-items: center; gap: 0.3rem; color: #6fa590; font-size: 0.45rem; }
+.dota-victory-card__customer b svg { width: 0.68rem; }
+
+.dota-victory-feed__ticker { display: flex; overflow: hidden; align-items: center; justify-content: center; gap: 1rem; border-top: 1px solid rgb(227 189 114 / 0.13); background: rgb(5 7 6 / 0.92); padding: 0.8rem 1rem; color: #686a64; font-size: 0.47rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+.dota-victory-feed__ticker i { width: 0.35rem; height: 0.35rem; border: 1px solid #7b6745; transform: rotate(45deg); }
+.dota-victory-feed__ticker b { color: #a78c59; }
