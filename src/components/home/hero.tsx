@@ -24,20 +24,20 @@ export function Hero() {
 
       <div className="container-shell relative grid min-h-[calc(100svh-76px)] items-center gap-14 py-20 lg:grid-cols-[1.08fr_.72fr] lg:py-16">
         <div className="max-w-4xl">
-          <Badge tone="gold"><span className="mr-2 size-1.5 animate-pulse rounded-full bg-amber" />MMR Boost · Calibration · Behavior Score</Badge>
+          <Badge tone="gold"><span className="mr-2 size-1.5 animate-pulse rounded-full bg-amber" />Dota 2 Ranked · MMR Boost · Calibration</Badge>
           <h1 className="display-type mt-7 text-balance text-[clamp(4.4rem,9.5vw,8.8rem)] font-black uppercase">
-            Dota 2 MMR<br /><span className="text-crimson">boosting.</span>
+            Queue the<br /><span className="text-crimson">climb.</span>
           </h1>
           <p className="mt-7 max-w-2xl text-balance text-lg leading-8 text-[#c4cac7] md:text-xl">
-            MMR boosting is the main service. Configure an exact climb in Solo Assist or Duo Queue, add calibration or behavior-score recovery, and track it from checkout to completion.
+            A Dota 2-first MMR service for Solo Assist and Duo Queue. Set your medal, role, hero pool, and MMR scope—then track every milestone from checkout to completion.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <LinkButton href="/pricing" arrow className="sm:min-w-48">Configure my boost</LinkButton>
             <LinkButton href="/boosters" variant="secondary" className="sm:min-w-44">Browse boosters</LinkButton>
           </div>
           <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-xs font-semibold text-[#b3bbb7]">
-            <span className="flex items-center gap-2"><ShieldCheck className="size-4 text-cyan" />Solo + Duo modes</span>
-            <span className="flex items-center gap-2"><Check className="size-4 text-cyan" />Verified boosters</span>
+            <span className="flex items-center gap-2"><ShieldCheck className="size-4 text-cyan" />Role-aware party matching</span>
+            <span className="flex items-center gap-2"><Check className="size-4 text-cyan" />Hero-pool compatibility</span>
             <span className="flex items-center gap-2"><Headphones className="size-4 text-cyan" />Human support</span>
           </div>
         </div>
