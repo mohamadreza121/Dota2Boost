@@ -42,8 +42,8 @@ const laneGroups = [
     links: [
       ["Work with us", "/work-with-us"],
       ["FAQ", "/faq"],
-      ["Support", "/legal/community-guidelines"],
-      ["Contact", "/contact"]
+      ["Community guidelines", "/legal/community-guidelines"],
+      ["Service disclaimer", "/legal/disclaimer"]
     ]
   }
 ] as const;
