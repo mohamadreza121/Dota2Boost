@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/home/hero";
+import { DotaHeroRoster } from "@/components/home/dota-hero-roster";
 import { TrustStrip } from "@/components/home/trust-strip";
 import { RankLadder } from "@/components/home/rank-ladder";
 import { ServiceGrid } from "@/components/home/service-grid";
@@ -14,5 +15,5 @@ import { FaqPreview } from "@/components/home/faq-preview";
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default function HomePage() {
-  return <><Hero /><RankLadder /><TrustStrip /><ServiceGrid /><BoostSystem /><HowItWorks /><CoachPreview /><DashboardPreview /><ReviewPreview /><WorkCta /><FaqPreview /></>;
+  return <><Hero /><DotaHeroRoster /><RankLadder /><TrustStrip /><ServiceGrid /><BoostSystem /><HowItWorks /><CoachPreview /><DashboardPreview /><ReviewPreview /><WorkCta /><FaqPreview /></>;
 }
