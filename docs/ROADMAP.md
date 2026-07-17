@@ -36,10 +36,13 @@
 - Realtime delivery, presence, typing, read receipts, reactions, pagination, search, retries, and moderation
 - Attachment finalization, malware scanning, thumbnails, resumable uploads, and signed downloads
 
-## Phase 7 — admin platform
+## Phase 7 — admin platform: operations foundation delivered
 
-- Complete order, application, booster, customer, payment, dispute, review, analytics, and audit workflows
-- Expand the commerce console into fully transactional service/add-on/tier/regional pricing operations
+- Live order, customer, booster, application, payment, refund, dispute, review, analytics, and audit views
+- Transactional assignment/replacement, order status/deadline, account status, application stage, dispute resolution, and review moderation controls
+- Every sensitive mutation repeats admin/owner authorization in the service-role transaction and writes before/after audit state atomically
+- Existing commerce console covers transactional service/package/rule, discount, and Stripe refund operations
+- Next: deeper order detail, bulk operations, export/reporting, application evidence review, support inbox, and configurable regional/add-on/tier rule builders
 
 ## Phase 8 — production hardening
 
