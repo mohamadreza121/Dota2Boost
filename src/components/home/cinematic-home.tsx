@@ -106,6 +106,7 @@ export function CinematicHome() {
   const counterRef = useRef<HTMLSpanElement>(null);
   const beatRefs = useRef<Array<HTMLDivElement | null>>([]);
   const [ready, setReady] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -125,8 +126,8 @@ export function CinematicHome() {
         if (!element) return;
         const beat = beats[index];
         const fadeWindow = index === beats.length - 1 ? 0.075 : 0.065;
-        const fadeIn = clamp((progress - beat.start) / fadeWindow);
-        const fadeOut = clamp((beat.end - progress) / fadeWindow);
+        const fadeIn = beat.start === 0 ? 1 : clamp((progress - beat.start) / fadeWindow);
+        const fadeOut = beat.end === 1 ? 1 : clamp((beat.end - progress) / fadeWindow);
         const opacity = Math.min(fadeIn, fadeOut);
         const direction = beat.align === "right" ? -1 : 1;
         const shift = (1 - opacity) * 34;
@@ -244,8 +245,12 @@ export function CinematicHome() {
             muted
             playsInline
             preload="auto"
-            poster="/media/highground-duel-poster.webp"
+            poster="/media/highground-battlefield.webp"
             aria-hidden="true"
+            onError={() => {
+              setVideoFailed(true);
+              setReady(true);
+            }}
           >
             <source src="/media/highground-duel-scroll.mp4" type="video/mp4" />
           </video>
@@ -261,7 +266,7 @@ export function CinematicHome() {
             </div>
             <div className="duel-scroll__hud-status">
               <span className={ready ? "is-ready" : ""} />
-              {ready ? "Sequence linked" : "Loading battle sequence"}
+              {videoFailed ? "Video asset pending" : ready ? "Sequence linked" : "Loading battle sequence"}
             </div>
           </div>
 
@@ -299,7 +304,7 @@ export function CinematicHome() {
 
           <div className={`duel-scroll__loader${ready ? " is-ready" : ""}`} aria-live="polite">
             <span />
-            <p>{ready ? "Battle sequence ready" : "Preparing battle sequence"}</p>
+            <p>{videoFailed ? "Static preview active" : ready ? "Battle sequence ready" : "Preparing battle sequence"}</p>
           </div>
         </div>
       </section>
