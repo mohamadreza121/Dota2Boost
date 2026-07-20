@@ -70,7 +70,7 @@ const beats: readonly Beat[] = [
   {
     start: 0.79,
     end: 1,
-    align: "center",
+    align: "left",
     eyebrow: "05 / Take the highground",
     title: "Forge the route. Siege the rank.",
     body: "Build a live server-priced campaign and move through every checkpoint with the scope visible.",
@@ -153,7 +153,6 @@ export function ForgeHero() {
         element.style.setProperty("--beat-lift", `${(1 - opacity) * 18}px`);
         element.style.setProperty("--beat-blur", `${(1 - opacity) * 7}px`);
         element.style.setProperty("--beat-scale", `${0.97 + opacity * 0.03}`);
-        element.style.setProperty("--beat-glow", opacity.toFixed(3));
         element.style.pointerEvents = opacity > 0.72 ? "auto" : "none";
         element.inert = opacity <= 0.72;
         element.setAttribute("aria-hidden", opacity > 0.1 ? "false" : "true");
@@ -173,7 +172,7 @@ export function ForgeHero() {
       );
       stage.style.setProperty(
         "--video-scale",
-        `${1.02 + Math.sin(progress * Math.PI) * 0.045}`
+        `${1 + Math.sin(progress * Math.PI) * 0.025}`
       );
       stage.style.setProperty(
         "--forge-fire-intensity",
@@ -360,8 +359,8 @@ export function ForgeHero() {
                     <Link href={beat.primary.href} className="molten-button">
                       <span>{beat.primary.label}</span><i><ArrowRight /></i>
                     </Link>
-                    <Link href={beat.secondary.href} className="plate-button">
-                      {beat.secondary.label}<ArrowUpRight />
+                    <Link href={beat.secondary.href} className="molten-button molten-button--secondary">
+                      <span>{beat.secondary.label}</span><i><ArrowUpRight /></i>
                     </Link>
                   </div>
                 </div>

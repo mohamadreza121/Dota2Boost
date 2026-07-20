@@ -239,7 +239,7 @@ export function SiegeCta() {
           <span>Choose the objective and let the configurator define the scope, eligibility, and live server-priced quote.</span>
           <div>
             <Link href="/pricing" className="molten-button"><span>Forge my campaign</span><i><ArrowRight /></i></Link>
-            <Link href="/services" className="plate-button">Compare services <ArrowUpRight /></Link>
+            <Link href="/services" className="molten-button molten-button--secondary"><span>Compare services</span><i><ArrowUpRight /></i></Link>
           </div>
         </div>
 
