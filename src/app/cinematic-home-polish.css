@@ -4,15 +4,15 @@
 .duel-scroll__video{inset:0;width:100vw;max-width:none;object-fit:cover;object-position:center center;transform:scale(1.035)}
 .duel-scroll__grade{background:linear-gradient(90deg,rgb(5 6 10/.78) 0%,rgb(5 6 10/.35) 24%,transparent 48%,rgb(5 6 10/.18) 72%,rgb(5 6 10/.66) 100%),linear-gradient(180deg,rgb(5 6 10/.24),transparent 22%,transparent 64%,rgb(5 6 10/.94))}
 .duel-scroll__chrome{right:clamp(1rem,2.4vw,2.5rem);left:clamp(1rem,2.4vw,2.5rem)}
-.duel-scroll__scenes{left:clamp(.7rem,1.4vw,1.35rem)}
+.duel-scroll__scenes{display:none!important}
+.duel-scroll__timeline{display:none!important}
 .duel-beat{width:min(49rem,calc(100% - 2rem))}
-.duel-beat--left{left:clamp(4.25rem,6vw,6.75rem)}
+.duel-beat--left{left:clamp(1rem,4vw,4.5rem)}
 .duel-beat--right{right:clamp(1rem,4vw,4.5rem)}
 .duel-beat__panel{max-width:46rem;border-radius:1.35rem;padding:clamp(1.35rem,2.4vw,2.1rem)}
 .duel-beat h1{font-size:clamp(3.1rem,5.5vw,6.15rem);line-height:.91}
 .duel-beat__body{max-width:39rem;font-size:clamp(.95rem,1.1vw,1.08rem)}
-.duel-route-card{right:clamp(1rem,2.5vw,2.5rem);bottom:clamp(5.4rem,7vw,6.6rem);width:min(20rem,calc(100% - 2rem))}
-.duel-scroll__timeline{right:clamp(1rem,2.5vw,2.5rem);left:clamp(1rem,2.5vw,2.5rem)}
+.duel-route-card{right:clamp(1rem,2.5vw,2.5rem);bottom:clamp(2rem,4vw,3rem);width:min(20rem,calc(100% - 2rem))}
 .command-deck .container-shell{width:min(1440px,calc(100% - 32px))}
 .command-deck__header{grid-template-columns:minmax(0,1.1fr) minmax(22rem,.72fr);gap:clamp(2rem,6vw,6rem)}
 .command-grid{align-items:stretch}
@@ -32,5 +32,5 @@ body:has(.cinematic-home) .dota-player-slot{min-height:2.65rem;border-color:rgb(
 body:has(.cinematic-home) .dota-header-core-button{min-height:2.75rem;padding:.65rem .95rem;border-radius:14px;background:linear-gradient(135deg,#6d4aff,#8b5cf6 56%,#ff5f7a);box-shadow:0 12px 34px rgb(109 74 255/.28)}
 body:has(.cinematic-home) .dota-command-logo{padding-left:.15rem}
 body:has(.cinematic-home) .dota-command-logo svg{filter:drop-shadow(0 0 18px rgb(139 92 246/.28))}
-@media(max-width:1100px){body:has(.cinematic-home) .dota-command-nav{display:none}.duel-beat--left{left:clamp(1rem,4vw,3rem)}.duel-route-card{display:none}.duel-scroll__scenes{display:none}}
-@media(max-width:760px){body:has(.cinematic-home) .dota-command-header{top:.45rem;width:calc(100% - 16px);height:62px;border-radius:18px}.duel-scroll__sticky{height:calc(100svh - 70px)}.duel-scroll__chrome{top:.8rem}.duel-beat{top:auto;right:1rem;bottom:5.6rem;left:1rem;width:auto;transform:none}.duel-beat--left,.duel-beat--right,.duel-beat--center{right:1rem;left:1rem;text-align:left;transform:none}.duel-beat--right .duel-beat__panel,.duel-beat--center .duel-beat__panel{margin:0;text-align:left}.duel-beat--right .duel-beat__meta,.duel-beat--right .duel-beat__actions,.duel-beat--center .duel-beat__meta,.duel-beat--center .duel-beat__actions{justify-content:flex-start}.duel-beat h1{font-size:clamp(2.55rem,12vw,4rem)}.duel-beat__panel{max-width:none;padding:1.15rem;border-radius:1.1rem}.duel-scroll__timeline{grid-template-columns:auto 1fr;gap:.55rem}.duel-scroll__timeline p{display:none}.duel-scroll__identity{display:none}.command-deck .container-shell{width:min(100% - 20px,1440px)}}
+@media(max-width:1100px){body:has(.cinematic-home) .dota-command-nav{display:none}.duel-beat--left{left:clamp(1rem,4vw,3rem)}.duel-route-card{display:none}}
+@media(max-width:760px){body:has(.cinematic-home) .dota-command-header{top:.45rem;width:calc(100% - 16px);height:62px;border-radius:18px}.duel-scroll__sticky{height:calc(100svh - 70px)}.duel-scroll__chrome{top:.8rem}.duel-beat{top:auto;right:1rem;bottom:2rem;left:1rem;width:auto;transform:none}.duel-beat--left,.duel-beat--right,.duel-beat--center{right:1rem;left:1rem;text-align:left;transform:none}.duel-beat--right .duel-beat__panel,.duel-beat--center .duel-beat__panel{margin:0;text-align:left}.duel-beat--right .duel-beat__meta,.duel-beat--right .duel-beat__actions,.duel-beat--center .duel-beat__meta,.duel-beat--center .duel-beat__actions{justify-content:flex-start}.duel-beat h1{font-size:clamp(2.55rem,12vw,4rem)}.duel-beat__panel{max-width:none;padding:1.15rem;border-radius:1.1rem}.duel-scroll__identity{display:none}.command-deck .container-shell{width:min(100% - 20px,1440px)}}
