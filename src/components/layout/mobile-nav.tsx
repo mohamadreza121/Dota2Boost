@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, ChevronRight, Menu, ShieldCheck, X } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 
@@ -19,6 +19,8 @@ const links = [
 export function MobileNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -26,14 +28,44 @@ export function MobileNav() {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+    const previousFocus = document.activeElement as HTMLElement | null;
+    const trigger = triggerRef.current;
+    const drawer = drawerRef.current;
+    const focusable = drawer
+      ? Array.from(
+          drawer.querySelectorAll<HTMLElement>(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          )
+        )
+      : [];
+
+    focusable[0]?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab" || focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (!first || !last) return;
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
-    window.addEventListener("keydown", closeOnEscape);
+    window.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("keydown", handleKeyDown);
+      (previousFocus ?? trigger)?.focus();
     };
   }, [open]);
 
@@ -44,6 +76,7 @@ export function MobileNav() {
   return (
     <div className="dota-mobile-nav">
       <button
+        ref={triggerRef}
         type="button"
         aria-label={open ? "Close navigation" : "Open navigation"}
         aria-expanded={open}
@@ -58,7 +91,7 @@ export function MobileNav() {
         <div id="dota-mobile-menu" className="dota-mobile-menu" role="dialog" aria-modal="true" aria-label="Site navigation">
           <button type="button" aria-label="Close navigation" className="dota-mobile-menu__scrim" onClick={() => setOpen(false)} />
 
-          <aside className="dota-mobile-menu__drawer">
+          <aside ref={drawerRef} className="dota-mobile-menu__drawer">
             <div className="dota-mobile-menu__top">
               <Logo />
               <button type="button" onClick={() => setOpen(false)} aria-label="Close navigation" className="dota-mobile-close">
@@ -88,7 +121,7 @@ export function MobileNav() {
             <div className="dota-mobile-menu__bottom">
               <div className="dota-mobile-menu__actions">
                 <Link href="/auth/sign-in" onClick={() => setOpen(false)} className="dota-mobile-menu__sign-in">Sign in</Link>
-                <Link href="/pricing" onClick={() => setOpen(false)} className="dota-mobile-menu__cta">Build rank route <ArrowUpRight /></Link>
+                <Link href="/pricing" onClick={() => setOpen(false)} className="dota-mobile-menu__cta">Forge rank route <ArrowUpRight /></Link>
               </div>
               <p className="dota-mobile-menu__disclaimer"><ShieldCheck /> Customer-operated Solo and Duo delivery. No Steam credentials or remote access.</p>
             </div>

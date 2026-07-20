@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils";
 type Variant = "primary" | "secondary" | "ghost";
 
 const styles: Record<Variant, string> = {
-  primary: "bg-crimson text-white border-crimson hover:bg-[#e05c5c] hover:border-[#e05c5c] shadow-[0_12px_36px_rgb(210_83_83_/_0.18)]",
-  secondary: "bg-white/[0.04] text-ivory border-white/15 hover:bg-white/[0.08] hover:border-white/25",
-  ghost: "bg-transparent text-mist border-transparent hover:text-white hover:bg-white/[0.05]"
+  primary: "forge-shared-button--primary",
+  secondary: "forge-shared-button--secondary",
+  ghost: "forge-shared-button--ghost"
 };
 
 interface LinkButtonProps {
@@ -24,7 +24,7 @@ export function LinkButton({ href, children, variant = "primary", className, arr
     <Link
       href={href}
       className={cn(
-        "inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold transition duration-200",
+        "forge-shared-button",
         styles[variant],
         className
       )}
@@ -44,7 +44,7 @@ export function Button({ className, variant = "primary", type = "button", ...pro
     <button
       type={type}
       className={cn(
-        "inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold transition duration-200 disabled:opacity-50",
+        "forge-shared-button",
         styles[variant],
         className
       )}

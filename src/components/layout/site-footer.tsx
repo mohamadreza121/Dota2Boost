@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -11,6 +12,7 @@ import {
   Swords
 } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
+import { rankMedals } from "@/lib/data/ranks";
 
 const laneGroups = [
   {
@@ -49,10 +51,10 @@ const laneGroups = [
 ] as const;
 
 const trustItems = [
-  { title: "No credentials", detail: "No passwords, Steam Guard codes, or remote access.", icon: ShieldCheck },
-  { title: "Transparent tracking", detail: "Milestones and updates stay attached to the order.", icon: Eye },
-  { title: "Clear service scope", detail: "Exact modes, match blocks, and route selection.", icon: ScrollText },
-  { title: "Verified roster", detail: "Rank, role, region, and quality checks before approval.", icon: Medal }
+  { title: "No credentials", detail: "No passwords, Steam Guard codes, or remote access.", icon: ShieldCheck, secure: true },
+  { title: "Transparent tracking", detail: "Milestones and updates stay attached to the order.", icon: Eye, secure: false },
+  { title: "Clear service scope", detail: "Exact modes, match blocks, and route selection.", icon: ScrollText, secure: false },
+  { title: "Verified roster", detail: "Rank, role, region, and quality checks before approval.", icon: Medal, secure: true }
 ] as const;
 
 const legalLinks = [
@@ -115,16 +117,16 @@ export function SiteFooter() {
 
           <aside className="dota-command-footer__ready">
             <div>
-              <small>Ready check</small>
+              <small>Your next campaign · example route</small>
               <h2>Your next campaign is waiting.</h2>
               <p>Choose an exact medal route and receive a live server-priced quote before checkout.</p>
               <div className="dota-command-footer__route">
-                <span><small>Current</small><strong>Legend III</strong></span>
+                <span><Image src={rankMedals.Legend.image} alt="Legend rank medal" width={42} height={42} /><i><small>Current</small><strong>Legend III</strong></i></span>
                 <i aria-hidden="true" />
-                <span><small>Target</small><strong>Ancient I</strong></span>
+                <span><Image src={rankMedals.Ancient.image} alt="Ancient rank medal" width={42} height={42} /><i><small>Target</small><strong>Ancient I</strong></i></span>
               </div>
             </div>
-            <Link href="/pricing">Configure route <ArrowUpRight /></Link>
+            <Link href="/pricing">Forge rank route <ArrowUpRight /></Link>
           </aside>
         </div>
 
@@ -132,7 +134,7 @@ export function SiteFooter() {
           {trustItems.map((item) => {
             const Icon = item.icon;
             return (
-              <div key={item.title} className="dota-footer-item">
+              <div key={item.title} className={`dota-footer-item${item.secure ? " is-secure" : ""}`}>
                 <span><Icon /></span>
                 <div><strong>{item.title}</strong><small>{item.detail}</small></div>
               </div>

@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-ink: #070909;
-  --color-panel: #101313;
-  --color-panel-2: #181c1b;
-  --color-line: #29302e;
-  --color-mist: #a8b1ad;
-  --color-ivory: #f5f2e9;
-  --color-crimson: #d64f52;
-  --color-crimson-dark: #7f292d;
-  --color-amber: #d8ad60;
-  --color-cyan: #75c6cc;
+  --color-ink: #030201;
+  --color-panel: #0e0907;
+  --color-panel-2: #18100d;
+  --color-line: #2a1812;
+  --color-mist: #a89c8d;
+  --color-ivory: #f3e8d2;
+  --color-crimson: #b62918;
+  --color-crimson-dark: #7a1710;
+  --color-amber: #ffc15a;
+  --color-cyan: #68d7bc;
   --font-sans: "Inter", "Segoe UI", Arial, sans-serif;
-  --font-display: "Arial Narrow", "Inter Tight", "Segoe UI", sans-serif;
+  --font-display: "Palatino Linotype", "Book Antiqua", Georgia, serif;
   --shadow-soft: 0 20px 70px rgb(0 0 0 / 0.28);
 }
 
@@ -35,8 +35,8 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(circle at 8% 0%, rgb(155 44 49 / 0.17), transparent 32rem),
-    radial-gradient(circle at 92% 10%, rgb(72 146 151 / 0.09), transparent 29rem),
+    radial-gradient(circle at 8% 0%, rgb(122 23 16 / 0.16), transparent 32rem),
+    radial-gradient(circle at 92% 10%, rgb(230 75 32 / 0.07), transparent 29rem),
     var(--color-ink);
   color: var(--color-ivory);
   font-family: var(--font-sans);
@@ -45,11 +45,11 @@ body {
 }
 
 body::-webkit-scrollbar { width: 10px; }
-body::-webkit-scrollbar-track { background: #070909; }
-body::-webkit-scrollbar-thumb { border: 3px solid #070909; border-radius: 999px; background: #2b3230; }
+body::-webkit-scrollbar-track { background: #030201; }
+body::-webkit-scrollbar-thumb { border: 3px solid #030201; border-radius: 999px; background: #3b2118; }
 
 ::selection {
-  background: rgb(210 83 83 / 0.38);
+  background: rgb(230 75 32 / 0.42);
   color: white;
 }
 
@@ -63,7 +63,7 @@ summary {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid #ffc15a;
   outline-offset: 3px;
 }
 
