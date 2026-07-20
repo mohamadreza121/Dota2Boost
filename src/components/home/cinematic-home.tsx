@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import {
@@ -279,7 +279,7 @@ export function CinematicHome() {
             muted
             playsInline
             preload="auto"
-            poster="/media/highground-battlefield.webp"
+            poster="/media/highground-duel-poster.webp"
             aria-hidden="true"
             onError={() => {
               setVideoFailed(true);
@@ -419,3 +419,4 @@ export function CinematicHome() {
     </div>
   );
 }
+
