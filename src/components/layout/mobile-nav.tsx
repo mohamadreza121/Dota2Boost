@@ -20,8 +20,6 @@ export function MobileNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  useEffect(() => setOpen(false), [pathname]);
-
   useEffect(() => {
     if (!open) return;
 
@@ -68,7 +66,7 @@ export function MobileNav() {
               </button>
             </div>
 
-            <div className="dota-mobile-menu__status"><i /> Command menu // regional coverage active</div>
+            <div className="dota-mobile-menu__status"><i /> Command menu {"//"} regional coverage active</div>
 
             <nav aria-label="Mobile navigation" className="dota-mobile-menu__nav">
               {links.map((link) => (
