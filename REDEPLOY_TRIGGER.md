@@ -1,3 +1,5 @@
-# Fresh cinematic homepage deployment
+# Fresh cinematic homepage production deployment
 
-This branch was recreated from the fixed cinematic homepage implementation to force a clean Vercel preview deployment event.
+The TypeScript-safe cinematic homepage was merged into `main` on 2026-07-20.
+
+This follow-up commit exists only to force a clean production deployment event after clearing any older stuck Vercel deployments.
