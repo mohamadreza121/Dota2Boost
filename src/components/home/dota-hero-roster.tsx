@@ -46,7 +46,7 @@ export function BoosterDraft() {
                 </div>
                 <div className="dota-player-card__frame" aria-hidden="true"><i /><i /><i /><i /></div>
                 <div className="war-booster-card__top dota-player-card__top">
-                  <span className="war-booster-card__slot">P{index + 1} // {positions[index]}</span>
+                  <span className="war-booster-card__slot">P{index + 1} {"//"} {positions[index]}</span>
                   <span className="war-booster-card__availability"><Radio /> {booster.availability}</span>
                 </div>
 
