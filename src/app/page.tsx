@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { CinematicHome } from "@/components/home/cinematic-home";
 import "./cinematic-home.css";
 import "./cinematic-home-modern.css";
+import "./cinematic-home-polish.css";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
