@@ -104,7 +104,7 @@ export function SiteFooter() {
               const Icon = group.icon;
               return (
                 <details key={group.lane} className="dota-footer-accordion">
-                  <summary><span><Icon /> {group.lane} // {group.title}</span></summary>
+                  <summary><span><Icon /> {group.lane} {"//"} {group.title}</span></summary>
                   <nav aria-label={`${group.title} links`}>
                     {group.links.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
                   </nav>
