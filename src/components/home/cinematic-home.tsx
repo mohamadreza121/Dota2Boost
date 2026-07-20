@@ -15,7 +15,20 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-const beats = [
+type BeatAlignment = "left" | "right" | "center";
+
+type Beat = {
+  start: number;
+  end: number;
+  align: BeatAlignment;
+  kicker: string;
+  title: string;
+  body: string;
+  primary: { label: string; href: string };
+  secondary: { label: string; href: string };
+};
+
+const beats: readonly Beat[] = [
   {
     start: 0,
     end: 0.22,
@@ -66,7 +79,7 @@ const beats = [
     primary: { label: "Start my climb", href: "/pricing" },
     secondary: { label: "Talk to a coach", href: "/services/coaching" }
   }
-] as const;
+];
 
 const services = [
   {
@@ -111,42 +124,34 @@ export function CinematicHome() {
   useEffect(() => {
     const stage = stageRef.current;
     const video = videoRef.current;
+
     if (!stage || !video) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let targetProgress = 0;
     let renderedProgress = 0;
-    let frame = 0;
+    let animationFrame = 0;
     let running = false;
-    let metadataReady = video.readyState >= 1;
+    let metadataReady = video.readyState >= HTMLMediaElement.HAVE_METADATA;
     let lastVideoTime = -1;
 
-    const setBeatStyles = (progress: number) => {
+    const renderBeats = (progress: number) => {
       beatRefs.current.forEach((element, index) => {
-        if (!element) return;
         const beat = beats[index];
+        if (!element || !beat) return;
+
         const fadeWindow = index === beats.length - 1 ? 0.075 : 0.065;
         const fadeIn = beat.start === 0 ? 1 : clamp((progress - beat.start) / fadeWindow);
         const fadeOut = beat.end === 1 ? 1 : clamp((beat.end - progress) / fadeWindow);
         const opacity = Math.min(fadeIn, fadeOut);
         const direction = beat.align === "right" ? -1 : 1;
         const shift = (1 - opacity) * 34;
+
         element.style.opacity = opacity.toFixed(3);
         element.style.setProperty("--beat-shift", `${shift * direction}px`);
         element.style.pointerEvents = opacity > 0.72 ? "auto" : "none";
         element.setAttribute("aria-hidden", opacity > 0.1 ? "false" : "true");
       });
-    };
-
-    const syncTarget = () => {
-      const header = Number.parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue("--header-height")
-      ) || 0;
-      const start = stage.offsetTop - header;
-      const viewport = Math.max(1, window.innerHeight - header);
-      const travel = Math.max(1, stage.offsetHeight - viewport);
-      targetProgress = clamp((window.scrollY - start) / travel);
-      requestTick();
     };
 
     const render = (progress: number) => {
@@ -156,23 +161,30 @@ export function CinematicHome() {
       if (progressRef.current) {
         progressRef.current.style.transform = `scaleX(${progress})`;
       }
+
       if (counterRef.current) {
         counterRef.current.textContent = String(Math.round(progress * 100)).padStart(2, "0");
       }
 
-      setBeatStyles(progress);
+      renderBeats(progress);
 
       if (metadataReady && Number.isFinite(video.duration) && video.duration > 0) {
         const desiredTime = progress * Math.max(0, video.duration - 0.045);
+
         if (Math.abs(desiredTime - lastVideoTime) >= 1 / 80) {
-          video.currentTime = desiredTime;
-          lastVideoTime = desiredTime;
+          try {
+            video.currentTime = desiredTime;
+            lastVideoTime = desiredTime;
+          } catch {
+            // Some browsers reject seeking until the media element is fully initialized.
+          }
         }
       }
     };
 
     const tick = () => {
       const difference = targetProgress - renderedProgress;
+
       renderedProgress = reducedMotion.matches
         ? targetProgress
         : Math.abs(difference) < 0.00035
@@ -182,7 +194,7 @@ export function CinematicHome() {
       render(renderedProgress);
 
       if (Math.abs(targetProgress - renderedProgress) > 0.00035) {
-        frame = window.requestAnimationFrame(tick);
+        animationFrame = window.requestAnimationFrame(tick);
       } else {
         running = false;
       }
@@ -191,7 +203,20 @@ export function CinematicHome() {
     const requestTick = () => {
       if (running) return;
       running = true;
-      frame = window.requestAnimationFrame(tick);
+      animationFrame = window.requestAnimationFrame(tick);
+    };
+
+    const syncTarget = () => {
+      const headerHeight =
+        Number.parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue("--header-height")
+        ) || 0;
+      const start = stage.offsetTop - headerHeight;
+      const viewport = Math.max(1, window.innerHeight - headerHeight);
+      const travel = Math.max(1, stage.offsetHeight - viewport);
+
+      targetProgress = clamp((window.scrollY - start) / travel);
+      requestTick();
     };
 
     const onMetadata = () => {
@@ -202,15 +227,16 @@ export function CinematicHome() {
     };
 
     const unlockVideo = () => {
-      const promise = video.play();
-      if (promise) {
-        promise
-          .then(() => {
-            video.pause();
-            render(renderedProgress);
-          })
-          .catch(() => undefined);
-      }
+      const playAttempt = video.play();
+
+      if (!playAttempt) return;
+
+      void playAttempt
+        .then(() => {
+          video.pause();
+          render(renderedProgress);
+        })
+        .catch(() => undefined);
     };
 
     video.addEventListener("loadedmetadata", onMetadata);
@@ -221,11 +247,15 @@ export function CinematicHome() {
     reducedMotion.addEventListener("change", syncTarget);
 
     video.load();
-    if (metadataReady) onMetadata();
+
+    if (metadataReady) {
+      onMetadata();
+    }
+
     syncTarget();
 
     return () => {
-      window.cancelAnimationFrame(frame);
+      window.cancelAnimationFrame(animationFrame);
       video.removeEventListener("loadedmetadata", onMetadata);
       video.removeEventListener("loadeddata", onMetadata);
       window.removeEventListener("scroll", syncTarget);
@@ -237,7 +267,11 @@ export function CinematicHome() {
 
   return (
     <div className="cinematic-home">
-      <section ref={stageRef} className="duel-scroll" aria-label="Interactive Dota 2 battle introduction">
+      <section
+        ref={stageRef}
+        className="duel-scroll"
+        aria-label="Interactive Dota 2 battle introduction"
+      >
         <div className="duel-scroll__sticky">
           <video
             ref={videoRef}
@@ -266,7 +300,11 @@ export function CinematicHome() {
             </div>
             <div className="duel-scroll__hud-status">
               <span className={ready ? "is-ready" : ""} />
-              {videoFailed ? "Video asset pending" : ready ? "Sequence linked" : "Loading battle sequence"}
+              {videoFailed
+                ? "Video asset pending"
+                : ready
+                  ? "Sequence linked"
+                  : "Loading battle sequence"}
             </div>
           </div>
 
@@ -274,7 +312,9 @@ export function CinematicHome() {
             {beats.map((beat, index) => (
               <div
                 key={beat.title}
-                ref={(element) => { beatRefs.current[index] = element; }}
+                ref={(element) => {
+                  beatRefs.current[index] = element;
+                }}
                 className={`duel-beat duel-beat--${beat.align}`}
                 aria-hidden={index === 0 ? "false" : "true"}
               >
@@ -302,9 +342,18 @@ export function CinematicHome() {
             <p>Scroll to control the fight</p>
           </div>
 
-          <div className={`duel-scroll__loader${ready ? " is-ready" : ""}`} aria-live="polite">
+          <div
+            className={`duel-scroll__loader${ready ? " is-ready" : ""}`}
+            aria-live="polite"
+          >
             <span />
-            <p>{videoFailed ? "Static preview active" : ready ? "Battle sequence ready" : "Preparing battle sequence"}</p>
+            <p>
+              {videoFailed
+                ? "Static preview active"
+                : ready
+                  ? "Battle sequence ready"
+                  : "Preparing battle sequence"}
+            </p>
           </div>
         </div>
       </section>
@@ -312,18 +361,23 @@ export function CinematicHome() {
       <section className="climb-deck">
         <div className="climb-deck__glow climb-deck__glow--radiant" aria-hidden="true" />
         <div className="climb-deck__glow climb-deck__glow--dire" aria-hidden="true" />
+
         <div className="container-shell climb-deck__inner">
           <header className="climb-deck__header">
             <div>
               <p className="climb-deck__eyebrow"><Sparkles /> Choose your objective</p>
               <h2>One account. One clear route upward.</h2>
             </div>
-            <p>Start with the result you need. Every service is configured around your current rank, region, schedule, and preferred delivery method.</p>
+            <p>
+              Start with the result you need. Every service is configured around your
+              current rank, region, schedule, and preferred delivery method.
+            </p>
           </header>
 
           <div className="climb-deck__services">
             {services.map((service) => {
               const Icon = service.icon;
+
               return (
                 <Link key={service.href} href={service.href} className="objective-card">
                   <div className="objective-card__top"><span>{service.number}</span><Icon /></div>
@@ -337,24 +391,28 @@ export function CinematicHome() {
           </div>
 
           <div className="climb-deck__trust">
-            <div><ShieldCheck /><span><strong>Private by default</strong><small>Secure delivery workspace</small></span></div>
-            <div><Trophy /><span><strong>Progress visible</strong><small>Milestones and updates</small></span></div>
-            <div><Check /><span><strong>Player-controlled</strong><small>Preferences stay yours</small></span></div>
-          </div>
-        </div>
-      </section>
-
-      <section className="final-command">
-        <div className="final-command__grid" aria-hidden="true" />
-        <div className="container-shell final-command__inner">
-          <p><Swords /> Ready for the next medal?</p>
-          <h2>Stop queuing without a plan.</h2>
-          <div className="final-command__copy">
-            <span>Configure your target, compare delivery modes, and see your route before placing an order.</span>
             <div>
-              <Link href="/pricing" className="duel-button duel-button--primary">Build rank route <ArrowRight /></Link>
-              <Link href="/services/coaching" className="duel-button duel-button--ghost">Start with coaching <GraduationCap /></Link>
+              <ShieldCheck />
+              <span><strong>Private by default</strong><small>Secure delivery workspace</small></span>
             </div>
+            <div>
+              <Trophy />
+              <span><strong>Progress visible</strong><small>Clear milestones and updates</small></span>
+            </div>
+            <div>
+              <Check />
+              <span><strong>You control the route</strong><small>Server, role, timing, and mode</small></span>
+            </div>
+          </div>
+
+          <div className="climb-deck__final">
+            <div>
+              <p>Ready when you are</p>
+              <h2>Turn the next queue into a plan.</h2>
+            </div>
+            <Link href="/pricing" className="duel-button duel-button--primary">
+              Configure my order <ArrowRight />
+            </Link>
           </div>
         </div>
       </section>
