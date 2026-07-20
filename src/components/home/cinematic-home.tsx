@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import {
@@ -7,11 +7,14 @@ import {
   Check,
   Crosshair,
   GraduationCap,
+  LockKeyhole,
   Route,
-  ShieldCheck,
+  Signal,
   Sparkles,
   Swords,
-  Trophy
+  Target,
+  Trophy,
+  Zap
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -26,6 +29,7 @@ type Beat = {
   body: string;
   primary: { label: string; href: string };
   secondary: { label: string; href: string };
+  scene: string;
 };
 
 const beats: readonly Beat[] = [
@@ -37,7 +41,8 @@ const beats: readonly Beat[] = [
     title: "Your next rank is not luck.",
     body: "Build a private climb route around your medal, server, role, and preferred delivery style.",
     primary: { label: "Build my rank route", href: "/pricing" },
-    secondary: { label: "Explore services", href: "/services" }
+    secondary: { label: "Explore services", href: "/services" },
+    scene: "Route"
   },
   {
     start: 0.18,
@@ -47,7 +52,8 @@ const beats: readonly Beat[] = [
     title: "The outcome is decided before the first spell lands.",
     body: "Replay analysis and role-specific coaching turn positioning, map reads, and decision timing into repeatable wins.",
     primary: { label: "Book coaching", href: "/services/coaching" },
-    secondary: { label: "How it works", href: "/how-it-works" }
+    secondary: { label: "How it works", href: "/how-it-works" },
+    scene: "Read"
   },
   {
     start: 0.39,
@@ -57,7 +63,8 @@ const beats: readonly Beat[] = [
     title: "Mechanics matter. Consistency climbs.",
     body: "Choose Solo delivery, Duo Queue, calibration, behavior score recovery, or fixed-win packages with clear progress tracking.",
     primary: { label: "View MMR boost", href: "/services/mmr-boost" },
-    secondary: { label: "Meet the roster", href: "/boosters" }
+    secondary: { label: "Meet the roster", href: "/boosters" },
+    scene: "Execute"
   },
   {
     start: 0.62,
@@ -67,7 +74,8 @@ const beats: readonly Beat[] = [
     title: "Private delivery. Clear milestones. No guessing.",
     body: "Follow your order from a secure workspace, message your assigned expert, and stay in control of scheduling and preferences.",
     primary: { label: "See the process", href: "/how-it-works" },
-    secondary: { label: "Read reviews", href: "/reviews" }
+    secondary: { label: "Read reviews", href: "/reviews" },
+    scene: "Control"
   },
   {
     start: 0.82,
@@ -77,7 +85,8 @@ const beats: readonly Beat[] = [
     title: "Take the high ground.",
     body: "Choose the result you want. We will build the route to reach it.",
     primary: { label: "Start my climb", href: "/pricing" },
-    secondary: { label: "Talk to a coach", href: "/services/coaching" }
+    secondary: { label: "Talk to a coach", href: "/services/coaching" },
+    scene: "Climb"
   }
 ];
 
@@ -88,7 +97,8 @@ const services = [
     title: "MMR Boost",
     body: "Select current MMR, target medal, server, and Solo or Duo delivery.",
     href: "/services/mmr-boost",
-    meta: "Custom rank route"
+    meta: "Custom rank route",
+    accent: "violet"
   },
   {
     number: "02",
@@ -96,7 +106,8 @@ const services = [
     title: "Calibration",
     body: "Structured five- or ten-match calibration blocks with progress visibility.",
     href: "/services/mmr-calibration",
-    meta: "5 or 10 matches"
+    meta: "5 or 10 matches",
+    accent: "cyan"
   },
   {
     number: "03",
@@ -104,8 +115,15 @@ const services = [
     title: "Coaching",
     body: "Replay review, live sessions, hero pool planning, and role development.",
     href: "/services/coaching",
-    meta: "Role-specific training"
+    meta: "Role-specific training",
+    accent: "coral"
   }
+] as const;
+
+const trustItems = [
+  { icon: LockKeyhole, title: "Private by default", body: "Secure delivery workspace" },
+  { icon: Trophy, title: "Progress visible", body: "Clear milestones and updates" },
+  { icon: Target, title: "You control the route", body: "Server, role, timing, and mode" }
 ] as const;
 
 function clamp(value: number, min = 0, max = 1) {
@@ -118,6 +136,7 @@ export function CinematicHome() {
   const progressRef = useRef<HTMLSpanElement>(null);
   const counterRef = useRef<HTMLSpanElement>(null);
   const beatRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const sceneRefs = useRef<Array<HTMLDivElement | null>>([]);
   const [ready, setReady] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
 
@@ -136,6 +155,12 @@ export function CinematicHome() {
     let lastVideoTime = -1;
 
     const renderBeats = (progress: number) => {
+      let activeIndex = 0;
+
+      beats.forEach((beat, index) => {
+        if (progress >= beat.start) activeIndex = index;
+      });
+
       beatRefs.current.forEach((element, index) => {
         const beat = beats[index];
         if (!element || !beat) return;
@@ -145,18 +170,23 @@ export function CinematicHome() {
         const fadeOut = beat.end === 1 ? 1 : clamp((beat.end - progress) / fadeWindow);
         const opacity = Math.min(fadeIn, fadeOut);
         const direction = beat.align === "right" ? -1 : 1;
-        const shift = (1 - opacity) * 34;
+        const shift = (1 - opacity) * 42;
 
         element.style.opacity = opacity.toFixed(3);
         element.style.setProperty("--beat-shift", `${shift * direction}px`);
         element.style.pointerEvents = opacity > 0.72 ? "auto" : "none";
         element.setAttribute("aria-hidden", opacity > 0.1 ? "false" : "true");
       });
+
+      sceneRefs.current.forEach((element, index) => {
+        if (!element) return;
+        element.dataset.active = index === activeIndex ? "true" : "false";
+      });
     };
 
     const render = (progress: number) => {
       stage.style.setProperty("--duel-progress", progress.toFixed(4));
-      stage.style.setProperty("--video-x", `${50 + clamp((progress - 0.42) / 0.38) * 7}%`);
+      stage.style.setProperty("--video-x", `${50 + clamp((progress - 0.42) / 0.38) * 5}%`);
 
       if (progressRef.current) {
         progressRef.current.style.transform = `scaleX(${progress})`;
@@ -189,7 +219,7 @@ export function CinematicHome() {
         ? targetProgress
         : Math.abs(difference) < 0.00035
           ? targetProgress
-          : renderedProgress + difference * 0.16;
+          : renderedProgress + difference * 0.14;
 
       render(renderedProgress);
 
@@ -248,10 +278,7 @@ export function CinematicHome() {
 
     video.load();
 
-    if (metadataReady) {
-      onMetadata();
-    }
-
+    if (metadataReady) onMetadata();
     syncTarget();
 
     return () => {
@@ -289,23 +316,41 @@ export function CinematicHome() {
             <source src="/media/highground-duel-scroll.mp4" type="video/mp4" />
           </video>
 
+          <div className="duel-scroll__colorwash" aria-hidden="true" />
           <div className="duel-scroll__grade" aria-hidden="true" />
           <div className="duel-scroll__vignette" aria-hidden="true" />
-          <div className="duel-scroll__scanlines" aria-hidden="true" />
+          <div className="duel-scroll__grain" aria-hidden="true" />
 
-          <div className="duel-scroll__hud" aria-hidden="true">
-            <div className="duel-scroll__hud-brand">
-              <span className="duel-scroll__hud-rune"><Swords /></span>
-              <span><small>Live contract system</small><strong>Highground Command</strong></span>
+          <div className="duel-scroll__chrome" aria-hidden="true">
+            <div className="duel-scroll__identity">
+              <span className="duel-scroll__identity-mark"><Swords /></span>
+              <span>
+                <small>Highground intelligence</small>
+                <strong>Rank operations</strong>
+              </span>
             </div>
-            <div className="duel-scroll__hud-status">
-              <span className={ready ? "is-ready" : ""} />
-              {videoFailed
-                ? "Video asset pending"
-                : ready
-                  ? "Sequence linked"
-                  : "Loading battle sequence"}
+
+            <div className="duel-scroll__signal">
+              <Signal />
+              <span>{videoFailed ? "Static fallback" : ready ? "Sequence online" : "Syncing sequence"}</span>
             </div>
+          </div>
+
+          <div className="duel-scroll__scenes" aria-hidden="true">
+            {beats.map((beat, index) => (
+              <div
+                key={beat.scene}
+                ref={(element) => {
+                  sceneRefs.current[index] = element;
+                }}
+                className="duel-scene"
+                data-active={index === 0 ? "true" : "false"}
+              >
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <i />
+                <small>{beat.scene}</small>
+              </div>
+            ))}
           </div>
 
           <div className="duel-scroll__beats">
@@ -318,105 +363,132 @@ export function CinematicHome() {
                 className={`duel-beat duel-beat--${beat.align}`}
                 aria-hidden={index === 0 ? "false" : "true"}
               >
-                <div className="duel-beat__line" aria-hidden="true" />
-                <p className="duel-beat__kicker">{beat.kicker}</p>
-                <h1>{beat.title}</h1>
-                <p className="duel-beat__body">{beat.body}</p>
-                <div className="duel-beat__actions">
-                  <Link href={beat.primary.href} className="duel-button duel-button--primary">
-                    {beat.primary.label}<ArrowRight />
-                  </Link>
-                  <Link href={beat.secondary.href} className="duel-button duel-button--ghost">
-                    {beat.secondary.label}<ArrowUpRight />
-                  </Link>
+                <div className="duel-beat__panel">
+                  <div className="duel-beat__meta">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <i />
+                    <small>{beat.kicker}</small>
+                  </div>
+
+                  <h1>{beat.title}</h1>
+                  <p className="duel-beat__body">{beat.body}</p>
+
+                  <div className="duel-beat__actions">
+                    <Link href={beat.primary.href} className="duel-button duel-button--primary">
+                      {beat.primary.label}<ArrowRight />
+                    </Link>
+                    <Link href={beat.secondary.href} className="duel-button duel-button--ghost">
+                      {beat.secondary.label}<ArrowUpRight />
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
+
+          <aside className="duel-route-card" aria-label="Example rank route">
+            <div className="duel-route-card__head">
+              <span><Zap /> Live route</span>
+              <small>EU West</small>
+            </div>
+            <div className="duel-route-card__route">
+              <span><small>Current</small><strong>Legend III</strong></span>
+              <i><ArrowRight /></i>
+              <span><small>Target</small><strong>Ancient I</strong></span>
+            </div>
+            <div className="duel-route-card__tags">
+              <span>Solo</span><span>Mid</span><span>Private</span>
+            </div>
+          </aside>
 
           <div className="duel-scroll__timeline" aria-hidden="true">
             <div className="duel-scroll__timeline-copy">
               <span ref={counterRef}>00</span><small>/ 100</small>
             </div>
             <div className="duel-scroll__timeline-track"><span ref={progressRef} /></div>
-            <p>Scroll to control the fight</p>
+            <p>Scroll to direct the sequence</p>
           </div>
 
-          <div
-            className={`duel-scroll__loader${ready ? " is-ready" : ""}`}
-            aria-live="polite"
-          >
-            <span />
-            <p>
-              {videoFailed
-                ? "Static preview active"
-                : ready
-                  ? "Battle sequence ready"
-                  : "Preparing battle sequence"}
-            </p>
+          <div className={`duel-scroll__loader${ready ? " is-ready" : ""}`} aria-live="polite">
+            <span className="duel-scroll__loader-mark"><Swords /></span>
+            <div><i /><i /><i /></div>
+            <p>{videoFailed ? "Static preview active" : "Loading battle sequence"}</p>
           </div>
         </div>
       </section>
 
-      <section className="climb-deck">
-        <div className="climb-deck__glow climb-deck__glow--radiant" aria-hidden="true" />
-        <div className="climb-deck__glow climb-deck__glow--dire" aria-hidden="true" />
+      <section className="command-deck">
+        <div className="command-deck__aurora" aria-hidden="true" />
+        <div className="command-deck__grid" aria-hidden="true" />
 
-        <div className="container-shell climb-deck__inner">
-          <header className="climb-deck__header">
+        <div className="container-shell command-deck__inner">
+          <header className="command-deck__header">
             <div>
-              <p className="climb-deck__eyebrow"><Sparkles /> Choose your objective</p>
-              <h2>One account. One clear route upward.</h2>
+              <p className="command-deck__eyebrow"><Sparkles /> Choose your objective</p>
+              <h2>A clearer route to the rank you want.</h2>
             </div>
-            <p>
-              Start with the result you need. Every service is configured around your
-              current rank, region, schedule, and preferred delivery method.
-            </p>
+            <div className="command-deck__intro">
+              <span>01 — Configure</span>
+              <p>Start with the result you need. Every service is configured around your current rank, region, schedule, and preferred delivery method.</p>
+            </div>
           </header>
 
-          <div className="climb-deck__services">
+          <div className="command-deck__services">
             {services.map((service) => {
               const Icon = service.icon;
 
               return (
-                <Link key={service.href} href={service.href} className="objective-card">
-                  <div className="objective-card__top"><span>{service.number}</span><Icon /></div>
-                  <p>{service.meta}</p>
-                  <h3>{service.title}</h3>
-                  <div className="objective-card__body">{service.body}</div>
-                  <span className="objective-card__link">Open contract <ArrowUpRight /></span>
+                <Link
+                  key={service.href}
+                  href={service.href}
+                  className={`service-module service-module--${service.accent}`}
+                >
+                  <div className="service-module__top">
+                    <span>{service.number}</span>
+                    <span className="service-module__icon"><Icon /></span>
+                  </div>
+                  <div className="service-module__content">
+                    <p>{service.meta}</p>
+                    <h3>{service.title}</h3>
+                    <div>{service.body}</div>
+                  </div>
+                  <span className="service-module__link">Open service <ArrowUpRight /></span>
                 </Link>
               );
             })}
           </div>
 
-          <div className="climb-deck__trust">
-            <div>
-              <ShieldCheck />
-              <span><strong>Private by default</strong><small>Secure delivery workspace</small></span>
-            </div>
-            <div>
-              <Trophy />
-              <span><strong>Progress visible</strong><small>Clear milestones and updates</small></span>
-            </div>
-            <div>
-              <Check />
-              <span><strong>You control the route</strong><small>Server, role, timing, and mode</small></span>
-            </div>
+          <div className="command-deck__trust">
+            {trustItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div key={item.title}>
+                  <span><Icon /></span>
+                  <div><strong>{item.title}</strong><small>{item.body}</small></div>
+                  <Check />
+                </div>
+              );
+            })}
           </div>
 
-          <div className="climb-deck__final">
+          <section className="command-cta">
+            <div className="command-cta__signal" aria-hidden="true"><span /><span /><span /></div>
             <div>
-              <p>Ready when you are</p>
+              <p><Swords /> Ready when you are</p>
               <h2>Turn the next queue into a plan.</h2>
+              <span>Configure your current rank, target, server, role, and delivery mode before checkout.</span>
             </div>
-            <Link href="/pricing" className="duel-button duel-button--primary">
-              Configure my order <ArrowRight />
-            </Link>
-          </div>
+            <div className="command-cta__actions">
+              <Link href="/pricing" className="duel-button duel-button--primary">
+                Configure my order <ArrowRight />
+              </Link>
+              <Link href="/services/coaching" className="duel-button duel-button--ghost">
+                Start with coaching <GraduationCap />
+              </Link>
+            </div>
+          </section>
         </div>
       </section>
     </div>
   );
 }
-
