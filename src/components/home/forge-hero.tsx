@@ -8,7 +8,6 @@ import {
   Check,
   LockKeyhole,
   Route,
-  Signal,
   Swords,
   Zap
 } from "lucide-react";
@@ -25,8 +24,6 @@ type Beat = {
   body: string;
   primary: { label: string; href: string };
   secondary: { label: string; href: string };
-  scene: string;
-  hero: string;
 };
 
 const beats: readonly Beat[] = [
@@ -38,9 +35,7 @@ const beats: readonly Beat[] = [
     title: "Choose the rank worth forging.",
     body: "Set your current medal, target, server, role, and delivery style. The route is defined before the campaign begins.",
     primary: { label: "Forge rank route", href: "/pricing" },
-    secondary: { label: "Explore contracts", href: "/services" },
-    scene: "Objective",
-    hero: "Doom"
+    secondary: { label: "Explore contracts", href: "/services" }
   },
   {
     start: 0.19,
@@ -50,9 +45,7 @@ const beats: readonly Beat[] = [
     title: "Every bracket has a different fight.",
     body: "Region, role, party eligibility, hero pool, and queue conditions shape the campaign before the first match is scheduled.",
     primary: { label: "See the campaign", href: "/how-it-works" },
-    secondary: { label: "Meet the roster", href: "/boosters" },
-    scene: "Battlefield",
-    hero: "Shadow Fiend"
+    secondary: { label: "Meet the roster", href: "/boosters" }
   },
   {
     start: 0.39,
@@ -62,9 +55,7 @@ const beats: readonly Beat[] = [
     title: "Solo direction or Duo execution.",
     body: "Choose Solo Assist, Duo Queue, calibration, fixed wins, behavior recovery, or a focused coaching session.",
     primary: { label: "Open MMR boost", href: "/services/mmr-boost" },
-    secondary: { label: "Compare services", href: "/services" },
-    scene: "Route",
-    hero: "Ember Spirit"
+    secondary: { label: "Compare services", href: "/services" }
   },
   {
     start: 0.59,
@@ -74,9 +65,7 @@ const beats: readonly Beat[] = [
     title: "Your account stays in your hands.",
     body: "No passwords, Steam Guard codes, or remote access. Track scheduling, messages, matches, and milestones in one private workspace.",
     primary: { label: "Review delivery", href: "/how-it-works" },
-    secondary: { label: "Read verified reviews", href: "/reviews" },
-    scene: "Private",
-    hero: "Lina"
+    secondary: { label: "Read verified reviews", href: "/reviews" }
   },
   {
     start: 0.79,
@@ -86,9 +75,7 @@ const beats: readonly Beat[] = [
     title: "Forge the route. Siege the rank.",
     body: "Build a live server-priced campaign and move through every checkpoint with the scope visible.",
     primary: { label: "Start the campaign", href: "/pricing" },
-    secondary: { label: "Start with coaching", href: "/services/coaching" },
-    scene: "Highground",
-    hero: "Dragon Knight"
+    secondary: { label: "Start with coaching", href: "/services/coaching" }
   }
 ];
 
@@ -98,10 +85,8 @@ const clamp = (value: number, min = 0, max = 1) =>
 export function ForgeHero() {
   const stageRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const progressRef = useRef<HTMLSpanElement>(null);
   const counterRef = useRef<HTMLSpanElement>(null);
   const beatRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const sceneRefs = useRef<Array<HTMLLIElement | null>>([]);
   const [videoEnabled, setVideoEnabled] = useState(false);
   const [ready, setReady] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
@@ -132,9 +117,6 @@ export function ForgeHero() {
         element.inert = index !== 0;
         element.setAttribute("aria-hidden", index === 0 ? "false" : "true");
       });
-      sceneRefs.current.forEach((element, index) => {
-        if (element) element.dataset.active = index === 0 ? "true" : "false";
-      });
       return;
     }
 
@@ -149,11 +131,6 @@ export function ForgeHero() {
     let lastVideoTime = -1;
 
     const renderBeats = (progress: number) => {
-      const activeIndex = Math.min(
-        beats.length - 1,
-        Math.floor(clamp(progress) * beats.length)
-      );
-
       beatRefs.current.forEach((element, index) => {
         const beat = beats[index];
         if (!element || !beat) return;
@@ -171,17 +148,17 @@ export function ForgeHero() {
         element.style.opacity = opacity.toFixed(3);
         element.style.setProperty(
           "--beat-shift",
-          `${(1 - opacity) * 34 * direction}px`
+          `${(1 - opacity) * 58 * direction}px`
         );
+        element.style.setProperty("--beat-lift", `${(1 - opacity) * 18}px`);
+        element.style.setProperty("--beat-blur", `${(1 - opacity) * 7}px`);
+        element.style.setProperty("--beat-scale", `${0.97 + opacity * 0.03}`);
+        element.style.setProperty("--beat-glow", opacity.toFixed(3));
         element.style.pointerEvents = opacity > 0.72 ? "auto" : "none";
         element.inert = opacity <= 0.72;
         element.setAttribute("aria-hidden", opacity > 0.1 ? "false" : "true");
       });
 
-      sceneRefs.current.forEach((element, index) => {
-        if (!element) return;
-        element.dataset.active = index === activeIndex ? "true" : "false";
-      });
     };
 
     const render = (progress: number) => {
@@ -192,12 +169,16 @@ export function ForgeHero() {
       );
       stage.style.setProperty(
         "--video-shift",
-        `${(progress - 0.5) * -1.6}vw`
+        `${(progress - 0.5) * -2.4}vw`
       );
-
-      if (progressRef.current) {
-        progressRef.current.style.transform = `scaleY(${progress})`;
-      }
+      stage.style.setProperty(
+        "--video-scale",
+        `${1.02 + Math.sin(progress * Math.PI) * 0.045}`
+      );
+      stage.style.setProperty(
+        "--forge-fire-intensity",
+        `${0.72 + Math.sin(progress * Math.PI * 5) * 0.12}`
+      );
 
       if (counterRef.current) {
         counterRef.current.textContent = String(Math.round(progress * 100)).padStart(2, "0");
@@ -348,42 +329,13 @@ export function ForgeHero() {
           <i /><i /><i /><i />
         </div>
         <div className="forge-hero__heat" aria-hidden="true" />
-        <div className="forge-hero__smoke" aria-hidden="true" />
+        <div className="forge-hero__inferno" aria-hidden="true"><i /><i /><i /><i /><i /></div>
+        <div className="forge-hero__smoke" aria-hidden="true"><i /><i /><i /><i /></div>
+        <div className="forge-hero__embers" aria-hidden="true">
+          {Array.from({ length: 16 }, (_, index) => <i key={index} />)}
+        </div>
         <div className="forge-hero__grade" aria-hidden="true" />
         <div className="forge-hero__grain" aria-hidden="true" />
-
-        <div className="forge-hero__topbar">
-          <div className="forge-hero__identity">
-            <span><Swords /></span>
-            <div>
-              <small>The Dire Forge</small>
-              <strong>Highground rank operations</strong>
-            </div>
-          </div>
-
-          <div className="forge-hero__ready">
-            <i />
-            <Signal />
-            <span>{videoFailed ? "Static fallback" : videoEnabled ? ready ? "Sequence ready" : "Heating forge" : "Lightweight mode"}</span>
-          </div>
-        </div>
-
-        <ol className="forge-hero__checkpoints" aria-label="Cinematic sequence">
-          {beats.map((beat, index) => (
-            <li
-              key={beat.scene}
-              ref={(element) => {
-                sceneRefs.current[index] = element;
-              }}
-              data-active={index === 0 ? "true" : "false"}
-            >
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <i />
-              <div><strong>{beat.scene}</strong><small>{beat.hero}</small></div>
-            </li>
-          ))}
-          <span className="forge-hero__checkpoint-progress" ref={progressRef} />
-        </ol>
 
         <div className="forge-hero__beats">
           {beats.map((beat, index) => {
@@ -442,7 +394,7 @@ export function ForgeHero() {
           <div className={`forge-hero__loader${ready ? " is-ready" : ""}`} aria-live="polite">
             <span><Swords /></span>
             <div><i /><i /><i /></div>
-            <p>{videoFailed ? "Static forge active" : "Preparing the Dire Forge"}</p>
+            <p>{videoFailed ? "Static battlefield active" : "Igniting battlefield"}</p>
           </div>
         ) : null}
       </div>

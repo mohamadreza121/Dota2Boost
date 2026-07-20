@@ -27,9 +27,11 @@
 
 .forge-shared-button--primary {
   border-color: rgb(255 193 90 / 0.42);
-  background: linear-gradient(180deg, #d43a19, #8b1d10 58%, #56110b);
-  box-shadow: inset 0 1px rgb(255 241 199 / 0.2), 0 14px 36px rgb(122 23 16 / 0.26);
+  background: linear-gradient(105deg, #681008, #d92f13 26%, #ff6e1c 48%, #9d1b0d 74%, #4a0905);
+  background-size: 220% 100%;
+  box-shadow: inset 0 1px rgb(255 241 199 / 0.38), inset 0 -3px rgb(69 6 3 / 0.76), 0 14px 36px rgb(174 29 13 / 0.32);
   color: #fff1c7;
+  animation: command-lava-flow 4.2s ease-in-out infinite alternate;
 }
 
 .forge-shared-button--secondary {
@@ -341,8 +343,9 @@
   overflow: hidden;
   border: 1px solid rgb(255 193 90 / 0.42);
   clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px);
-  background: linear-gradient(180deg, #d23b1c, #8a1d11 58%, #53100a);
-  box-shadow: inset 0 1px rgb(255 241 199 / 0.2), 0 14px 36px rgb(122 23 16 / 0.28);
+  background: linear-gradient(105deg, #661008, #d63215 27%, #ff6c1c 49%, #9f1b0d 74%, #4f0a06);
+  background-size: 220% 100%;
+  box-shadow: inset 0 1px rgb(255 241 199 / 0.38), inset 0 -3px rgb(70 6 3 / 0.76), 0 14px 36px rgb(165 25 12 / 0.34);
   color: #fff1c7;
   font-size: 0.61rem;
   font-weight: 900;
@@ -350,6 +353,7 @@
   padding: 0.72rem 0.9rem;
   text-transform: uppercase;
   transition: border-color 180ms ease, filter 180ms ease, transform 180ms ease;
+  animation: command-lava-flow 4.2s ease-in-out infinite alternate;
 }
 
 .dota-header-core-button::before { position: absolute; inset: 0; background: linear-gradient(110deg, transparent 18%, rgb(255 241 199 / 0.18) 48%, transparent 72%); content: ""; transform: translateX(-120%); transition: transform 620ms ease; }
@@ -495,6 +499,7 @@
 
 @keyframes forge-menu-enter { from { opacity: 0; transform: translateX(2.5rem); } to { opacity: 1; transform: translateX(0); } }
 @keyframes footer-embers { to { background-position: 84% -10%, 11% 35%; } }
+@keyframes command-lava-flow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 
 @media (max-width: 1200px) {
   .dota-command-nav__link { font-size: 0.66rem; }
@@ -563,7 +568,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .dota-mobile-menu__drawer,
-  .dota-command-footer__embers { animation: none; }
+  .dota-command-footer__embers,
+  .forge-shared-button--primary,
+  .dota-header-core-button { animation: none; }
   .dota-command-header *,
   .dota-command-footer *,
   .forge-shared-button { transition-duration: 0.01ms; }

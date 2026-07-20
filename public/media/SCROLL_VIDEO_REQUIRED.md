@@ -6,7 +6,7 @@ The Dire Forge cinematic homepage expects these files:
 - `public/media/dire-forge/dire-forge-poster.webp`
 - `public/media/dire-forge/heroes/*.webp`
 
-The supplied scroll sequence is an optimized, silent 1920×1080 export assembled from Valve's official Doom, Shadow Fiend, Ember Spirit, Lina, and Dragon Knight render loops. It runs at 24 FPS, is about 11.6 seconds long, and contains frequent keyframes for responsive forward and reverse seeking.
+The supplied scroll sequence is an optimized, silent 1920×1080 export assembled from Valve's official Doom, Shadow Fiend, Ember Spirit, Lina, and Dragon Knight render loops. It runs at 24 FPS, is about 10.2 seconds long, and contains frequent keyframes for responsive forward and reverse seeking. The VP9 alpha channels must be decoded with `libvpx-vp9` before compositing so the character edges remain clean.
 
 Recommended encoding command:
 
