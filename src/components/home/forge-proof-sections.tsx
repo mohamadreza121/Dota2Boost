@@ -170,7 +170,9 @@ export function WhyHighground() {
           <p className="forge-kicker"><span>06</span><i /> Why Highground</p>
           <h2>A serious platform for a <em>high-risk category.</em></h2>
           <p>Clear boundaries, explicit scope, and a visible delivery system are product requirements—not decorative trust badges.</p>
-          <Link href="/how-it-works" className="plate-button">Review the platform <ArrowUpRight /></Link>
+          <Link href="/how-it-works" className="molten-button molten-button--secondary">
+            <span>Review the platform</span><i><ArrowUpRight /></i>
+          </Link>
         </div>
 
         <div className="why-highground__grid">

@@ -16,10 +16,11 @@ import { useEffect, useRef, useState } from "react";
 type BeatAlignment = "left" | "right" | "center";
 
 type Beat = {
+  id: string;
   start: number;
   end: number;
   align: BeatAlignment;
-  title: string;
+  title: { lead: string; accent: string };
   body: string;
   primary: { label: string; href: string };
   secondary: { label: string; href: string };
@@ -27,69 +28,87 @@ type Beat = {
 
 const beats: readonly Beat[] = [
   {
+    id: "doom",
     start: 0,
     end: 0.235,
     align: "left",
-    title: "Choose the rank worth forging.",
+    title: { lead: "Choose the rank", accent: "worth forging." },
     body: "Set your current medal, target, server, role, and delivery style. The route is defined before the campaign begins.",
     primary: { label: "Forge rank route", href: "/pricing" },
     secondary: { label: "Explore contracts", href: "/services" }
   },
   {
+    id: "shadow-fiend",
     start: 0.19,
     end: 0.435,
     align: "right",
-    title: "Every bracket has a different fight.",
+    title: { lead: "Every bracket has a", accent: "different fight." },
     body: "Region, role, party eligibility, hero pool, and queue conditions shape the campaign before the first match is scheduled.",
     primary: { label: "See the campaign", href: "/how-it-works" },
     secondary: { label: "Meet the roster", href: "/boosters" }
   },
   {
+    id: "ember-spirit",
     start: 0.39,
     end: 0.635,
     align: "left",
-    title: "Solo direction or Duo execution.",
+    title: { lead: "Solo direction or", accent: "Duo execution." },
     body: "Choose Solo Assist, Duo Queue, calibration, fixed wins, behavior recovery, or a focused coaching session.",
     primary: { label: "Open MMR boost", href: "/services/mmr-boost" },
     secondary: { label: "Compare services", href: "/services" }
   },
   {
+    id: "lina",
     start: 0.59,
     end: 0.835,
     align: "right",
-    title: "Your account stays in your hands.",
+    title: { lead: "Your account stays", accent: "in your hands." },
     body: "No passwords, Steam Guard codes, or remote access. Track scheduling, messages, matches, and milestones in one private workspace.",
     primary: { label: "Review delivery", href: "/how-it-works" },
     secondary: { label: "Read verified reviews", href: "/reviews" }
   },
   {
+    id: "dragon-knight",
     start: 0.79,
     end: 1,
     align: "left",
-    title: "Forge the route. Siege the rank.",
+    title: { lead: "Forge the route.", accent: "Siege the rank." },
     body: "Build a live server-priced campaign and move through every checkpoint with the scope visible.",
     primary: { label: "Start the campaign", href: "/pricing" },
     secondary: { label: "Start with coaching", href: "/services/coaching" }
   }
 ];
 
+const heroScenes = [
+  { id: "doom", name: "Doom", src: "/media/dire-forge/scenes/doom.webp" },
+  { id: "shadow-fiend", name: "Shadow Fiend", src: "/media/dire-forge/scenes/shadow-fiend.webp" },
+  { id: "ember-spirit", name: "Ember Spirit", src: "/media/dire-forge/scenes/ember-spirit.webp" },
+  { id: "lina", name: "Lina", src: "/media/dire-forge/scenes/lina.webp" },
+  { id: "dragon-knight", name: "Dragon Knight", src: "/media/dire-forge/scenes/dragon-knight.webp" }
+] as const;
+
 const clamp = (value: number, min = 0, max = 1) =>
   Math.min(max, Math.max(min, value));
 
 export function ForgeHero() {
   const stageRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const counterRef = useRef<HTMLSpanElement>(null);
   const beatRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const [videoEnabled, setVideoEnabled] = useState(false);
+  const sceneRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const loadedScenesRef = useRef(new Set<string>());
+  const [cinematicEnabled, setCinematicEnabled] = useState(false);
   const [ready, setReady] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
+
+  const markSceneLoaded = (sceneName: string) => {
+    loadedScenesRef.current.add(sceneName);
+    if (loadedScenesRef.current.size === heroScenes.length) setReady(true);
+  };
 
   useEffect(() => {
     const media = window.matchMedia(
       "(min-width: 769px) and (prefers-reduced-motion: no-preference)"
     );
-    const sync = () => setVideoEnabled(media.matches);
+    const sync = () => setCinematicEnabled(media.matches);
 
     sync();
     media.addEventListener("change", sync);
@@ -98,12 +117,16 @@ export function ForgeHero() {
 
   useEffect(() => {
     const stage = stageRef.current;
-    const video = videoRef.current;
 
     if (!stage) return;
 
-    if (!videoEnabled) {
+    if (!cinematicEnabled) {
       stage.style.setProperty("--forge-hero-progress", "0");
+      sceneRefs.current.forEach((element, index) => {
+        if (!element) return;
+        element.style.opacity = index === 0 ? "1" : "0";
+        element.style.visibility = index === 0 ? "visible" : "hidden";
+      });
       beatRefs.current.forEach((element, index) => {
         if (!element) return;
         element.style.opacity = index === 0 ? "1" : "0";
@@ -119,10 +142,9 @@ export function ForgeHero() {
     let renderedProgress = 0;
     let animationFrame = 0;
     let running = false;
-    let metadataReady = Boolean(
-      video && video.readyState >= HTMLMediaElement.HAVE_METADATA
-    );
-    let lastVideoTime = -1;
+    let lastFrameTime = performance.now();
+    let stageStart = 0;
+    let stageTravel = 1;
 
     const renderBeats = (progress: number) => {
       beatRefs.current.forEach((element, index) => {
@@ -138,14 +160,16 @@ export function ForgeHero() {
           : clamp((beat.end - progress) / fadeWindow);
         const opacity = Math.min(fadeIn, fadeOut);
         const direction = beat.align === "right" ? -1 : 1;
+        const visible = opacity > 0.002;
 
         element.style.opacity = opacity.toFixed(3);
+        element.style.visibility = visible ? "visible" : "hidden";
+        if (!visible) return;
         element.style.setProperty(
           "--beat-shift",
           `${(1 - opacity) * 58 * direction}px`
         );
         element.style.setProperty("--beat-lift", `${(1 - opacity) * 18}px`);
-        element.style.setProperty("--beat-blur", `${(1 - opacity) * 7}px`);
         element.style.setProperty("--beat-scale", `${0.97 + opacity * 0.03}`);
         element.style.pointerEvents = opacity > 0.72 ? "auto" : "none";
         element.inert = opacity <= 0.72;
@@ -154,20 +178,40 @@ export function ForgeHero() {
 
     };
 
+    const renderScenes = (progress: number) => {
+      sceneRefs.current.forEach((element, index) => {
+        const beat = beats[index];
+        if (!element || !beat) return;
+
+        const fadeWindow = 0.065;
+        const fadeIn = beat.start === 0
+          ? 1
+          : clamp((progress - beat.start) / fadeWindow);
+        const fadeOut = beat.end === 1
+          ? 1
+          : clamp((beat.end - progress) / fadeWindow);
+        const opacity = Math.min(fadeIn, fadeOut);
+        const localProgress = clamp(
+          (progress - beat.start) / Math.max(0.001, beat.end - beat.start)
+        );
+        const direction = beat.align === "right" ? -1 : 1;
+        const visible = opacity > 0.002;
+
+        element.style.opacity = opacity.toFixed(3);
+        element.style.visibility = visible ? "visible" : "hidden";
+        element.style.setProperty(
+          "--scene-drift",
+          `${(localProgress - 0.5) * 18 * direction}px`
+        );
+        element.style.setProperty(
+          "--scene-scale",
+          `${1 + Math.sin(localProgress * Math.PI) * 0.012}`
+        );
+      });
+    };
+
     const render = (progress: number) => {
       stage.style.setProperty("--forge-hero-progress", progress.toFixed(4));
-      stage.style.setProperty(
-        "--video-x",
-        `${50 + Math.sin(progress * Math.PI * 2) * 1.25}%`
-      );
-      stage.style.setProperty(
-        "--video-shift",
-        `${(progress - 0.5) * -2.4}vw`
-      );
-      stage.style.setProperty(
-        "--video-scale",
-        `${1 + Math.sin(progress * Math.PI) * 0.025}`
-      );
       stage.style.setProperty(
         "--forge-fire-intensity",
         `${0.72 + Math.sin(progress * Math.PI * 5) * 0.12}`
@@ -178,33 +222,20 @@ export function ForgeHero() {
       }
 
       renderBeats(progress);
-
-      if (
-        video &&
-        metadataReady &&
-        Number.isFinite(video.duration) &&
-        video.duration > 0
-      ) {
-        const desiredTime = progress * Math.max(0, video.duration - 0.045);
-
-        if (Math.abs(desiredTime - lastVideoTime) >= 1 / 72) {
-          try {
-            video.currentTime = desiredTime;
-            lastVideoTime = desiredTime;
-          } catch {
-            // Safari may reject a seek until the media element is initialized.
-          }
-        }
-      }
+      renderScenes(progress);
     };
 
-    const tick = () => {
+    const tick = (timestamp: number) => {
       const difference = targetProgress - renderedProgress;
+      const elapsed = Math.max(16, Math.min(64, timestamp - lastFrameTime));
+      const response = 1 - Math.exp(-elapsed / 55);
+      lastFrameTime = timestamp;
+
       renderedProgress = reducedMotion.matches
         ? targetProgress
         : Math.abs(difference) < 0.00035
           ? targetProgress
-          : renderedProgress + difference * 0.14;
+          : renderedProgress + difference * response;
 
       render(renderedProgress);
 
@@ -218,66 +249,47 @@ export function ForgeHero() {
     const requestTick = () => {
       if (running) return;
       running = true;
+      lastFrameTime = performance.now();
       animationFrame = window.requestAnimationFrame(tick);
     };
 
     const syncTarget = () => {
-      const headerHeight = Number.parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue("--header-height")
-      ) || 0;
-      const start = stage.offsetTop - headerHeight;
-      const viewport = Math.max(1, window.innerHeight - headerHeight);
-      const travel = Math.max(1, stage.offsetHeight - viewport);
-
-      targetProgress = clamp((window.scrollY - start) / travel);
+      targetProgress = clamp((window.scrollY - stageStart) / stageTravel);
       requestTick();
     };
 
-    const onMetadata = () => {
-      if (!video) return;
-      metadataReady = true;
-      video.pause();
-      setReady(true);
-      render(renderedProgress);
+    const measure = () => {
+      const headerHeight = Number.parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue("--header-height")
+      ) || 0;
+      const viewport = Math.max(1, window.innerHeight - headerHeight);
+
+      stageStart = stage.offsetTop - headerHeight;
+      stageTravel = Math.max(1, stage.offsetHeight - viewport);
+      syncTarget();
     };
 
-    const unlockVideo = () => {
-      if (!video) return;
-      const playAttempt = video.play();
-      if (!playAttempt) return;
-
-      void playAttempt
-        .then(() => {
-          video.pause();
-          render(renderedProgress);
-        })
-        .catch(() => undefined);
-    };
-
-    video?.addEventListener("loadedmetadata", onMetadata);
-    video?.addEventListener("loadeddata", onMetadata);
     window.addEventListener("scroll", syncTarget, { passive: true });
-    window.addEventListener("resize", syncTarget, { passive: true });
-    window.addEventListener("touchstart", unlockVideo, { once: true, passive: true });
-    reducedMotion.addEventListener("change", syncTarget);
+    window.addEventListener("resize", measure, { passive: true });
+    reducedMotion.addEventListener("change", measure);
 
-    if (video && videoEnabled) {
-      video.load();
-      if (metadataReady) onMetadata();
-    }
+    const resizeObserver = typeof ResizeObserver === "undefined"
+      ? null
+      : new ResizeObserver(measure);
+    resizeObserver?.observe(stage);
+    const header = document.querySelector<HTMLElement>(".dota-command-header");
+    if (header) resizeObserver?.observe(header);
 
-    syncTarget();
+    measure();
 
     return () => {
       window.cancelAnimationFrame(animationFrame);
-      video?.removeEventListener("loadedmetadata", onMetadata);
-      video?.removeEventListener("loadeddata", onMetadata);
       window.removeEventListener("scroll", syncTarget);
-      window.removeEventListener("resize", syncTarget);
-      window.removeEventListener("touchstart", unlockVideo);
-      reducedMotion.removeEventListener("change", syncTarget);
+      window.removeEventListener("resize", measure);
+      reducedMotion.removeEventListener("change", measure);
+      resizeObserver?.disconnect();
     };
-  }, [videoEnabled]);
+  }, [cinematicEnabled]);
 
   return (
     <section
@@ -289,33 +301,25 @@ export function ForgeHero() {
         <div className="forge-hero__battlefield" aria-hidden="true">
           <div className="forge-hero__furnace" />
           <div className="forge-hero__lane" />
-          <Image
-            src="/media/dire-forge/dire-forge-poster.webp"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className={`forge-hero__poster${ready && videoEnabled && !videoFailed ? " is-superseded" : ""}`}
-          />
-          {videoEnabled ? (
-            <video
-              ref={videoRef}
-              className={`forge-hero__video${ready && !videoFailed ? " is-ready" : ""}`}
-              muted
-              playsInline
-              preload="auto"
-              poster="/media/dire-forge/dire-forge-poster.webp"
-              onError={() => {
-                setVideoFailed(true);
-                setReady(true);
+          {heroScenes.map((scene, index) => (
+            <div
+              key={scene.name}
+              ref={(element) => {
+                sceneRefs.current[index] = element;
               }}
+              className={`forge-hero__scene forge-hero__scene--${scene.id}${index === 0 ? " is-current" : ""}`}
             >
-              <source
-                src="/media/dire-forge/dire-forge-scroll.mp4"
-                type="video/mp4"
+              <Image
+                src={scene.src}
+                alt=""
+                fill
+                priority={index === 0}
+                loading={index === 0 ? undefined : "eager"}
+                sizes="100vw"
+                onLoad={() => markSceneLoaded(scene.name)}
               />
-            </video>
-          ) : null}
+            </div>
+          ))}
         </div>
 
         <div className="forge-hero__architecture" aria-hidden="true">
@@ -336,16 +340,19 @@ export function ForgeHero() {
 
             return (
               <div
-                key={beat.title}
+                key={beat.id}
                 ref={(element) => {
                   beatRefs.current[index] = element;
                   if (element) element.inert = index !== 0;
                 }}
-                className={`forge-beat forge-beat--${beat.align}`}
+                className={`forge-beat forge-beat--${beat.align} forge-beat--${beat.id}`}
                 aria-hidden={index === 0 ? "false" : "true"}
               >
                 <div className="forge-beat__panel">
-                  <Heading>{beat.title}</Heading>
+                  <Heading>
+                    <span>{beat.title.lead}</span>{" "}
+                    <em>{beat.title.accent}</em>
+                  </Heading>
                   <p className="forge-beat__body">{beat.body}</p>
 
                   <div className="forge-beat__actions">
@@ -382,11 +389,11 @@ export function ForgeHero() {
           <i aria-hidden="true"><span /></i>
         </div>
 
-        {videoEnabled ? (
+        {cinematicEnabled ? (
           <div className={`forge-hero__loader${ready ? " is-ready" : ""}`} aria-live="polite">
             <span><Swords /></span>
             <div><i /><i /><i /></div>
-            <p>{videoFailed ? "Static battlefield active" : "Igniting battlefield"}</p>
+            <p>Igniting battlefield</p>
           </div>
         ) : null}
       </div>

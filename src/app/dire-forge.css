@@ -47,30 +47,50 @@
 
 .forged-panel,
 .forged-card {
+  --lava-card-radius: 1.4rem 0.72rem 1.75rem 0.92rem / 0.86rem 1.55rem 0.78rem 1.35rem;
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--forge-line);
-  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+  border: 1px solid rgb(255 122 24 / 0.16);
+  border-radius: var(--lava-card-radius);
   background:
-    linear-gradient(135deg, rgb(255 255 255 / 0.022), transparent 28%),
-    linear-gradient(145deg, rgb(24 16 13 / 0.96), rgb(8 5 4 / 0.98));
+    radial-gradient(circle at 14% 0, rgb(255 177 74 / 0.08), transparent 28%),
+    radial-gradient(circle at 86% 106%, rgb(205 38 13 / 0.1), transparent 34%),
+    linear-gradient(145deg, rgb(24 12 9 / 0.68), rgb(6 3 2 / 0.48));
   box-shadow:
-    inset 0 1px rgb(255 241 199 / 0.035),
-    inset 0 -18px 40px rgb(0 0 0 / 0.22),
-    0 24px 70px rgb(0 0 0 / 0.28);
+    inset 0 1px rgb(255 226 164 / 0.08),
+    inset 0 0 0 1px rgb(255 255 255 / 0.018),
+    inset 0 -28px 64px rgb(0 0 0 / 0.22),
+    0 24px 70px rgb(0 0 0 / 0.22);
+  backdrop-filter: blur(9px) saturate(1.08);
+  isolation: isolate;
+}
+
+.forged-panel::before,
+.forged-card::before {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  border-radius: inherit;
+  background: url("/media/dire-forge/textures/lava-cracks.jpg") center 46% / cover no-repeat;
+  content: "";
+  filter: saturate(1.35) contrast(1.08);
+  mix-blend-mode: screen;
+  opacity: 0.13;
+  pointer-events: none;
+  transition: opacity 260ms ease, transform 700ms cubic-bezier(.2,.8,.2,1);
 }
 
 .forged-panel::after,
 .forged-card::after {
   position: absolute;
-  right: 0;
+  right: 8%;
   bottom: 0;
-  width: 5.5rem;
+  left: 7%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--blood-ember), var(--molten-orange));
-  box-shadow: 0 0 12px rgb(255 122 24 / 0.24);
+  background: linear-gradient(90deg, transparent, var(--blood-ember) 22%, var(--molten-orange) 52%, var(--hot-gold) 61%, transparent);
+  box-shadow: 0 0 15px rgb(255 122 24 / 0.34);
   content: "";
-  opacity: 0.65;
+  opacity: 0.58;
   pointer-events: none;
 }
 
@@ -79,13 +99,16 @@
 }
 
 .forged-card:hover {
-  border-color: rgb(255 122 24 / 0.26);
+  border-color: rgb(255 154 47 / 0.34);
   box-shadow:
-    inset 0 1px rgb(255 241 199 / 0.045),
-    inset 0 -18px 40px rgb(0 0 0 / 0.25),
-    0 32px 80px rgb(0 0 0 / 0.4);
-  transform: translateY(-5px);
+    inset 0 1px rgb(255 241 199 / 0.09),
+    inset 0 0 42px rgb(177 30 12 / 0.09),
+    0 28px 70px rgb(0 0 0 / 0.34),
+    0 0 28px rgb(255 73 17 / 0.07);
+  transform: translateY(-4px);
 }
+
+.forged-card:hover::before { opacity: 0.18; transform: scale(1.035); }
 
 .molten-button,
 .plate-button {
@@ -318,12 +341,41 @@
   line-height: 0.93;
 }
 
+.forge-section-heading h2,
+.why-highground__intro h2,
+.forge-faq__intro h2,
+.siege-cta__copy h2 {
+  -webkit-text-stroke: 0.3px rgb(255 245 218 / 0.16);
+  paint-order: stroke fill;
+  text-shadow:
+    0 2px 0 rgb(69 24 12 / 0.78),
+    0 9px 20px rgb(0 0 0 / 0.68),
+    0 22px 50px rgb(0 0 0 / 0.34),
+    0 0 34px rgb(255 96 24 / 0.08);
+}
+
 .forge-section-heading h2 em,
 .why-highground__intro h2 em,
 .forge-faq__intro h2 em,
 .siege-cta__copy h2 em {
   color: var(--molten-orange);
+  font-style: italic;
   font-weight: 500;
+  text-shadow:
+    0 2px 0 rgb(89 20 7 / 0.86),
+    0 8px 20px rgb(0 0 0 / 0.62),
+    0 0 26px rgb(255 91 21 / 0.19);
+}
+
+.dire-forge :is(.forged-panel, .forged-card) h3,
+.campaign-step h3,
+.forge-faq__item summary > strong {
+  -webkit-text-stroke: 0.2px rgb(255 241 209 / 0.12);
+  paint-order: stroke fill;
+  text-shadow:
+    0 1px 0 rgb(63 22 12 / 0.76),
+    0 7px 16px rgb(0 0 0 / 0.58),
+    0 0 20px rgb(255 91 21 / 0.055);
 }
 
 .forge-section-heading__copy {
@@ -371,6 +423,7 @@
   min-height: 36rem;
   overflow: hidden;
   background: #020100;
+  contain: paint;
   isolation: isolate;
 }
 
@@ -421,35 +474,28 @@
   transform: perspective(500px) rotateX(52deg);
 }
 
-.forge-hero__poster,
-.forge-hero__video {
+.forge-hero__scene {
   position: absolute;
   inset: 0;
+  z-index: 2;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(var(--scene-drift, 0), var(--scene-offset-y, 0), 0) scale(var(--scene-scale, 1));
+  transform-origin: center;
+  will-change: opacity, transform;
+}
+
+.forge-hero__scene.is-current { visibility: visible; opacity: 0.95; }
+.forge-hero__scene--shadow-fiend { --scene-offset-y: clamp(1.15rem, 2.7vh, 1.9rem); }
+
+.forge-hero__scene img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: var(--video-x, 50%) 50%;
+  object-position: center;
   mix-blend-mode: screen;
   filter: saturate(1.08) contrast(1.08) brightness(0.94);
-  transform: translate3d(var(--video-shift, 0), 0, 0) scale(var(--video-scale, 1));
-  transform-origin: center;
 }
-
-.forge-hero__poster {
-  z-index: 1;
-  opacity: 0.93;
-  transition: opacity 400ms ease;
-}
-
-.forge-hero__poster.is-superseded { opacity: 0; }
-
-.forge-hero__video {
-  z-index: 2;
-  opacity: 0;
-  transition: opacity 400ms ease;
-}
-
-.forge-hero__video.is-ready { opacity: 0.95; }
 
 .forge-hero__architecture {
   z-index: 3;
@@ -522,7 +568,7 @@
 .forge-hero__inferno i:nth-child(2) { left: 24%; height: 18rem; animation-delay: -1.8s; }
 .forge-hero__inferno i:nth-child(3) { left: 48%; width: 12rem; height: 25rem; animation-delay: -1.1s; }
 .forge-hero__inferno i:nth-child(4) { right: 19%; height: 20rem; animation-delay: -2.4s; }
-.forge-hero__inferno i:nth-child(5) { right: 2%; width: 8rem; animation-delay: -0.3s; }
+.forge-hero__inferno i:nth-child(5) { display: none; }
 
 .forge-hero__smoke {
   z-index: 11;
@@ -540,7 +586,7 @@
     radial-gradient(circle at 32% 76%, rgb(162 146 132 / 0.4), transparent 25%),
     radial-gradient(circle at 68% 52%, rgb(132 119 109 / 0.34), transparent 29%),
     radial-gradient(ellipse at 50% 65%, rgb(103 93 86 / 0.42), rgb(47 39 35 / 0.24) 48%, transparent 72%);
-  filter: blur(24px);
+  filter: blur(18px);
   opacity: 0;
   mix-blend-mode: screen;
   animation: forge-smoke-plume 11s linear infinite;
@@ -549,7 +595,7 @@
 .forge-hero__smoke i:nth-child(1) { left: -7%; animation-delay: -7s; }
 .forge-hero__smoke i:nth-child(2) { left: 26%; width: 38rem; animation-delay: -2s; }
 .forge-hero__smoke i:nth-child(3) { right: 18%; animation-delay: -9s; }
-.forge-hero__smoke i:nth-child(4) { right: -10%; width: 28rem; animation-delay: -4.5s; }
+.forge-hero__smoke i:nth-child(4) { display: none; }
 
 .forge-hero__embers {
   z-index: 12;
@@ -616,15 +662,53 @@
 .forge-hero__beats { z-index: 13; }
 
 .forge-beat {
+  --beat-title: #fff5d7;
+  --beat-accent: #ff9a35;
+  --beat-copy: #bca997;
+  --beat-glow: 255 100 25;
   display: flex;
   align-items: center;
   padding: clamp(5.5rem, 9vh, 7.5rem) max(7.7rem, calc((100vw - 1180px) / 2));
   opacity: 0;
   pointer-events: none;
-  filter: blur(var(--beat-blur, 0));
   transform: translate3d(var(--beat-shift, 0), var(--beat-lift, 0), 0) scale(var(--beat-scale, 1));
   transform-origin: center;
-  will-change: opacity, filter, transform;
+  will-change: opacity, transform;
+}
+
+.forge-beat--doom {
+  --beat-title: #fff2c9;
+  --beat-accent: #ff9b37;
+  --beat-copy: #bea992;
+  --beat-glow: 255 111 27;
+}
+
+.forge-beat--shadow-fiend {
+  --beat-title: #f6dce3;
+  --beat-accent: #ff675b;
+  --beat-copy: #c7a6aa;
+  --beat-glow: 221 42 43;
+}
+
+.forge-beat--ember-spirit {
+  --beat-title: #ffedbd;
+  --beat-accent: #ffb02d;
+  --beat-copy: #c6a289;
+  --beat-glow: 255 137 24;
+}
+
+.forge-beat--lina {
+  --beat-title: #ffe5df;
+  --beat-accent: #ff6874;
+  --beat-copy: #c5a0a0;
+  --beat-glow: 236 55 66;
+}
+
+.forge-beat--dragon-knight {
+  --beat-title: #e9eee4;
+  --beat-accent: #e8ad58;
+  --beat-copy: #b5ada3;
+  --beat-glow: 229 143 52;
 }
 
 .forge-beat:first-child { opacity: 1; pointer-events: auto; }
@@ -656,7 +740,25 @@
   font-weight: 600;
   letter-spacing: -0.068em;
   line-height: 0.92;
-  text-shadow: 0 15px 45px rgb(0 0 0 / 0.62), 0 0 32px rgb(255 61 20 / 0.07);
+  -webkit-text-stroke: 0.35px rgb(255 246 218 / 0.16);
+  paint-order: stroke fill;
+  text-shadow:
+    0 2px 0 rgb(55 17 9 / 0.88),
+    0 12px 28px rgb(0 0 0 / 0.72),
+    0 26px 56px rgb(0 0 0 / 0.35),
+    0 0 36px rgb(var(--beat-glow) / 0.16);
+}
+
+.forge-beat :is(h1, h2) > span { color: var(--beat-title); }
+
+.forge-beat :is(h1, h2) > em {
+  color: var(--beat-accent);
+  font-style: italic;
+  font-weight: 500;
+  text-shadow:
+    0 2px 0 rgb(72 17 8 / 0.88),
+    0 10px 24px rgb(0 0 0 / 0.66),
+    0 0 30px rgb(var(--beat-glow) / 0.24);
 }
 
 .forge-beat--right :is(h1, h2) { margin-left: auto; }
@@ -665,7 +767,7 @@
 .forge-beat__body {
   max-width: 41rem;
   margin: 1.2rem 0 0;
-  color: #b6a99a;
+  color: var(--beat-copy);
   font-size: clamp(0.8rem, 1vw, 0.94rem);
   line-height: 1.78;
   text-shadow: 0 2px 20px #000;
@@ -902,8 +1004,8 @@
 .rank-forge__console-head > div > small { color: #73655c; font-size: 0.47rem; }
 .rank-forge__brief h3 { max-width: 12ch; margin: clamp(4rem, 8vw, 7rem) 0 0; color: var(--bone); font-size: clamp(2rem, 3.2vw, 3.2rem); font-weight: 600; letter-spacing: -0.045em; line-height: 1; }
 .rank-forge__brief > p { max-width: 34rem; margin: 1.1rem 0 0; color: var(--ash); font-size: 0.78rem; line-height: 1.8; }
-.rank-forge__specs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin-top: 2rem; border: 1px solid rgb(255 255 255 / 0.06); background: rgb(255 255 255 / 0.06); }
-.rank-forge__specs div { background: #0b0705; padding: 0.8rem; }
+.rank-forge__specs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.55rem; margin-top: 2rem; }
+.rank-forge__specs div { border: 1px solid rgb(255 139 39 / 0.1); border-radius: 0.8rem 0.38rem 0.92rem 0.48rem / 0.42rem 0.86rem 0.38rem 0.72rem; background: rgb(13 7 5 / 0.38); padding: 0.8rem; }
 .rank-forge__specs small,
 .rank-forge__specs strong { display: block; }
 .rank-forge__specs small { color: #695c54; font-size: 0.44rem; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; }
@@ -914,8 +1016,8 @@
 
 .rank-forge__console {
   background:
-    radial-gradient(circle at 75% 56%, rgb(230 75 32 / 0.11), transparent 18rem),
-    linear-gradient(145deg, rgb(24 16 13 / 0.96), rgb(8 5 4 / 0.98));
+    radial-gradient(circle at 75% 56%, rgb(230 75 32 / 0.12), transparent 18rem),
+    linear-gradient(145deg, rgb(24 13 10 / 0.62), rgb(7 4 3 / 0.43));
 }
 .rank-forge__console-head > div > small { display: block; margin-top: 0.22rem; }
 .rank-forge__console-head > p { display: flex; align-items: center; gap: 0.42rem; margin: 0; color: #89cabb; font-size: 0.46rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; }
@@ -941,7 +1043,7 @@
 /* Service Arsenal */
 
 .service-arsenal { padding-top: clamp(4rem, 8vw, 8rem); }
-.service-arsenal__grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
+.service-arsenal__grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.15rem; }
 .arsenal-card { min-width: 0; color: inherit; }
 .arsenal-card--mmr { min-height: 42rem; grid-column: span 7; grid-row: span 2; }
 .arsenal-card--calibration,
@@ -950,7 +1052,7 @@
 .arsenal-card--behavior { min-height: 25rem; grid-column: span 6; }
 .arsenal-card__hero { z-index: 0; object-fit: contain; object-position: 112% center; mix-blend-mode: screen; opacity: 0.68; filter: saturate(0.85) contrast(1.1) brightness(0.84); transform: scale(1.03); transition: filter 600ms ease, opacity 400ms ease, transform 750ms cubic-bezier(.2,.8,.2,1); }
 .arsenal-card:hover .arsenal-card__hero { opacity: 0.82; filter: saturate(1.05) contrast(1.12) brightness(0.98); transform: scale(1.075); }
-.arsenal-card__shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, #0b0705 0 43%, rgb(11 7 5 / 0.78) 60%, transparent 100%), linear-gradient(180deg, transparent 57%, #080504 94%); pointer-events: none; }
+.arsenal-card__shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgb(8 4 3 / 0.82) 0 40%, rgb(8 4 3 / 0.5) 62%, transparent 100%), linear-gradient(180deg, transparent 53%, rgb(5 3 2 / 0.72) 96%); pointer-events: none; }
 .arsenal-card--calibration .arsenal-card__hero,
 .arsenal-card--coaching .arsenal-card__hero { object-position: 118% 42%; opacity: 0.48; }
 .arsenal-card--wins .arsenal-card__hero,
@@ -958,7 +1060,7 @@
 .arsenal-card--calibration .arsenal-card__shade,
 .arsenal-card--coaching .arsenal-card__shade,
 .arsenal-card--wins .arsenal-card__shade,
-.arsenal-card--behavior .arsenal-card__shade { background: linear-gradient(90deg, #0b0705 0 47%, rgb(11 7 5 / 0.8) 66%, transparent 100%), linear-gradient(180deg, transparent 52%, #080504 95%); }
+.arsenal-card--behavior .arsenal-card__shade { background: linear-gradient(90deg, rgb(8 4 3 / 0.82) 0 43%, rgb(8 4 3 / 0.52) 68%, transparent 100%), linear-gradient(180deg, transparent 49%, rgb(5 3 2 / 0.72) 96%); }
 .arsenal-card__topline,
 .arsenal-card__content,
 .arsenal-card__compact-content,
@@ -990,8 +1092,8 @@
 .arsenal-card__rank-route > i::before { position: absolute; right: 0; left: 0; height: 1px; background: linear-gradient(90deg, var(--blood-ember), var(--molten-orange)); content: ""; }
 .arsenal-card__rank-route > i span { position: relative; width: 0.35rem; height: 0.35rem; border: 1px solid #7d3520; background: #0c0705; transform: rotate(45deg); }
 .arsenal-card__rank-route > i svg { position: relative; width: 0.7rem; color: var(--hot-gold); }
-.arsenal-card__settings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 1.6rem; background: rgb(255 255 255 / 0.055); }
-.arsenal-card__settings span { background: rgb(8 5 4 / 0.9); padding: 0.7rem; }
+.arsenal-card__settings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.45rem; margin-top: 1.6rem; }
+.arsenal-card__settings span { border: 1px solid rgb(255 139 39 / 0.09); border-radius: 0.62rem 0.3rem 0.72rem 0.38rem; background: rgb(8 4 3 / 0.38); padding: 0.7rem; }
 .arsenal-card__settings small,
 .arsenal-card__settings strong { display: block; }
 .arsenal-card__settings small { color: #6d6057; font-size: 0.39rem; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -1005,11 +1107,11 @@
 .arsenal-card__open svg { width: 0.75rem; transition: transform 180ms ease; }
 .arsenal-card:hover .arsenal-card__open svg { transform: translate(3px, -3px); }
 .calibration-blocks { display: flex; align-items: center; gap: 0.55rem; margin-top: 1.2rem; }
-.calibration-blocks span { display: flex; align-items: baseline; gap: 0.25rem; border: 1px solid rgb(255 122 24 / 0.14); background: rgb(122 23 16 / 0.08); padding: 0.48rem 0.6rem; }
+.calibration-blocks span { display: flex; align-items: baseline; gap: 0.25rem; border: 1px solid rgb(255 122 24 / 0.17); border-radius: 0.7rem 0.34rem 0.8rem 0.4rem; background: rgb(122 23 16 / 0.09); padding: 0.48rem 0.6rem; }
 .calibration-blocks strong { color: var(--hot-gold); font-family: var(--forge-display); font-size: 1.2rem; }
 .calibration-blocks small,
 .calibration-blocks > i { color: #7d7066; font-size: 0.42rem; font-style: normal; text-transform: uppercase; }
-.coaching-board { margin-top: 1rem; border: 1px solid rgb(255 255 255 / 0.065); background: rgb(4 3 2 / 0.45); padding: 0.65rem; }
+.coaching-board { margin-top: 1rem; border: 1px solid rgb(255 139 39 / 0.1); border-radius: 0.8rem 0.4rem 0.95rem 0.45rem; background: rgb(4 3 2 / 0.32); padding: 0.65rem; }
 .coaching-board > div { position: relative; height: 2.4rem; background-image: linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px); background-size: 16px 16px; }
 .coaching-board > div i { position: absolute; width: 0.4rem; height: 0.4rem; border: 1px solid var(--flame); transform: rotate(45deg); }
 .coaching-board > div i:nth-child(1) { top: 25%; left: 18%; }
@@ -1028,7 +1130,7 @@
 .arsenal-card__compact-content ul { display: flex; flex-wrap: wrap; gap: 0.55rem; margin: 1rem 0 0; padding: 0; list-style: none; }
 .arsenal-card__compact-content li { display: flex; align-items: center; gap: 0.32rem; color: #908278; font-size: 0.5rem; }
 .arsenal-card__compact-content li svg { width: 0.62rem; color: var(--molten-orange); }
-.service-arsenal__note { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; margin-top: 1rem; border: 1px solid rgb(255 193 90 / 0.1); background: rgb(8 5 4 / 0.72); padding: 0.9rem 1rem; }
+.service-arsenal__note { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; margin-top: 1.15rem; border: 1px solid rgb(255 193 90 / 0.12); border-radius: 0.9rem 0.45rem 1rem 0.55rem; background: rgb(8 5 4 / 0.38); padding: 0.9rem 1rem; }
 .service-arsenal__note > svg { width: 0.9rem; color: var(--hot-gold); }
 .service-arsenal__note p { margin: 0; color: #8f8277; font-size: 0.58rem; line-height: 1.55; }
 .service-arsenal__note p strong { color: #cbbdac; }
@@ -1038,9 +1140,10 @@
 /* Campaign flow */
 
 .campaign-flow__layout { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(25rem, 0.7fr); gap: clamp(1rem, 3vw, 2.5rem); align-items: start; }
-.campaign-flow__steps { display: grid; gap: 1px; margin: 0; padding: 0; background: rgb(255 255 255 / 0.06); list-style: none; }
-.campaign-step { position: relative; display: grid; min-height: 8.2rem; grid-template-columns: 3.2rem 2.8rem minmax(0, 1fr) auto; align-items: center; gap: 1rem; overflow: hidden; background: linear-gradient(90deg, #0d0907, #080504); padding: 1rem 1.2rem; }
+.campaign-flow__steps { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+.campaign-step { position: relative; display: grid; min-height: 8.2rem; grid-template-columns: 3.2rem 2.8rem minmax(0, 1fr) auto; align-items: center; gap: 1rem; overflow: hidden; border: 1px solid rgb(255 122 24 / 0.11); border-radius: 1rem 0.48rem 1.2rem 0.58rem / 0.52rem 1.05rem 0.48rem 0.92rem; background: linear-gradient(90deg, rgb(13 7 5 / 0.91), rgb(7 4 3 / 0.82)), url("/media/dire-forge/textures/lava-cracks.jpg") center 58% / cover no-repeat; padding: 1rem 1.2rem; backdrop-filter: blur(7px); transition: border-color 220ms ease, background-color 220ms ease, transform 220ms ease; }
 .campaign-step::after { position: absolute; right: 0; bottom: 0; left: 0; height: 1px; background: linear-gradient(90deg, transparent, rgb(255 122 24 / 0.14), transparent); content: ""; transform: scaleX(0); transition: transform 300ms ease; }
+.campaign-step:hover { border-color: rgb(255 139 39 / 0.24); transform: translateX(4px); }
 .campaign-step:hover::after { transform: scaleX(1); }
 .campaign-step__number { display: flex; align-items: center; gap: 0.45rem; color: #735f52; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.52rem; }
 .campaign-step__number i { width: 1rem; height: 1px; background: #572014; }
@@ -1057,15 +1160,15 @@
 .campaign-console__top > div small { display: block; margin-top: 0.24rem; color: #6d6057; font-size: 0.44rem; }
 .campaign-console__top > p { display: flex; align-items: center; gap: 0.35rem; margin: 0; color: #8ac7b8; font-size: 0.44rem; font-weight: 900; text-transform: uppercase; }
 .campaign-console__top > p i { width: 0.35rem; height: 0.35rem; border-radius: 50%; background: var(--radiant-mint); box-shadow: 0 0 9px var(--radiant-mint); }
-.campaign-console__route { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 1.5rem; background: rgb(255 255 255 / 0.055); }
-.campaign-console__route div { background: #0a0605; padding: 0.7rem; }
+.campaign-console__route { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.45rem; margin-top: 1.5rem; }
+.campaign-console__route div { border: 1px solid rgb(255 139 39 / 0.08); border-radius: 0.62rem 0.3rem 0.72rem 0.36rem; background: rgb(10 5 4 / 0.34); padding: 0.7rem; }
 .campaign-console__route small,
 .campaign-console__route strong { display: block; }
 .campaign-console__route small { color: #685b53; font-size: 0.38rem; text-transform: uppercase; }
 .campaign-console__route strong { margin-top: 0.25rem; color: #cfc2b1; font-family: var(--forge-display); font-size: 0.62rem; }
 .campaign-console__timeline { position: relative; display: grid; gap: 0.9rem; margin-top: 2.2rem; }
 .campaign-console__timeline::before { position: absolute; top: 1.2rem; bottom: 1.2rem; left: 1.15rem; width: 1px; background: rgb(255 255 255 / 0.08); content: ""; }
-.campaign-console__timeline > div { position: relative; z-index: 1; display: grid; grid-template-columns: 2.3rem 1fr; align-items: center; gap: 0.8rem; border: 1px solid rgb(255 255 255 / 0.055); background: rgb(255 255 255 / 0.014); padding: 0.7rem; }
+.campaign-console__timeline > div { position: relative; z-index: 1; display: grid; grid-template-columns: 2.3rem 1fr; align-items: center; gap: 0.8rem; border: 1px solid rgb(255 139 39 / 0.08); border-radius: 0.72rem 0.36rem 0.82rem 0.42rem; background: rgb(255 255 255 / 0.012); padding: 0.7rem; }
 .campaign-console__timeline > div > span { display: grid; width: 1.9rem; height: 1.9rem; place-items: center; border: 1px solid #4b3328; background: #0b0705; transform: rotate(45deg); }
 .campaign-console__timeline > div > span svg { width: 0.68rem; color: #665248; transform: rotate(-45deg); }
 .campaign-console__timeline > div.is-done > span { border-color: rgb(104 215 188 / 0.25); }
@@ -1096,8 +1199,8 @@
   min-height: 38rem;
   padding: clamp(1.3rem, 3vw, 2.2rem);
   background:
-    radial-gradient(circle at 14% 82%, rgb(230 75 32 / 0.13), transparent 20rem),
-    linear-gradient(145deg, rgb(24 16 13 / 0.96), rgb(8 5 4 / 0.98));
+    radial-gradient(circle at 14% 82%, rgb(230 75 32 / 0.14), transparent 20rem),
+    linear-gradient(145deg, rgb(24 13 10 / 0.63), rgb(7 4 3 / 0.42));
 }
 
 .victory-quote__top,
@@ -1218,7 +1321,7 @@
 
 /* Roster preview */
 
-.roster-preview { background: linear-gradient(180deg, transparent, rgb(122 23 16 / 0.025), transparent); }
+.roster-preview { background: transparent; }
 .roster-preview__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .roster-card { min-height: 34rem; padding: 1.15rem; }
 .roster-card__top { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.8rem; }
@@ -1231,15 +1334,15 @@
 .roster-card__top small { color: #74675e; font-size: 0.43rem; text-transform: uppercase; }
 .roster-card__top > svg { width: 0.8rem; color: #6e5d51; transition: color 180ms ease, transform 180ms ease; }
 .roster-card:hover .roster-card__top > svg { color: var(--molten-orange); transform: translate(3px, -3px); }
-.roster-card__rank { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin-top: 1.5rem; background: rgb(255 255 255 / 0.06); }
-.roster-card__rank > span { position: relative; display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 0.5rem; background: #0a0605; padding: 0.75rem; }
+.roster-card__rank { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-top: 1.5rem; }
+.roster-card__rank > span { position: relative; display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 0.5rem; border: 1px solid rgb(255 139 39 / 0.09); border-radius: 0.72rem 0.34rem 0.82rem 0.4rem; background: rgb(10 5 4 / 0.34); padding: 0.75rem; }
 .roster-card__rank svg { grid-row: span 2; width: 0.75rem; color: #b98560; }
 .roster-card__rank small,
 .roster-card__rank strong { display: block; }
 .roster-card__rank small { color: #6a5d55; font-size: 0.38rem; text-transform: uppercase; }
 .roster-card__rank strong { overflow: hidden; margin-top: 0.15rem; color: #cdbfae; font-size: 0.53rem; text-overflow: ellipsis; white-space: nowrap; }
 .roster-card__roles { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.1rem; }
-.roster-card__roles span { border: 1px solid rgb(255 193 90 / 0.12); background: rgb(255 193 90 / 0.025); padding: 0.35rem 0.48rem; color: #a99583; font-size: 0.43rem; font-weight: 800; text-transform: uppercase; }
+.roster-card__roles span { border: 1px solid rgb(255 193 90 / 0.13); border-radius: 999px; background: rgb(255 193 90 / 0.025); padding: 0.35rem 0.55rem; color: #a99583; font-size: 0.43rem; font-weight: 800; text-transform: uppercase; }
 .roster-card__bio { margin: 3rem 0 0; color: #8f8176; font-family: var(--forge-display); font-size: 0.91rem; line-height: 1.75; }
 .roster-card__footer { position: absolute; right: 1.15rem; bottom: 1.15rem; left: 1.15rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; border-top: 1px solid rgb(255 255 255 / 0.065); padding-top: 0.85rem; }
 .roster-card__footer span:last-child { text-align: right; }
@@ -1254,9 +1357,11 @@
 .why-highground__intro { position: sticky; top: calc(var(--header-height) + 2rem); }
 .why-highground__intro h2 { max-width: 9ch; font-size: clamp(2.7rem, 4.6vw, 4.8rem); }
 .why-highground__intro > p:not(.forge-kicker) { margin: 1.4rem 0 0; color: var(--ash); font-size: 0.8rem; line-height: 1.8; }
-.why-highground__intro .plate-button { margin-top: 1.5rem; }
+.why-highground__intro .molten-button { margin-top: 1.5rem; }
 .why-highground__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
 .why-card { min-height: 20rem; padding: 1.25rem; }
+.why-card:nth-child(2),
+.why-card:nth-child(3) { --lava-card-radius: 0.78rem 1.5rem 0.88rem 1.7rem / 1.4rem 0.82rem 1.5rem 0.76rem; }
 .why-card > div { display: flex; align-items: center; justify-content: space-between; }
 .why-card > div span { color: #6e493a; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.48rem; }
 .why-card > div svg { width: 1rem; color: #bd8863; }
@@ -1379,8 +1484,8 @@
 .siege-route__health strong { color: #9d8d80; font-size: 0.44rem; }
 .siege-route__health > i { display: block; height: 0.45rem; margin-top: 0.55rem; border: 1px solid rgb(255 255 255 / 0.07); background: #050302; }
 .siege-route__health > i b { display: block; width: 18%; height: 100%; background: linear-gradient(90deg, var(--blood-ember), var(--molten-orange)); box-shadow: 0 0 12px rgb(255 122 24 / 0.32); }
-.siege-route ul { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin: 1.2rem 0 0; padding: 0; background: rgb(255 255 255 / 0.06); list-style: none; }
-.siege-route li { display: flex; min-width: 0; align-items: center; justify-content: center; gap: 0.35rem; background: #090604; padding: 0.55rem; color: #7d7066; font-size: 0.4rem; text-align: center; }
+.siege-route ul { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.42rem; margin: 1.2rem 0 0; padding: 0; list-style: none; }
+.siege-route li { display: flex; min-width: 0; align-items: center; justify-content: center; gap: 0.35rem; border: 1px solid rgb(255 139 39 / 0.08); border-radius: 0.58rem 0.28rem 0.66rem 0.32rem; background: rgb(9 5 3 / 0.34); padding: 0.55rem; color: #7d7066; font-size: 0.4rem; text-align: center; }
 .siege-route li svg { width: 0.62rem; flex: 0 0 auto; color: var(--radiant-mint); }
 
 /* Motion */
@@ -1512,15 +1617,19 @@
 
 @media (max-width: 768px) {
   .forge-section { padding-block: 6.2rem; }
+  .forged-panel::before,
+  .forged-card::before { opacity: 0.105; }
   .forge-hero { height: auto; }
   .forge-hero__sticky { position: relative; top: auto; height: max(43rem, calc(100svh - var(--header-height))); min-height: 43rem; }
-  .forge-hero__poster { object-position: 70% center; opacity: 0.62; transform: scale(1.12); }
+  .forge-hero__scene.is-current img { object-position: 70% center; opacity: 0.62; transform: scale(1.12); }
   .forge-hero__architecture i:nth-child(2),
   .forge-hero__architecture i:nth-child(3),
   .forge-hero__route,
   .forge-hero__scroll-cue { display: none; }
   .forge-hero__inferno { opacity: 0.7; }
-  .forge-hero__smoke i { width: 22rem; filter: blur(24px); }
+  .forge-hero__smoke i { width: 22rem; filter: blur(16px); }
+  .forge-hero__smoke i:nth-child(n + 3),
+  .forge-hero__inferno i:nth-child(n + 4) { display: none; }
   .forge-hero__beats { inset: 0; }
   .forge-beat { display: none; padding: 6rem 1rem 2rem; }
   .forge-beat:first-child { display: flex; align-items: flex-end; opacity: 1; pointer-events: auto; }
@@ -1558,7 +1667,7 @@
   .arsenal-card--calibration .arsenal-card__shade,
   .arsenal-card--coaching .arsenal-card__shade,
   .arsenal-card--wins .arsenal-card__shade,
-  .arsenal-card--behavior .arsenal-card__shade { background: linear-gradient(90deg, #0b0705 0 57%, rgb(11 7 5 / 0.76) 74%, transparent), linear-gradient(180deg, transparent 45%, #080504 92%); }
+  .arsenal-card--behavior .arsenal-card__shade { background: linear-gradient(90deg, rgb(8 4 3 / 0.86) 0 57%, rgb(8 4 3 / 0.58) 74%, transparent), linear-gradient(180deg, transparent 45%, rgb(5 3 2 / 0.76) 92%); }
   .arsenal-card__content,
   .arsenal-card--calibration .arsenal-card__content,
   .arsenal-card--coaching .arsenal-card__content,

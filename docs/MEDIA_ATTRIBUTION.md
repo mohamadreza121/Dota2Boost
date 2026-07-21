@@ -10,6 +10,8 @@ The visual-overhaul branch includes optimized derivatives of artwork supplied di
 
 These files are used as cinematic section artwork. The project owner must confirm that production usage rights cover each supplied image before commercial launch; otherwise replace them with licensed or original equivalents.
 
+The translucent inner card surfaces also use the owner-supplied `Dark Wallpapers – AMOLED, Black, Aesthetic, 4K.jpg`, stored as `public/media/dire-forge/textures/lava-cracks.jpg`. It is applied as a low-opacity lava-fissure texture. Production usage likewise depends on the project owner confirming commercial rights or replacing it with a licensed equivalent.
+
 ## Original campaign map
 
 `public/media/dota/campaign-map.webp` was generated specifically for this project with OpenAI image generation. It depicts an original, top-down three-lane fantasy arena in an old-school strategy-map style. The prompt deliberately excluded copied maps, logos, interface elements, text, and recognizable game characters. Review the final asset as part of the normal commercial-rights and brand review before launch.
@@ -28,7 +30,7 @@ The homepage uses optimized derivatives of official Dota 2 hero render loops dis
 - Lina: `https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/lina.webm`
 - Dragon Knight: `https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/dragon_knight.webm`
 
-The five alpha-enabled loops were decoded with `libvpx-vp9`, normalized, cleanly composited, arranged into a silent 1920×1080 scroll-seek sequence, and encoded with frequent keyframes as `public/media/dire-forge/dire-forge-scroll.mp4`. Black-matted, screen-blended WebP derivatives provide the poster and service-card art in `public/media/dire-forge` without exposing noisy edge pixels from the source alpha channels.
+The five alpha-enabled loops were decoded with `libvpx-vp9`, normalized, and cleanly composited into 1920×1080 WebP scene layers in `public/media/dire-forge/scenes`. The homepage crossfades those lightweight, screen-blended layers during scroll instead of seeking through a video. Additional WebP derivatives provide the social poster and service-card art in `public/media/dire-forge` without exposing noisy edge pixels from the source alpha channels.
 
 These files identify authentic Dota 2 heroes and do not imply sponsorship, endorsement, or affiliation. Valve owns the characters and original renders. The footer retains an explicit non-affiliation notice. Because this is a commercial service, confirm that production usage complies with Valve's current asset, fan-content, trademark, and game-service policies before accepting payments.
 
