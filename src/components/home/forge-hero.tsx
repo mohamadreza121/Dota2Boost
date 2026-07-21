@@ -89,8 +89,14 @@ export function ForgeHero() {
   const counterRef = useRef<HTMLSpanElement>(null);
   const beatRefs = useRef<Array<HTMLDivElement | null>>([]);
   const sceneRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const loadedScenesRef = useRef(new Set<string>());
   const [cinematicEnabled, setCinematicEnabled] = useState(false);
   const [ready, setReady] = useState(false);
+
+  const markSceneLoaded = (sceneName: string) => {
+    loadedScenesRef.current.add(sceneName);
+    if (loadedScenesRef.current.size === heroScenes.length) setReady(true);
+  };
 
   useEffect(() => {
     const media = window.matchMedia(
@@ -183,8 +189,10 @@ export function ForgeHero() {
           (progress - beat.start) / Math.max(0.001, beat.end - beat.start)
         );
         const direction = beat.align === "right" ? -1 : 1;
+        const visible = opacity > 0.002;
 
         element.style.opacity = opacity.toFixed(3);
+        element.style.visibility = visible ? "visible" : "hidden";
         element.style.setProperty(
           "--scene-drift",
           `${(localProgress - 0.5) * 18 * direction}px`
@@ -300,8 +308,9 @@ export function ForgeHero() {
                 alt=""
                 fill
                 priority={index === 0}
+                loading={index === 0 ? undefined : "eager"}
                 sizes="100vw"
-                onLoad={index === 0 ? () => setReady(true) : undefined}
+                onLoad={() => markSceneLoaded(scene.name)}
               />
             </div>
           ))}
