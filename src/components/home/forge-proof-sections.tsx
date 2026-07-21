@@ -47,7 +47,7 @@ const whyItems = [
 export function VictoryProof() {
   return (
     <section className="forge-section victory-proof">
-      <div className="container-shell lava-section-shell lava-section-shell--proof">
+      <div className="container-shell">
         <ForgeSectionHeading
           chapter="04"
           eyebrow="Proof of victory"
@@ -108,7 +108,7 @@ export function VictoryProof() {
 export function RosterPreview() {
   return (
     <section className="forge-section roster-preview">
-      <div className="container-shell lava-section-shell lava-section-shell--roster">
+      <div className="container-shell">
         <ForgeSectionHeading
           chapter="05"
           eyebrow="Verified roster"
@@ -165,7 +165,7 @@ export function RosterPreview() {
 export function WhyHighground() {
   return (
     <section className="forge-section why-highground">
-      <div className="container-shell why-highground__layout lava-section-shell lava-section-shell--why">
+      <div className="container-shell why-highground__layout">
         <div className="why-highground__intro" data-forge-reveal>
           <p className="forge-kicker"><span>06</span><i /> Why Highground</p>
           <h2>A serious platform for a <em>high-risk category.</em></h2>
@@ -234,7 +234,7 @@ export function SiegeCta() {
       />
       <div className="siege-cta__shade" aria-hidden="true" />
 
-      <div className="container-shell siege-cta__inner lava-section-shell lava-section-shell--final">
+      <div className="container-shell siege-cta__inner">
         <div className="siege-cta__copy" data-forge-reveal>
           <p><Swords /> Final ready check</p>
           <h2 id="siege-title">Siege the Ancient.<br /> <em>Start with the route.</em></h2>

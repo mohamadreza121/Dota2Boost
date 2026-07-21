@@ -10,7 +10,7 @@ The visual-overhaul branch includes optimized derivatives of artwork supplied di
 
 These files are used as cinematic section artwork. The project owner must confirm that production usage rights cover each supplied image before commercial launch; otherwise replace them with licensed or original equivalents.
 
-The translucent chapter and card surfaces also use the owner-supplied `Dark Wallpapers – AMOLED, Black, Aesthetic, 4K.jpg`, stored as `public/media/dire-forge/textures/lava-cracks.jpg`. It is applied as a low-opacity lava-fissure texture. Production usage likewise depends on the project owner confirming commercial rights or replacing it with a licensed equivalent.
+The translucent inner card surfaces also use the owner-supplied `Dark Wallpapers – AMOLED, Black, Aesthetic, 4K.jpg`, stored as `public/media/dire-forge/textures/lava-cracks.jpg`. It is applied as a low-opacity lava-fissure texture. Production usage likewise depends on the project owner confirming commercial rights or replacing it with a licensed equivalent.
 
 ## Original campaign map
 

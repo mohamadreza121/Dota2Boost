@@ -75,7 +75,7 @@
   content: "";
   filter: saturate(1.35) contrast(1.08);
   mix-blend-mode: screen;
-  opacity: 0.055;
+  opacity: 0.13;
   pointer-events: none;
   transition: opacity 260ms ease, transform 700ms cubic-bezier(.2,.8,.2,1);
 }
@@ -108,83 +108,7 @@
   transform: translateY(-4px);
 }
 
-.forged-card:hover::before { opacity: 0.095; transform: scale(1.035); }
-
-/* Translucent lava-glass chapter containers */
-
-.lava-section-shell {
-  --lava-shell-position: center 48%;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgb(255 122 24 / 0.2);
-  border-radius: 2.1rem 0.95rem 2.75rem 1.25rem / 1.15rem 2.45rem 0.92rem 2rem;
-  background:
-    radial-gradient(circle at 8% 0, rgb(255 186 82 / 0.09), transparent 26%),
-    radial-gradient(circle at 92% 100%, rgb(190 30 12 / 0.13), transparent 32%),
-    linear-gradient(145deg, rgb(15 7 5 / 0.61), rgb(4 2 1 / 0.39));
-  box-shadow:
-    inset 0 1px rgb(255 224 153 / 0.13),
-    inset 0 0 0 1px rgb(255 255 255 / 0.018),
-    inset 0 -65px 120px rgb(0 0 0 / 0.2),
-    0 38px 100px rgb(0 0 0 / 0.3),
-    0 0 42px rgb(255 58 16 / 0.045);
-  padding: clamp(2rem, 4.4vw, 4.2rem);
-  backdrop-filter: blur(7px) saturate(1.05);
-  isolation: isolate;
-}
-
-.lava-section-shell::before {
-  position: absolute;
-  inset: -2%;
-  z-index: -2;
-  background: url("/media/dire-forge/textures/lava-cracks.jpg") var(--lava-shell-position) / cover no-repeat;
-  content: "";
-  filter: saturate(1.28) contrast(1.12) brightness(0.86);
-  mix-blend-mode: screen;
-  opacity: 0.105;
-  pointer-events: none;
-}
-
-.lava-section-shell::after {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background:
-    linear-gradient(108deg, transparent 0 28%, rgb(255 87 23 / 0.045) 39%, transparent 51%),
-    radial-gradient(ellipse at 50% 0, rgb(255 181 73 / 0.075), transparent 45%),
-    linear-gradient(180deg, rgb(0 0 0 / 0.04), rgb(0 0 0 / 0.2));
-  box-shadow:
-    inset 0 0 0 1px rgb(255 215 132 / 0.025),
-    inset 0 -1px rgb(255 80 18 / 0.2);
-  content: "";
-  pointer-events: none;
-}
-
-.lava-section-shell--rank { --lava-shell-position: 52% 34%; }
-.lava-section-shell--arsenal { --lava-shell-position: 42% 52%; }
-.lava-section-shell--campaign { --lava-shell-position: 58% 68%; }
-.lava-section-shell--proof { --lava-shell-position: 46% 44%; }
-.lava-section-shell--roster { --lava-shell-position: 61% 60%; }
-.lava-section-shell--why { --lava-shell-position: 38% 31%; }
-.lava-section-shell--final { --lava-shell-position: 54% 52%; }
-
-.lava-section-shell :is(.forge-section-heading__title > p, .forge-kicker) {
-  color: #b99b85;
-}
-
-.lava-section-shell :is(.forge-section-heading__title > p span, .forge-kicker span) {
-  display: inline-grid;
-  width: 2.15rem;
-  height: 2.15rem;
-  flex: 0 0 2.15rem;
-  place-items: center;
-  border: 1px solid rgb(255 152 46 / 0.32);
-  border-radius: 52% 43% 57% 46% / 43% 55% 45% 57%;
-  background: radial-gradient(circle at 42% 30%, rgb(255 190 88 / 0.17), rgb(120 22 9 / 0.14) 62%, transparent 64%);
-  box-shadow: inset 0 1px rgb(255 228 170 / 0.13), 0 0 18px rgb(255 72 17 / 0.1);
-  color: var(--hot-gold);
-}
+.forged-card:hover::before { opacity: 0.18; transform: scale(1.035); }
 
 .molten-button,
 .plate-button {
@@ -1437,15 +1361,6 @@
   padding-block: 6rem;
 }
 
-.siege-cta__inner.lava-section-shell {
-  min-height: 46rem;
-  margin-block: clamp(3rem, 5vw, 5rem);
-  padding: clamp(2rem, 5vw, 4.5rem);
-  background:
-    radial-gradient(circle at 82% 50%, rgb(230 75 32 / 0.12), transparent 30%),
-    linear-gradient(145deg, rgb(13 6 4 / 0.58), rgb(3 2 1 / 0.34));
-}
-
 .siege-cta__copy > p {
   display: flex;
   align-items: center;
@@ -1615,12 +1530,8 @@
 
 @media (max-width: 768px) {
   .forge-section { padding-block: 6.2rem; }
-  .lava-section-shell {
-    border-radius: 1.35rem 0.68rem 1.65rem 0.78rem / 0.74rem 1.45rem 0.66rem 1.25rem;
-    padding: 1.25rem;
-    backdrop-filter: blur(5px) saturate(1.04);
-  }
-  .lava-section-shell::before { opacity: 0.085; }
+  .forged-panel::before,
+  .forged-card::before { opacity: 0.105; }
   .forge-hero { height: auto; }
   .forge-hero__sticky { position: relative; top: auto; height: max(43rem, calc(100svh - var(--header-height))); min-height: 43rem; }
   .forge-hero__scene.is-current img { object-position: 70% center; opacity: 0.62; transform: scale(1.12); }
@@ -1693,7 +1604,6 @@
   .siege-cta,
   .siege-cta__inner { min-height: 0; }
   .siege-cta__inner { padding-block: 7rem; }
-  .siege-cta__inner.lava-section-shell { margin-block: 2.5rem; padding: 4rem 1.25rem; }
   .siege-cta__copy h2 { font-size: clamp(3rem, 14vw, 4.6rem); }
   .siege-cta__copy > div { display: grid; grid-template-columns: 1fr; }
   .siege-cta__copy :is(.molten-button, .plate-button) { width: 100%; }
@@ -1703,8 +1613,6 @@
 }
 
 @media (max-width: 520px) {
-  .lava-section-shell { padding: 0.9rem; }
-  .lava-section-shell .forge-section-heading { margin-bottom: 2.5rem; }
   .forge-section-heading__title > p,
   .forge-kicker { font-size: 0.53rem; }
   .forge-trust-rail__items { grid-template-columns: 1fr; }

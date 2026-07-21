@@ -43,7 +43,7 @@ export function ServiceArsenal() {
 
   return (
     <section className="forge-section service-arsenal">
-      <div className="container-shell lava-section-shell lava-section-shell--arsenal">
+      <div className="container-shell">
         <ForgeSectionHeading
           chapter="02"
           eyebrow="Service Arsenal"
