@@ -19,7 +19,6 @@ type Beat = {
   start: number;
   end: number;
   align: BeatAlignment;
-  eyebrow: string;
   title: string;
   body: string;
   primary: { label: string; href: string };
@@ -31,7 +30,6 @@ const beats: readonly Beat[] = [
     start: 0,
     end: 0.235,
     align: "left",
-    eyebrow: "01 / Choose your objective",
     title: "Choose the rank worth forging.",
     body: "Set your current medal, target, server, role, and delivery style. The route is defined before the campaign begins.",
     primary: { label: "Forge rank route", href: "/pricing" },
@@ -41,7 +39,6 @@ const beats: readonly Beat[] = [
     start: 0.19,
     end: 0.435,
     align: "right",
-    eyebrow: "02 / Read the battlefield",
     title: "Every bracket has a different fight.",
     body: "Region, role, party eligibility, hero pool, and queue conditions shape the campaign before the first match is scheduled.",
     primary: { label: "See the campaign", href: "/how-it-works" },
@@ -51,7 +48,6 @@ const beats: readonly Beat[] = [
     start: 0.39,
     end: 0.635,
     align: "left",
-    eyebrow: "03 / Select your route",
     title: "Solo direction or Duo execution.",
     body: "Choose Solo Assist, Duo Queue, calibration, fixed wins, behavior recovery, or a focused coaching session.",
     primary: { label: "Open MMR boost", href: "/services/mmr-boost" },
@@ -61,7 +57,6 @@ const beats: readonly Beat[] = [
     start: 0.59,
     end: 0.835,
     align: "right",
-    eyebrow: "04 / Execute privately",
     title: "Your account stays in your hands.",
     body: "No passwords, Steam Guard codes, or remote access. Track scheduling, messages, matches, and milestones in one private workspace.",
     primary: { label: "Review delivery", href: "/how-it-works" },
@@ -71,7 +66,6 @@ const beats: readonly Beat[] = [
     start: 0.79,
     end: 1,
     align: "left",
-    eyebrow: "05 / Take the highground",
     title: "Forge the route. Siege the rank.",
     body: "Build a live server-priced campaign and move through every checkpoint with the scope visible.",
     primary: { label: "Start the campaign", href: "/pricing" },
@@ -351,7 +345,6 @@ export function ForgeHero() {
                 aria-hidden={index === 0 ? "false" : "true"}
               >
                 <div className="forge-beat__panel">
-                  <p className="forge-beat__eyebrow"><span />{beat.eyebrow}</p>
                   <Heading>{beat.title}</Heading>
                   <p className="forge-beat__body">{beat.body}</p>
 

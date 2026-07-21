@@ -647,27 +647,6 @@
   transform: translateY(-7vh);
 }
 
-.forge-beat__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 0.62rem;
-  margin: 0 0 1.2rem;
-  color: var(--hot-gold);
-  font-size: 0.56rem;
-  font-weight: 900;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.forge-beat--right .forge-beat__eyebrow { justify-content: flex-end; }
-.forge-beat--center .forge-beat__eyebrow { justify-content: center; }
-
-.forge-beat__eyebrow span {
-  width: 2.5rem;
-  height: 1px;
-  background: linear-gradient(90deg, var(--flame), transparent);
-}
-
 .forge-beat h1,
 .forge-beat h2 {
   max-width: 12ch;
