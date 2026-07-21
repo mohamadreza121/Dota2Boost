@@ -129,7 +129,7 @@ export function ForgeTrustRail() {
 export function RankForge() {
   return (
     <section className="forge-section rank-forge" data-rank-forge>
-      <div className="container-shell">
+      <div className="container-shell lava-section-shell lava-section-shell--rank">
         <ForgeSectionHeading
           chapter="01"
           eyebrow="Rank Forge"
@@ -220,7 +220,7 @@ export function RankForge() {
 export function CampaignFlow() {
   return (
     <section className="forge-section campaign-flow">
-      <div className="container-shell">
+      <div className="container-shell lava-section-shell lava-section-shell--campaign">
         <ForgeSectionHeading
           chapter="03"
           eyebrow="Campaign protocol"

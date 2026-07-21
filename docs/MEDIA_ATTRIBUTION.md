@@ -10,6 +10,8 @@ The visual-overhaul branch includes optimized derivatives of artwork supplied di
 
 These files are used as cinematic section artwork. The project owner must confirm that production usage rights cover each supplied image before commercial launch; otherwise replace them with licensed or original equivalents.
 
+The translucent chapter and card surfaces also use the owner-supplied `Dark Wallpapers – AMOLED, Black, Aesthetic, 4K.jpg`, stored as `public/media/dire-forge/textures/lava-cracks.jpg`. It is applied as a low-opacity lava-fissure texture. Production usage likewise depends on the project owner confirming commercial rights or replacing it with a licensed equivalent.
+
 ## Original campaign map
 
 `public/media/dota/campaign-map.webp` was generated specifically for this project with OpenAI image generation. It depicts an original, top-down three-lane fantasy arena in an old-school strategy-map style. The prompt deliberately excluded copied maps, logos, interface elements, text, and recognizable game characters. Review the final asset as part of the normal commercial-rights and brand review before launch.

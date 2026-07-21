@@ -47,30 +47,50 @@
 
 .forged-panel,
 .forged-card {
+  --lava-card-radius: 1.4rem 0.72rem 1.75rem 0.92rem / 0.86rem 1.55rem 0.78rem 1.35rem;
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--forge-line);
-  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+  border: 1px solid rgb(255 122 24 / 0.16);
+  border-radius: var(--lava-card-radius);
   background:
-    linear-gradient(135deg, rgb(255 255 255 / 0.022), transparent 28%),
-    linear-gradient(145deg, rgb(24 16 13 / 0.96), rgb(8 5 4 / 0.98));
+    radial-gradient(circle at 14% 0, rgb(255 177 74 / 0.08), transparent 28%),
+    radial-gradient(circle at 86% 106%, rgb(205 38 13 / 0.1), transparent 34%),
+    linear-gradient(145deg, rgb(24 12 9 / 0.68), rgb(6 3 2 / 0.48));
   box-shadow:
-    inset 0 1px rgb(255 241 199 / 0.035),
-    inset 0 -18px 40px rgb(0 0 0 / 0.22),
-    0 24px 70px rgb(0 0 0 / 0.28);
+    inset 0 1px rgb(255 226 164 / 0.08),
+    inset 0 0 0 1px rgb(255 255 255 / 0.018),
+    inset 0 -28px 64px rgb(0 0 0 / 0.22),
+    0 24px 70px rgb(0 0 0 / 0.22);
+  backdrop-filter: blur(9px) saturate(1.08);
+  isolation: isolate;
+}
+
+.forged-panel::before,
+.forged-card::before {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  border-radius: inherit;
+  background: url("/media/dire-forge/textures/lava-cracks.jpg") center 46% / cover no-repeat;
+  content: "";
+  filter: saturate(1.35) contrast(1.08);
+  mix-blend-mode: screen;
+  opacity: 0.055;
+  pointer-events: none;
+  transition: opacity 260ms ease, transform 700ms cubic-bezier(.2,.8,.2,1);
 }
 
 .forged-panel::after,
 .forged-card::after {
   position: absolute;
-  right: 0;
+  right: 8%;
   bottom: 0;
-  width: 5.5rem;
+  left: 7%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--blood-ember), var(--molten-orange));
-  box-shadow: 0 0 12px rgb(255 122 24 / 0.24);
+  background: linear-gradient(90deg, transparent, var(--blood-ember) 22%, var(--molten-orange) 52%, var(--hot-gold) 61%, transparent);
+  box-shadow: 0 0 15px rgb(255 122 24 / 0.34);
   content: "";
-  opacity: 0.65;
+  opacity: 0.58;
   pointer-events: none;
 }
 
@@ -79,12 +99,91 @@
 }
 
 .forged-card:hover {
-  border-color: rgb(255 122 24 / 0.26);
+  border-color: rgb(255 154 47 / 0.34);
   box-shadow:
-    inset 0 1px rgb(255 241 199 / 0.045),
-    inset 0 -18px 40px rgb(0 0 0 / 0.25),
-    0 32px 80px rgb(0 0 0 / 0.4);
-  transform: translateY(-5px);
+    inset 0 1px rgb(255 241 199 / 0.09),
+    inset 0 0 42px rgb(177 30 12 / 0.09),
+    0 28px 70px rgb(0 0 0 / 0.34),
+    0 0 28px rgb(255 73 17 / 0.07);
+  transform: translateY(-4px);
+}
+
+.forged-card:hover::before { opacity: 0.095; transform: scale(1.035); }
+
+/* Translucent lava-glass chapter containers */
+
+.lava-section-shell {
+  --lava-shell-position: center 48%;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgb(255 122 24 / 0.2);
+  border-radius: 2.1rem 0.95rem 2.75rem 1.25rem / 1.15rem 2.45rem 0.92rem 2rem;
+  background:
+    radial-gradient(circle at 8% 0, rgb(255 186 82 / 0.09), transparent 26%),
+    radial-gradient(circle at 92% 100%, rgb(190 30 12 / 0.13), transparent 32%),
+    linear-gradient(145deg, rgb(15 7 5 / 0.61), rgb(4 2 1 / 0.39));
+  box-shadow:
+    inset 0 1px rgb(255 224 153 / 0.13),
+    inset 0 0 0 1px rgb(255 255 255 / 0.018),
+    inset 0 -65px 120px rgb(0 0 0 / 0.2),
+    0 38px 100px rgb(0 0 0 / 0.3),
+    0 0 42px rgb(255 58 16 / 0.045);
+  padding: clamp(2rem, 4.4vw, 4.2rem);
+  backdrop-filter: blur(7px) saturate(1.05);
+  isolation: isolate;
+}
+
+.lava-section-shell::before {
+  position: absolute;
+  inset: -2%;
+  z-index: -2;
+  background: url("/media/dire-forge/textures/lava-cracks.jpg") var(--lava-shell-position) / cover no-repeat;
+  content: "";
+  filter: saturate(1.28) contrast(1.12) brightness(0.86);
+  mix-blend-mode: screen;
+  opacity: 0.105;
+  pointer-events: none;
+}
+
+.lava-section-shell::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    linear-gradient(108deg, transparent 0 28%, rgb(255 87 23 / 0.045) 39%, transparent 51%),
+    radial-gradient(ellipse at 50% 0, rgb(255 181 73 / 0.075), transparent 45%),
+    linear-gradient(180deg, rgb(0 0 0 / 0.04), rgb(0 0 0 / 0.2));
+  box-shadow:
+    inset 0 0 0 1px rgb(255 215 132 / 0.025),
+    inset 0 -1px rgb(255 80 18 / 0.2);
+  content: "";
+  pointer-events: none;
+}
+
+.lava-section-shell--rank { --lava-shell-position: 52% 34%; }
+.lava-section-shell--arsenal { --lava-shell-position: 42% 52%; }
+.lava-section-shell--campaign { --lava-shell-position: 58% 68%; }
+.lava-section-shell--proof { --lava-shell-position: 46% 44%; }
+.lava-section-shell--roster { --lava-shell-position: 61% 60%; }
+.lava-section-shell--why { --lava-shell-position: 38% 31%; }
+.lava-section-shell--final { --lava-shell-position: 54% 52%; }
+
+.lava-section-shell :is(.forge-section-heading__title > p, .forge-kicker) {
+  color: #b99b85;
+}
+
+.lava-section-shell :is(.forge-section-heading__title > p span, .forge-kicker span) {
+  display: inline-grid;
+  width: 2.15rem;
+  height: 2.15rem;
+  flex: 0 0 2.15rem;
+  place-items: center;
+  border: 1px solid rgb(255 152 46 / 0.32);
+  border-radius: 52% 43% 57% 46% / 43% 55% 45% 57%;
+  background: radial-gradient(circle at 42% 30%, rgb(255 190 88 / 0.17), rgb(120 22 9 / 0.14) 62%, transparent 64%);
+  box-shadow: inset 0 1px rgb(255 228 170 / 0.13), 0 0 18px rgb(255 72 17 / 0.1);
+  color: var(--hot-gold);
 }
 
 .molten-button,
@@ -894,8 +993,8 @@
 .rank-forge__console-head > div > small { color: #73655c; font-size: 0.47rem; }
 .rank-forge__brief h3 { max-width: 12ch; margin: clamp(4rem, 8vw, 7rem) 0 0; color: var(--bone); font-size: clamp(2rem, 3.2vw, 3.2rem); font-weight: 600; letter-spacing: -0.045em; line-height: 1; }
 .rank-forge__brief > p { max-width: 34rem; margin: 1.1rem 0 0; color: var(--ash); font-size: 0.78rem; line-height: 1.8; }
-.rank-forge__specs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin-top: 2rem; border: 1px solid rgb(255 255 255 / 0.06); background: rgb(255 255 255 / 0.06); }
-.rank-forge__specs div { background: #0b0705; padding: 0.8rem; }
+.rank-forge__specs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.55rem; margin-top: 2rem; }
+.rank-forge__specs div { border: 1px solid rgb(255 139 39 / 0.1); border-radius: 0.8rem 0.38rem 0.92rem 0.48rem / 0.42rem 0.86rem 0.38rem 0.72rem; background: rgb(13 7 5 / 0.38); padding: 0.8rem; }
 .rank-forge__specs small,
 .rank-forge__specs strong { display: block; }
 .rank-forge__specs small { color: #695c54; font-size: 0.44rem; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; }
@@ -906,8 +1005,8 @@
 
 .rank-forge__console {
   background:
-    radial-gradient(circle at 75% 56%, rgb(230 75 32 / 0.11), transparent 18rem),
-    linear-gradient(145deg, rgb(24 16 13 / 0.96), rgb(8 5 4 / 0.98));
+    radial-gradient(circle at 75% 56%, rgb(230 75 32 / 0.12), transparent 18rem),
+    linear-gradient(145deg, rgb(24 13 10 / 0.62), rgb(7 4 3 / 0.43));
 }
 .rank-forge__console-head > div > small { display: block; margin-top: 0.22rem; }
 .rank-forge__console-head > p { display: flex; align-items: center; gap: 0.42rem; margin: 0; color: #89cabb; font-size: 0.46rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; }
@@ -933,7 +1032,7 @@
 /* Service Arsenal */
 
 .service-arsenal { padding-top: clamp(4rem, 8vw, 8rem); }
-.service-arsenal__grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
+.service-arsenal__grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.15rem; }
 .arsenal-card { min-width: 0; color: inherit; }
 .arsenal-card--mmr { min-height: 42rem; grid-column: span 7; grid-row: span 2; }
 .arsenal-card--calibration,
@@ -942,7 +1041,7 @@
 .arsenal-card--behavior { min-height: 25rem; grid-column: span 6; }
 .arsenal-card__hero { z-index: 0; object-fit: contain; object-position: 112% center; mix-blend-mode: screen; opacity: 0.68; filter: saturate(0.85) contrast(1.1) brightness(0.84); transform: scale(1.03); transition: filter 600ms ease, opacity 400ms ease, transform 750ms cubic-bezier(.2,.8,.2,1); }
 .arsenal-card:hover .arsenal-card__hero { opacity: 0.82; filter: saturate(1.05) contrast(1.12) brightness(0.98); transform: scale(1.075); }
-.arsenal-card__shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, #0b0705 0 43%, rgb(11 7 5 / 0.78) 60%, transparent 100%), linear-gradient(180deg, transparent 57%, #080504 94%); pointer-events: none; }
+.arsenal-card__shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgb(8 4 3 / 0.82) 0 40%, rgb(8 4 3 / 0.5) 62%, transparent 100%), linear-gradient(180deg, transparent 53%, rgb(5 3 2 / 0.72) 96%); pointer-events: none; }
 .arsenal-card--calibration .arsenal-card__hero,
 .arsenal-card--coaching .arsenal-card__hero { object-position: 118% 42%; opacity: 0.48; }
 .arsenal-card--wins .arsenal-card__hero,
@@ -950,7 +1049,7 @@
 .arsenal-card--calibration .arsenal-card__shade,
 .arsenal-card--coaching .arsenal-card__shade,
 .arsenal-card--wins .arsenal-card__shade,
-.arsenal-card--behavior .arsenal-card__shade { background: linear-gradient(90deg, #0b0705 0 47%, rgb(11 7 5 / 0.8) 66%, transparent 100%), linear-gradient(180deg, transparent 52%, #080504 95%); }
+.arsenal-card--behavior .arsenal-card__shade { background: linear-gradient(90deg, rgb(8 4 3 / 0.82) 0 43%, rgb(8 4 3 / 0.52) 68%, transparent 100%), linear-gradient(180deg, transparent 49%, rgb(5 3 2 / 0.72) 96%); }
 .arsenal-card__topline,
 .arsenal-card__content,
 .arsenal-card__compact-content,
@@ -982,8 +1081,8 @@
 .arsenal-card__rank-route > i::before { position: absolute; right: 0; left: 0; height: 1px; background: linear-gradient(90deg, var(--blood-ember), var(--molten-orange)); content: ""; }
 .arsenal-card__rank-route > i span { position: relative; width: 0.35rem; height: 0.35rem; border: 1px solid #7d3520; background: #0c0705; transform: rotate(45deg); }
 .arsenal-card__rank-route > i svg { position: relative; width: 0.7rem; color: var(--hot-gold); }
-.arsenal-card__settings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 1.6rem; background: rgb(255 255 255 / 0.055); }
-.arsenal-card__settings span { background: rgb(8 5 4 / 0.9); padding: 0.7rem; }
+.arsenal-card__settings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.45rem; margin-top: 1.6rem; }
+.arsenal-card__settings span { border: 1px solid rgb(255 139 39 / 0.09); border-radius: 0.62rem 0.3rem 0.72rem 0.38rem; background: rgb(8 4 3 / 0.38); padding: 0.7rem; }
 .arsenal-card__settings small,
 .arsenal-card__settings strong { display: block; }
 .arsenal-card__settings small { color: #6d6057; font-size: 0.39rem; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -997,11 +1096,11 @@
 .arsenal-card__open svg { width: 0.75rem; transition: transform 180ms ease; }
 .arsenal-card:hover .arsenal-card__open svg { transform: translate(3px, -3px); }
 .calibration-blocks { display: flex; align-items: center; gap: 0.55rem; margin-top: 1.2rem; }
-.calibration-blocks span { display: flex; align-items: baseline; gap: 0.25rem; border: 1px solid rgb(255 122 24 / 0.14); background: rgb(122 23 16 / 0.08); padding: 0.48rem 0.6rem; }
+.calibration-blocks span { display: flex; align-items: baseline; gap: 0.25rem; border: 1px solid rgb(255 122 24 / 0.17); border-radius: 0.7rem 0.34rem 0.8rem 0.4rem; background: rgb(122 23 16 / 0.09); padding: 0.48rem 0.6rem; }
 .calibration-blocks strong { color: var(--hot-gold); font-family: var(--forge-display); font-size: 1.2rem; }
 .calibration-blocks small,
 .calibration-blocks > i { color: #7d7066; font-size: 0.42rem; font-style: normal; text-transform: uppercase; }
-.coaching-board { margin-top: 1rem; border: 1px solid rgb(255 255 255 / 0.065); background: rgb(4 3 2 / 0.45); padding: 0.65rem; }
+.coaching-board { margin-top: 1rem; border: 1px solid rgb(255 139 39 / 0.1); border-radius: 0.8rem 0.4rem 0.95rem 0.45rem; background: rgb(4 3 2 / 0.32); padding: 0.65rem; }
 .coaching-board > div { position: relative; height: 2.4rem; background-image: linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px); background-size: 16px 16px; }
 .coaching-board > div i { position: absolute; width: 0.4rem; height: 0.4rem; border: 1px solid var(--flame); transform: rotate(45deg); }
 .coaching-board > div i:nth-child(1) { top: 25%; left: 18%; }
@@ -1020,7 +1119,7 @@
 .arsenal-card__compact-content ul { display: flex; flex-wrap: wrap; gap: 0.55rem; margin: 1rem 0 0; padding: 0; list-style: none; }
 .arsenal-card__compact-content li { display: flex; align-items: center; gap: 0.32rem; color: #908278; font-size: 0.5rem; }
 .arsenal-card__compact-content li svg { width: 0.62rem; color: var(--molten-orange); }
-.service-arsenal__note { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; margin-top: 1rem; border: 1px solid rgb(255 193 90 / 0.1); background: rgb(8 5 4 / 0.72); padding: 0.9rem 1rem; }
+.service-arsenal__note { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; margin-top: 1.15rem; border: 1px solid rgb(255 193 90 / 0.12); border-radius: 0.9rem 0.45rem 1rem 0.55rem; background: rgb(8 5 4 / 0.38); padding: 0.9rem 1rem; }
 .service-arsenal__note > svg { width: 0.9rem; color: var(--hot-gold); }
 .service-arsenal__note p { margin: 0; color: #8f8277; font-size: 0.58rem; line-height: 1.55; }
 .service-arsenal__note p strong { color: #cbbdac; }
@@ -1030,9 +1129,10 @@
 /* Campaign flow */
 
 .campaign-flow__layout { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(25rem, 0.7fr); gap: clamp(1rem, 3vw, 2.5rem); align-items: start; }
-.campaign-flow__steps { display: grid; gap: 1px; margin: 0; padding: 0; background: rgb(255 255 255 / 0.06); list-style: none; }
-.campaign-step { position: relative; display: grid; min-height: 8.2rem; grid-template-columns: 3.2rem 2.8rem minmax(0, 1fr) auto; align-items: center; gap: 1rem; overflow: hidden; background: linear-gradient(90deg, #0d0907, #080504); padding: 1rem 1.2rem; }
+.campaign-flow__steps { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+.campaign-step { position: relative; display: grid; min-height: 8.2rem; grid-template-columns: 3.2rem 2.8rem minmax(0, 1fr) auto; align-items: center; gap: 1rem; overflow: hidden; border: 1px solid rgb(255 122 24 / 0.11); border-radius: 1rem 0.48rem 1.2rem 0.58rem / 0.52rem 1.05rem 0.48rem 0.92rem; background: linear-gradient(90deg, rgb(13 7 5 / 0.91), rgb(7 4 3 / 0.82)), url("/media/dire-forge/textures/lava-cracks.jpg") center 58% / cover no-repeat; padding: 1rem 1.2rem; backdrop-filter: blur(7px); transition: border-color 220ms ease, background-color 220ms ease, transform 220ms ease; }
 .campaign-step::after { position: absolute; right: 0; bottom: 0; left: 0; height: 1px; background: linear-gradient(90deg, transparent, rgb(255 122 24 / 0.14), transparent); content: ""; transform: scaleX(0); transition: transform 300ms ease; }
+.campaign-step:hover { border-color: rgb(255 139 39 / 0.24); transform: translateX(4px); }
 .campaign-step:hover::after { transform: scaleX(1); }
 .campaign-step__number { display: flex; align-items: center; gap: 0.45rem; color: #735f52; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.52rem; }
 .campaign-step__number i { width: 1rem; height: 1px; background: #572014; }
@@ -1049,15 +1149,15 @@
 .campaign-console__top > div small { display: block; margin-top: 0.24rem; color: #6d6057; font-size: 0.44rem; }
 .campaign-console__top > p { display: flex; align-items: center; gap: 0.35rem; margin: 0; color: #8ac7b8; font-size: 0.44rem; font-weight: 900; text-transform: uppercase; }
 .campaign-console__top > p i { width: 0.35rem; height: 0.35rem; border-radius: 50%; background: var(--radiant-mint); box-shadow: 0 0 9px var(--radiant-mint); }
-.campaign-console__route { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 1.5rem; background: rgb(255 255 255 / 0.055); }
-.campaign-console__route div { background: #0a0605; padding: 0.7rem; }
+.campaign-console__route { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.45rem; margin-top: 1.5rem; }
+.campaign-console__route div { border: 1px solid rgb(255 139 39 / 0.08); border-radius: 0.62rem 0.3rem 0.72rem 0.36rem; background: rgb(10 5 4 / 0.34); padding: 0.7rem; }
 .campaign-console__route small,
 .campaign-console__route strong { display: block; }
 .campaign-console__route small { color: #685b53; font-size: 0.38rem; text-transform: uppercase; }
 .campaign-console__route strong { margin-top: 0.25rem; color: #cfc2b1; font-family: var(--forge-display); font-size: 0.62rem; }
 .campaign-console__timeline { position: relative; display: grid; gap: 0.9rem; margin-top: 2.2rem; }
 .campaign-console__timeline::before { position: absolute; top: 1.2rem; bottom: 1.2rem; left: 1.15rem; width: 1px; background: rgb(255 255 255 / 0.08); content: ""; }
-.campaign-console__timeline > div { position: relative; z-index: 1; display: grid; grid-template-columns: 2.3rem 1fr; align-items: center; gap: 0.8rem; border: 1px solid rgb(255 255 255 / 0.055); background: rgb(255 255 255 / 0.014); padding: 0.7rem; }
+.campaign-console__timeline > div { position: relative; z-index: 1; display: grid; grid-template-columns: 2.3rem 1fr; align-items: center; gap: 0.8rem; border: 1px solid rgb(255 139 39 / 0.08); border-radius: 0.72rem 0.36rem 0.82rem 0.42rem; background: rgb(255 255 255 / 0.012); padding: 0.7rem; }
 .campaign-console__timeline > div > span { display: grid; width: 1.9rem; height: 1.9rem; place-items: center; border: 1px solid #4b3328; background: #0b0705; transform: rotate(45deg); }
 .campaign-console__timeline > div > span svg { width: 0.68rem; color: #665248; transform: rotate(-45deg); }
 .campaign-console__timeline > div.is-done > span { border-color: rgb(104 215 188 / 0.25); }
@@ -1088,8 +1188,8 @@
   min-height: 38rem;
   padding: clamp(1.3rem, 3vw, 2.2rem);
   background:
-    radial-gradient(circle at 14% 82%, rgb(230 75 32 / 0.13), transparent 20rem),
-    linear-gradient(145deg, rgb(24 16 13 / 0.96), rgb(8 5 4 / 0.98));
+    radial-gradient(circle at 14% 82%, rgb(230 75 32 / 0.14), transparent 20rem),
+    linear-gradient(145deg, rgb(24 13 10 / 0.63), rgb(7 4 3 / 0.42));
 }
 
 .victory-quote__top,
@@ -1210,7 +1310,7 @@
 
 /* Roster preview */
 
-.roster-preview { background: linear-gradient(180deg, transparent, rgb(122 23 16 / 0.025), transparent); }
+.roster-preview { background: transparent; }
 .roster-preview__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .roster-card { min-height: 34rem; padding: 1.15rem; }
 .roster-card__top { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.8rem; }
@@ -1223,15 +1323,15 @@
 .roster-card__top small { color: #74675e; font-size: 0.43rem; text-transform: uppercase; }
 .roster-card__top > svg { width: 0.8rem; color: #6e5d51; transition: color 180ms ease, transform 180ms ease; }
 .roster-card:hover .roster-card__top > svg { color: var(--molten-orange); transform: translate(3px, -3px); }
-.roster-card__rank { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin-top: 1.5rem; background: rgb(255 255 255 / 0.06); }
-.roster-card__rank > span { position: relative; display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 0.5rem; background: #0a0605; padding: 0.75rem; }
+.roster-card__rank { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-top: 1.5rem; }
+.roster-card__rank > span { position: relative; display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 0.5rem; border: 1px solid rgb(255 139 39 / 0.09); border-radius: 0.72rem 0.34rem 0.82rem 0.4rem; background: rgb(10 5 4 / 0.34); padding: 0.75rem; }
 .roster-card__rank svg { grid-row: span 2; width: 0.75rem; color: #b98560; }
 .roster-card__rank small,
 .roster-card__rank strong { display: block; }
 .roster-card__rank small { color: #6a5d55; font-size: 0.38rem; text-transform: uppercase; }
 .roster-card__rank strong { overflow: hidden; margin-top: 0.15rem; color: #cdbfae; font-size: 0.53rem; text-overflow: ellipsis; white-space: nowrap; }
 .roster-card__roles { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.1rem; }
-.roster-card__roles span { border: 1px solid rgb(255 193 90 / 0.12); background: rgb(255 193 90 / 0.025); padding: 0.35rem 0.48rem; color: #a99583; font-size: 0.43rem; font-weight: 800; text-transform: uppercase; }
+.roster-card__roles span { border: 1px solid rgb(255 193 90 / 0.13); border-radius: 999px; background: rgb(255 193 90 / 0.025); padding: 0.35rem 0.55rem; color: #a99583; font-size: 0.43rem; font-weight: 800; text-transform: uppercase; }
 .roster-card__bio { margin: 3rem 0 0; color: #8f8176; font-family: var(--forge-display); font-size: 0.91rem; line-height: 1.75; }
 .roster-card__footer { position: absolute; right: 1.15rem; bottom: 1.15rem; left: 1.15rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; border-top: 1px solid rgb(255 255 255 / 0.065); padding-top: 0.85rem; }
 .roster-card__footer span:last-child { text-align: right; }
@@ -1246,9 +1346,11 @@
 .why-highground__intro { position: sticky; top: calc(var(--header-height) + 2rem); }
 .why-highground__intro h2 { max-width: 9ch; font-size: clamp(2.7rem, 4.6vw, 4.8rem); }
 .why-highground__intro > p:not(.forge-kicker) { margin: 1.4rem 0 0; color: var(--ash); font-size: 0.8rem; line-height: 1.8; }
-.why-highground__intro .plate-button { margin-top: 1.5rem; }
+.why-highground__intro .molten-button { margin-top: 1.5rem; }
 .why-highground__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
 .why-card { min-height: 20rem; padding: 1.25rem; }
+.why-card:nth-child(2),
+.why-card:nth-child(3) { --lava-card-radius: 0.78rem 1.5rem 0.88rem 1.7rem / 1.4rem 0.82rem 1.5rem 0.76rem; }
 .why-card > div { display: flex; align-items: center; justify-content: space-between; }
 .why-card > div span { color: #6e493a; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.48rem; }
 .why-card > div svg { width: 1rem; color: #bd8863; }
@@ -1335,6 +1437,15 @@
   padding-block: 6rem;
 }
 
+.siege-cta__inner.lava-section-shell {
+  min-height: 46rem;
+  margin-block: clamp(3rem, 5vw, 5rem);
+  padding: clamp(2rem, 5vw, 4.5rem);
+  background:
+    radial-gradient(circle at 82% 50%, rgb(230 75 32 / 0.12), transparent 30%),
+    linear-gradient(145deg, rgb(13 6 4 / 0.58), rgb(3 2 1 / 0.34));
+}
+
 .siege-cta__copy > p {
   display: flex;
   align-items: center;
@@ -1371,8 +1482,8 @@
 .siege-route__health strong { color: #9d8d80; font-size: 0.44rem; }
 .siege-route__health > i { display: block; height: 0.45rem; margin-top: 0.55rem; border: 1px solid rgb(255 255 255 / 0.07); background: #050302; }
 .siege-route__health > i b { display: block; width: 18%; height: 100%; background: linear-gradient(90deg, var(--blood-ember), var(--molten-orange)); box-shadow: 0 0 12px rgb(255 122 24 / 0.32); }
-.siege-route ul { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin: 1.2rem 0 0; padding: 0; background: rgb(255 255 255 / 0.06); list-style: none; }
-.siege-route li { display: flex; min-width: 0; align-items: center; justify-content: center; gap: 0.35rem; background: #090604; padding: 0.55rem; color: #7d7066; font-size: 0.4rem; text-align: center; }
+.siege-route ul { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.42rem; margin: 1.2rem 0 0; padding: 0; list-style: none; }
+.siege-route li { display: flex; min-width: 0; align-items: center; justify-content: center; gap: 0.35rem; border: 1px solid rgb(255 139 39 / 0.08); border-radius: 0.58rem 0.28rem 0.66rem 0.32rem; background: rgb(9 5 3 / 0.34); padding: 0.55rem; color: #7d7066; font-size: 0.4rem; text-align: center; }
 .siege-route li svg { width: 0.62rem; flex: 0 0 auto; color: var(--radiant-mint); }
 
 /* Motion */
@@ -1504,6 +1615,12 @@
 
 @media (max-width: 768px) {
   .forge-section { padding-block: 6.2rem; }
+  .lava-section-shell {
+    border-radius: 1.35rem 0.68rem 1.65rem 0.78rem / 0.74rem 1.45rem 0.66rem 1.25rem;
+    padding: 1.25rem;
+    backdrop-filter: blur(5px) saturate(1.04);
+  }
+  .lava-section-shell::before { opacity: 0.085; }
   .forge-hero { height: auto; }
   .forge-hero__sticky { position: relative; top: auto; height: max(43rem, calc(100svh - var(--header-height))); min-height: 43rem; }
   .forge-hero__scene.is-current img { object-position: 70% center; opacity: 0.62; transform: scale(1.12); }
@@ -1552,7 +1669,7 @@
   .arsenal-card--calibration .arsenal-card__shade,
   .arsenal-card--coaching .arsenal-card__shade,
   .arsenal-card--wins .arsenal-card__shade,
-  .arsenal-card--behavior .arsenal-card__shade { background: linear-gradient(90deg, #0b0705 0 57%, rgb(11 7 5 / 0.76) 74%, transparent), linear-gradient(180deg, transparent 45%, #080504 92%); }
+  .arsenal-card--behavior .arsenal-card__shade { background: linear-gradient(90deg, rgb(8 4 3 / 0.86) 0 57%, rgb(8 4 3 / 0.58) 74%, transparent), linear-gradient(180deg, transparent 45%, rgb(5 3 2 / 0.76) 92%); }
   .arsenal-card__content,
   .arsenal-card--calibration .arsenal-card__content,
   .arsenal-card--coaching .arsenal-card__content,
@@ -1576,6 +1693,7 @@
   .siege-cta,
   .siege-cta__inner { min-height: 0; }
   .siege-cta__inner { padding-block: 7rem; }
+  .siege-cta__inner.lava-section-shell { margin-block: 2.5rem; padding: 4rem 1.25rem; }
   .siege-cta__copy h2 { font-size: clamp(3rem, 14vw, 4.6rem); }
   .siege-cta__copy > div { display: grid; grid-template-columns: 1fr; }
   .siege-cta__copy :is(.molten-button, .plate-button) { width: 100%; }
@@ -1585,6 +1703,8 @@
 }
 
 @media (max-width: 520px) {
+  .lava-section-shell { padding: 0.9rem; }
+  .lava-section-shell .forge-section-heading { margin-bottom: 2.5rem; }
   .forge-section-heading__title > p,
   .forge-kicker { font-size: 0.53rem; }
   .forge-trust-rail__items { grid-template-columns: 1fr; }

@@ -47,7 +47,7 @@ const whyItems = [
 export function VictoryProof() {
   return (
     <section className="forge-section victory-proof">
-      <div className="container-shell">
+      <div className="container-shell lava-section-shell lava-section-shell--proof">
         <ForgeSectionHeading
           chapter="04"
           eyebrow="Proof of victory"
@@ -108,7 +108,7 @@ export function VictoryProof() {
 export function RosterPreview() {
   return (
     <section className="forge-section roster-preview">
-      <div className="container-shell">
+      <div className="container-shell lava-section-shell lava-section-shell--roster">
         <ForgeSectionHeading
           chapter="05"
           eyebrow="Verified roster"
@@ -165,12 +165,14 @@ export function RosterPreview() {
 export function WhyHighground() {
   return (
     <section className="forge-section why-highground">
-      <div className="container-shell why-highground__layout">
+      <div className="container-shell why-highground__layout lava-section-shell lava-section-shell--why">
         <div className="why-highground__intro" data-forge-reveal>
           <p className="forge-kicker"><span>06</span><i /> Why Highground</p>
           <h2>A serious platform for a <em>high-risk category.</em></h2>
           <p>Clear boundaries, explicit scope, and a visible delivery system are product requirements—not decorative trust badges.</p>
-          <Link href="/how-it-works" className="plate-button">Review the platform <ArrowUpRight /></Link>
+          <Link href="/how-it-works" className="molten-button molten-button--secondary">
+            <span>Review the platform</span><i><ArrowUpRight /></i>
+          </Link>
         </div>
 
         <div className="why-highground__grid">
@@ -232,7 +234,7 @@ export function SiegeCta() {
       />
       <div className="siege-cta__shade" aria-hidden="true" />
 
-      <div className="container-shell siege-cta__inner">
+      <div className="container-shell siege-cta__inner lava-section-shell lava-section-shell--final">
         <div className="siege-cta__copy" data-forge-reveal>
           <p><Swords /> Final ready check</p>
           <h2 id="siege-title">Siege the Ancient.<br /> <em>Start with the route.</em></h2>
