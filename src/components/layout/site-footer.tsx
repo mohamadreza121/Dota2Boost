@@ -4,6 +4,7 @@ import {
   ArrowUpRight,
   Crosshair,
   Eye,
+  Flame,
   Medal,
   Radio,
   Route,
@@ -69,8 +70,25 @@ export function SiteFooter() {
     <footer className="dota-command-footer">
       <div className="dota-command-footer__terrain" aria-hidden="true" />
       <div className="dota-command-footer__embers" aria-hidden="true" />
+      <div className="dota-command-footer__magma" aria-hidden="true"><i /><i /><i /><i /><i /></div>
 
       <div className="container-shell">
+        <aside className="dota-command-footer__ready">
+          <div className="dota-command-footer__ready-copy">
+            <small><Flame /> Final checkpoint</small>
+            <h2>Take the highground.</h2>
+            <p>Choose an exact medal route and receive a live server-priced campaign before checkout.</p>
+          </div>
+
+          <div className="dota-command-footer__route" aria-label="Example rank route from Legend III to Ancient I">
+            <span><Image src={rankMedals.Legend.image} alt="Legend rank medal" width={52} height={52} /><i><small>Current</small><strong>Legend III</strong></i></span>
+            <i aria-hidden="true"><Swords /></i>
+            <span><Image src={rankMedals.Ancient.image} alt="Ancient rank medal" width={52} height={52} /><i><small>Target</small><strong>Ancient I</strong></i></span>
+          </div>
+
+          <Link href="/pricing"><span>Forge rank route</span><ArrowUpRight /></Link>
+        </aside>
+
         <div className="dota-command-footer__main">
           <section className="dota-command-footer__brand" aria-label="Highground summary">
             <Logo />
@@ -114,20 +132,6 @@ export function SiteFooter() {
               );
             })}
           </div>
-
-          <aside className="dota-command-footer__ready">
-            <div>
-              <small>Your next campaign · example route</small>
-              <h2>Your next campaign is waiting.</h2>
-              <p>Choose an exact medal route and receive a live server-priced quote before checkout.</p>
-              <div className="dota-command-footer__route">
-                <span><Image src={rankMedals.Legend.image} alt="Legend rank medal" width={42} height={42} /><i><small>Current</small><strong>Legend III</strong></i></span>
-                <i aria-hidden="true" />
-                <span><Image src={rankMedals.Ancient.image} alt="Ancient rank medal" width={42} height={42} /><i><small>Target</small><strong>Ancient I</strong></i></span>
-              </div>
-            </div>
-            <Link href="/pricing">Forge rank route <ArrowUpRight /></Link>
-          </aside>
         </div>
 
         <section className="dota-command-footer__inventory" aria-label="Service protections">

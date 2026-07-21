@@ -28,7 +28,7 @@ The homepage uses optimized derivatives of official Dota 2 hero render loops dis
 - Lina: `https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/lina.webm`
 - Dragon Knight: `https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/dragon_knight.webm`
 
-The five alpha-enabled loops were decoded with `libvpx-vp9`, normalized, cleanly composited, arranged into a silent 1920×1080 scroll-seek sequence, and encoded with frequent keyframes as `public/media/dire-forge/dire-forge-scroll.mp4`. Black-matted, screen-blended WebP derivatives provide the poster and service-card art in `public/media/dire-forge` without exposing noisy edge pixels from the source alpha channels.
+The five alpha-enabled loops were decoded with `libvpx-vp9`, normalized, and cleanly composited into 1920×1080 WebP scene layers in `public/media/dire-forge/scenes`. The homepage crossfades those lightweight, screen-blended layers during scroll instead of seeking through a video. Additional WebP derivatives provide the social poster and service-card art in `public/media/dire-forge` without exposing noisy edge pixels from the source alpha channels.
 
 These files identify authentic Dota 2 heroes and do not imply sponsorship, endorsement, or affiliation. Valve owns the characters and original renders. The footer retains an explicit non-affiliation notice. Because this is a commercial service, confirm that production usage complies with Valve's current asset, fan-content, trademark, and game-service policies before accepting payments.
 

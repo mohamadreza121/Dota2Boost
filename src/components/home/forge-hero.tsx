@@ -73,23 +73,30 @@ const beats: readonly Beat[] = [
   }
 ];
 
+const heroScenes = [
+  { name: "Doom", src: "/media/dire-forge/scenes/doom.webp" },
+  { name: "Shadow Fiend", src: "/media/dire-forge/scenes/shadow-fiend.webp" },
+  { name: "Ember Spirit", src: "/media/dire-forge/scenes/ember-spirit.webp" },
+  { name: "Lina", src: "/media/dire-forge/scenes/lina.webp" },
+  { name: "Dragon Knight", src: "/media/dire-forge/scenes/dragon-knight.webp" }
+] as const;
+
 const clamp = (value: number, min = 0, max = 1) =>
   Math.min(max, Math.max(min, value));
 
 export function ForgeHero() {
   const stageRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const counterRef = useRef<HTMLSpanElement>(null);
   const beatRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const [videoEnabled, setVideoEnabled] = useState(false);
+  const sceneRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const [cinematicEnabled, setCinematicEnabled] = useState(false);
   const [ready, setReady] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
 
   useEffect(() => {
     const media = window.matchMedia(
       "(min-width: 769px) and (prefers-reduced-motion: no-preference)"
     );
-    const sync = () => setVideoEnabled(media.matches);
+    const sync = () => setCinematicEnabled(media.matches);
 
     sync();
     media.addEventListener("change", sync);
@@ -98,12 +105,16 @@ export function ForgeHero() {
 
   useEffect(() => {
     const stage = stageRef.current;
-    const video = videoRef.current;
 
     if (!stage) return;
 
-    if (!videoEnabled) {
+    if (!cinematicEnabled) {
       stage.style.setProperty("--forge-hero-progress", "0");
+      sceneRefs.current.forEach((element, index) => {
+        if (!element) return;
+        element.style.opacity = index === 0 ? "1" : "0";
+        element.style.visibility = index === 0 ? "visible" : "hidden";
+      });
       beatRefs.current.forEach((element, index) => {
         if (!element) return;
         element.style.opacity = index === 0 ? "1" : "0";
@@ -119,10 +130,9 @@ export function ForgeHero() {
     let renderedProgress = 0;
     let animationFrame = 0;
     let running = false;
-    let metadataReady = Boolean(
-      video && video.readyState >= HTMLMediaElement.HAVE_METADATA
-    );
-    let lastVideoTime = -1;
+    let lastFrameTime = performance.now();
+    let stageStart = 0;
+    let stageTravel = 1;
 
     const renderBeats = (progress: number) => {
       beatRefs.current.forEach((element, index) => {
@@ -138,14 +148,16 @@ export function ForgeHero() {
           : clamp((beat.end - progress) / fadeWindow);
         const opacity = Math.min(fadeIn, fadeOut);
         const direction = beat.align === "right" ? -1 : 1;
+        const visible = opacity > 0.002;
 
         element.style.opacity = opacity.toFixed(3);
+        element.style.visibility = visible ? "visible" : "hidden";
+        if (!visible) return;
         element.style.setProperty(
           "--beat-shift",
           `${(1 - opacity) * 58 * direction}px`
         );
         element.style.setProperty("--beat-lift", `${(1 - opacity) * 18}px`);
-        element.style.setProperty("--beat-blur", `${(1 - opacity) * 7}px`);
         element.style.setProperty("--beat-scale", `${0.97 + opacity * 0.03}`);
         element.style.pointerEvents = opacity > 0.72 ? "auto" : "none";
         element.inert = opacity <= 0.72;
@@ -154,20 +166,38 @@ export function ForgeHero() {
 
     };
 
+    const renderScenes = (progress: number) => {
+      sceneRefs.current.forEach((element, index) => {
+        const beat = beats[index];
+        if (!element || !beat) return;
+
+        const fadeWindow = 0.065;
+        const fadeIn = beat.start === 0
+          ? 1
+          : clamp((progress - beat.start) / fadeWindow);
+        const fadeOut = beat.end === 1
+          ? 1
+          : clamp((beat.end - progress) / fadeWindow);
+        const opacity = Math.min(fadeIn, fadeOut);
+        const localProgress = clamp(
+          (progress - beat.start) / Math.max(0.001, beat.end - beat.start)
+        );
+        const direction = beat.align === "right" ? -1 : 1;
+
+        element.style.opacity = opacity.toFixed(3);
+        element.style.setProperty(
+          "--scene-drift",
+          `${(localProgress - 0.5) * 18 * direction}px`
+        );
+        element.style.setProperty(
+          "--scene-scale",
+          `${1 + Math.sin(localProgress * Math.PI) * 0.012}`
+        );
+      });
+    };
+
     const render = (progress: number) => {
       stage.style.setProperty("--forge-hero-progress", progress.toFixed(4));
-      stage.style.setProperty(
-        "--video-x",
-        `${50 + Math.sin(progress * Math.PI * 2) * 1.25}%`
-      );
-      stage.style.setProperty(
-        "--video-shift",
-        `${(progress - 0.5) * -2.4}vw`
-      );
-      stage.style.setProperty(
-        "--video-scale",
-        `${1 + Math.sin(progress * Math.PI) * 0.025}`
-      );
       stage.style.setProperty(
         "--forge-fire-intensity",
         `${0.72 + Math.sin(progress * Math.PI * 5) * 0.12}`
@@ -178,33 +208,20 @@ export function ForgeHero() {
       }
 
       renderBeats(progress);
-
-      if (
-        video &&
-        metadataReady &&
-        Number.isFinite(video.duration) &&
-        video.duration > 0
-      ) {
-        const desiredTime = progress * Math.max(0, video.duration - 0.045);
-
-        if (Math.abs(desiredTime - lastVideoTime) >= 1 / 72) {
-          try {
-            video.currentTime = desiredTime;
-            lastVideoTime = desiredTime;
-          } catch {
-            // Safari may reject a seek until the media element is initialized.
-          }
-        }
-      }
+      renderScenes(progress);
     };
 
-    const tick = () => {
+    const tick = (timestamp: number) => {
       const difference = targetProgress - renderedProgress;
+      const elapsed = Math.max(16, Math.min(64, timestamp - lastFrameTime));
+      const response = 1 - Math.exp(-elapsed / 55);
+      lastFrameTime = timestamp;
+
       renderedProgress = reducedMotion.matches
         ? targetProgress
         : Math.abs(difference) < 0.00035
           ? targetProgress
-          : renderedProgress + difference * 0.14;
+          : renderedProgress + difference * response;
 
       render(renderedProgress);
 
@@ -218,66 +235,47 @@ export function ForgeHero() {
     const requestTick = () => {
       if (running) return;
       running = true;
+      lastFrameTime = performance.now();
       animationFrame = window.requestAnimationFrame(tick);
     };
 
     const syncTarget = () => {
-      const headerHeight = Number.parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue("--header-height")
-      ) || 0;
-      const start = stage.offsetTop - headerHeight;
-      const viewport = Math.max(1, window.innerHeight - headerHeight);
-      const travel = Math.max(1, stage.offsetHeight - viewport);
-
-      targetProgress = clamp((window.scrollY - start) / travel);
+      targetProgress = clamp((window.scrollY - stageStart) / stageTravel);
       requestTick();
     };
 
-    const onMetadata = () => {
-      if (!video) return;
-      metadataReady = true;
-      video.pause();
-      setReady(true);
-      render(renderedProgress);
+    const measure = () => {
+      const headerHeight = Number.parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue("--header-height")
+      ) || 0;
+      const viewport = Math.max(1, window.innerHeight - headerHeight);
+
+      stageStart = stage.offsetTop - headerHeight;
+      stageTravel = Math.max(1, stage.offsetHeight - viewport);
+      syncTarget();
     };
 
-    const unlockVideo = () => {
-      if (!video) return;
-      const playAttempt = video.play();
-      if (!playAttempt) return;
-
-      void playAttempt
-        .then(() => {
-          video.pause();
-          render(renderedProgress);
-        })
-        .catch(() => undefined);
-    };
-
-    video?.addEventListener("loadedmetadata", onMetadata);
-    video?.addEventListener("loadeddata", onMetadata);
     window.addEventListener("scroll", syncTarget, { passive: true });
-    window.addEventListener("resize", syncTarget, { passive: true });
-    window.addEventListener("touchstart", unlockVideo, { once: true, passive: true });
-    reducedMotion.addEventListener("change", syncTarget);
+    window.addEventListener("resize", measure, { passive: true });
+    reducedMotion.addEventListener("change", measure);
 
-    if (video && videoEnabled) {
-      video.load();
-      if (metadataReady) onMetadata();
-    }
+    const resizeObserver = typeof ResizeObserver === "undefined"
+      ? null
+      : new ResizeObserver(measure);
+    resizeObserver?.observe(stage);
+    const header = document.querySelector<HTMLElement>(".dota-command-header");
+    if (header) resizeObserver?.observe(header);
 
-    syncTarget();
+    measure();
 
     return () => {
       window.cancelAnimationFrame(animationFrame);
-      video?.removeEventListener("loadedmetadata", onMetadata);
-      video?.removeEventListener("loadeddata", onMetadata);
       window.removeEventListener("scroll", syncTarget);
-      window.removeEventListener("resize", syncTarget);
-      window.removeEventListener("touchstart", unlockVideo);
-      reducedMotion.removeEventListener("change", syncTarget);
+      window.removeEventListener("resize", measure);
+      reducedMotion.removeEventListener("change", measure);
+      resizeObserver?.disconnect();
     };
-  }, [videoEnabled]);
+  }, [cinematicEnabled]);
 
   return (
     <section
@@ -289,33 +287,24 @@ export function ForgeHero() {
         <div className="forge-hero__battlefield" aria-hidden="true">
           <div className="forge-hero__furnace" />
           <div className="forge-hero__lane" />
-          <Image
-            src="/media/dire-forge/dire-forge-poster.webp"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className={`forge-hero__poster${ready && videoEnabled && !videoFailed ? " is-superseded" : ""}`}
-          />
-          {videoEnabled ? (
-            <video
-              ref={videoRef}
-              className={`forge-hero__video${ready && !videoFailed ? " is-ready" : ""}`}
-              muted
-              playsInline
-              preload="auto"
-              poster="/media/dire-forge/dire-forge-poster.webp"
-              onError={() => {
-                setVideoFailed(true);
-                setReady(true);
+          {heroScenes.map((scene, index) => (
+            <div
+              key={scene.name}
+              ref={(element) => {
+                sceneRefs.current[index] = element;
               }}
+              className={`forge-hero__scene${index === 0 ? " is-current" : ""}`}
             >
-              <source
-                src="/media/dire-forge/dire-forge-scroll.mp4"
-                type="video/mp4"
+              <Image
+                src={scene.src}
+                alt=""
+                fill
+                priority={index === 0}
+                sizes="100vw"
+                onLoad={index === 0 ? () => setReady(true) : undefined}
               />
-            </video>
-          ) : null}
+            </div>
+          ))}
         </div>
 
         <div className="forge-hero__architecture" aria-hidden="true">
@@ -382,11 +371,11 @@ export function ForgeHero() {
           <i aria-hidden="true"><span /></i>
         </div>
 
-        {videoEnabled ? (
+        {cinematicEnabled ? (
           <div className={`forge-hero__loader${ready ? " is-ready" : ""}`} aria-live="polite">
             <span><Swords /></span>
             <div><i /><i /><i /></div>
-            <p>{videoFailed ? "Static battlefield active" : "Igniting battlefield"}</p>
+            <p>Igniting battlefield</p>
           </div>
         ) : null}
       </div>
