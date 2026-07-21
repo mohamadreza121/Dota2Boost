@@ -16,10 +16,11 @@ import { useEffect, useRef, useState } from "react";
 type BeatAlignment = "left" | "right" | "center";
 
 type Beat = {
+  id: string;
   start: number;
   end: number;
   align: BeatAlignment;
-  title: string;
+  title: { lead: string; accent: string };
   body: string;
   primary: { label: string; href: string };
   secondary: { label: string; href: string };
@@ -27,46 +28,51 @@ type Beat = {
 
 const beats: readonly Beat[] = [
   {
+    id: "doom",
     start: 0,
     end: 0.235,
     align: "left",
-    title: "Choose the rank worth forging.",
+    title: { lead: "Choose the rank", accent: "worth forging." },
     body: "Set your current medal, target, server, role, and delivery style. The route is defined before the campaign begins.",
     primary: { label: "Forge rank route", href: "/pricing" },
     secondary: { label: "Explore contracts", href: "/services" }
   },
   {
+    id: "shadow-fiend",
     start: 0.19,
     end: 0.435,
     align: "right",
-    title: "Every bracket has a different fight.",
+    title: { lead: "Every bracket has a", accent: "different fight." },
     body: "Region, role, party eligibility, hero pool, and queue conditions shape the campaign before the first match is scheduled.",
     primary: { label: "See the campaign", href: "/how-it-works" },
     secondary: { label: "Meet the roster", href: "/boosters" }
   },
   {
+    id: "ember-spirit",
     start: 0.39,
     end: 0.635,
     align: "left",
-    title: "Solo direction or Duo execution.",
+    title: { lead: "Solo direction or", accent: "Duo execution." },
     body: "Choose Solo Assist, Duo Queue, calibration, fixed wins, behavior recovery, or a focused coaching session.",
     primary: { label: "Open MMR boost", href: "/services/mmr-boost" },
     secondary: { label: "Compare services", href: "/services" }
   },
   {
+    id: "lina",
     start: 0.59,
     end: 0.835,
     align: "right",
-    title: "Your account stays in your hands.",
+    title: { lead: "Your account stays", accent: "in your hands." },
     body: "No passwords, Steam Guard codes, or remote access. Track scheduling, messages, matches, and milestones in one private workspace.",
     primary: { label: "Review delivery", href: "/how-it-works" },
     secondary: { label: "Read verified reviews", href: "/reviews" }
   },
   {
+    id: "dragon-knight",
     start: 0.79,
     end: 1,
     align: "left",
-    title: "Forge the route. Siege the rank.",
+    title: { lead: "Forge the route.", accent: "Siege the rank." },
     body: "Build a live server-priced campaign and move through every checkpoint with the scope visible.",
     primary: { label: "Start the campaign", href: "/pricing" },
     secondary: { label: "Start with coaching", href: "/services/coaching" }
@@ -74,11 +80,11 @@ const beats: readonly Beat[] = [
 ];
 
 const heroScenes = [
-  { name: "Doom", src: "/media/dire-forge/scenes/doom.webp" },
-  { name: "Shadow Fiend", src: "/media/dire-forge/scenes/shadow-fiend.webp" },
-  { name: "Ember Spirit", src: "/media/dire-forge/scenes/ember-spirit.webp" },
-  { name: "Lina", src: "/media/dire-forge/scenes/lina.webp" },
-  { name: "Dragon Knight", src: "/media/dire-forge/scenes/dragon-knight.webp" }
+  { id: "doom", name: "Doom", src: "/media/dire-forge/scenes/doom.webp" },
+  { id: "shadow-fiend", name: "Shadow Fiend", src: "/media/dire-forge/scenes/shadow-fiend.webp" },
+  { id: "ember-spirit", name: "Ember Spirit", src: "/media/dire-forge/scenes/ember-spirit.webp" },
+  { id: "lina", name: "Lina", src: "/media/dire-forge/scenes/lina.webp" },
+  { id: "dragon-knight", name: "Dragon Knight", src: "/media/dire-forge/scenes/dragon-knight.webp" }
 ] as const;
 
 const clamp = (value: number, min = 0, max = 1) =>
@@ -301,7 +307,7 @@ export function ForgeHero() {
               ref={(element) => {
                 sceneRefs.current[index] = element;
               }}
-              className={`forge-hero__scene${index === 0 ? " is-current" : ""}`}
+              className={`forge-hero__scene forge-hero__scene--${scene.id}${index === 0 ? " is-current" : ""}`}
             >
               <Image
                 src={scene.src}
@@ -334,16 +340,19 @@ export function ForgeHero() {
 
             return (
               <div
-                key={beat.title}
+                key={beat.id}
                 ref={(element) => {
                   beatRefs.current[index] = element;
                   if (element) element.inert = index !== 0;
                 }}
-                className={`forge-beat forge-beat--${beat.align}`}
+                className={`forge-beat forge-beat--${beat.align} forge-beat--${beat.id}`}
                 aria-hidden={index === 0 ? "false" : "true"}
               >
                 <div className="forge-beat__panel">
-                  <Heading>{beat.title}</Heading>
+                  <Heading>
+                    <span>{beat.title.lead}</span>{" "}
+                    <em>{beat.title.accent}</em>
+                  </Heading>
                   <p className="forge-beat__body">{beat.body}</p>
 
                   <div className="forge-beat__actions">
