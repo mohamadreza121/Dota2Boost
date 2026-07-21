@@ -18,13 +18,13 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName: "Highground",
-    images: [{ url: "/media/highground-battlefield.webp", width: 1600, height: 900, alt: "Highground original MOBA battlefield artwork" }]
+    images: [{ url: "/media/dire-forge/dire-forge-poster.webp", width: 1920, height: 1080, alt: "The Dire Forge Dota 2 rank campaign" }]
   },
-  twitter: { card: "summary_large_image", title: "Highground — Dota 2 MMR Boosting", description: "MMR first. Solo or Duo. Server-priced commerce.", images: ["/media/highground-battlefield.webp"] },
+  twitter: { card: "summary_large_image", title: "Highground — Dota 2 MMR Boosting", description: "MMR first. Solo or Duo. Server-priced commerce.", images: ["/media/dire-forge/dire-forge-poster.webp"] },
   robots: { index: true, follow: true }
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#080a0a", colorScheme: "dark" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#030201", colorScheme: "dark" };
 
 const organizationSchema = {
   "@context": "https://schema.org",

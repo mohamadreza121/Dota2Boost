@@ -18,6 +18,18 @@ The Herald-through-Immortal medal files in `public/media/ranks` are the Dota 2 r
 
 Dota, Dota 2, Steam, the Dota 2 rank names, and the medal artwork are trademarks or property of Valve Corporation. Their inclusion identifies rank selections and does not imply sponsorship or endorsement. Confirm production usage rights with counsel before accepting payments.
 
-The hero-card portraits on the public homepage are referenced from Valve's public Dota 2 Steam CDN. They are used only to identify familiar Dota roles and heroes, are not stored or redistributed by this repository, and do not imply sponsorship or endorsement. Confirm production usage rights with counsel before accepting payments.
+## The Dire Forge hero media
 
-The battlefield stills and loops elsewhere in `public/media` are original, MOBA-inspired project artwork and do not contain Valve game footage, hero portraits, logos, or UI captures.
+The homepage uses optimized derivatives of official Dota 2 hero render loops distributed from Valve's public Steam CDN. The source loops were downloaded on July 20, 2026:
+
+- Doom: `https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/doom_bringer.webm`
+- Shadow Fiend: `https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/nevermore.webm`
+- Ember Spirit: `https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/ember_spirit.webm`
+- Lina: `https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/lina.webm`
+- Dragon Knight: `https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/dragon_knight.webm`
+
+The five alpha-enabled loops were decoded with `libvpx-vp9`, normalized, cleanly composited, arranged into a silent 1920×1080 scroll-seek sequence, and encoded with frequent keyframes as `public/media/dire-forge/dire-forge-scroll.mp4`. Black-matted, screen-blended WebP derivatives provide the poster and service-card art in `public/media/dire-forge` without exposing noisy edge pixels from the source alpha channels.
+
+These files identify authentic Dota 2 heroes and do not imply sponsorship, endorsement, or affiliation. Valve owns the characters and original renders. The footer retains an explicit non-affiliation notice. Because this is a commercial service, confirm that production usage complies with Valve's current asset, fan-content, trademark, and game-service policies before accepting payments.
+
+The older battlefield stills and loops elsewhere in `public/media` are original, MOBA-inspired project artwork and do not contain Valve game footage, hero portraits, logos, or UI captures.

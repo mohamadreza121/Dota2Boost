@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
 import { CinematicHome } from "@/components/home/cinematic-home";
-import "./cinematic-home.css";
-import "./cinematic-home-modern.css";
-import "./cinematic-home-polish.css";
-import "./cinematic-home-cards.css";
+import "./dire-forge.css";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
   title: "Highground — Dota 2 Coaching & MMR Boosting",
   description:
-    "Climb with a precise rank route: private Dota 2 MMR boosting, calibration, assisted wins, and coaching built around your role and server."
+    "Forge a precise Dota 2 rank route with customer-operated MMR boosting, calibration, assisted wins, behavior score recovery, and coaching.",
+  openGraph: {
+    images: [
+      {
+        url: "/media/dire-forge/dire-forge-poster.webp",
+        width: 1920,
+        height: 1080,
+        alt: "The Dire Forge rank campaign with Doom from Dota 2"
+      }
+    ]
+  }
 };
 
 export default function HomePage() {
