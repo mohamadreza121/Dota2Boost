@@ -26,10 +26,20 @@ jobs:
         with:
           ref: agent/dire-war-table-homepage
 
-      - name: Apply browser-confirmed polish
+      - name: Diagnose browser-confirmed polish patch
         if: hashFiles('.github/homepage-polish.patch') != ''
         run: |
-          patch --dry-run --batch --forward -p1 < .github/homepage-polish.patch
+          mkdir -p qa-artifacts
+          set +e
+          patch --dry-run --batch --forward -p1 < .github/homepage-polish.patch > qa-artifacts/patch-check.log 2>&1
+          status=$?
+          set -e
+          cat qa-artifacts/patch-check.log
+          echo "PATCH_CHECK_STATUS=$status" >> "$GITHUB_ENV"
+
+      - name: Apply browser-confirmed polish
+        if: env.PATCH_CHECK_STATUS == '0'
+        run: |
           patch --batch --forward -p1 < .github/homepage-polish.patch
           rm .github/homepage-polish.patch
           git config user.name "highground-qa[bot]"
