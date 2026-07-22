@@ -23,9 +23,11 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+        with:
+          ref: agent/dire-war-table-homepage
 
       - name: Apply browser-confirmed polish
-        if: github.event_name == 'push' && hashFiles('.github/homepage-polish.patch') != ''
+        if: hashFiles('.github/homepage-polish.patch') != ''
         run: |
           git apply --check .github/homepage-polish.patch
           git apply .github/homepage-polish.patch
