@@ -1,0 +1,35 @@
+name: Patch Diagnostic
+
+on:
+  push:
+    branches:
+      - agent/dire-war-table-homepage
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v7
+        with:
+          ref: agent/dire-war-table-homepage
+      - name: Check patch
+        run: |
+          mkdir -p patch-diagnostic
+          set +e
+          patch --dry-run --batch --forward -p1 < .github/homepage-polish.patch > patch-diagnostic/result.txt 2>&1
+          echo $? > patch-diagnostic/status.txt
+          set -e
+          cat patch-diagnostic/result.txt
+      - name: Upload diagnostic
+        uses: actions/upload-artifact@v6
+        with:
+          name: homepage-polish-patch-diagnostic
+          path: patch-diagnostic
+          retention-days: 2
