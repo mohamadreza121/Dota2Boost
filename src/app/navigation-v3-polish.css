@@ -6,6 +6,9 @@
   align-items: center;
 }
 
+.hg-mobile-brand { min-width: 0; }
+.hg-mobile-brand > span { min-width: 0; overflow: hidden; }
+.hg-mobile-brand > span > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hg-mobile-trigger { min-width: 44px; }
 
 .hg-nav__chapter,
@@ -50,6 +53,17 @@
   .hg-mobile-menu__drawer { overflow-y: auto; }
   .hg-mobile-menu__body { flex: 0 0 auto; overflow: visible; }
   .hg-mobile-menu__account { margin-top: auto; }
+  .hg-mobile-menu__top { grid-template-columns: minmax(0, 1fr) auto; }
+  .hg-mobile-menu__top > p {
+    position: absolute;
+    display: block;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
