@@ -1,0 +1,39 @@
+/* Homepage legibility floor for essential tactical and telemetry copy. */
+
+.war-table :is(
+  small,
+  dt,
+  .war-kicker,
+  .war-route-preview__head > span,
+  .war-route-medal > span,
+  .war-route-track__count,
+  .war-route-controls label > span,
+  .war-route-ready,
+  .war-brief__head,
+  .war-contract-primary__top > span,
+  .war-contract-primary__body > p,
+  .war-contract-primary footer p > span,
+  .war-contract-row__number,
+  .war-contract-row__copy small,
+  .war-contract-row__copy em,
+  .war-contract-row__price small,
+  .war-protocol__number,
+  .war-protocol__label,
+  .war-workspace__summary small,
+  .war-workspace__timeline small,
+  .war-workspace__channel-head small,
+  .war-message > span,
+  .war-message strong,
+  .war-message small,
+  .war-featured-specialist__identity > div small,
+  .war-featured-specialist dt,
+  .war-roster-alternatives small,
+  .war-roster-alternatives em,
+  .war-record__proof-head,
+  .war-record blockquote span,
+  .war-record__proof li small,
+  .war-final__target-head,
+  .war-final__route span
+) {
+  font-size: 0.75rem;
+}
