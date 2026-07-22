@@ -58,6 +58,9 @@ jobs:
       - name: Run Chromium visual and accessibility QA
         run: node scripts/visual-qa.mjs
 
+      - name: Capture revealed homepage chapters
+        run: node scripts/visual-section-qa.mjs
+
       - name: Run Lighthouse mobile
         continue-on-error: true
         run: |
