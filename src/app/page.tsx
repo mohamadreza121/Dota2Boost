@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { CinematicHome } from "@/components/home/cinematic-home";
-import "./dire-forge.css";
+import { WarTableHome } from "@/components/home/war-table-home";
+import "./war-table-home.css";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -13,12 +13,12 @@ export const metadata: Metadata = {
         url: "/media/dire-forge/dire-forge-poster.webp",
         width: 1920,
         height: 1080,
-        alt: "The Dire Forge rank campaign with Doom from Dota 2"
+        alt: "Highground tactical Dota 2 rank campaign"
       }
     ]
   }
 };
 
 export default function HomePage() {
-  return <CinematicHome />;
+  return <WarTableHome />;
 }
