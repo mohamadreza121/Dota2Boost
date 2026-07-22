@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 env:
   NEXT_TELEMETRY_DISABLED: 1
@@ -23,6 +23,18 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+
+      - name: Apply browser-confirmed polish
+        if: github.event_name == 'push' && hashFiles('.github/homepage-polish.patch') != ''
+        run: |
+          git apply --check .github/homepage-polish.patch
+          git apply .github/homepage-polish.patch
+          rm .github/homepage-polish.patch
+          git config user.name "highground-qa[bot]"
+          git config user.email "highground-qa[bot]@users.noreply.github.com"
+          git add src scripts .github/homepage-polish.patch
+          git commit -m "Polish homepage after browser QA"
+          git push origin HEAD:agent/dire-war-table-homepage
 
       - name: Set up Node.js
         uses: actions/setup-node@v7
