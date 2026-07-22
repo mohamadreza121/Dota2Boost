@@ -79,8 +79,9 @@ export function getWorkspaceMeta(role: AppRole) {
       return { href: "/coach", label: "Coach workspace" };
     case "admin":
     case "owner":
-    case "support":
       return { href: "/admin", label: "Operations workspace" };
+    case "support":
+      return { href: "/", label: "Return to site" };
     default:
       return { href: "/dashboard", label: "My workspace" };
   }
