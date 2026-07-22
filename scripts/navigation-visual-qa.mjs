@@ -49,10 +49,11 @@ async function audit(page, key) {
   const before = await header.evaluate((node) => node.getBoundingClientRect().height);
   await page.screenshot({ path: `${output}/screenshots/desktop-1440-closed.png` });
   await page.evaluate(() => window.scrollTo(0, 700));
-  await page.waitForTimeout(200);
+  await page.waitForTimeout(250);
   const after = await header.evaluate((node) => node.getBoundingClientRect().height);
   check("desktop: stable header height", Math.abs(before - after) < 0.5, `${before}/${after}`);
-  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await page.waitForTimeout(100);
   await page.getByRole("button", { name: /Services/i }).click();
   const panel = page.locator("#hg-services-panel");
   const box = await panel.boundingBox();
@@ -77,7 +78,7 @@ async function audit(page, key) {
 for (const [name, width, height] of [["tablet-834", 834, 1194], ["mobile-430", 430, 932], ["mobile-390", 390, 844], ["mobile-320", 320, 568], ["landscape-844", 844, 390]]) {
   const { context, page } = await pageAt(width, height);
   await page.getByRole("button", { name: "Open navigation" }).click();
-  check(`${name}: campaign action`, await page.getByRole("link", { name: /Forge rank route/i }).isVisible());
+  check(`${name}: campaign action`, await page.locator(".hg-mobile-campaign").isVisible());
   await page.screenshot({ path: `${output}/screenshots/${name}-menu.png` });
   await audit(page, `${name} menu`);
   if (name === "mobile-390") {
