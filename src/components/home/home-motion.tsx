@@ -64,8 +64,15 @@ export function HomeMotion() {
 
     const handlePointer = (event: PointerEvent) => {
       if (!finePointer.matches) return;
-      root.style.setProperty("--forge-pointer-x", `${event.clientX}px`);
-      root.style.setProperty("--forge-pointer-y", `${event.clientY}px`);
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const moltenButton = target.closest<HTMLElement>(".molten-button");
+      if (!moltenButton || !root.contains(moltenButton)) return;
+
+      const bounds = moltenButton.getBoundingClientRect();
+      moltenButton.style.setProperty("--melt-x", `${event.clientX - bounds.left}px`);
+      moltenButton.style.setProperty("--melt-y", `${event.clientY - bounds.top}px`);
     };
 
     window.addEventListener("scroll", requestScrollUpdate, { passive: true });
