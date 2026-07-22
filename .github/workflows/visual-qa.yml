@@ -27,8 +27,11 @@ jobs:
           ref: agent/dire-war-table-homepage
 
       - name: Apply browser-confirmed polish
-        if: hashFiles('scripts/apply-homepage-polish.py') != ''
         run: |
+          if [ ! -f scripts/apply-homepage-polish.py ]; then
+            echo "No pending polish transform."
+            exit 0
+          fi
           python scripts/apply-homepage-polish.py
           rm scripts/apply-homepage-polish.py .github/homepage-polish.patch
           git config user.name "highground-qa[bot]"
