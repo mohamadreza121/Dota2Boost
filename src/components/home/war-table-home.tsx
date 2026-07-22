@@ -11,12 +11,14 @@ import { WarTableHero } from "@/components/home/war-table-hero";
 
 const displayFont = Cinzel({
   subsets: ["latin"],
+  weight: ["600", "700"],
   display: "swap",
   variable: "--war-display"
 });
 
 const interfaceFont = Barlow({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
   variable: "--war-interface"
 });
