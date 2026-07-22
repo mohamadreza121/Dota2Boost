@@ -67,6 +67,9 @@ export function ServiceArsenal() {
               className="arsenal-card__hero"
             />
             <div className="arsenal-card__shade" />
+            <div className="arsenal-card__artifact" aria-hidden="true">
+              <span><Route /></span><i /><i /><i />
+            </div>
 
             <div className="arsenal-card__topline">
               <p><span>01</span><Route /> Primary contract</p>
@@ -116,6 +119,9 @@ export function ServiceArsenal() {
               className="arsenal-card__hero"
             />
             <div className="arsenal-card__shade" />
+            <div className="arsenal-card__artifact" aria-hidden="true">
+              <span><Crosshair /></span><i /><i /><i />
+            </div>
 
             <div className="arsenal-card__topline">
               <p><span>02</span><Crosshair /> Calibration block</p>
@@ -150,6 +156,9 @@ export function ServiceArsenal() {
               className="arsenal-card__hero"
             />
             <div className="arsenal-card__shade" />
+            <div className="arsenal-card__artifact" aria-hidden="true">
+              <span><GraduationCap /></span><i /><i /><i />
+            </div>
 
             <div className="arsenal-card__topline">
               <p><span>03</span><GraduationCap /> Tactical training</p>
@@ -183,6 +192,9 @@ export function ServiceArsenal() {
               className="arsenal-card__hero"
             />
             <div className="arsenal-card__shade" />
+            <div className="arsenal-card__artifact" aria-hidden="true">
+              <span><Trophy /></span><i /><i /><i />
+            </div>
             <div className="arsenal-card__topline">
               <p><span>04</span><Trophy /> Fixed-win contract</p>
             </div>
@@ -210,6 +222,9 @@ export function ServiceArsenal() {
               className="arsenal-card__hero"
             />
             <div className="arsenal-card__shade" />
+            <div className="arsenal-card__artifact" aria-hidden="true">
+              <span><ShieldCheck /></span><i /><i /><i />
+            </div>
             <div className="arsenal-card__topline">
               <p><span>05</span><ShieldCheck /> Conduct recovery</p>
             </div>
