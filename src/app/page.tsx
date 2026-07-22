@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { WarTableHome } from "@/components/home/war-table-home";
 import "./war-table-home.css";
+import "./war-table-legibility.css";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
