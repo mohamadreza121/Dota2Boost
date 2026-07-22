@@ -127,10 +127,10 @@
 }
 
 .molten-button {
-  --melt-deep: #4f0d08;
-  --melt-mid: #b82912;
-  --melt-hot: #f1531c;
-  --melt-glow: #ff7a2c;
+  --melt-deep: #3b0805;
+  --melt-mid: #9f1c0b;
+  --melt-hot: #f14a12;
+  --melt-glow: #ffb23f;
   z-index: 0;
   gap: 0;
   isolation: isolate;
@@ -153,39 +153,39 @@
   position: absolute;
   inset: 0;
   z-index: -2;
-  border: 1px solid rgb(255 87 31 / 0.25);
+  border: 1px solid rgb(255 81 27 / 0.24);
+  border-radius: 0.44rem 0.62rem 0.5rem 0.7rem / 0.58rem 0.42rem 0.64rem 0.46rem;
   background:
-    radial-gradient(circle at var(--melt-x, 72%) var(--melt-y, 110%), rgb(255 240 177 / 0.42), rgb(255 86 18 / 0.2) 2.8rem, transparent 5.7rem),
-    linear-gradient(112deg, transparent 0 29%, rgb(255 68 15 / 0.22) 29.4% 30%, transparent 30.5% 67%, rgb(255 119 25 / 0.16) 67.4% 67.9%, transparent 68.4%),
-    linear-gradient(118deg, rgb(255 255 255 / 0.04), transparent 22% 72%, rgb(0 0 0 / 0.44)),
-    url("/media/dire-forge/textures/lava-cracks.jpg") center 58% / 180% auto,
-    linear-gradient(180deg, #211310 0%, #0d0705 64%, #040202 100%);
-  background-blend-mode: screen, screen, normal, soft-light, normal;
+    radial-gradient(circle at var(--melt-x, 72%) var(--melt-y, 110%), rgb(255 237 174 / 0.18), rgb(255 71 14 / 0.08) 2.2rem, transparent 4.8rem),
+    linear-gradient(112deg, transparent 0 19%, #5e0d06 19.2% 19.6%, #ff4c12 19.8% 20.2%, #ffb13e 20.3% 20.46%, #8d1808 20.6% 21%, transparent 21.2% 58%, #651006 58.2% 58.55%, #ef3f0f 58.7% 59.05%, #ff8a24 59.12% 59.28%, #761307 59.42% 59.8%, transparent 60%),
+    linear-gradient(72deg, transparent 0 71%, #4d0b05 71.2% 71.55%, #dc350e 71.7% 72.05%, #ff7a20 72.12% 72.28%, #681006 72.42% 72.75%, transparent 73%),
+    radial-gradient(ellipse at 28% 12%, rgb(255 255 255 / 0.055), transparent 35%),
+    linear-gradient(180deg, #211713 0%, #100a08 48%, #070403 100%);
   box-shadow:
-    inset 0 1px rgb(255 237 222 / 0.06),
-    inset 0 -1px rgb(255 72 23 / 0.13),
-    inset 0 0 20px rgb(126 22 10 / 0.05),
-    0 0 24px rgb(255 57 15 / 0.045);
-  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 12px) 100%, 0 100%, 0 9px);
+    inset 0 1px rgb(255 235 215 / 0.075),
+    inset 0 -2px rgb(255 61 16 / 0.16),
+    inset 0 0 22px rgb(83 10 4 / 0.14),
+    0 0 22px rgb(255 48 11 / 0.045);
   content: "";
-  transition: border-color 220ms ease, box-shadow 240ms ease, filter 220ms ease, transform 280ms cubic-bezier(.2,.8,.2,1);
+  transition: background-size 320ms ease, border-color 220ms ease, box-shadow 240ms ease, filter 220ms ease, transform 280ms cubic-bezier(.2,.8,.2,1);
 }
 
 .molten-button::after {
   position: absolute;
-  right: 7%;
-  bottom: -0.7rem;
-  left: 6%;
+  right: 6%;
+  bottom: -0.82rem;
+  left: 5%;
   z-index: -1;
-  height: 0.92rem;
-  background: linear-gradient(90deg, transparent, var(--melt-deep) 12%, var(--melt-mid) 31%, var(--melt-hot) 49%, var(--melt-glow) 56%, var(--melt-mid) 74%, transparent);
+  height: 1.05rem;
+  background: linear-gradient(90deg, transparent, var(--melt-deep) 12%, var(--melt-mid) 34%, var(--melt-hot) 51%, var(--melt-glow) 58%, var(--melt-mid) 76%, transparent);
   content: "";
   filter: drop-shadow(0 0 7px rgb(255 60 16 / 0.32));
-  opacity: 0.68;
-  -webkit-mask: linear-gradient(#000 0 0) top / 100% 24% no-repeat, radial-gradient(ellipse at 50% 0, #000 0 65%, transparent 69%) 22% 8% / 9% 62% no-repeat, radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 72% 8% / 8% 100% no-repeat;
-  mask: linear-gradient(#000 0 0) top / 100% 24% no-repeat, radial-gradient(ellipse at 50% 0, #000 0 65%, transparent 69%) 22% 8% / 9% 62% no-repeat, radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 72% 8% / 8% 100% no-repeat;
-  transform: scaleX(0.72) scaleY(0.64);
+  opacity: 0.76;
+  -webkit-mask: linear-gradient(#000 0 0) top / 100% 22% no-repeat, radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 68% 5% / 9% 100% no-repeat;
+  mask: linear-gradient(#000 0 0) top / 100% 22% no-repeat, radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 68% 5% / 9% 100% no-repeat;
+  transform: scaleX(0.86) scaleY(0.7);
   transform-origin: top;
+  animation: molten-heavy-drip 6.8s cubic-bezier(.45,0,.3,1) infinite;
   transition: filter 220ms ease, opacity 180ms ease, transform 280ms cubic-bezier(.2,.8,.2,1);
   pointer-events: none;
 }
@@ -226,8 +226,8 @@
 
 .molten-button > i::after {
   position: absolute;
-  bottom: -0.14rem;
-  left: 48%;
+  bottom: -0.72rem;
+  left: 66%;
   width: 0.28rem;
   height: 0.42rem;
   border-radius: 48% 52% 58% 42% / 36% 40% 64% 60%;
@@ -235,6 +235,23 @@
   box-shadow: 0 0 8px rgb(255 67 18 / 0.64);
   content: "";
   opacity: 0;
+  animation: molten-small-drop 7.6s ease-in-out -3.1s infinite;
+  pointer-events: none;
+}
+
+.molten-button > i::before {
+  position: absolute;
+  bottom: -1.2rem;
+  left: 48%;
+  width: 2.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: rgb(61 48 43 / 0.2);
+  content: "";
+  filter: blur(7px);
+  opacity: 0;
+  transform: translate(-50%, 0.35rem) scale(0.65);
+  animation: molten-smoke-wisp 7.6s ease-out -3.1s infinite;
   pointer-events: none;
 }
 
@@ -256,16 +273,19 @@
   box-shadow:
     inset 0 1px rgb(255 237 222 / 0.075),
     inset 0 -1px rgb(255 72 23 / 0.2),
-    inset 0 0 28px rgb(170 27 10 / 0.12),
-    0 0 28px rgb(255 57 15 / 0.1);
-  filter: brightness(1.12);
-  transform: scale(1.016);
+    inset 0 0 28px rgb(170 27 10 / 0.16),
+    0 0 28px rgb(255 57 15 / 0.12);
+  filter: brightness(1.14) saturate(1.08);
+  transform: scale(1.012);
 }
-.molten-button:hover::after { filter: drop-shadow(0 0 11px rgb(255 60 16 / 0.58)); opacity: 1; transform: scaleX(1) scaleY(1); }
+.molten-button:hover::after { filter: drop-shadow(0 0 11px rgb(255 60 16 / 0.58)); opacity: 1; }
 .molten-button:hover > span::after { opacity: 1; animation: molten-sheen 900ms ease both; }
 .molten-button:hover > i { background: linear-gradient(145deg, rgb(255 66 18 / 0.12), rgb(0 0 0 / 0.26)); color: #ff8452; }
-.molten-button:hover > i::after { animation: molten-drop 1.05s ease-in 160ms both; }
+.molten-button:hover > i::after { filter: brightness(1.15); }
 .molten-button:hover svg { transform: translateX(3px); }
+
+.molten-button:active { filter: drop-shadow(0 8px 14px rgb(0 0 0 / 0.42)); transform: translateY(0) scale(0.985); }
+.molten-button:active::before { border-color: rgb(255 189 80 / 0.58); filter: brightness(1.34) saturate(0.88); box-shadow: inset 0 0 28px rgb(255 66 14 / 0.22), 0 0 22px rgb(255 72 16 / 0.16); transform: scale(0.992); }
 
 .plate-button {
   overflow: hidden;
@@ -1208,89 +1228,6 @@
 .service-arsenal__note a { display: flex; align-items: center; gap: 0.4rem; color: #d65b35; font-size: 0.48rem; font-weight: 850; text-transform: uppercase; }
 .service-arsenal__note a svg { width: 0.7rem; }
 
-/* Unified volcanic temperature pass */
-
-.rank-forge__brief,
-.rank-forge__medal {
-  background:
-    radial-gradient(circle at 50% 108%, rgb(255 62 13 / 0.14), transparent 36%),
-    linear-gradient(145deg, rgb(25 12 8 / 0.78), rgb(6 3 2 / 0.64));
-}
-
-.rank-forge__console-head,
-.rank-forge__action,
-.rank-forge__specs {
-  border-color: rgb(255 116 34 / 0.14);
-  background:
-    linear-gradient(110deg, rgb(255 84 18 / 0.055), transparent 46%),
-    linear-gradient(180deg, rgb(18 9 6 / 0.9), rgb(7 4 3 / 0.88));
-  box-shadow: inset 0 1px rgb(255 223 158 / 0.04), inset 0 -1px rgb(255 67 14 / 0.08);
-}
-
-.rank-forge__specs div { background: linear-gradient(155deg, rgb(24 11 7 / 0.94), rgb(7 4 3 / 0.92)); }
-.rank-forge__medal-art::before { border-color: rgb(255 93 24 / 0.18); box-shadow: inset 0 0 24px rgb(255 58 11 / 0.05), 0 0 28px rgb(255 69 13 / 0.05); }
-.rank-forge__medal-art::after { border-color: rgb(255 213 122 / 0.08); }
-.rank-forge__crucible::before { width: 2px; background: linear-gradient(transparent, #6d1609 14%, #ff4211 42%, #ffd064 50%, #ff4b13 58%, #6d1609 86%, transparent); box-shadow: 0 0 16px rgb(255 65 14 / 0.4); }
-.rank-forge__crucible-core::before { border-color: rgb(255 91 21 / 0.32); background: linear-gradient(145deg, #1b0d08, #070302); box-shadow: inset 0 0 24px rgb(178 34 8 / 0.18), 0 0 28px rgb(255 54 10 / 0.11); }
-.rank-forge__crucible-core::after { border-color: rgb(255 202 100 / 0.38); background: radial-gradient(circle, #ffd675 0 7%, #ff6418 18%, #a91e08 42%, #090302 72%); box-shadow: 0 0 18px rgb(255 77 13 / 0.26); }
-
-.arsenal-card {
-  --artifact-rgb: 238 74 18;
-  --artifact-edge: rgb(255 115 31 / 0.2);
-  background:
-    radial-gradient(circle at 82% 32%, rgb(255 82 15 / 0.1), transparent 28%),
-    linear-gradient(125deg, rgb(255 222 145 / 0.035), transparent 24% 76%, rgb(0 0 0 / 0.4)),
-    linear-gradient(145deg, rgb(29 13 8 / 0.96), rgb(6 3 2 / 0.96));
-  box-shadow: inset 0 1px rgb(255 225 159 / 0.055), inset 0 -1px rgb(255 66 13 / 0.14), inset 0 0 42px rgb(128 19 5 / 0.06), 0 24px 55px rgb(0 0 0 / 0.3);
-}
-
-.arsenal-card::before {
-  background: url("/media/dire-forge/textures/lava-cracks.jpg") center 54% / cover no-repeat;
-  filter: saturate(1.5) contrast(1.12);
-  mix-blend-mode: screen;
-  opacity: 0.14;
-}
-
-.arsenal-card:hover::before { opacity: 0.24; }
-.arsenal-card--calibration { --artifact-rgb: 255 85 16; }
-.arsenal-card--coaching { --artifact-rgb: 255 117 25; }
-.arsenal-card--wins { --artifact-rgb: 255 151 38; }
-.arsenal-card--behavior { --artifact-rgb: 230 62 18; --artifact-edge: rgb(255 94 28 / 0.18); }
-.arsenal-card__hero { mix-blend-mode: screen; opacity: 0.28; filter: saturate(0.72) contrast(1.14) brightness(0.67); }
-.arsenal-card:hover .arsenal-card__hero { opacity: 0.43; filter: saturate(0.95) contrast(1.16) brightness(0.82); }
-.arsenal-card--calibration .arsenal-card__hero,
-.arsenal-card--coaching .arsenal-card__hero { opacity: 0.22; }
-.arsenal-card--wins .arsenal-card__hero,
-.arsenal-card--behavior .arsenal-card__hero { opacity: 0.24; }
-
-.arsenal-card__artifact::before,
-.arsenal-card__artifact::after {
-  border-color: rgb(var(--artifact-rgb) / 0.3);
-  background:
-    linear-gradient(112deg, transparent 0 44%, rgb(255 215 111 / 0.2) 44.5% 45.2%, transparent 45.7%),
-    url("/media/dire-forge/textures/lava-cracks.jpg") center / cover no-repeat,
-    #120704;
-  background-blend-mode: screen, screen, normal;
-  box-shadow: inset 0 0 30px rgb(255 39 7 / 0.14), 0 0 28px rgb(var(--artifact-rgb) / 0.1);
-}
-
-.arsenal-card__artifact::after { border-color: rgb(255 222 146 / 0.11); opacity: 0.72; }
-.arsenal-card__artifact > span {
-  border-color: rgb(255 172 67 / 0.38);
-  background:
-    radial-gradient(circle at 46% 48%, rgb(255 229 154 / 0.2), transparent 16%),
-    radial-gradient(circle, rgb(var(--artifact-rgb) / 0.34), #661505 48%, #0b0402 74%);
-  box-shadow: inset 0 1px rgb(255 237 180 / 0.12), inset 0 -5px rgb(61 9 2 / 0.55), 0 0 30px rgb(var(--artifact-rgb) / 0.18);
-}
-
-.arsenal-card__artifact > span svg { color: #ffc36b; filter: drop-shadow(0 0 8px rgb(255 74 13 / 0.55)); }
-.arsenal-card__artifact > i { border-color: rgb(255 145 51 / 0.65); background: #ff6a18; box-shadow: 0 0 8px rgb(255 61 10 / 0.62); }
-.arsenal-card--mmr .arsenal-card__artifact::before { background: linear-gradient(90deg, #120603, #6c1605 32%, #ff5712 49%, #ffd16a 50%, #ff5712 51%, #6c1605 68%, #120603); box-shadow: inset 0 0 24px rgb(255 40 7 / 0.18), 0 0 24px rgb(255 66 10 / 0.14); }
-.arsenal-card--calibration .arsenal-card__artifact::before,
-.arsenal-card--calibration .arsenal-card__artifact::after { background: radial-gradient(circle, transparent 0 33%, rgb(255 70 11 / 0.22) 34% 36%, transparent 37% 52%, rgb(255 160 49 / 0.16) 53% 54%, transparent 55%), url("/media/dire-forge/textures/lava-cracks.jpg") center / cover no-repeat, #120603; }
-.arsenal-card--coaching .arsenal-card__artifact::before { background-image: linear-gradient(rgb(255 91 20 / 0.11) 1px, transparent 1px), linear-gradient(90deg, rgb(255 91 20 / 0.11) 1px, transparent 1px), url("/media/dire-forge/textures/lava-cracks.jpg"); background-size: 18px 18px, 18px 18px, cover; }
-.arsenal-card--behavior .arsenal-card__artifact > span svg { color: #ffb052; }
-
 /* Campaign flow */
 
 .campaign-flow__layout { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(25rem, 0.7fr); gap: clamp(1rem, 3vw, 2.5rem); align-items: start; }
@@ -1676,6 +1613,26 @@
   66% { opacity: 1; transform: translate3d(-50%, 0.1rem, 0) scale(0.82, 1.06); }
   86% { opacity: 0.9; transform: translate3d(-50%, 1rem, 0) scale(0.72, 1.18); }
   100% { opacity: 0; transform: translate3d(-50%, 1.8rem, 0) scale(0.28); }
+}
+
+@keyframes molten-heavy-drip {
+  0%, 18%, 100% { transform: scaleX(0.86) scaleY(0.58); }
+  42% { transform: scaleX(0.9) scaleY(0.74); }
+  64% { transform: scaleX(0.94) scaleY(1); }
+  82% { transform: scaleX(0.9) scaleY(0.7); }
+}
+
+@keyframes molten-small-drop {
+  0%, 62%, 100% { opacity: 0; transform: translate3d(-50%, -0.15rem, 0) scale(0.5); }
+  69% { opacity: 0.82; transform: translate3d(-50%, 0, 0) scale(0.72, 1.08); }
+  84% { opacity: 0.72; transform: translate3d(-50%, 0.72rem, 0) scale(0.58, 1.16); }
+  94% { opacity: 0; transform: translate3d(-50%, 1.25rem, 0) scale(0.22); }
+}
+
+@keyframes molten-smoke-wisp {
+  0%, 78%, 100% { opacity: 0; transform: translate(-50%, 0.35rem) scale(0.65); }
+  86% { opacity: 0.18; transform: translate(-48%, 0) scale(0.9); }
+  96% { opacity: 0; transform: translate(-42%, -0.65rem) scale(1.18); }
 }
 
 @keyframes forge-fire-breathe {
