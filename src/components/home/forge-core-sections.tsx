@@ -150,13 +150,6 @@ export function RankForge() {
               Move by exact division or MMR amount, then confirm the queue conditions that shape eligibility and delivery.
             </p>
 
-            <div className="rank-forge__specs">
-              <div><small>Region</small><strong>EU West</strong></div>
-              <div><small>Delivery</small><strong>Solo Assist</strong></div>
-              <div><small>Preferred role</small><strong>Mid</strong></div>
-              <div><small>Quote</small><strong>Live at checkout</strong></div>
-            </div>
-
             <ul>
               <li><Check /> Exact medal and MMR targeting</li>
               <li><Check /> Server-aware pricing and eligibility</li>
@@ -164,7 +157,7 @@ export function RankForge() {
             </ul>
           </div>
 
-          <div className="rank-forge__console forged-panel" data-forge-reveal>
+          <div className="rank-forge__route" data-forge-reveal>
             <div className="rank-forge__console-head">
               <div>
                 <span><Route /> Route 05-A</span>
@@ -174,42 +167,69 @@ export function RankForge() {
             </div>
 
             <div className="rank-forge__medals">
-              <div className="rank-forge__medal">
+              <div className="rank-forge__medal forged-panel">
+                <div className="rank-forge__medal-index"><span>01</span><small>Origin</small></div>
+                <div className="rank-forge__medal-art">
+                  <Image
+                    src={rankMedals.Legend.image}
+                    alt="Legend rank medal"
+                    width={128}
+                    height={128}
+                  />
+                </div>
                 <small>Current rank</small>
-                <Image
-                  src={rankMedals.Legend.image}
-                  alt="Legend rank medal"
-                  width={128}
-                  height={128}
-                />
                 <strong>Legend III</strong>
+                <p>3,420 MMR</p>
               </div>
 
-              <div className="rank-forge__route-line" aria-hidden="true">
-                <span /><span /><span /><span /><span />
-                <i><ArrowRight /></i>
+              <div className="rank-forge__crucible" aria-hidden="true">
+                <div className="rank-forge__crucible-core">
+                  <span><Swords /></span>
+                  <i /><i /><i />
+                </div>
+                <div className="rank-forge__route-line">
+                  <span /><span /><span /><span /><span />
+                </div>
+                <small>1,180 MMR</small>
+                <strong>Forge route</strong>
+                <ArrowRight />
               </div>
 
-              <div className="rank-forge__medal is-target">
-                <small>Target objective</small>
-                <Image
-                  src={rankMedals.Ancient.image}
-                  alt="Ancient rank medal"
-                  width={128}
-                  height={128}
-                />
+              <div className="rank-forge__medal is-target forged-panel">
+                <div className="rank-forge__medal-index"><span>02</span><small>Objective</small></div>
+                <div className="rank-forge__medal-art">
+                  <Image
+                    src={rankMedals.Ancient.image}
+                    alt="Ancient rank medal"
+                    width={128}
+                    height={128}
+                  />
+                </div>
+                <small>Target rank</small>
                 <strong>Ancient II</strong>
+                <p>4,600 MMR</p>
               </div>
             </div>
 
-            <div className="rank-forge__progress">
-              <div><span>Route progress</span><small>Preview only</small></div>
-              <i><span /></i>
-            </div>
+            <div className="rank-forge__loadout">
+              <div className="rank-forge__specs">
+                <div><small>Region</small><strong>EU West</strong></div>
+                <div><small>Delivery</small><strong>Solo Assist</strong></div>
+                <div><small>Preferred role</small><strong>Mid</strong></div>
+                <div><small>Quote</small><strong>Live at checkout</strong></div>
+              </div>
 
-            <Link href="/pricing" className="molten-button rank-forge__cta">
-              <span>Configure my route</span><i><ArrowRight /></i>
-            </Link>
+              <div className="rank-forge__action">
+                <div className="rank-forge__progress">
+                  <div><span>Route intensity</span><small>Preview only</small></div>
+                  <i><span /></i>
+                </div>
+
+                <Link href="/pricing" className="molten-button rank-forge__cta">
+                  <span>Configure my route</span><i><ArrowRight /></i>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
