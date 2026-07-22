@@ -5,10 +5,8 @@ import { createClient } from "@/lib/supabase/browser";
 import { roles, type AppRole } from "@/types/domain";
 import { getWorkspaceMeta, type NavigationAccount } from "@/components/layout/navigation-data";
 
-const initialState: NavigationAccount = { status: "loading" };
-
 export function useNavigationAccount() {
-  const [account, setAccount] = useState<NavigationAccount>(initialState);
+  const [account, setAccount] = useState<NavigationAccount>({ status: "guest" });
 
   useEffect(() => {
     let active = true;
@@ -17,7 +15,6 @@ export function useNavigationAccount() {
     try {
       supabase = createClient();
     } catch {
-      setAccount({ status: "guest" });
       return;
     }
 
