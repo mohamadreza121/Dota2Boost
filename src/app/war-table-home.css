@@ -99,6 +99,7 @@
 }
 
 .war-kicker span { color: var(--war-gold); }
+.war-kicker strong { color: inherit; font: inherit; }
 .war-kicker i { width: 2.4rem; height: 1px; background: linear-gradient(90deg, var(--war-ember), transparent); }
 
 .war-heading { position: relative; z-index: 2; max-width: 62rem; margin-bottom: clamp(3rem, 6vw, 5rem); }
@@ -136,8 +137,9 @@
   text-transform: uppercase;
 }
 .war-heading__aside svg { width: 1rem; }
+.war-heading__aside > a { min-height: 2.75rem; }
 
-.war-section { position: relative; z-index: 1; padding-block: clamp(6rem, 10vw, 10rem); }
+.war-section { position: relative; z-index: 1; padding-block: clamp(6rem, 10vw, 10rem); scroll-margin-top: calc(var(--header-height) + 1rem); }
 
 .war-action-button {
   position: relative;
@@ -200,7 +202,7 @@
 .war-hero {
   position: relative;
   z-index: 3;
-  min-height: max(47rem, calc(100svh - var(--header-height)));
+  min-height: max(39rem, calc(100svh - var(--header-height)));
   overflow: hidden;
   background: #030302;
   isolation: isolate;
@@ -264,7 +266,7 @@
   position: relative;
   z-index: 3;
   display: grid;
-  min-height: max(47rem, calc(100svh - var(--header-height)));
+  min-height: max(39rem, calc(100svh - var(--header-height)));
   grid-template-columns: repeat(12, minmax(0, 1fr));
   align-content: center;
   gap: 1.2rem;
@@ -402,7 +404,8 @@
 .war-route-preview__footer > p strong { color: var(--war-bone-soft); font-size: 0.78rem; }
 .war-route-preview__footer > p small { margin-top: 0.15rem; color: var(--war-ash-dim); font-size: 0.72rem; }
 .war-route-ready { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--war-mint); font-size: 0.72rem; font-weight: 600; }
-.war-route-ready svg { width: 0.9rem; }
+.war-route-ready > span { line-height: 1.35; }
+.war-route-ready svg { width: 0.9rem; flex: 0 0 auto; }
 .war-route-preview--expanded { padding: 1.4rem; }
 .war-route-preview--expanded .war-route-preview__medals { margin-top: 2.2rem; }
 .war-route-preview--expanded .war-route-medal img { width: clamp(5.4rem, 8vw, 8rem); }
@@ -520,7 +523,7 @@
 .war-contract-row__copy em { display: block; }
 .war-contract-row__copy small { color: var(--war-orange); font-size: 0.68rem; font-style: normal; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
 .war-contract-row__copy strong { margin-top: 0.25rem; color: var(--war-bone); font-family: var(--war-display-face); font-size: 1.35rem; }
-.war-contract-row__copy em { overflow: hidden; margin-top: 0.3rem; color: var(--war-ash); font-size: 0.76rem; font-style: normal; text-overflow: ellipsis; white-space: nowrap; }
+.war-contract-row__copy em { margin-top: 0.3rem; color: var(--war-ash); font-size: 0.76rem; font-style: normal; line-height: 1.45; }
 .war-contract-row__price { text-align: right; }
 .war-contract-row__price small,
 .war-contract-row__price strong { display: block; }
@@ -622,7 +625,7 @@
 .war-featured-specialist dl > div { background: #0c0b08; padding: 0.9rem 1rem; }
 .war-featured-specialist dt { color: var(--war-ash-dim); font-family: var(--war-mono-face); font-size: 0.68rem; text-transform: uppercase; }
 .war-featured-specialist dd { margin: 0.25rem 0 0; color: var(--war-bone-soft); font-size: 0.82rem; }
-.war-featured-specialist > a { display: inline-flex; align-items: center; gap: 0.45rem; margin-top: 1.5rem; color: var(--war-gold); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.war-featured-specialist > a { display: inline-flex; min-height: 2.75rem; align-items: center; gap: 0.45rem; margin-top: 1.5rem; color: var(--war-gold); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
 .war-featured-specialist > a svg { width: 1rem; }
 .war-verification { border: 1px solid var(--war-line); background: #0d0c09; padding: 1.15rem; }
 .war-verification__head { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 0.65rem; }
@@ -670,7 +673,7 @@
 .war-record__proof li small { display: block; }
 .war-record__proof li strong { color: var(--war-bone-soft); font-size: 0.78rem; }
 .war-record__proof li small { margin-top: 0.2rem; color: var(--war-ash); font-size: 0.7rem; line-height: 1.45; }
-.war-record__proof > a { display: inline-flex; align-items: center; gap: 0.45rem; margin-top: 1.5rem; color: var(--war-gold); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; }
+.war-record__proof > a { display: inline-flex; min-height: 2.75rem; align-items: center; gap: 0.45rem; margin-top: 1.5rem; color: var(--war-gold); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; }
 .war-record__proof > a svg { width: 1rem; }
 
 /* Final checkpoint -------------------------------------------------------- */
@@ -708,6 +711,45 @@
   to { stroke-dashoffset: 0; }
 }
 
+/* Tactical type floor ------------------------------------------------------ */
+
+.war-table :is(
+  small,
+  dt,
+  .war-kicker,
+  .war-route-preview__head > span,
+  .war-route-medal > span,
+  .war-route-track__count,
+  .war-route-controls label > span,
+  .war-route-ready,
+  .war-brief__head,
+  .war-contract-primary__top > span,
+  .war-contract-primary__body > p,
+  .war-contract-primary footer p > span,
+  .war-contract-row__number,
+  .war-contract-row__copy small,
+  .war-contract-row__copy em,
+  .war-contract-row__price small,
+  .war-protocol__number,
+  .war-protocol__label,
+  .war-workspace__bar > p,
+  .war-workspace__summary small,
+  .war-workspace__timeline small,
+  .war-workspace__channel-head small,
+  .war-message > span,
+  .war-message strong,
+  .war-message small,
+  .war-featured-specialist__identity > div small,
+  .war-featured-specialist dt,
+  .war-roster-alternatives small,
+  .war-roster-alternatives em,
+  .war-record__proof-head,
+  .war-record blockquote span,
+  .war-record__proof li small,
+  .war-final__target-head,
+  .war-final__route span
+) { font-size: 0.75rem; }
+
 /* Responsive -------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
@@ -729,7 +771,7 @@
   .war-record__proof > a { grid-column: 1 / -1; }
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1080px) {
   .war-table__spine { left: 1.4rem; }
   .war-heading--split { grid-template-columns: 1fr; align-items: start; gap: 1.3rem; }
   .war-heading--split > p,
@@ -769,11 +811,11 @@
   .war-hero__image::after { background: linear-gradient(180deg, #030302, rgb(3 3 2 / 0.44) 28%, rgb(3 3 2 / 0.14) 58%, #030302 100%), linear-gradient(90deg, #030302 0, transparent 44%, rgb(3 3 2 / 0.28)); }
   .war-hero__terrain { display: none; }
   .war-hero__route { opacity: 0.28; }
-  .war-hero__inner { display: block; padding: 4.6rem 1rem 3rem; }
+  .war-hero__inner { display: block; padding: 3rem 1rem 3rem; }
   .war-hero__copy { padding-bottom: 0; }
   .war-hero__copy h1 { max-width: 7ch; font-size: clamp(4rem, 19vw, 5.7rem); }
   .war-hero__lead { font-size: 1.08rem; }
-  .war-hero__body { font-size: 0.96rem; }
+  .war-hero__body { font-size: 1rem; }
   .war-hero__actions { display: grid; grid-template-columns: 1fr; justify-items: stretch; }
   .war-hero__actions .war-action-button { width: 100%; }
   .war-hero__actions .war-text-link { width: fit-content; }
@@ -782,10 +824,12 @@
   .war-hero__trust > div { min-height: 4.7rem; }
 
   .war-route-preview { padding: 0.95rem; }
-  .war-route-preview__medals { grid-template-columns: 1fr; gap: 0.65rem; }
-  .war-route-track { width: 8rem; min-height: 4.4rem; margin-inline: auto; transform: rotate(90deg); }
-  .war-route-track__count { transform: rotate(-90deg) translate(1.7rem, 2.3rem); }
-  .war-route-track__marker { top: 45%; }
+  .war-route-preview__medals { grid-template-columns: minmax(4.5rem, 0.72fr) minmax(6.5rem, 1fr) minmax(4.5rem, 0.72fr); align-items: start; gap: 0.45rem; }
+  .war-route-medal img { width: clamp(3.7rem, 16vw, 5rem); }
+  .war-route-medal strong { font-size: 0.8rem; }
+  .war-route-track { width: auto; min-height: 5.4rem; margin-inline: 0; transform: none; }
+  .war-route-track__count { bottom: -0.1rem; transform: none; }
+  .war-route-track__marker { top: 42%; }
   .war-route-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .war-route-controls label:last-child { grid-column: 1 / -1; }
   .war-route-preview__footer { align-items: flex-start; flex-direction: column; }
@@ -843,16 +887,42 @@
 
 @media (max-width: 430px) {
   .war-hero__inner { padding-inline: 0.9rem; }
-  .war-hero__copy h1 { font-size: clamp(3.7rem, 18vw, 4.8rem); }
-  .war-route-controls { grid-template-columns: 1fr; }
-  .war-route-controls label:last-child { grid-column: auto; }
+  .war-hero .war-kicker { display: grid; grid-template-columns: auto minmax(1rem, 1fr) auto; gap: 0.5rem; letter-spacing: 0.1em; }
+  .war-hero .war-kicker i { width: 100%; }
+  .war-hero .war-kicker strong { white-space: nowrap; }
+  .war-hero__copy h1 { max-width: none; font-size: min(16.5vw, 4.5rem); letter-spacing: -0.055em; line-height: 0.86; }
+  .war-route-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .war-route-controls label:last-child { grid-column: 1 / -1; }
   .war-route-preview__head { align-items: flex-start; flex-direction: column; gap: 0.25rem; }
+  .war-route-preview__footer { gap: 0.75rem; }
   .war-contract-row { grid-template-columns: auto 1fr auto; }
   .war-contract-row__number { display: none; }
   .war-contract-row__icon { width: 2.4rem; height: 2.4rem; }
   .war-featured-specialist__identity { align-items: start; }
   .war-featured-specialist__identity h3 { font-size: 2rem; }
   .war-final__target { padding: 1rem; }
+}
+
+@media (min-width: 1081px) and (max-height: 700px) {
+  .war-hero,
+  .war-hero__inner { min-height: calc(100svh - var(--header-height)); }
+  .war-hero__inner { padding-block: 2.4rem 1.5rem; }
+  .war-hero__copy { padding-bottom: 1.25rem; }
+  .war-hero__copy h1 { font-size: clamp(4rem, 6vw, 6.4rem); }
+  .war-hero__body { line-height: 1.55; }
+  .war-hero__trust > div { min-height: 4.7rem; }
+}
+
+@media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
+  .war-hero__inner { padding: 1.5rem 1.5rem 2.5rem; }
+  .war-hero__copy { max-width: 34rem; }
+  .war-hero .war-kicker { margin-bottom: 0.55rem; }
+  .war-hero__copy h1 { margin-bottom: 0.7rem; font-size: 3rem; line-height: 0.86; }
+  .war-hero__lead { margin-bottom: 0.45rem; font-size: 1rem; }
+  .war-hero__body { font-size: 0.88rem; line-height: 1.45; }
+  .war-hero__actions { display: flex; margin-top: 0.9rem; }
+  .war-hero__actions .war-action-button { width: auto; }
+  .war-hero__console { margin-top: 2rem; }
 }
 
 @media (hover: none) {

@@ -227,7 +227,7 @@ for (const config of [
   });
   const { page, consoleErrors, pageErrors, failedRequests } = await preparePage(context);
   const state = await page.evaluate(() => {
-    const reveal = document.querySelector("[data-home-reveal]");
+    const reveal = document.querySelector("[data-war-reveal]");
     const route = document.querySelector(".war-route-track__active");
     return {
       prefersReducedMotion: matchMedia("(prefers-reduced-motion: reduce)").matches,

@@ -30,7 +30,7 @@ export function WarTableHero() {
 
       <div className="container-shell war-hero__inner">
         <div className="war-hero__copy" data-war-reveal>
-          <p className="war-kicker"><span>Campaign 01</span><i /> The Dire War Table</p>
+          <p className="war-kicker"><span>Campaign 01</span><i /><strong>The Dire War Table</strong></p>
           <h1 id="war-hero-title">Command<br />the climb.</h1>
           <p className="war-hero__lead">Set the route before the first queue.</p>
           <p className="war-hero__body">

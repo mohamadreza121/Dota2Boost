@@ -126,7 +126,7 @@ export function RankRoutePreview({ variant = "compact" }: RoutePreviewProps) {
             <span>Configure live route</span><ArrowRight aria-hidden="true" />
           </Link>
         ) : (
-          <span className="war-route-ready"><Check aria-hidden="true" /> Scope visible before payment</span>
+          <span className="war-route-ready"><Check aria-hidden="true" /><span>Scope visible before payment</span></span>
         )}
       </div>
     </div>
