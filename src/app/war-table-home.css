@@ -404,7 +404,7 @@
 .war-route-preview__footer > p strong { color: var(--war-bone-soft); font-size: 0.78rem; }
 .war-route-preview__footer > p small { margin-top: 0.15rem; color: var(--war-ash-dim); font-size: 0.72rem; }
 .war-route-ready { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--war-mint); font-size: 0.72rem; font-weight: 600; }
-.war-route-ready > span { line-height: 1.35; }
+.war-route-ready > span { line-height: 1.35; word-spacing: 0.18em; }
 .war-route-ready svg { width: 0.9rem; flex: 0 0 auto; }
 .war-route-preview--expanded { padding: 1.4rem; }
 .war-route-preview--expanded .war-route-preview__medals { margin-top: 2.2rem; }
@@ -806,7 +806,7 @@
   .war-heading--split > p,
   .war-heading__aside > p { font-size: 0.95rem; }
 
-  .war-hero__image { inset: auto 0 0; height: 48%; }
+  .war-hero__image { inset: 48rem 0 auto; height: 44rem; }
   .war-hero__image img { object-position: 67% 34%; filter: saturate(0.65) contrast(1.08) brightness(0.52); }
   .war-hero__image::after { background: linear-gradient(180deg, #030302, rgb(3 3 2 / 0.44) 28%, rgb(3 3 2 / 0.14) 58%, #030302 100%), linear-gradient(90deg, #030302 0, transparent 44%, rgb(3 3 2 / 0.28)); }
   .war-hero__terrain { display: none; }
@@ -889,7 +889,7 @@
   .war-hero__inner { padding-inline: 0.9rem; }
   .war-hero .war-kicker { display: grid; grid-template-columns: auto minmax(1rem, 1fr) auto; gap: 0.5rem; letter-spacing: 0.1em; }
   .war-hero .war-kicker i { width: 100%; }
-  .war-hero .war-kicker strong { white-space: nowrap; }
+  .war-hero .war-kicker strong { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
   .war-hero__copy h1 { max-width: none; font-size: min(16.5vw, 4.5rem); letter-spacing: -0.055em; line-height: 0.86; }
   .war-route-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .war-route-controls label:last-child { grid-column: 1 / -1; }
@@ -901,6 +901,15 @@
   .war-featured-specialist__identity { align-items: start; }
   .war-featured-specialist__identity h3 { font-size: 2rem; }
   .war-final__target { padding: 1rem; }
+}
+
+@media (max-width: 350px) {
+  .war-hero__inner { padding-top: 1.7rem; }
+  .war-hero .war-kicker { margin-bottom: 0.6rem; }
+  .war-hero__copy h1 { margin-bottom: 0.75rem; font-size: 3.25rem; }
+  .war-hero__lead { margin-bottom: 0.55rem; font-size: 1rem; }
+  .war-hero__body { line-height: 1.45; }
+  .war-hero__actions { margin-top: 1rem; }
 }
 
 @media (min-width: 1081px) and (max-height: 700px) {
