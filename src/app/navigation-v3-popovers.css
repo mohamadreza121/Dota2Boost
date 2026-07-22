@@ -1,0 +1,14 @@
+.hg-compact-panel,
+.hg-account-panel {
+  animation: hg-popover-enter 170ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes hg-popover-enter {
+  from { opacity: 0; transform: translateY(0.4rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hg-compact-panel,
+  .hg-account-panel { animation: none; }
+}
