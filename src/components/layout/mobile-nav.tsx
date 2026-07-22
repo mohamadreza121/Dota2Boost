@@ -26,16 +26,12 @@ export function MobileNav({ account }: { account: NavigationAccount }) {
   const drawerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    setOpen(false);
-    setServicesOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     if (!open) return;
 
     const previousBodyOverflow = document.body.style.overflow;
     const previousHtmlOverflow = document.documentElement.style.overflow;
     const previousFocus = document.activeElement as HTMLElement | null;
+    const trigger = triggerRef.current;
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
     closeRef.current?.focus();
@@ -72,7 +68,7 @@ export function MobileNav({ account }: { account: NavigationAccount }) {
       document.body.style.overflow = previousBodyOverflow;
       document.documentElement.style.overflow = previousHtmlOverflow;
       window.removeEventListener("keydown", handleKeyDown);
-      (previousFocus ?? triggerRef.current)?.focus();
+      (previousFocus ?? trigger)?.focus();
     };
   }, [open]);
 
@@ -178,7 +174,7 @@ export function MobileNav({ account }: { account: NavigationAccount }) {
               ) : (
                 <div className="hg-mobile-guest">
                   <p><small>Private workspace</small><strong>Track milestones, messages and receipts.</strong></p>
-                  <Link href="/auth/sign-in" onClick={closeMenu} aria-busy={account.status === "loading"}>Sign in <ArrowUpRight aria-hidden="true" /></Link>
+                  <Link href="/auth/sign-in" onClick={closeMenu}>Sign in <ArrowUpRight aria-hidden="true" /></Link>
                 </div>
               )}
               <p className="hg-mobile-reassurance"><ShieldCheck aria-hidden="true" /> Customer-operated Solo and Duo delivery. No Steam credentials or remote access.</p>
