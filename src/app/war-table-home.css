@@ -903,6 +903,15 @@
   .war-final__target { padding: 1rem; }
 }
 
+@media (max-width: 430px) {
+  body:has(.war-table) .dota-mobile-trigger {
+    width: 46px;
+    height: 46px;
+  }
+
+  body:has(.war-table) .dota-mobile-trigger svg { width: 16px; }
+}
+
 @media (max-width: 350px) {
   .war-hero__inner { padding-top: 1.7rem; }
   .war-hero .war-kicker { margin-bottom: 0.6rem; }
