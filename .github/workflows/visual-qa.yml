@@ -29,8 +29,8 @@ jobs:
       - name: Apply browser-confirmed polish
         if: hashFiles('.github/homepage-polish.patch') != ''
         run: |
-          git apply --check .github/homepage-polish.patch
-          git apply .github/homepage-polish.patch
+          patch --dry-run --batch --forward -p1 < .github/homepage-polish.patch
+          patch --batch --forward -p1 < .github/homepage-polish.patch
           rm .github/homepage-polish.patch
           git config user.name "highground-qa[bot]"
           git config user.email "highground-qa[bot]@users.noreply.github.com"
