@@ -39,12 +39,6 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    setServicesOpen(false);
-    setMoreOpen(false);
-    setAccountOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     if (!servicesOpen && !moreOpen && !accountOpen) return;
 
     const closeAll = () => {
@@ -76,6 +70,12 @@ export function SiteHeader() {
   function isActive(href: string) {
     if (href === "/services") return pathname === "/services" || (pathname.startsWith("/services/") && pathname !== "/services/mmr-boost");
     return pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+  }
+
+  function closeDisclosures() {
+    setServicesOpen(false);
+    setMoreOpen(false);
+    setAccountOpen(false);
   }
 
   function openServices() {
@@ -129,7 +129,7 @@ export function SiteHeader() {
                         <Route aria-hidden="true" />
                         <h2>Build an exact rank route.</h2>
                         <p>Choose your current medal, target, region, role and customer-controlled delivery mode before opening the live quote.</p>
-                        <Link href="/pricing" onClick={() => setServicesOpen(false)} className="hg-panel-action">
+                        <Link href="/pricing" onClick={closeDisclosures} className="hg-panel-action">
                           Configure rank route <ArrowUpRight aria-hidden="true" />
                         </Link>
                       </div>
@@ -140,7 +140,7 @@ export function SiteHeader() {
                             <p>{group.eyebrow}</p>
                             <div>
                               {group.services.map((service) => (
-                                <Link key={service.href} href={service.href} onClick={() => setServicesOpen(false)} className="hg-service-link">
+                                <Link key={service.href} href={service.href} onClick={closeDisclosures} className="hg-service-link">
                                   <span>
                                     <strong>{service.label}</strong>
                                     <small>{service.detail}</small>
@@ -152,7 +152,7 @@ export function SiteHeader() {
                             </div>
                           </section>
                         ))}
-                        <Link href="/services" onClick={() => setServicesOpen(false)} className="hg-services-panel__all">
+                        <Link href="/services" onClick={closeDisclosures} className="hg-services-panel__all">
                           Compare all services <ArrowUpRight aria-hidden="true" />
                         </Link>
                       </div>
@@ -169,6 +169,7 @@ export function SiteHeader() {
                 className={`hg-nav__link${link.collapsible ? " hg-nav__link--collapsible" : ""}`}
                 data-active={isActive(link.href)}
                 aria-current={isActive(link.href) ? "page" : undefined}
+                onClick={closeDisclosures}
               >
                 <span className="hg-nav__chapter">{link.chapter}</span>
                 <span>{link.label}</span>
@@ -192,7 +193,7 @@ export function SiteHeader() {
             {moreOpen ? (
               <div id="hg-more-panel" className="hg-compact-panel">
                 {primaryNavigation.filter((link) => link.collapsible).map((link) => (
-                  <Link key={link.href} href={link.href} aria-current={isActive(link.href) ? "page" : undefined}>
+                  <Link key={link.href} href={link.href} aria-current={isActive(link.href) ? "page" : undefined} onClick={closeDisclosures}>
                     <span>{link.chapter}</span>
                     <strong>{link.label}</strong>
                     <ArrowUpRight aria-hidden="true" />
@@ -225,14 +226,14 @@ export function SiteHeader() {
                     <p><strong>{account.displayName}</strong><small>{account.email}</small></p>
                   </div>
                   <span className="hg-account-panel__role"><ShieldCheck aria-hidden="true" /> {account.role} account</span>
-                  <Link href={account.workspaceHref}>{account.workspaceLabel}<ArrowUpRight aria-hidden="true" /></Link>
+                  <Link href={account.workspaceHref} onClick={closeDisclosures}>{account.workspaceLabel}<ArrowUpRight aria-hidden="true" /></Link>
                   <form action={signOut}><button type="submit"><LogOut aria-hidden="true" /> Sign out</button></form>
                 </div>
               ) : null}
             </div>
           ) : (
-            <Link href="/auth/sign-in" className="hg-sign-in" aria-busy={account.status === "loading"}>
-              <small>{account.status === "loading" ? "Account" : "Private workspace"}</small>
+            <Link href="/auth/sign-in" className="hg-sign-in">
+              <small>Private workspace</small>
               <strong>Sign in</strong>
             </Link>
           )}
@@ -242,7 +243,7 @@ export function SiteHeader() {
           </Link>
         </div>
 
-        <MobileNav account={account} />
+        <MobileNav key={pathname} account={account} />
       </div>
     </header>
   );
