@@ -1,0 +1,62 @@
+name: Navigation Visual QA
+
+on:
+  push:
+    branches:
+      - agent/navbar-mobile-navigation
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  NEXT_TELEMETRY_DISABLED: 1
+
+jobs:
+  browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v7
+        with:
+          ref: agent/navbar-mobile-navigation
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Install temporary browser tooling
+        run: npm install --no-save --package-lock=false playwright@1.54.2 @axe-core/playwright@4.10.2
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Build production application
+        run: npm run build
+      - name: Start production server
+        run: |
+          npm run start -- -p 3000 > /tmp/highground-navigation.log 2>&1 &
+          for attempt in {1..60}; do
+            if curl --fail --silent http://127.0.0.1:3000 > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/highground-navigation.log
+          exit 1
+      - name: Run visual and interaction QA
+        run: node scripts/navigation-visual-qa.mjs
+      - name: Run accessibility QA
+        run: node scripts/navigation-axe-qa.mjs
+      - name: Upload navigation evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: navigation-visual-qa
+          path: |
+            navigation-qa
+            /tmp/highground-navigation.log
+          if-no-files-found: warn
+          retention-days: 7
