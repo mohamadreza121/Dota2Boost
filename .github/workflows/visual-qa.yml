@@ -30,8 +30,9 @@ jobs:
         if: hashFiles('.github/homepage-polish.patch') != ''
         run: |
           mkdir -p qa-artifacts
+          sed '/^index /d' .github/homepage-polish.patch > /tmp/homepage-polish.patch
           set +e
-          patch --dry-run --batch --forward -p1 < .github/homepage-polish.patch > qa-artifacts/patch-check.log 2>&1
+          patch --dry-run --batch --forward -p1 < /tmp/homepage-polish.patch > qa-artifacts/patch-check.log 2>&1
           status=$?
           set -e
           cat qa-artifacts/patch-check.log
@@ -40,7 +41,7 @@ jobs:
       - name: Apply browser-confirmed polish
         if: env.PATCH_CHECK_STATUS == '0'
         run: |
-          patch --batch --forward -p1 < .github/homepage-polish.patch
+          patch --batch --forward -p1 < /tmp/homepage-polish.patch
           rm .github/homepage-polish.patch
           git config user.name "highground-qa[bot]"
           git config user.email "highground-qa[bot]@users.noreply.github.com"
