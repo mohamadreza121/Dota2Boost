@@ -22,8 +22,9 @@ jobs:
       - name: Check patch
         run: |
           mkdir -p patch-diagnostic
+          sed '/^index /d' .github/homepage-polish.patch > /tmp/homepage-polish.patch
           set +e
-          patch --dry-run --batch --forward -p1 < .github/homepage-polish.patch > patch-diagnostic/result.txt 2>&1
+          patch --dry-run --batch --forward -p1 < /tmp/homepage-polish.patch > patch-diagnostic/result.txt 2>&1
           echo $? > patch-diagnostic/status.txt
           set -e
           cat patch-diagnostic/result.txt
