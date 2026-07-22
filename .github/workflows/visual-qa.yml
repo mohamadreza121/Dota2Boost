@@ -26,18 +26,18 @@ jobs:
         with:
           ref: agent/dire-war-table-homepage
 
-      - name: Apply browser-confirmed polish
+      - name: Apply final browser QA corrections
         run: |
-          if [ ! -f scripts/apply-homepage-polish.py ]; then
-            echo "No pending polish transform."
+          if [ ! -f scripts/apply-final-homepage-qa.py ]; then
+            echo "No pending final QA transform."
             exit 0
           fi
-          python scripts/apply-homepage-polish.py
-          rm scripts/apply-homepage-polish.py .github/homepage-polish.patch
+          python scripts/apply-final-homepage-qa.py
+          rm scripts/apply-final-homepage-qa.py
           git config user.name "highground-qa[bot]"
           git config user.email "highground-qa[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Polish homepage after browser QA"
+          git commit -m "Resolve final homepage QA findings"
           git push origin HEAD:agent/dire-war-table-homepage
 
       - name: Set up Node.js
