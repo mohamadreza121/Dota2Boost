@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { CheckCircle2, LoaderCircle, LockKeyhole, ShieldCheck, X } from "lucide-react";
 import { createClient } from "@/lib/supabase/browser";
@@ -13,12 +12,8 @@ type Audience = "Customer" | "Booster" | "Admin";
 const fieldClass = "auth-modal__field";
 
 export function AuthModal({
-  open,
-  onClose,
   initialMode = "sign-in"
 }: {
-  open: boolean;
-  onClose: () => void;
   initialMode?: AuthMode;
 }) {
   const router = useRouter();
@@ -30,35 +25,20 @@ export function AuthModal({
   const [registered, setRegistered] = useState(false);
 
   useEffect(() => {
-    if (!open) return;
-    const previousOverflow = document.body.style.overflow;
-    const previousFocus = document.activeElement as HTMLElement | null;
-    document.body.style.overflow = "hidden";
-    window.requestAnimationFrame(() => dialogRef.current?.querySelector<HTMLElement>("input, button")?.focus());
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") onClose();
-      if (event.key !== "Tab") return;
-      const focusable = Array.from(dialogRef.current?.querySelectorAll<HTMLElement>('button:not([disabled]), a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])') ?? []);
-      if (focusable.length === 0) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last?.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first?.focus();
+    const popover = dialogRef.current;
+    if (!popover) return;
+    function handleToggle(event: ToggleEvent) {
+      if (event.newState === "open") {
+        window.requestAnimationFrame(() => dialogRef.current?.querySelector<HTMLElement>("input, button")?.focus());
       }
     }
+    popover.addEventListener("toggle", handleToggle);
+    return () => popover.removeEventListener("toggle", handleToggle);
+  }, []);
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-      previousFocus?.focus();
-    };
-  }, [onClose, open]);
+  function close() {
+    if (dialogRef.current?.matches(":popover-open")) dialogRef.current.hidePopover();
+  }
 
   function switchMode(nextMode: AuthMode) {
     setMode(nextMode);
@@ -79,7 +59,7 @@ export function AuthModal({
       });
       if (authError) throw authError;
       const destination = audience === "Booster" ? "/coach" : audience === "Admin" ? "/admin" : "/dashboard";
-      onClose();
+      close();
       router.push(destination);
       router.refresh();
     } catch {
@@ -111,7 +91,7 @@ export function AuthModal({
       });
       if (authError) throw authError;
       if (data.session) {
-        onClose();
+        close();
         router.push("/dashboard");
         router.refresh();
       } else {
@@ -124,13 +104,11 @@ export function AuthModal({
     }
   }
 
-  if (!open || typeof document === "undefined") return null;
-
-  return createPortal(
-    <div className="auth-modal" role="presentation">
-      <button type="button" className="auth-modal__scrim" aria-label="Close account dialog" onClick={onClose} />
-      <div ref={dialogRef} className="auth-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
-        <button type="button" className="auth-modal__close" aria-label="Close account dialog" onClick={onClose}><X /></button>
+  return (
+    <div ref={dialogRef} id="account-access-popover" className="auth-modal" popover="auto" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+      <button type="button" className="auth-modal__scrim" aria-label="Close account dialog" onClick={close} />
+      <div className="auth-modal__dialog">
+        <button type="button" className="auth-modal__close" aria-label="Close account dialog" onClick={close}><X /></button>
         <div className="auth-modal__crest"><LockKeyhole /></div>
         <p className="auth-modal__eyebrow">Secure player access</p>
         <h2 id="auth-modal-title">{mode === "sign-in" ? "Enter your workspace." : "Create your workspace."}</h2>
@@ -158,7 +136,7 @@ export function AuthModal({
             <form onSubmit={submitSignIn} className="auth-modal__form">
               <label>Email<input className={fieldClass} name="email" type="email" autoComplete="email" required /></label>
               <label>Password<input className={fieldClass} name="password" type="password" autoComplete="current-password" minLength={8} required /></label>
-              <div className="auth-modal__form-row"><Link href="/auth/forgot-password" onClick={onClose}>Forgot password?</Link></div>
+              <div className="auth-modal__form-row"><Link href="/auth/forgot-password" onClick={close}>Forgot password?</Link></div>
               <button className="auth-modal__submit" disabled={busy}>{busy ? <><LoaderCircle className="animate-spin" />Signing in</> : "Sign in securely"}</button>
             </form>
             {audience === "Customer" ? <p className="auth-modal__switch">New here? <button type="button" onClick={() => switchMode("register")}>Create a customer account</button></p> : <p className="auth-modal__notice">{audience} accounts are invitation-only.</p>}
@@ -174,7 +152,6 @@ export function AuthModal({
           </form>
         )}
       </div>
-    </div>,
-    document.body
+    </div>
   );
 }

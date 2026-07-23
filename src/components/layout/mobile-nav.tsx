@@ -16,7 +16,7 @@ const links = [
   { number: "07", label: "Work with us", detail: "Apply to join the roster", href: "/work-with-us" }
 ] as const;
 
-export function MobileNav({ onSignIn }: { onSignIn: () => void }) {
+export function MobileNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -120,7 +120,7 @@ export function MobileNav({ onSignIn }: { onSignIn: () => void }) {
 
             <div className="dota-mobile-menu__bottom">
               <div className="dota-mobile-menu__actions">
-                <button type="button" onClick={() => { setOpen(false); onSignIn(); }} className="dota-mobile-menu__sign-in">Sign in</button>
+                <button type="button" popoverTarget="account-access-popover" onClick={() => setOpen(false)} className="dota-mobile-menu__sign-in">Sign in</button>
                 <Link href="/pricing" onClick={() => setOpen(false)} className="dota-mobile-menu__cta">Forge rank route <ArrowUpRight /></Link>
               </div>
               <p className="dota-mobile-menu__disclaimer"><ShieldCheck /> Customer-operated Solo and Duo delivery. No Steam credentials or remote access.</p>

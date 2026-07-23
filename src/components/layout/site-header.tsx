@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AlertTriangle,
   ArrowUpRight,
@@ -38,9 +38,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [condensed, setCondensed] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const [authOpen, setAuthOpen] = useState(false);
   const servicesRef = useRef<HTMLDivElement>(null);
-  const closeAuth = useCallback(() => setAuthOpen(false), []);
 
   useEffect(() => {
     const syncHeader = () => setCondensed(window.scrollY > 32);
@@ -128,7 +126,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="dota-command-header__actions">
-          <button type="button" className="dota-player-slot" onClick={() => setAuthOpen(true)}>
+          <button type="button" className="dota-player-slot" popoverTarget="account-access-popover">
             <span className="dota-player-slot__dot" />
             <span><small>Guest profile</small><strong>Sign in</strong></span>
           </button>
@@ -137,9 +135,9 @@ export function SiteHeader() {
           </Link>
         </div>
 
-        <MobileNav onSignIn={() => setAuthOpen(true)} />
+        <MobileNav />
       </div>
-      <AuthModal open={authOpen} onClose={closeAuth} />
+      <AuthModal />
     </header>
   );
 }
