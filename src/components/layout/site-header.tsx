@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { MoltenSurface } from "@/components/ui/molten-surface";
 
 const links = [
   { number: "01", label: "MMR Boost", href: "/services/mmr-boost", panel: false },
@@ -131,7 +132,7 @@ export function SiteHeader() {
           </a>
           <Link href="/pricing" className="dota-header-core-button">
             <span>Forge rank route</span><Swords /><ArrowUpRight />
-            <i className="dota-header-core-button__drips" aria-hidden="true"><b /><b /><b /></i>
+            <MoltenSurface />
           </Link>
         </div>
 

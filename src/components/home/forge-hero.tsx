@@ -12,7 +12,7 @@ import {
   Zap
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { MoltenEdge } from "@/components/ui/molten-edge";
+import { MoltenSurface } from "@/components/ui/molten-surface";
 
 type BeatAlignment = "left" | "right" | "center";
 
@@ -358,10 +358,10 @@ export function ForgeHero() {
 
                   <div className="forge-beat__actions">
                     <Link href={beat.primary.href} className="molten-button">
-                      <span>{beat.primary.label}</span><i><ArrowRight /></i><MoltenEdge />
+                      <span>{beat.primary.label}</span><i><ArrowRight /></i><MoltenSurface />
                     </Link>
                     <Link href={beat.secondary.href} className="molten-button molten-button--secondary">
-                      <span>{beat.secondary.label}</span><i><ArrowUpRight /></i><MoltenEdge />
+                      <span>{beat.secondary.label}</span><i><ArrowUpRight /></i><MoltenSurface />
                     </Link>
                   </div>
                 </div>

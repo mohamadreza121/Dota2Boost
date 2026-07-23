@@ -16,7 +16,7 @@ import {
   Trophy
 } from "lucide-react";
 import { ForgeSectionHeading } from "@/components/home/forge-section-heading";
-import { MoltenEdge } from "@/components/ui/molten-edge";
+import { MoltenSurface } from "@/components/ui/molten-surface";
 import { rankMedals } from "@/lib/data/ranks";
 
 const trustItems = [
@@ -209,7 +209,7 @@ export function RankForge() {
             </div>
 
             <Link href="/pricing" className="molten-button rank-forge__cta">
-              <span>Configure my route</span><i><ArrowRight /></i><MoltenEdge />
+              <span>Configure my route</span><i><ArrowRight /></i><MoltenSurface />
             </Link>
           </div>
         </div>
