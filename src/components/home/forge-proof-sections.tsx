@@ -17,6 +17,7 @@ import {
   Users
 } from "lucide-react";
 import { ForgeSectionHeading } from "@/components/home/forge-section-heading";
+import { MoltenEdge } from "@/components/ui/molten-edge";
 import { boosters, faqs, reviews } from "@/lib/data/content";
 import { rankMedals } from "@/lib/data/ranks";
 import { formatCurrency } from "@/lib/utils";
@@ -171,7 +172,7 @@ export function WhyHighground() {
           <h2>A serious platform for a <em>high-risk category.</em></h2>
           <p>Clear boundaries, explicit scope, and a visible delivery system are product requirements—not decorative trust badges.</p>
           <Link href="/how-it-works" className="molten-button molten-button--secondary">
-            <span>Review the platform</span><i><ArrowUpRight /></i>
+            <span>Review the platform</span><i><ArrowUpRight /></i><MoltenEdge />
           </Link>
         </div>
 
@@ -240,8 +241,8 @@ export function SiegeCta() {
           <h2 id="siege-title">Siege the Ancient.<br /> <em>Start with the route.</em></h2>
           <span>Choose the objective and let the configurator define the scope, eligibility, and live server-priced quote.</span>
           <div>
-            <Link href="/pricing" className="molten-button"><span>Forge my campaign</span><i><ArrowRight /></i></Link>
-            <Link href="/services" className="molten-button molten-button--secondary"><span>Compare services</span><i><ArrowUpRight /></i></Link>
+            <Link href="/pricing" className="molten-button"><span>Forge my campaign</span><i><ArrowRight /></i><MoltenEdge /></Link>
+            <Link href="/services" className="molten-button molten-button--secondary"><span>Compare services</span><i><ArrowUpRight /></i><MoltenEdge /></Link>
           </div>
         </div>
 

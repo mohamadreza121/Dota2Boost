@@ -138,7 +138,6 @@
   border: 0;
   background: transparent;
   filter:
-    drop-shadow(0 2px 0 rgb(70 10 3 / 0.9))
     drop-shadow(0 13px 22px rgb(122 23 16 / 0.5))
     drop-shadow(0 0 16px rgb(255 83 17 / 0.16));
   padding-left: 1.3rem;
@@ -154,9 +153,10 @@
 
 .molten-button::before {
   position: absolute;
-  inset: -0.08rem 0 0.04rem;
+  inset: -0.08rem 0 0;
   z-index: -2;
-  border: 1px solid rgb(255 211 121 / 0.5);
+  border: 1px solid rgb(255 211 121 / 0.52);
+  border-bottom-color: transparent;
   border-radius: 0.72rem 1.08rem 0.82rem 1.16rem / 0.82rem 0.62rem 1.05rem 0.7rem;
   background:
     radial-gradient(ellipse at 48% -12%, rgb(255 255 222 / 0.92) 0 3%, transparent 18%),
@@ -167,12 +167,30 @@
   background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 260% 100%;
   box-shadow:
     inset 0 2px 1px rgb(255 252 222 / 0.7),
-    inset 0 -2px rgb(255 79 18 / 0.26),
-    inset 0 -7px 9px rgb(60 5 2 / 0.82),
     inset 7px 0 14px rgb(91 9 4 / 0.34),
     inset -7px 0 14px rgb(91 9 4 / 0.34),
     inset 0 0 23px rgb(255 129 35 / 0.4),
     0 0 34px rgb(255 61 20 / 0.3);
+  -webkit-mask:
+    linear-gradient(#000 0 0) top / 100% calc(100% - 0.72rem) no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 0% calc(100% - 0.78rem) / 18% 0.95rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 11% calc(100% - 0.78rem) / 17% 1.15rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 25% calc(100% - 0.78rem) / 15% 0.82rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 36% calc(100% - 0.78rem) / 19% 1.25rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 52% calc(100% - 0.78rem) / 18% 0.9rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 65% calc(100% - 0.78rem) / 16% 1.18rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 78% calc(100% - 0.78rem) / 15% 0.8rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 88% calc(100% - 0.78rem) / 12% 1.02rem no-repeat;
+  mask:
+    linear-gradient(#000 0 0) top / 100% calc(100% - 0.72rem) no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 0% calc(100% - 0.78rem) / 18% 0.95rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 11% calc(100% - 0.78rem) / 17% 1.15rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 25% calc(100% - 0.78rem) / 15% 0.82rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 36% calc(100% - 0.78rem) / 19% 1.25rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 52% calc(100% - 0.78rem) / 18% 0.9rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 65% calc(100% - 0.78rem) / 16% 1.18rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 78% calc(100% - 0.78rem) / 15% 0.8rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 88% calc(100% - 0.78rem) / 12% 1.02rem no-repeat;
   content: "";
   animation: molten-surface 5.2s ease-in-out infinite alternate;
   transition: filter 220ms ease, transform 220ms ease;
@@ -180,37 +198,42 @@
 
 .molten-button::after {
   position: absolute;
-  right: 2%;
-  bottom: -1.72rem;
-  left: 2%;
-  z-index: -1;
-  height: 2.15rem;
+  top: calc(100% - 0.56rem);
+  right: 0.04rem;
+  left: 0.04rem;
+  z-index: 0;
+  height: 2.68rem;
   background:
-    linear-gradient(180deg, var(--melt-white) 0 5%, var(--melt-glow) 12%, var(--melt-hot) 42%, var(--melt-mid) 72%, var(--melt-deep) 100%),
-    linear-gradient(90deg, var(--melt-deep), var(--melt-hot) 29%, var(--melt-glow) 51%, var(--melt-mid) 73%, var(--melt-deep));
+    radial-gradient(ellipse at 17% 0, rgb(255 244 181 / 0.5) 0 3%, transparent 24%),
+    radial-gradient(ellipse at 59% -5%, rgb(255 194 72 / 0.52) 0 4%, transparent 31%),
+    linear-gradient(108deg, var(--melt-deep), var(--melt-mid) 18%, var(--melt-hot) 36%, var(--melt-glow) 49%, var(--melt-hot) 62%, var(--melt-mid) 79%, var(--melt-deep));
   content: "";
   filter:
-    drop-shadow(0 1px 0 rgb(255 211 98 / 0.35))
-    drop-shadow(0 9px 8px rgb(255 52 12 / 0.5))
+    drop-shadow(0 1px 0 rgb(255 175 57 / 0.38))
+    drop-shadow(0 8px 8px rgb(255 52 12 / 0.44))
     drop-shadow(0 16px 15px rgb(84 9 3 / 0.5));
   -webkit-mask:
-    linear-gradient(#000 0 0) top / 100% 19% no-repeat,
-    radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 3% 7% / 9% 44% no-repeat,
-    radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 16% 7% / 7% 72% no-repeat,
-    radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 31% 7% / 10% 100% no-repeat,
-    radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 49% 7% / 7% 57% no-repeat,
-    radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 65% 7% / 11% 86% no-repeat,
-    radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 83% 7% / 8% 115% no-repeat,
-    radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 96% 7% / 7% 52% no-repeat;
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 0% 0 / 18% 0.9rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 11% 0 / 17% 1.35rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 25% 0 / 15% 0.78rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 36% 0 / 19% 1.72rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 52% 0 / 18% 1rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 65% 0 / 16% 1.48rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 78% 0 / 15% 0.84rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 88% 0 / 12% 1.25rem no-repeat,
+    radial-gradient(circle, #000 0 66%, transparent 72%) 43.5% 1.48rem / 0.62rem 0.68rem no-repeat,
+    radial-gradient(circle, #000 0 66%, transparent 72%) 71.3% 1.25rem / 0.5rem 0.56rem no-repeat;
   mask:
-    linear-gradient(#000 0 0) top / 100% 19% no-repeat,
-    radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 3% 7% / 9% 44% no-repeat,
-    radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 16% 7% / 7% 72% no-repeat,
-    radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 31% 7% / 10% 100% no-repeat,
-    radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 49% 7% / 7% 57% no-repeat,
-    radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 65% 7% / 11% 86% no-repeat,
-    radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 83% 7% / 8% 115% no-repeat,
-    radial-gradient(ellipse at 50% 0, #000 0 66%, transparent 70%) 96% 7% / 7% 52% no-repeat;
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 0% 0 / 18% 0.9rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 11% 0 / 17% 1.35rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 25% 0 / 15% 0.78rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 36% 0 / 19% 1.72rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 52% 0 / 18% 1rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 65% 0 / 16% 1.48rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 78% 0 / 15% 0.84rem no-repeat,
+    radial-gradient(ellipse at 50% 0, #000 0 67%, transparent 71%) 88% 0 / 12% 1.25rem no-repeat,
+    radial-gradient(circle, #000 0 66%, transparent 72%) 43.5% 1.48rem / 0.62rem 0.68rem no-repeat,
+    radial-gradient(circle, #000 0 66%, transparent 72%) 71.3% 1.25rem / 0.5rem 0.56rem no-repeat;
   transform-origin: top;
   animation: molten-drip 4.8s cubic-bezier(.45,0,.3,1) infinite;
   pointer-events: none;
@@ -219,28 +242,13 @@
 .molten-button--secondary::before,
 .molten-button--secondary::after { animation-delay: -1.7s; }
 
-.molten-button > span {
+.molten-button > span:not(.molten-button__edge) {
   position: relative;
   z-index: 1;
   padding-right: 1rem;
 }
 
-.molten-button > span::before {
-  position: absolute;
-  bottom: -1.18rem;
-  left: 17%;
-  width: 0.34rem;
-  height: 1.25rem;
-  border-radius: 42% 58% 58% 42% / 18% 22% 78% 82%;
-  background: linear-gradient(180deg, var(--melt-white), var(--melt-glow) 20%, var(--melt-hot) 58%, var(--melt-mid));
-  box-shadow: 0 5px 9px rgb(255 47 10 / 0.42), 0 0 9px rgb(255 146 38 / 0.5);
-  content: "";
-  transform-origin: top;
-  animation: molten-thread 5.6s cubic-bezier(.45,0,.25,1) -2.2s infinite;
-  pointer-events: none;
-}
-
-.molten-button > span::after {
+.molten-button > span:not(.molten-button__edge)::after {
   position: absolute;
   inset: -1rem;
   background: linear-gradient(110deg, transparent 26%, rgb(255 255 225 / 0.36) 48%, transparent 68%);
@@ -250,6 +258,42 @@
   pointer-events: none;
 }
 
+.molten-button > .molten-button__edge {
+  position: absolute;
+  top: calc(100% - 0.32rem);
+  right: 0;
+  left: 0;
+  z-index: 2;
+  height: 3rem;
+  padding: 0;
+  pointer-events: none;
+}
+
+.molten-button__edge b {
+  position: absolute;
+  top: 0;
+  display: block;
+  width: 0.64rem;
+  background:
+    radial-gradient(circle at 62% 84%, var(--melt-hot) 0 7%, transparent 20%),
+    linear-gradient(180deg, var(--melt-hot), var(--melt-mid) 40%, var(--melt-deep) 78%, var(--melt-hot));
+  filter: drop-shadow(0 5px 5px rgb(255 53 11 / 0.42)) drop-shadow(0 10px 9px rgb(70 8 3 / 0.5));
+  transform-origin: 50% 0;
+  -webkit-mask:
+    linear-gradient(#000 0 0) 50% 0 / 36% 82% no-repeat,
+    radial-gradient(circle, #000 0 66%, transparent 72%) bottom / 100% 30% no-repeat;
+  mask:
+    linear-gradient(#000 0 0) 50% 0 / 36% 82% no-repeat,
+    radial-gradient(circle, #000 0 66%, transparent 72%) bottom / 100% 30% no-repeat;
+  animation: molten-thread 5.4s cubic-bezier(.45,0,.25,1) infinite;
+}
+
+.molten-button__edge b:nth-child(1) { left: 17%; height: 2.08rem; animation-delay: -1.1s; }
+.molten-button__edge b:nth-child(2) { left: 58%; width: 0.7rem; height: 2.78rem; animation-delay: -3.4s; }
+.molten-button__edge b:nth-child(3) { right: 7%; width: 0.56rem; height: 1.72rem; animation-delay: -2.2s; }
+.molten-button--secondary .molten-button__edge b { animation-delay: -4.1s; }
+.molten-button--secondary .molten-button__edge b:nth-child(2) { animation-delay: -1.8s; }
+
 .molten-button > i {
   position: relative;
   z-index: 1;
@@ -258,40 +302,8 @@
   align-self: stretch;
   place-items: center;
   border-left: 1px solid rgb(255 241 199 / 0.18);
-  background: rgb(42 6 3 / 0.22);
+  background: linear-gradient(180deg, rgb(42 6 3 / 0.22), rgb(42 6 3 / 0.18) 68%, transparent 100%);
 }
-
-.molten-button > i::before {
-  position: absolute;
-  right: 17%;
-  bottom: -1.42rem;
-  width: 0.42rem;
-  height: 1.56rem;
-  border-radius: 52% 48% 66% 34% / 15% 20% 80% 85%;
-  background: linear-gradient(180deg, var(--melt-white), var(--melt-glow) 17%, var(--melt-hot) 54%, var(--melt-mid));
-  box-shadow: 0 6px 10px rgb(255 48 10 / 0.5), 0 0 11px rgb(255 157 42 / 0.54);
-  content: "";
-  transform-origin: top;
-  animation: molten-thread 4.7s cubic-bezier(.42,0,.24,1) -0.8s infinite;
-  pointer-events: none;
-}
-
-.molten-button > i::after {
-  position: absolute;
-  bottom: -0.3rem;
-  left: 48%;
-  width: 0.34rem;
-  height: 0.5rem;
-  border-radius: 48% 52% 58% 42% / 36% 40% 64% 60%;
-  background: linear-gradient(180deg, var(--melt-glow), var(--melt-hot));
-  box-shadow: 0 0 9px rgb(255 111 31 / 0.74);
-  content: "";
-  opacity: 0;
-  animation: molten-drop 4.8s ease-in infinite;
-  pointer-events: none;
-}
-
-.molten-button--secondary > i::after { animation-delay: -1.7s; }
 
 .molten-button svg,
 .plate-button svg {
@@ -304,7 +316,6 @@
   filter:
     brightness(1.16)
     saturate(1.2)
-    drop-shadow(0 2px 0 rgb(70 10 3 / 0.9))
     drop-shadow(0 19px 34px rgb(190 29 12 / 0.58))
     drop-shadow(0 0 22px rgb(255 116 24 / 0.3));
   transform: translateY(-3px) scale(1.012);
@@ -312,8 +323,7 @@
 
 .molten-button:hover::before { transform: scale(1.024, 1.04); }
 .molten-button:hover::after { animation-duration: 2.6s; }
-.molten-button:hover > span::before,
-.molten-button:hover > i::before { animation-duration: 2.8s; }
+.molten-button:hover .molten-button__edge b { animation-duration: 2.8s; }
 .molten-button:hover svg { transform: translateX(3px); }
 
 .plate-button {
@@ -1566,29 +1576,20 @@
 }
 
 @keyframes molten-drip {
-  0%, 10%, 100% { opacity: 0.78; transform: translateY(-0.42rem) scaleY(0.48) skewX(-1deg); }
-  38% { opacity: 1; transform: translateY(-0.04rem) scaleY(1.04) skewX(0.8deg); }
-  61% { opacity: 0.96; transform: translateY(0.16rem) scaleY(1.18) skewX(-0.3deg); }
-  82% { opacity: 0.86; transform: translateY(-0.08rem) scaleY(0.74) skewX(0.4deg); }
+  0%, 100% { opacity: 0.92; transform: scaleY(0.88) skewX(-0.45deg); }
+  44% { opacity: 1; transform: scaleY(1.035) skewX(0.4deg); }
+  72% { opacity: 0.96; transform: scaleY(0.95) skewX(-0.2deg); }
 }
 
 @keyframes molten-thread {
-  0%, 14%, 100% { opacity: 0.72; transform: scaleY(0.32) scaleX(1.12); }
-  38% { opacity: 1; transform: scaleY(0.88) scaleX(0.92); }
-  61% { opacity: 1; transform: scaleY(1.2) scaleX(0.82); }
-  78% { opacity: 0.84; transform: scaleY(0.66) scaleX(1.03); }
+  0%, 100% { opacity: 0.9; transform: scaleY(0.82) scaleX(1.06); }
+  46% { opacity: 1; transform: scaleY(1.04) scaleX(0.94); }
+  74% { opacity: 0.96; transform: scaleY(0.92) scaleX(1.01); }
 }
 
 @keyframes molten-sheen {
   0%, 36% { transform: translateX(-145%); }
   62%, 100% { transform: translateX(145%); }
-}
-
-@keyframes molten-drop {
-  0%, 58% { opacity: 0; transform: translate3d(-50%, -0.2rem, 0) scale(0.55); }
-  66% { opacity: 1; transform: translate3d(-50%, 0.1rem, 0) scale(0.82, 1.06); }
-  86% { opacity: 0.9; transform: translate3d(-50%, 1rem, 0) scale(0.72, 1.18); }
-  100% { opacity: 0; transform: translate3d(-50%, 1.8rem, 0) scale(0.28); }
 }
 
 @keyframes forge-fire-breathe {
@@ -1707,7 +1708,7 @@
   .forge-beat h1,
   .forge-beat h2 { max-width: 11ch; font-size: clamp(2.75rem, 12vw, 4.1rem); }
   .forge-beat__body { max-width: 34rem; font-size: 0.78rem; }
-  .forge-beat__actions { display: grid; grid-template-columns: 1fr; }
+  .forge-beat__actions { display: grid; grid-template-columns: 1fr; row-gap: 1.6rem; }
   .forge-beat__actions :is(.molten-button, .plate-button) { width: 100%; }
   .forge-world::before { top: -5rem; }
   .forge-trust-rail__items { grid-template-columns: repeat(2, 1fr); }
