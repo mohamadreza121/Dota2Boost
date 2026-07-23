@@ -73,9 +73,13 @@ const campaignSteps = [
   }
 ] as const;
 
+const forgeMidlinePath =
+  "M490 0 C520 280 360 480 430 760 C500 1040 690 1110 625 1470 C575 1760 330 1790 390 2140 C440 2420 690 2490 655 2830 C620 3150 370 3210 430 3560 C485 3880 720 3900 650 4290 C600 4560 365 4700 430 5020 C490 5320 635 5480 520 6200";
+
 export function ForgeAtmosphere() {
   return (
     <div className="forge-atmosphere" aria-hidden="true">
+      <div className="forge-atmosphere__heat" />
       <div className="forge-atmosphere__stone" />
       <div className="forge-atmosphere__smoke" />
       <div className="forge-atmosphere__embers" />
@@ -85,14 +89,38 @@ export function ForgeAtmosphere() {
         preserveAspectRatio="none"
         role="presentation"
       >
+        <defs>
+          <linearGradient
+            id="forge-midline-lava"
+            x1="0"
+            y1="0"
+            x2="0"
+            y2="6200"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stopColor="#8d1d0e" />
+            <stop offset="0.14" stopColor="#ff5d18" />
+            <stop offset="0.28" stopColor="#ffb13d" />
+            <stop offset="0.43" stopColor="#d72d10" />
+            <stop offset="0.58" stopColor="#ff761d" />
+            <stop offset="0.73" stopColor="#ffc45d" />
+            <stop offset="0.88" stopColor="#e63d13" />
+            <stop offset="1" stopColor="#8d1d0e" />
+          </linearGradient>
+        </defs>
         <path
           className="forge-midline__bed"
-          d="M490 0 C520 280 360 480 430 760 C500 1040 690 1110 625 1470 C575 1760 330 1790 390 2140 C440 2420 690 2490 655 2830 C620 3150 370 3210 430 3560 C485 3880 720 3900 650 4290 C600 4560 365 4700 430 5020 C490 5320 635 5480 520 6200"
+          d={forgeMidlinePath}
+        />
+        <path
+          className="forge-midline__aura"
+          pathLength="1"
+          d={forgeMidlinePath}
         />
         <path
           className="forge-midline__heat"
           pathLength="1"
-          d="M490 0 C520 280 360 480 430 760 C500 1040 690 1110 625 1470 C575 1760 330 1790 390 2140 C440 2420 690 2490 655 2830 C620 3150 370 3210 430 3560 C485 3880 720 3900 650 4290 C600 4560 365 4700 430 5020 C490 5320 635 5480 520 6200"
+          d={forgeMidlinePath}
         />
         <path className="forge-midline__branch" d="M625 1470 C760 1580 805 1770 900 1910" />
         <path className="forge-midline__branch" d="M390 2140 C245 2260 210 2460 110 2570" />
