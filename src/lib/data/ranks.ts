@@ -21,6 +21,62 @@ export const rankOptions = [
 
 export type RankName = (typeof rankOptions)[number];
 
+export const minimumMmr = 0;
+export const maximumPricedMmr = 6500;
+
+const rankMmrStarts: Record<RankName, number> = {
+  "Herald I": 0,
+  "Herald II": 154,
+  "Herald III": 308,
+  "Herald IV": 462,
+  "Herald V": 616,
+  "Guardian I": 770,
+  "Guardian II": 924,
+  "Guardian III": 1078,
+  "Guardian IV": 1232,
+  "Guardian V": 1386,
+  "Crusader I": 1540,
+  "Crusader II": 1694,
+  "Crusader III": 1848,
+  "Crusader IV": 2002,
+  "Crusader V": 2156,
+  "Archon I": 2310,
+  "Archon II": 2464,
+  "Archon III": 2618,
+  "Archon IV": 2772,
+  "Archon V": 2926,
+  "Legend I": 3080,
+  "Legend II": 3234,
+  "Legend III": 3388,
+  "Legend IV": 3542,
+  "Legend V": 3696,
+  "Ancient I": 3850,
+  "Ancient II": 4004,
+  "Ancient III": 4158,
+  "Ancient IV": 4312,
+  "Ancient V": 4466,
+  "Divine I": 4620,
+  "Divine II": 4780,
+  "Divine III": 4940,
+  "Divine IV": 5100,
+  "Divine V": 5260,
+  Immortal: 5420
+};
+
+export function rankFromMmr(mmr: number): RankName {
+  const normalized = Math.max(minimumMmr, Math.min(maximumPricedMmr, Math.floor(mmr)));
+  let resolved: RankName = rankOptions[0];
+  for (const rank of rankOptions) {
+    if (rankMmrStarts[rank] > normalized) break;
+    resolved = rank;
+  }
+  return resolved;
+}
+
+export function mmrForRank(rank: RankName) {
+  return rankMmrStarts[rank];
+}
+
 export const rankMedals: Record<RankFamily, { tier: number; image: string; tone: string }> = {
   Herald: { tier: 1, image: "/media/ranks/rank-icon-1.png", tone: "#77a463" },
   Guardian: { tier: 2, image: "/media/ranks/rank-icon-2.png", tone: "#b18d5c" },

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
+  AlertTriangle,
   ArrowUpRight,
   Check,
   Crosshair,
@@ -37,6 +38,7 @@ function ServicePrice({ slug }: { slug: string }) {
 export function ServiceArsenal() {
   const mmr = serviceBySlug["mmr-boost"];
   const calibration = serviceBySlug["mmr-calibration"];
+  const lowPriority = serviceBySlug["low-priority-recovery"];
   const coaching = serviceBySlug.coaching;
   const wins = serviceBySlug["win-boost"];
   const behavior = serviceBySlug["behavior-score-boost"];
@@ -47,8 +49,8 @@ export function ServiceArsenal() {
         <ForgeSectionHeading
           chapter="02"
           eyebrow="Service Arsenal"
-          title={<>Five contracts. <em>One command system.</em></>}
-          description="MMR Boost remains the primary route, supported by calibration, fixed assisted wins, behavior-score recovery, and focused coaching. Every card reflects the actual configurable scope."
+          title={<>Six contracts. <em>One command system.</em></>}
+          description="MMR Boost remains the primary route, supported by Rank Confidence calibration, account-safe Low Priority recovery, fixed assisted wins, behavior-score recovery, and focused coaching."
           href="/services"
           linkLabel="Compare every contract"
         />
@@ -118,17 +120,17 @@ export function ServiceArsenal() {
             <div className="arsenal-card__shade" />
 
             <div className="arsenal-card__topline">
-              <p><span>02</span><Crosshair /> Calibration block</p>
+              <p><span>02</span><Crosshair /> Rank Confidence</p>
               <Radio />
             </div>
             <div className="arsenal-card__content">
-              <p className="arsenal-card__unit">Fresh or returning ranked players</p>
-              <h3>{calibration?.name ?? "MMR Calibration"}</h3>
+              <p className="arsenal-card__unit">New, returning, or activated recalibration</p>
+              <h3>{calibration?.name ?? "Calibration & Rank Confidence"}</h3>
               <p>{calibration?.shortDescription}</p>
               <div className="calibration-blocks">
-                <span><strong>5</strong><small>matches</small></span>
-                <i>or</i>
-                <span><strong>10</strong><small>matches</small></span>
+                <span><strong>0–100</strong><small>confidence</small></span>
+                <i>+</i>
+                <span><strong>1–30</strong><small>games</small></span>
               </div>
             </div>
             <div className="arsenal-card__footer">
@@ -221,6 +223,33 @@ export function ServiceArsenal() {
             <div className="arsenal-card__footer">
               <ServicePrice slug="behavior-score-boost" />
               <span className="arsenal-card__open">Build recovery <ArrowUpRight /></span>
+            </div>
+          </Link>
+
+          <Link
+            href="/services/low-priority-recovery"
+            className="arsenal-card arsenal-card--low-priority forged-card"
+            data-forge-reveal
+          >
+            <Image
+              src="/media/dire-forge/heroes/ember-spirit.webp"
+              alt=""
+              fill
+              sizes="(max-width: 760px) 100vw, 34vw"
+              className="arsenal-card__hero"
+            />
+            <div className="arsenal-card__shade" />
+            <div className="arsenal-card__topline">
+              <p><span>06</span><AlertTriangle /> Single Draft recovery</p>
+            </div>
+            <div className="arsenal-card__compact-content">
+              <div><small>Required scope</small><strong>1–10 required wins</strong></div>
+              <h3>{lowPriority?.name ?? "Low Priority Recovery Assist"}</h3>
+              <ul><li><Check /> Customer-operated</li><li><Check /> No credentials</li></ul>
+            </div>
+            <div className="arsenal-card__footer">
+              <ServicePrice slug="low-priority-recovery" />
+              <span className="arsenal-card__open">Plan recovery <ArrowUpRight /></span>
             </div>
           </Link>
         </div>

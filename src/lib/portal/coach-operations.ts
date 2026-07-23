@@ -36,13 +36,17 @@ function text(value: unknown) { return typeof value === "string" && value.trim()
 function number(value: unknown) { return typeof value === "number" && Number.isFinite(value) ? value : null; }
 
 function scope(slug: string, requirements: Record<string, unknown>) {
-  const current = text(requirements.current_rank);
-  const target = text(requirements.target_rank);
-  const mmr = number(requirements.mmr_amount);
-  const matches = number(requirements.match_count);
-  const wins = number(requirements.win_count);
-  if (slug === "mmr-boost") return [current && target ? `${current} → ${target}` : null, mmr ? `+${mmr.toLocaleString()} MMR` : null].filter(Boolean).join(" · ") || "MMR climb";
-  if (slug === "mmr-calibration") return `${matches ?? 5} calibration matches`;
+  const current = text(requirements.currentRank) ?? text(requirements.current_rank);
+  const target = text(requirements.targetRank) ?? text(requirements.target_rank);
+  const mmr = number(requirements.mmrAmount) ?? number(requirements.mmr_amount);
+  const currentMmr = number(requirements.currentMmr) ?? number(requirements.current_mmr);
+  const targetMmr = number(requirements.targetMmr) ?? number(requirements.target_mmr);
+  const matches = number(requirements.matchCount) ?? number(requirements.match_count);
+  const wins = number(requirements.winCount) ?? number(requirements.win_count);
+  const lowPriorityWins = number(requirements.lowPriorityWins) ?? number(requirements.low_priority_wins);
+  if (slug === "mmr-boost") return [currentMmr !== null && targetMmr !== null ? `${currentMmr.toLocaleString()} → ${targetMmr.toLocaleString()} MMR` : current && target ? `${current} → ${target}` : null, mmr ? `+${mmr.toLocaleString()} MMR` : null].filter(Boolean).join(" · ") || "MMR climb";
+  if (slug === "mmr-calibration") return `${matches ?? 1} assisted calibration games`;
+  if (slug === "low-priority-recovery") return `${lowPriorityWins ?? 0} required Single Draft wins`;
   if (slug === "win-boost") return `${wins ?? 0} assisted wins`;
   if (slug === "behavior-score-boost") return "Behavior score recovery";
   return "Dota 2 coaching";

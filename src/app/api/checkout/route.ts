@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { checkoutSchema } from "@/lib/validation/pricing";
-import { calculateQuote, describePricingInput } from "@/lib/pricing";
+import { describePricingInput } from "@/lib/pricing";
+import { calculateServerQuote } from "@/lib/pricing-server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getStripe } from "@/lib/payments/stripe";
@@ -36,11 +37,11 @@ export async function POST(request: Request) {
     if (limitError) throw limitError;
     if (!allowed) return NextResponse.json({ error: "Too many checkout attempts. Try again shortly." }, { status: 429 });
 
-    const quote = calculateQuote(parsed.data);
+    const quote = await calculateServerQuote(parsed.data);
     const { data: created, error: orderError } = await admin.rpc("create_checkout_order_v2", {
       p_customer_id: user.id,
       p_service_slug: parsed.data.service,
-      p_requirements: parsed.data,
+      p_requirements: { ...parsed.data, pricingVersion: quote.pricingVersion },
       p_subtotal: quote.subtotal,
       p_package_discount: quote.discount,
       p_pre_discount_total: quote.total,

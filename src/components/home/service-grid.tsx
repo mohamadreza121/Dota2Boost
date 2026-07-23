@@ -10,6 +10,7 @@ const fallbackHeroArt = "https://cdn.cloudflare.steamstatic.com/apps/dota2/image
 const serviceHeroArt: Record<string, string> = {
   "mmr-boost": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/juggernaut.png",
   "mmr-calibration": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
+  "low-priority-recovery": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png",
   "behavior-score-boost": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crystal_maiden.png",
   "win-boost": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png",
   coaching: fallbackHeroArt

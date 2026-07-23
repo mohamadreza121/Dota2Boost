@@ -130,7 +130,7 @@ export function ForgeHero() {
       beatRefs.current.forEach((element, index) => {
         if (!element) return;
         element.style.opacity = index === 0 ? "1" : "0";
-        element.style.pointerEvents = index === 0 ? "auto" : "none";
+        element.style.pointerEvents = "none";
         element.inert = index !== 0;
         element.setAttribute("aria-hidden", index === 0 ? "false" : "true");
       });
@@ -171,7 +171,7 @@ export function ForgeHero() {
         );
         element.style.setProperty("--beat-lift", `${(1 - opacity) * 18}px`);
         element.style.setProperty("--beat-scale", `${0.97 + opacity * 0.03}`);
-        element.style.pointerEvents = opacity > 0.72 ? "auto" : "none";
+        element.style.pointerEvents = "none";
         element.inert = opacity <= 0.72;
         element.setAttribute("aria-hidden", opacity > 0.1 ? "false" : "true");
       });

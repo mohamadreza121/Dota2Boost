@@ -4,6 +4,7 @@ export type AppRole = (typeof roles)[number];
 export type ServiceSlug =
   | "mmr-boost"
   | "mmr-calibration"
+  | "low-priority-recovery"
   | "behavior-score-boost"
   | "win-boost"
   | "coaching";

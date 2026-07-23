@@ -7,11 +7,11 @@ import { LinkButton } from "@/components/ui/button";
 import { services } from "@/lib/data/content";
 import { formatCurrency } from "@/lib/utils";
 
-export const metadata: Metadata = { title: "Dota 2 MMR Boosting Services", description: "Compare MMR Boost in Solo and Duo modes, MMR Calibration, Behavior Score Boost, assisted wins, and secondary coaching.", alternates: { canonical: "/services" } };
+export const metadata: Metadata = { title: "Dota 2 MMR Boosting Services", description: "Compare exact-MMR boosting, Rank Confidence calibration, account-safe Low Priority recovery, behavior score, assisted wins, and coaching.", alternates: { canonical: "/services" } };
 
 export default function ServicesPage() {
   return (
-    <><PageHero eyebrow="MMR boosting services" title="MMR first. Coaching second." description="Configure an exact MMR climb, calibration block, behavior-score recovery scope, or assisted-win package. Solo and Duo modes stay customer-operated and trackable." aside={<div className="rounded-2xl border border-cyan/20 bg-cyan/[0.06] p-5 text-sm leading-6 text-[#c0cdca]"><strong className="text-cyan">Account-safety standard:</strong> We never request Steam passwords, login codes, authentication cookies, or remote access.</div>} />
+    <><PageHero eyebrow="MMR boosting services" title="MMR first. Coaching second." description="Configure an exact MMR climb, Rank Confidence block, account-safe Low Priority recovery, behavior-score scope, or assisted-win package. Every mode stays customer-operated and trackable." aside={<div className="rounded-2xl border border-cyan/20 bg-cyan/[0.06] p-5 text-sm leading-6 text-[#c0cdca]"><strong className="text-cyan">Account-safety standard:</strong> We never request Steam passwords, login codes, authentication cookies, or remote access.</div>} />
       <section className="section-pad container-shell">
         <div className="grid gap-5 lg:grid-cols-2">
           {services.map((service, index) => (
@@ -23,7 +23,7 @@ export default function ServicesPage() {
             </article>
           ))}
         </div>
-        <div className="mt-16 flex flex-col items-center rounded-[1.8rem] border border-white/[0.09] bg-panel/60 px-6 py-12 text-center"><p className="eyebrow before:hidden">Start with MMR</p><h2 className="mt-5 text-3xl font-black">Pick Solo or Duo. Set the medal and MMR target.</h2><p className="mt-4 max-w-xl text-sm leading-6 text-mist">The configurator turns service, mode, medal, scope, region, role, tier, and priority into a fresh server-side quote.</p><LinkButton href="/pricing" className="mt-7" arrow>Configure MMR boost</LinkButton></div>
+        <div className="mt-16 flex flex-col items-center rounded-[1.8rem] border border-white/[0.09] bg-panel/60 px-6 py-12 text-center"><p className="eyebrow before:hidden">Start with the objective</p><h2 className="mt-5 text-3xl font-black">Enter exact MMR, Rank Confidence, or required wins.</h2><p className="mt-4 max-w-xl text-sm leading-6 text-mist">The configurator derives medals, applies the active bracket rates once, and returns a versioned server quote with no credential hand-off.</p><LinkButton href="/pricing" className="mt-7" arrow>Open the configurator</LinkButton></div>
       </section>
     </>
   );

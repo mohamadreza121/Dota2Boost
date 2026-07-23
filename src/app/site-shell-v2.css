@@ -58,7 +58,7 @@
 .dota-command-header {
   position: sticky;
   top: 0;
-  z-index: 70;
+  z-index: 1000;
   height: var(--header-height);
   overflow: visible;
   border: 0;
@@ -79,6 +79,14 @@
   content: "";
   pointer-events: none;
 }
+
+.dota-command-header__ambient,
+.dota-command-logo::before,
+.dota-command-logo::after,
+.dota-command-nav::before,
+.dota-command-nav::after,
+.dota-header-core-button::before,
+.dota-header-core-button::after { pointer-events: none; }
 
 .dota-command-header::before {
   top: 0;
@@ -294,6 +302,8 @@
   transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
+button.dota-command-nav__link { border: 0; background-color: transparent; cursor: pointer; }
+
 .dota-command-nav__link::before {
   position: absolute;
   top: 0.15rem;
@@ -370,11 +380,14 @@
 }
 
 .dota-command-nav__item.has-panel:hover .dota-command-nav__panel,
-.dota-command-nav__item.has-panel:focus-within .dota-command-nav__panel {
+.dota-command-nav__item.has-panel:focus-within .dota-command-nav__panel,
+.dota-command-nav__item.has-panel[data-open="true"] .dota-command-nav__panel {
   opacity: 1;
   pointer-events: auto;
   transform: translate(-50%, 0) scale(1);
 }
+
+.dota-command-nav__panel::after { position: absolute; right: 0; bottom: 100%; left: 0; height: 0.85rem; content: ""; }
 
 .dota-command-nav__panel::before {
   position: absolute;
@@ -399,7 +412,9 @@
 }
 
 .dota-command-nav__panel-head span { color: #ffd16b; font-size: 0.5rem; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; }
-.dota-command-nav__panel-head small { color: #75675d; font-size: 0.45rem; }
+.dota-command-nav__panel-head > a { display: inline-flex; align-items: center; gap: 0.25rem; color: #a98a68; font-size: 0.45rem; font-weight: 800; }
+.dota-command-nav__panel-head > a:hover { color: #ffd16b; }
+.dota-command-nav__panel-head > a svg { width: 0.58rem; }
 .dota-command-nav__services { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin-top: 0.55rem; background: rgb(255 255 255 / 0.05); }
 .dota-command-nav__service { display: grid; min-width: 0; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 0.65rem; background: #0a0605; padding: 0.72rem; transition: background 180ms ease; }
 .dota-command-nav__service:hover { background: linear-gradient(90deg, rgb(255 177 31 / 0.1), #0a0605); }
@@ -415,8 +430,9 @@
 .dota-command-nav__service > svg { width: 0.68rem; color: #705f54; transition: color 180ms ease, transform 180ms ease; }
 .dota-command-nav__service:hover > svg { color: #ffc34f; transform: translate(2px, -2px); }
 
-.dota-command-header__actions { display: flex; align-items: center; justify-content: flex-end; gap: 0.55rem; }
-.dota-player-slot { position: relative; display: grid; min-height: 2.75rem; grid-template-columns: auto auto; align-items: center; gap: 0.55rem; border: 0; border-bottom: 1px solid rgb(255 192 65 / 0.2); background: transparent; padding: 0.42rem 0.58rem; transition: border-color 180ms ease, color 180ms ease; }
+.dota-command-header__actions { position: relative; z-index: 20; display: flex; align-items: center; justify-content: flex-end; gap: 0.55rem; isolation: isolate; pointer-events: auto; }
+.dota-player-slot { position: relative; z-index: 3; display: grid; min-height: 2.75rem; grid-template-columns: auto auto; align-items: center; gap: 0.55rem; border: 0; border-bottom: 1px solid rgb(255 192 65 / 0.2); background: transparent; padding: 0.42rem 0.58rem; transition: border-color 180ms ease, color 180ms ease; pointer-events: auto; }
+.dota-player-slot { cursor: pointer; text-align: left; }
 .dota-player-slot:hover { border-color: rgb(255 213 116 / 0.62); }
 .dota-player-slot__dot { width: 0.38rem; height: 0.38rem; border-radius: 50%; background: #d78b27; box-shadow: 0 0 10px rgb(255 179 43 / 0.28); }
 .dota-player-slot small,
@@ -502,6 +518,55 @@
 .dota-mobile-menu__cta svg { width: 0.72rem; }
 .dota-mobile-menu__disclaimer { display: flex; align-items: flex-start; gap: 0.45rem; margin: 0.8rem 0 0; color: #70645b; font-size: 0.47rem; line-height: 1.5; }
 .dota-mobile-menu__disclaimer svg { width: 0.68rem; flex: 0 0 auto; color: #68d7bc; }
+
+/* In-page account access */
+.auth-modal { position: fixed; inset: 0; z-index: 2000; display: none; width: 100%; height: 100%; place-items: center; border: 0; background: transparent; padding: 1rem; overflow: visible; }
+.auth-modal:target { display: grid; }
+.auth-modal__scrim { position: absolute; inset: 0; border: 0; background: rgb(0 0 0 / 0.78); backdrop-filter: blur(11px) saturate(0.85); animation: auth-scrim-in 180ms ease both; }
+.auth-modal__dialog { position: relative; width: min(100%, 31rem); max-height: calc(100dvh - 2rem); overflow: auto; border: 1px solid rgb(255 197 79 / 0.3); border-radius: 1.6rem 0.85rem 1.8rem 1rem; background: radial-gradient(circle at 82% 4%, rgb(230 75 32 / 0.14), transparent 16rem), linear-gradient(145deg, #1a100c, #070403 70%); box-shadow: inset 0 1px rgb(255 240 190 / 0.08), 0 40px 120px rgb(0 0 0 / 0.78), 0 0 42px rgb(255 106 14 / 0.08); padding: clamp(1.35rem, 4vw, 2.2rem); animation: auth-dialog-in 260ms cubic-bezier(.2,.8,.2,1) both; }
+.auth-modal__dialog::before { position: absolute; inset: 0; border-radius: inherit; background: url("/media/dire-forge/textures/lava-cracks.jpg") center / cover; content: ""; mix-blend-mode: screen; opacity: 0.06; pointer-events: none; }
+.auth-modal__close { position: absolute; top: 1rem; right: 1rem; z-index: 2; display: grid; width: 2.45rem; height: 2.45rem; place-items: center; border: 1px solid rgb(255 255 255 / 0.1); border-radius: 50%; background: rgb(0 0 0 / 0.24); color: #b6a899; cursor: pointer; }
+.auth-modal__close:hover { border-color: rgb(255 193 76 / 0.34); color: #fff0cc; }
+.auth-modal__close svg { width: 0.9rem; }
+.auth-modal__crest { display: grid; width: 3rem; height: 3rem; place-items: center; border: 1px solid rgb(255 199 81 / 0.32); background: linear-gradient(145deg, rgb(255 179 34 / 0.14), rgb(133 30 12 / 0.14)); transform: rotate(45deg); }
+.auth-modal__crest svg { width: 1rem; color: #ffc65d; transform: rotate(-45deg); }
+.auth-modal__eyebrow { margin-top: 1.55rem; color: #c58c45; font-size: 0.55rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; }
+.auth-modal__dialog h2 { margin-top: 0.5rem; color: #f4e6ce; font-family: var(--forge-display, Georgia, serif); font-size: clamp(1.65rem, 5vw, 2.25rem); font-weight: 800; }
+.auth-modal__intro { margin-top: 0.45rem; color: #8f8277; font-size: 0.72rem; line-height: 1.6; }
+.auth-modal__mode-tabs,
+.auth-modal__audiences { display: grid; gap: 0.25rem; border: 1px solid rgb(255 255 255 / 0.07); border-radius: 0.75rem; background: rgb(0 0 0 / 0.22); padding: 0.25rem; }
+.auth-modal__mode-tabs { grid-template-columns: 1fr 1fr; margin-top: 1.35rem; }
+.auth-modal__audiences { grid-template-columns: repeat(3, 1fr); margin-top: 1rem; }
+.auth-modal__mode-tabs button,
+.auth-modal__audiences button { min-height: 2.35rem; border: 0; border-radius: 0.55rem; background: transparent; color: #82756a; cursor: pointer; font-size: 0.62rem; font-weight: 850; }
+.auth-modal__mode-tabs button[aria-selected="true"],
+.auth-modal__audiences button[data-active="true"] { background: linear-gradient(180deg, rgb(255 185 51 / 0.12), rgb(178 47 17 / 0.08)); box-shadow: inset 0 0 0 1px rgb(255 197 76 / 0.12); color: #f0dfc5; }
+.auth-modal__form { display: grid; gap: 0.9rem; margin-top: 1rem; }
+.auth-modal__form > label { color: #cfc0ad; font-size: 0.65rem; font-weight: 800; }
+.auth-modal__field { display: block; width: 100%; min-height: 3rem; margin-top: 0.45rem; border: 1px solid rgb(255 255 255 / 0.1); border-radius: 0.7rem; background: rgb(0 0 0 / 0.28); padding: 0.7rem 0.85rem; color: white; font-size: 0.78rem; outline: none; }
+.auth-modal__field:focus { border-color: rgb(255 190 67 / 0.48); box-shadow: 0 0 0 3px rgb(255 151 21 / 0.07); }
+.auth-modal__form label small { display: block; margin-top: 0.35rem; color: #756a61; font-size: 0.55rem; font-weight: 500; }
+.auth-modal__form-row { display: flex; justify-content: flex-end; }
+.auth-modal__form-row a,
+.auth-modal__switch button { color: #dda653; font-size: 0.62rem; font-weight: 800; }
+.auth-modal__submit { display: inline-flex; min-height: 3.1rem; align-items: center; justify-content: center; gap: 0.45rem; border: 1px solid rgb(255 236 160 / 0.55); border-radius: 0.75rem; background: linear-gradient(105deg, #742704, #ec7809 35%, #ffc951 58%, #9d3805); color: #2d1003; cursor: pointer; font-size: 0.67rem; font-weight: 950; text-transform: uppercase; }
+.auth-modal__submit:disabled { cursor: wait; filter: grayscale(0.5); opacity: 0.6; }
+.auth-modal__submit svg { width: 0.85rem; }
+.auth-modal__agreement { display: grid; grid-template-columns: auto 1fr; align-items: start; gap: 0.65rem; border: 1px solid rgb(255 255 255 / 0.07); border-radius: 0.7rem; padding: 0.75rem; color: #8d8176 !important; font-weight: 500 !important; line-height: 1.55; }
+.auth-modal__agreement input { margin-top: 0.15rem; accent-color: #e34f22; }
+.auth-modal__switch,
+.auth-modal__notice { margin-top: 1rem; color: #776c63; font-size: 0.6rem; line-height: 1.55; text-align: center; }
+.auth-modal__switch button { border: 0; background: transparent; cursor: pointer; }
+.auth-modal__notice { display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
+.auth-modal__notice svg { width: 0.72rem; color: #68d7bc; }
+.auth-modal__error { margin-top: 1rem; border: 1px solid rgb(214 79 82 / 0.25); border-radius: 0.65rem; background: rgb(214 79 82 / 0.09); padding: 0.75rem; color: #ef9a9a; font-size: 0.65rem; line-height: 1.5; }
+.auth-modal__success { display: grid; justify-items: center; margin-top: 1.25rem; border: 1px solid rgb(104 215 188 / 0.2); border-radius: 0.85rem; background: rgb(104 215 188 / 0.055); padding: 1.4rem; text-align: center; }
+.auth-modal__success > svg { width: 1.6rem; color: #68d7bc; }
+.auth-modal__success strong { margin-top: 0.75rem; color: #e7dfcf; }
+.auth-modal__success p { margin-top: 0.4rem; color: #81766e; font-size: 0.65rem; line-height: 1.55; }
+.auth-modal__success button { margin-top: 1rem; border: 0; background: transparent; color: #d8a24c; cursor: pointer; font-size: 0.62rem; font-weight: 850; }
+@keyframes auth-scrim-in { from { opacity: 0; } }
+@keyframes auth-dialog-in { from { opacity: 0; transform: translateY(1rem) scale(0.97); } }
 
 /* Post-Match Command Center */
 
