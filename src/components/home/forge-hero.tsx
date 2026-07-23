@@ -328,9 +328,9 @@ export function ForgeHero() {
         </div>
         <div className="forge-hero__heat" aria-hidden="true" />
         <div className="forge-hero__inferno" aria-hidden="true"><i /><i /><i /><i /><i /></div>
-        <div className="forge-hero__smoke" aria-hidden="true"><i /><i /><i /><i /></div>
+        <div className="forge-hero__smoke" aria-hidden="true"><i /><i /><i /><i /><i /></div>
         <div className="forge-hero__embers" aria-hidden="true">
-          {Array.from({ length: 16 }, (_, index) => <i key={index} />)}
+          {Array.from({ length: 22 }, (_, index) => <i key={index} />)}
         </div>
         <div className="forge-hero__grade" aria-hidden="true" />
         <div className="forge-hero__grain" aria-hidden="true" />
