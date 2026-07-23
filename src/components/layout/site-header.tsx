@@ -131,6 +131,7 @@ export function SiteHeader() {
           </a>
           <Link href="/pricing" className="dota-header-core-button">
             <span>Forge rank route</span><Swords /><ArrowUpRight />
+            <i className="dota-header-core-button__drips" aria-hidden="true"><b /><b /><b /></i>
           </Link>
         </div>
 
