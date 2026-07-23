@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { MoltenNavSurface } from "@/components/layout/molten-nav-surface";
 import { MoltenSurface } from "@/components/ui/molten-surface";
 
 const links = [
@@ -73,6 +74,7 @@ export function SiteHeader() {
 
   return (
     <header className={`dota-command-header${condensed ? " is-condensed" : ""}`}>
+      <MoltenNavSurface />
       <div className="dota-command-header__ambient" aria-hidden="true" />
 
       <div className="container-shell dota-command-header__inner">
