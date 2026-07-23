@@ -659,7 +659,7 @@
   inset: 0;
 }
 
-.forge-hero__beats { z-index: 13; }
+.forge-hero__beats { z-index: 13; pointer-events: none; }
 
 .forge-beat {
   --beat-title: #fff5d7;
@@ -711,7 +711,7 @@
   --beat-glow: 229 143 52;
 }
 
-.forge-beat:first-child { opacity: 1; pointer-events: auto; }
+.forge-beat:first-child { opacity: 1; pointer-events: none; }
 .forge-beat--right { justify-content: flex-end; }
 .forge-beat--center { justify-content: center; text-align: center; }
 
@@ -720,6 +720,7 @@
   overflow: visible;
   width: min(38rem, 48vw);
   padding: 0;
+  pointer-events: auto;
 }
 
 .forge-beat--right .forge-beat__panel {
@@ -846,6 +847,7 @@
   place-content: center;
   justify-items: center;
   background: #030201;
+  pointer-events: none;
   transition: opacity 500ms ease, visibility 500ms ease;
 }
 
@@ -1638,7 +1640,7 @@
   .forge-hero__inferno i:nth-child(n + 4) { display: none; }
   .forge-hero__beats { inset: 0; }
   .forge-beat { display: none; padding: 6rem 1rem 2rem; }
-  .forge-beat:first-child { display: flex; align-items: flex-end; opacity: 1; pointer-events: auto; }
+  .forge-beat:first-child { display: flex; align-items: flex-end; opacity: 1; pointer-events: none; }
   .forge-beat__panel { width: 100%; max-width: 37rem; padding: 1.2rem; }
   .forge-beat h1,
   .forge-beat h2 { max-width: 11ch; font-size: clamp(2.75rem, 12vw, 4.1rem); }
@@ -1750,7 +1752,7 @@
   .forge-hero { height: auto; }
   .forge-hero__sticky { position: relative; top: auto; height: max(43rem, calc(100svh - var(--header-height))); }
   .forge-beat { display: none; }
-  .forge-beat:first-child { display: flex; opacity: 1; pointer-events: auto; transform: none; }
+  .forge-beat:first-child { display: flex; opacity: 1; pointer-events: none; transform: none; }
   .forge-hero__route,
   .forge-hero__scroll-cue { display: none; }
   .forge-hero__inferno,

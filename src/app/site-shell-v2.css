@@ -80,6 +80,14 @@
   pointer-events: none;
 }
 
+.dota-command-header__ambient,
+.dota-command-logo::before,
+.dota-command-logo::after,
+.dota-command-nav::before,
+.dota-command-nav::after,
+.dota-header-core-button::before,
+.dota-header-core-button::after { pointer-events: none; }
+
 .dota-command-header::before {
   top: 0;
   height: 1px;
@@ -422,8 +430,8 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
 .dota-command-nav__service > svg { width: 0.68rem; color: #705f54; transition: color 180ms ease, transform 180ms ease; }
 .dota-command-nav__service:hover > svg { color: #ffc34f; transform: translate(2px, -2px); }
 
-.dota-command-header__actions { position: relative; z-index: 5; display: flex; align-items: center; justify-content: flex-end; gap: 0.55rem; }
-.dota-player-slot { position: relative; display: grid; min-height: 2.75rem; grid-template-columns: auto auto; align-items: center; gap: 0.55rem; border: 0; border-bottom: 1px solid rgb(255 192 65 / 0.2); background: transparent; padding: 0.42rem 0.58rem; transition: border-color 180ms ease, color 180ms ease; }
+.dota-command-header__actions { position: relative; z-index: 20; display: flex; align-items: center; justify-content: flex-end; gap: 0.55rem; isolation: isolate; pointer-events: auto; }
+.dota-player-slot { position: relative; z-index: 3; display: grid; min-height: 2.75rem; grid-template-columns: auto auto; align-items: center; gap: 0.55rem; border: 0; border-bottom: 1px solid rgb(255 192 65 / 0.2); background: transparent; padding: 0.42rem 0.58rem; transition: border-color 180ms ease, color 180ms ease; pointer-events: auto; }
 .dota-player-slot { cursor: pointer; text-align: left; }
 .dota-player-slot:hover { border-color: rgb(255 213 116 / 0.62); }
 .dota-player-slot__dot { width: 0.38rem; height: 0.38rem; border-radius: 50%; background: #d78b27; box-shadow: 0 0 10px rgb(255 179 43 / 0.28); }
