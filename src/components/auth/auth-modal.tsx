@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { CheckCircle2, LoaderCircle, LockKeyhole, ShieldCheck, X } from "lucide-react";
 import { createClient } from "@/lib/supabase/browser";
@@ -17,28 +17,11 @@ export function AuthModal({
   initialMode?: AuthMode;
 }) {
   const router = useRouter();
-  const dialogRef = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<AuthMode>(initialMode);
   const [audience, setAudience] = useState<Audience>("Customer");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [registered, setRegistered] = useState(false);
-
-  useEffect(() => {
-    const popover = dialogRef.current;
-    if (!popover) return;
-    function handleToggle(event: ToggleEvent) {
-      if (event.newState === "open") {
-        window.requestAnimationFrame(() => dialogRef.current?.querySelector<HTMLElement>("input, button")?.focus());
-      }
-    }
-    popover.addEventListener("toggle", handleToggle);
-    return () => popover.removeEventListener("toggle", handleToggle);
-  }, []);
-
-  function close() {
-    if (dialogRef.current?.matches(":popover-open")) dialogRef.current.hidePopover();
-  }
 
   function switchMode(nextMode: AuthMode) {
     setMode(nextMode);
@@ -59,7 +42,6 @@ export function AuthModal({
       });
       if (authError) throw authError;
       const destination = audience === "Booster" ? "/coach" : audience === "Admin" ? "/admin" : "/dashboard";
-      close();
       router.push(destination);
       router.refresh();
     } catch {
@@ -91,7 +73,6 @@ export function AuthModal({
       });
       if (authError) throw authError;
       if (data.session) {
-        close();
         router.push("/dashboard");
         router.refresh();
       } else {
@@ -105,10 +86,10 @@ export function AuthModal({
   }
 
   return (
-    <div ref={dialogRef} id="account-access-popover" className="auth-modal" popover="auto" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
-      <button type="button" className="auth-modal__scrim" aria-label="Close account dialog" onClick={close} />
+    <div id="account-access" className="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+      <a href="#close-account" className="auth-modal__scrim" aria-label="Close account dialog" />
       <div className="auth-modal__dialog">
-        <button type="button" className="auth-modal__close" aria-label="Close account dialog" onClick={close}><X /></button>
+        <a href="#close-account" className="auth-modal__close" aria-label="Close account dialog"><X /></a>
         <div className="auth-modal__crest"><LockKeyhole /></div>
         <p className="auth-modal__eyebrow">Secure player access</p>
         <h2 id="auth-modal-title">{mode === "sign-in" ? "Enter your workspace." : "Create your workspace."}</h2>
@@ -136,7 +117,7 @@ export function AuthModal({
             <form onSubmit={submitSignIn} className="auth-modal__form">
               <label>Email<input className={fieldClass} name="email" type="email" autoComplete="email" required /></label>
               <label>Password<input className={fieldClass} name="password" type="password" autoComplete="current-password" minLength={8} required /></label>
-              <div className="auth-modal__form-row"><Link href="/auth/forgot-password" onClick={close}>Forgot password?</Link></div>
+              <div className="auth-modal__form-row"><Link href="/auth/forgot-password">Forgot password?</Link></div>
               <button className="auth-modal__submit" disabled={busy}>{busy ? <><LoaderCircle className="animate-spin" />Signing in</> : "Sign in securely"}</button>
             </form>
             {audience === "Customer" ? <p className="auth-modal__switch">New here? <button type="button" onClick={() => switchMode("register")}>Create a customer account</button></p> : <p className="auth-modal__notice">{audience} accounts are invitation-only.</p>}

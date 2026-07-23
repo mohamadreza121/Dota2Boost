@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { MobileNav } from "@/components/layout/mobile-nav";
-import { AuthModal } from "@/components/auth/auth-modal";
 
 const links = [
   { number: "01", label: "MMR Boost", href: "/services/mmr-boost", panel: false },
@@ -126,10 +125,10 @@ export function SiteHeader() {
         </nav>
 
         <div className="dota-command-header__actions">
-          <button type="button" className="dota-player-slot" popoverTarget="account-access-popover">
+          <a href="#account-access" className="dota-player-slot">
             <span className="dota-player-slot__dot" />
             <span><small>Guest profile</small><strong>Sign in</strong></span>
-          </button>
+          </a>
           <Link href="/pricing" className="dota-header-core-button">
             <span>Forge rank route</span><Swords /><ArrowUpRight />
           </Link>
@@ -137,7 +136,6 @@ export function SiteHeader() {
 
         <MobileNav />
       </div>
-      <AuthModal />
     </header>
   );
 }

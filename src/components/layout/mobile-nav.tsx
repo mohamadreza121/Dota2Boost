@@ -120,7 +120,7 @@ export function MobileNav() {
 
             <div className="dota-mobile-menu__bottom">
               <div className="dota-mobile-menu__actions">
-                <button type="button" popoverTarget="account-access-popover" onClick={() => setOpen(false)} className="dota-mobile-menu__sign-in">Sign in</button>
+                <a href="#account-access" onClick={() => setOpen(false)} className="dota-mobile-menu__sign-in">Sign in</a>
                 <Link href="/pricing" onClick={() => setOpen(false)} className="dota-mobile-menu__cta">Forge rank route <ArrowUpRight /></Link>
               </div>
               <p className="dota-mobile-menu__disclaimer"><ShieldCheck /> Customer-operated Solo and Duo delivery. No Steam credentials or remote access.</p>
