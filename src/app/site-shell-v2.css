@@ -438,7 +438,31 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
 .dota-player-slot small { color: #8f6c42; font-size: 0.4rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; }
 .dota-player-slot strong { margin-top: 0.12rem; color: #e6d7bd; font-family: var(--forge-display, Georgia, serif); font-size: 0.64rem; }
 
+.molten-button__surface {
+  transform-origin: 50% 0;
+  isolation: isolate;
+}
+
+.molten-button__surface::before {
+  position: absolute;
+  inset: -12% -16% -24%;
+  z-index: 0;
+  border-radius: 48%;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgb(255 213 92 / 0.44) 0, rgb(255 105 19 / 0.3) 25%, rgb(211 40 7 / 0.18) 49%, transparent 73%),
+    radial-gradient(ellipse at 50% 72%, rgb(255 45 8 / 0.28), rgb(139 14 3 / 0.1) 46%, transparent 70%);
+  content: "";
+  filter: blur(12px) saturate(1.38);
+  opacity: 0.64;
+  transform: scale(0.88, 0.72);
+  transition: transform 560ms cubic-bezier(.16, .82, .18, 1);
+  animation: molten-heat-pulse 3.8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
 .molten-button__surface > svg {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: 100%;
@@ -463,6 +487,7 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
   stroke-linecap: round;
   stroke-width: 12;
   opacity: 0.52;
+  transition: opacity 280ms ease;
   mix-blend-mode: screen;
 }
 
@@ -507,7 +532,7 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
   z-index: 0;
   height: 5.45rem;
   pointer-events: none;
-  transition: filter 180ms ease, transform 180ms ease;
+  transition: filter 240ms ease, transform 580ms cubic-bezier(.16, .82, .18, 1);
 }
 .dota-header-core-button:hover {
   filter:
@@ -517,10 +542,20 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
     drop-shadow(0 0 18px rgb(255 183 35 / 0.3));
   transform: translateY(-2px);
 }
-.dota-header-core-button:hover > .molten-button__surface { transform: scale(1.012, 1.03); }
+.dota-header-core-button:hover .molten-button__shape { animation-duration: 2.4s; }
+.dota-header-core-button:hover .molten-button__flow { opacity: 0.74; }
+.dota-header-core-button:hover .molten-button__surface::before {
+  animation-duration: 1.5s;
+  transform: scale(1.06, 0.98);
+}
 .dota-header-core-button > span:not(.molten-button__surface),
 .dota-header-core-button > svg { position: relative; z-index: 2; }
 .dota-header-core-button > svg { width: 0.7rem; }
+
+@media (hover: hover) and (pointer: fine) {
+  .dota-header-core-button:hover > .molten-button__surface { transform: scale(1.012, 1.1); }
+}
+
 .dota-command-header.is-condensed .dota-player-slot small { display: none; }
 .dota-command-header.is-condensed .dota-player-slot,
 .dota-command-header.is-condensed .dota-header-core-button { min-height: 2.5rem; }
@@ -832,6 +867,10 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
   from { opacity: 0.62; transform: translateX(-2%) scaleX(0.94); }
   to { opacity: 0.96; transform: translateX(3%) scaleX(1.08); }
 }
+@keyframes molten-heat-pulse {
+  from { opacity: 0.48; }
+  to { opacity: 0.78; }
+}
 @keyframes command-logo-melt { from { border-radius: 42% 58% 52% 48% / 55% 43% 57% 45%; background-position: 0 0, 0% 50%; } to { border-radius: 54% 46% 44% 56% / 43% 56% 44% 57%; background-position: 0 0, 100% 50%; } }
 @keyframes command-logo-drip { 0%, 68%, 100% { opacity: 0.92; transform: scaleY(0.62); } 38% { opacity: 1; transform: scaleY(1.18); } }
 @keyframes footer-gold-flow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
@@ -925,6 +964,7 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
   .dota-command-footer__magma i,
   .forge-shared-button--primary,
   .dota-header-core-button,
+  .molten-button__surface::before,
   .molten-button__shape,
   .molten-button__flare,
   .dota-command-header::after,
