@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
-import { calculateQuote } from "@/lib/pricing";
+import { calculateServerQuote } from "@/lib/pricing-server";
 import { pricingInputSchema } from "@/lib/validation/pricing";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -13,7 +13,12 @@ export async function POST(request: Request) {
   const parsed = pricingInputSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return NextResponse.json({ error: "The boost contains invalid options.", fields: parsed.error.flatten().fieldErrors }, { status: 400 });
 
-  const quote = calculateQuote(parsed.data);
+  let quote;
+  try {
+    quote = await calculateServerQuote(parsed.data);
+  } catch {
+    return NextResponse.json({ error: "Pricing is temporarily unavailable." }, { status: 503 });
+  }
   if (!parsed.data.discountCode) {
     return NextResponse.json({ quote, calculatedAt: new Date().toISOString() }, { headers: { "Cache-Control": "no-store" } });
   }

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, Check, LoaderCircle, ShieldCheck, Swords } from "lucide-react";
 import { RankMedal } from "@/components/commerce/rank-medal";
-import { rankIndex, rankOptions } from "@/lib/data/ranks";
+import { maximumPricedMmr, mmrForRank, rankFromMmr, rankIndex, rankOptions } from "@/lib/data/ranks";
 import type { PriceQuote } from "@/lib/pricing";
 import type { PricingInput } from "@/lib/validation/pricing";
 import { formatCurrency } from "@/lib/utils";
@@ -14,8 +14,14 @@ const initialInput: PricingInput = {
   boostMode: "Duo",
   currentRank: "Legend III",
   targetRank: "Ancient I",
+  currentMmr: 3400,
+  targetMmr: 3900,
   mmrAmount: 500,
-  matchCount: 5,
+  calibrationType: "Recalibration activated",
+  rankConfidence: 25,
+  matchCount: 10,
+  lowPriorityWins: 3,
+  currentBehaviorScore: 8000,
   behaviorScoreAmount: 2000,
   winCount: 5,
   sessionCount: 1,
@@ -77,11 +83,27 @@ export function RankedContractPanel() {
   function updateCurrentRank(rank: PricingInput["currentRank"]) {
     setInput((current) => ({
       ...current,
+      currentMmr: mmrForRank(rank),
       currentRank: rank,
-      targetRank: rankIndex(current.targetRank) <= rankIndex(rank)
-        ? rankOptions[Math.min(rankIndex(rank) + 1, rankOptions.length - 1)]!
-        : current.targetRank
+      targetMmr: Math.min(maximumPricedMmr, mmrForRank(rank) + current.mmrAmount),
+      targetRank: rankFromMmr(Math.min(maximumPricedMmr, mmrForRank(rank) + current.mmrAmount))
     }));
+    setQuote(null);
+  }
+
+  function updateTargetRank(rank: PricingInput["targetRank"]) {
+    setInput((current) => {
+      const targetMmr = mmrForRank(rank);
+      return { ...current, targetRank: rank, targetMmr, mmrAmount: targetMmr - current.currentMmr };
+    });
+    setQuote(null);
+  }
+
+  function updateScope(amount: number) {
+    setInput((current) => {
+      const targetMmr = Math.min(maximumPricedMmr, current.currentMmr + amount);
+      return { ...current, targetMmr, targetRank: rankFromMmr(targetMmr), mmrAmount: targetMmr - current.currentMmr };
+    });
     setQuote(null);
   }
 
@@ -108,7 +130,7 @@ export function RankedContractPanel() {
           <label>
             <span>Target medal</span>
             <RankMedal rank={input.targetRank} size="lg" label={false} selected className="war-rank-medal" />
-            <select value={input.targetRank} onChange={(event) => update("targetRank", event.target.value as PricingInput["targetRank"])}>
+            <select value={input.targetRank} onChange={(event) => updateTargetRank(event.target.value as PricingInput["targetRank"])}>
               {rankOptions.filter((rank) => rankIndex(rank) > rankIndex(input.currentRank)).map((rank) => <option key={rank}>{rank}</option>)}
             </select>
           </label>
@@ -131,7 +153,7 @@ export function RankedContractPanel() {
           <legend>MMR scope</legend>
           <div>
             {mmrScopes.map((amount) => (
-              <button key={amount} type="button" aria-pressed={input.mmrAmount === amount} onClick={() => update("mmrAmount", amount)}>
+              <button key={amount} type="button" aria-pressed={input.mmrAmount === amount} onClick={() => updateScope(amount)}>
                 +{amount.toLocaleString()}
               </button>
             ))}

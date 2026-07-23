@@ -23,6 +23,7 @@ const laneGroups = [
     links: [
       ["MMR Boost", "/services/mmr-boost"],
       ["Calibration", "/services/mmr-calibration"],
+      ["Low Priority", "/services/low-priority-recovery"],
       ["Win Boost", "/services/win-boost"],
       ["Coaching", "/services/coaching"]
     ]

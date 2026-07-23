@@ -17,17 +17,31 @@ export const services: ServiceDefinition[] = [
   },
   {
     slug: "mmr-calibration",
-    eyebrow: "Calibration",
-    name: "MMR Calibration",
-    shortDescription: "Configure a five- or ten-match calibration block with bracket-aware matching and live tracking.",
+    eyebrow: "Rank Confidence",
+    name: "Calibration & Rank Confidence",
+    shortDescription: "Configure 1–30 assisted games for new calibration, activated recalibration, or returning-player confidence recovery.",
     description:
-      "A high-focus service for calibration or recalibration matches. Select Solo Assist or Duo Queue, your role, region, and match count; every game stays attached to a private order timeline.",
-    priceFrom: 9900,
-    duration: "5 or 10 matches",
-    highlights: ["Five- and ten-match packages", "Solo or Duo mode", "Match-by-match calibration log"],
+      "Choose your calibration state, previous or estimated MMR, current Rank Confidence, and assisted-game scope. Select Solo Assist or Duo Queue; every game stays attached to a private order timeline without guaranteeing a final rank.",
+    priceFrom: 2500,
+    duration: "1–30 assisted games",
+    highlights: ["Rank Confidence input", "New, returning, or activated recalibration", "Match-by-match calibration log"],
     idealFor: ["Fresh calibration", "Returning ranked players", "Recalibration windows"],
-    sessionStructure: ["Calibration status check", "Role and hero plan", "Scheduled match blocks", "Completion summary"],
+    sessionStructure: ["Confidence and status check", "Role and hero plan", "Scheduled game blocks", "Completion summary"],
     accent: "amber"
+  },
+  {
+    slug: "low-priority-recovery",
+    eyebrow: "Account-safe recovery",
+    name: "Low Priority Recovery Assist",
+    shortDescription: "Get customer-operated guidance for the required Single Draft wins without handing over your account.",
+    description:
+      "Enter the required Single Draft wins shown in Dota 2, choose guided self-play or eligible party assistance, and schedule recovery sessions. You play every game on your own account; Highground never requests login credentials.",
+    priceFrom: 2500,
+    duration: "1–10 required wins",
+    highlights: ["Required-win pricing", "Guided self-play or eligible party assist", "No account hand-off"],
+    idealFor: ["Clearing Low Priority", "Single Draft planning", "Players keeping full account control"],
+    sessionStructure: ["Penalty snapshot", "Hero and role readiness", "Recovery sessions", "Required-win checkpoints"],
+    accent: "crimson"
   },
   {
     slug: "behavior-score-boost",
@@ -210,7 +224,11 @@ export const faqs = [
   },
   {
     question: "Is a specific rank or amount of MMR guaranteed?",
-    answer: "No. The configurator defines a paid service scope—such as an MMR amount, calibration matches, behavior-score amount, assisted wins, or sessions. Matchmaking, publisher rules, conduct systems, and game outcomes can change, so a result is not guaranteed."
+    answer: "No. The configurator defines a paid service scope—such as an exact MMR route, assisted calibration games, required Single Draft wins, behavior-score amount, assisted wins, or coaching sessions. Matchmaking, Rank Confidence, publisher rules, conduct systems, and game outcomes can change, so a result is not guaranteed."
+  },
+  {
+    question: "How does Low Priority Recovery work?",
+    answer: "Enter the number of required Single Draft wins shown in Dota 2 and choose guided self-play or eligible party assistance. You play on your own account at all times; Highground never accepts credentials or promises that every session will produce a required win."
   },
   {
     question: "How are boosters verified?",

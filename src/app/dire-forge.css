@@ -1049,18 +1049,21 @@
 .arsenal-card--calibration,
 .arsenal-card--coaching { min-height: 20.5rem; grid-column: span 5; }
 .arsenal-card--wins,
-.arsenal-card--behavior { min-height: 25rem; grid-column: span 6; }
+.arsenal-card--behavior,
+.arsenal-card--low-priority { min-height: 25rem; grid-column: span 4; }
 .arsenal-card__hero { z-index: 0; object-fit: contain; object-position: 112% center; mix-blend-mode: screen; opacity: 0.68; filter: saturate(0.85) contrast(1.1) brightness(0.84); transform: scale(1.03); transition: filter 600ms ease, opacity 400ms ease, transform 750ms cubic-bezier(.2,.8,.2,1); }
 .arsenal-card:hover .arsenal-card__hero { opacity: 0.82; filter: saturate(1.05) contrast(1.12) brightness(0.98); transform: scale(1.075); }
 .arsenal-card__shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgb(8 4 3 / 0.82) 0 40%, rgb(8 4 3 / 0.5) 62%, transparent 100%), linear-gradient(180deg, transparent 53%, rgb(5 3 2 / 0.72) 96%); pointer-events: none; }
 .arsenal-card--calibration .arsenal-card__hero,
 .arsenal-card--coaching .arsenal-card__hero { object-position: 118% 42%; opacity: 0.48; }
 .arsenal-card--wins .arsenal-card__hero,
-.arsenal-card--behavior .arsenal-card__hero { object-position: 105% 35%; opacity: 0.5; }
+.arsenal-card--behavior .arsenal-card__hero,
+.arsenal-card--low-priority .arsenal-card__hero { object-position: 105% 35%; opacity: 0.5; }
 .arsenal-card--calibration .arsenal-card__shade,
 .arsenal-card--coaching .arsenal-card__shade,
 .arsenal-card--wins .arsenal-card__shade,
-.arsenal-card--behavior .arsenal-card__shade { background: linear-gradient(90deg, rgb(8 4 3 / 0.82) 0 43%, rgb(8 4 3 / 0.52) 68%, transparent 100%), linear-gradient(180deg, transparent 49%, rgb(5 3 2 / 0.72) 96%); }
+.arsenal-card--behavior .arsenal-card__shade,
+.arsenal-card--low-priority .arsenal-card__shade { background: linear-gradient(90deg, rgb(8 4 3 / 0.82) 0 43%, rgb(8 4 3 / 0.52) 68%, transparent 100%), linear-gradient(180deg, transparent 49%, rgb(5 3 2 / 0.72) 96%); }
 .arsenal-card__topline,
 .arsenal-card__content,
 .arsenal-card__compact-content,
@@ -1596,6 +1599,9 @@
   .arsenal-card--mmr { min-height: 38rem; grid-column: 1 / -1; grid-row: auto; }
   .arsenal-card--calibration,
   .arsenal-card--coaching { min-height: 22rem; grid-column: span 6; }
+  .arsenal-card--wins,
+  .arsenal-card--behavior { grid-column: span 6; }
+  .arsenal-card--low-priority { grid-column: 1 / -1; }
   .campaign-flow__layout { grid-template-columns: 1fr; }
   .campaign-console { position: relative; top: auto; min-height: 0; }
   .victory-proof__grid { grid-template-columns: 1fr; }
@@ -1655,19 +1661,22 @@
   .arsenal-card--calibration,
   .arsenal-card--coaching,
   .arsenal-card--wins,
-  .arsenal-card--behavior { min-height: 34rem; grid-column: auto; }
+  .arsenal-card--behavior,
+  .arsenal-card--low-priority { min-height: 34rem; grid-column: auto; }
   .arsenal-card--calibration,
   .arsenal-card--coaching { min-height: 28rem; }
   .arsenal-card__hero,
   .arsenal-card--calibration .arsenal-card__hero,
   .arsenal-card--coaching .arsenal-card__hero,
   .arsenal-card--wins .arsenal-card__hero,
-  .arsenal-card--behavior .arsenal-card__hero { object-position: 130% 32%; opacity: 0.44; }
+  .arsenal-card--behavior .arsenal-card__hero,
+  .arsenal-card--low-priority .arsenal-card__hero { object-position: 130% 32%; opacity: 0.44; }
   .arsenal-card__shade,
   .arsenal-card--calibration .arsenal-card__shade,
   .arsenal-card--coaching .arsenal-card__shade,
   .arsenal-card--wins .arsenal-card__shade,
-  .arsenal-card--behavior .arsenal-card__shade { background: linear-gradient(90deg, rgb(8 4 3 / 0.86) 0 57%, rgb(8 4 3 / 0.58) 74%, transparent), linear-gradient(180deg, transparent 45%, rgb(5 3 2 / 0.76) 92%); }
+  .arsenal-card--behavior .arsenal-card__shade,
+  .arsenal-card--low-priority .arsenal-card__shade { background: linear-gradient(90deg, rgb(8 4 3 / 0.86) 0 57%, rgb(8 4 3 / 0.58) 74%, transparent), linear-gradient(180deg, transparent 45%, rgb(5 3 2 / 0.76) 92%); }
   .arsenal-card__content,
   .arsenal-card--calibration .arsenal-card__content,
   .arsenal-card--coaching .arsenal-card__content,
@@ -1711,7 +1720,8 @@
   .rank-forge__console-head > p { text-align: right; }
   .arsenal-card--mmr,
   .arsenal-card--wins,
-  .arsenal-card--behavior { min-height: 36rem; }
+  .arsenal-card--behavior,
+  .arsenal-card--low-priority { min-height: 36rem; }
   .arsenal-card__content,
   .arsenal-card--calibration .arsenal-card__content,
   .arsenal-card--coaching .arsenal-card__content,

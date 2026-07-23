@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState, type ComponentType } from "react";
-import { Check, Gauge, GraduationCap, LoaderCircle, ShieldCheck, Target, TicketPercent, TrendingUp, Trophy } from "lucide-react";
+import { AlertTriangle, Check, Gauge, GraduationCap, LoaderCircle, ShieldCheck, Target, TicketPercent, TrendingUp, Trophy } from "lucide-react";
 import { RankMedal } from "@/components/commerce/rank-medal";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { PriceQuote } from "@/lib/pricing";
 import { formatCurrency } from "@/lib/utils";
-import { rankFamilies, rankFamilyOf, rankIndex, rankOptions } from "@/lib/data/ranks";
+import { maximumPricedMmr, rankFamilies, rankFamilyOf, rankFromMmr } from "@/lib/data/ranks";
 import type { PricingInput } from "@/lib/validation/pricing";
 
 const initialInput: PricingInput = {
@@ -15,8 +15,14 @@ const initialInput: PricingInput = {
   boostMode: "Duo",
   currentRank: "Legend III",
   targetRank: "Ancient I",
+  currentMmr: 3400,
+  targetMmr: 3900,
   mmrAmount: 500,
-  matchCount: 5,
+  calibrationType: "Recalibration activated",
+  rankConfidence: 25,
+  matchCount: 10,
+  lowPriorityWins: 3,
+  currentBehaviorScore: 8000,
   behaviorScoreAmount: 2000,
   winCount: 5,
   sessionCount: 1,
@@ -31,8 +37,9 @@ const initialInput: PricingInput = {
 const inputClass = "mt-2 min-h-12 w-full rounded-xl border border-white/10 bg-black/25 px-3.5 text-sm text-white transition focus:border-cyan/60 focus:outline-none";
 
 const serviceChoices: Array<{ value: PricingInput["service"]; label: string; hint: string; icon: ComponentType<{ className?: string }> }> = [
-  { value: "mmr-boost", label: "MMR Boost", hint: "Solo or Duo", icon: TrendingUp },
-  { value: "mmr-calibration", label: "MMR Calibration", hint: "5 or 10 matches", icon: Target },
+  { value: "mmr-boost", label: "MMR Boost", hint: "Exact MMR route", icon: TrendingUp },
+  { value: "mmr-calibration", label: "Calibration", hint: "Rank Confidence", icon: Target },
+  { value: "low-priority-recovery", label: "Low Priority", hint: "Required wins", icon: AlertTriangle },
   { value: "behavior-score-boost", label: "Behavior Score", hint: "Recovery scope", icon: ShieldCheck },
   { value: "win-boost", label: "Win Boost", hint: "Duo packages", icon: Trophy },
   { value: "coaching", label: "Coaching", hint: "Secondary service", icon: GraduationCap }
@@ -44,7 +51,7 @@ interface ServerQuote {
   calculatedAt?: string;
 }
 
-function supportsRanks(service: PricingInput["service"]) {
+function supportsMmr(service: PricingInput["service"]) {
   return service === "mmr-boost" || service === "mmr-calibration" || service === "win-boost";
 }
 
@@ -104,18 +111,33 @@ export function PricingConfigurator({ compact = false }: { compact?: boolean }) 
       ...current,
       service,
       boostMode: service === "win-boost" ? "Duo" : service === "behavior-score-boost" || service === "coaching" ? "Solo" : current.boostMode,
-      targetRank: service === "mmr-boost" ? current.targetRank : current.currentRank
+      targetRank: service === "mmr-boost" ? current.targetRank : current.currentRank,
+      targetMmr: service === "mmr-boost" ? current.targetMmr : current.currentMmr,
+      mmrAmount: service === "mmr-boost" ? current.targetMmr - current.currentMmr : current.mmrAmount
     }));
     setServerQuote(null);
     setError(null);
   }
 
-  function updateCurrentRank(rank: PricingInput["currentRank"]) {
+  function updateCurrentMmr(value: number) {
+    const currentMmr = Math.max(0, Math.min(maximumPricedMmr - 100, value));
     setInput((current) => ({
       ...current,
-      currentRank: rank,
-      targetRank: current.service === "mmr-boost" && rankIndex(current.targetRank) <= rankIndex(rank) ? rankOptions[Math.min(rankIndex(rank) + 1, rankOptions.length - 1)]! : current.targetRank
+      currentMmr,
+      currentRank: rankFromMmr(currentMmr),
+      targetMmr: current.service === "mmr-boost" ? Math.max(currentMmr + 100, current.targetMmr) : currentMmr,
+      targetRank: current.service === "mmr-boost" ? rankFromMmr(Math.max(currentMmr + 100, current.targetMmr)) : rankFromMmr(currentMmr),
+      mmrAmount: current.service === "mmr-boost" ? Math.max(currentMmr + 100, current.targetMmr) - currentMmr : current.mmrAmount
     }));
+    setServerQuote(null);
+    setError(null);
+  }
+
+  function updateTargetMmr(value: number) {
+    setInput((current) => {
+      const targetMmr = Math.max(current.currentMmr + 100, Math.min(maximumPricedMmr, value));
+      return { ...current, targetMmr, targetRank: rankFromMmr(targetMmr), mmrAmount: targetMmr - current.currentMmr };
+    });
     setServerQuote(null);
     setError(null);
   }
@@ -170,7 +192,7 @@ export function PricingConfigurator({ compact = false }: { compact?: boolean }) 
   }
 
   const quote = serverQuote?.quote;
-  const showModes = input.service === "mmr-boost" || input.service === "mmr-calibration";
+  const showModes = input.service === "mmr-boost" || input.service === "mmr-calibration" || input.service === "low-priority-recovery";
 
   return (
     <div className={`grid gap-5 ${compact ? "" : "xl:grid-cols-[1fr_410px] xl:items-start"}`}>
@@ -185,7 +207,7 @@ export function PricingConfigurator({ compact = false }: { compact?: boolean }) 
 
         <fieldset className="mt-6">
           <legend className="text-xs font-black tracking-[0.12em] text-mist uppercase">1. Choose a service</legend>
-          <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {serviceChoices.map((choice) => {
               const Icon = choice.icon;
               const selected = input.service === choice.value;
@@ -198,22 +220,25 @@ export function PricingConfigurator({ compact = false }: { compact?: boolean }) 
           <fieldset className="mt-7">
             <legend className="text-xs font-black tracking-[0.12em] text-mist uppercase">2. Pick a mode</legend>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
-              {(["Solo", "Duo"] as const).map((mode) => <button key={mode} type="button" onClick={() => update("boostMode", mode)} className={`rounded-xl border p-4 text-left transition ${input.boostMode === mode ? "border-cyan/45 bg-cyan/[0.08]" : "border-white/[0.08] bg-black/15 hover:border-white/20"}`}><span className="flex items-center justify-between text-sm font-black">{mode === "Solo" ? "Solo Assist" : "Duo Queue"}{input.boostMode === mode ? <Check className="size-4 text-cyan" /> : null}</span><span className="mt-2 block text-xs leading-5 text-mist">{mode === "Solo" ? "You stay at the controls while a verified expert directs the live plan." : "A compatible high-MMR booster queues beside you on a separate account."}</span></button>)}
+              {(["Solo", "Duo"] as const).map((mode) => {
+                const lowPriority = input.service === "low-priority-recovery";
+                return <button key={mode} type="button" onClick={() => update("boostMode", mode)} className={`rounded-xl border p-4 text-left transition ${input.boostMode === mode ? "border-cyan/45 bg-cyan/[0.08]" : "border-white/[0.08] bg-black/15 hover:border-white/20"}`}><span className="flex items-center justify-between text-sm font-black">{lowPriority ? mode === "Solo" ? "Guided Self-Play" : "Eligible Party Assist" : mode === "Solo" ? "Solo Assist" : "Duo Queue"}{input.boostMode === mode ? <Check className="size-4 text-cyan" /> : null}</span><span className="mt-2 block text-xs leading-5 text-mist">{lowPriority ? mode === "Solo" ? "You play every Single Draft game while a specialist guides the recovery plan." : "You stay on your account and queue with a specialist only where party rules allow." : mode === "Solo" ? "You stay at the controls while a verified expert directs the live plan." : "A compatible high-MMR booster queues beside you on a separate account."}</span></button>;
+              })}
             </div>
           </fieldset>
         ) : null}
 
-        {supportsRanks(input.service) ? (
+        {supportsMmr(input.service) ? (
           <fieldset className="mt-7">
-            <legend className="text-xs font-black tracking-[0.12em] text-mist uppercase">{showModes ? "3" : "2"}. Select exact medal</legend>
+            <legend className="text-xs font-black tracking-[0.12em] text-mist uppercase">{showModes ? "3" : "2"}. Enter exact MMR</legend>
             <div className={`mt-4 grid gap-4 ${input.service === "mmr-boost" ? "sm:grid-cols-2" : "max-w-sm"}`}>
               <label className="rounded-2xl border border-white/[0.08] bg-black/15 p-4 text-xs font-bold text-[#cdd1ce]">
-                <span className="flex items-center gap-4"><RankMedal rank={input.currentRank} size="sm" label={false} /><span>Your current rank</span></span>
-                <select className={inputClass} value={input.currentRank} onChange={(event) => updateCurrentRank(event.target.value as PricingInput["currentRank"])}>{rankOptions.map((rank) => <option key={rank}>{rank}</option>)}</select>
+                <span className="flex items-center gap-4"><RankMedal rank={input.currentRank} size="sm" label={false} /><span>{input.service === "mmr-calibration" ? "Previous or estimated MMR" : "Current MMR"}<small className="mt-1 block font-normal text-mist">{input.currentRank}</small></span></span>
+                <input className={inputClass} type="number" min={0} max={maximumPricedMmr - 100} step={25} value={input.currentMmr} onChange={(event) => updateCurrentMmr(Number(event.target.value))} />
               </label>
-              {input.service === "mmr-boost" ? <label className="rounded-2xl border border-white/[0.08] bg-black/15 p-4 text-xs font-bold text-[#cdd1ce]"><span className="flex items-center gap-4"><RankMedal rank={input.targetRank} size="sm" label={false} /><span>Your target rank</span></span><select className={inputClass} value={input.targetRank} onChange={(event) => update("targetRank", event.target.value as PricingInput["targetRank"])}>{rankOptions.filter((rank) => rankIndex(rank) > rankIndex(input.currentRank)).map((rank) => <option key={rank}>{rank}</option>)}</select></label> : null}
+              {input.service === "mmr-boost" ? <label className="rounded-2xl border border-white/[0.08] bg-black/15 p-4 text-xs font-bold text-[#cdd1ce]"><span className="flex items-center gap-4"><RankMedal rank={input.targetRank} size="sm" label={false} /><span>Target MMR<small className="mt-1 block font-normal text-mist">{input.targetRank}</small></span></span><input className={inputClass} type="number" min={input.currentMmr + 100} max={maximumPricedMmr} step={25} value={input.targetMmr} onChange={(event) => updateTargetMmr(Number(event.target.value))} /></label> : null}
             </div>
-            <p className="mt-3 text-[0.68rem] leading-5 text-mist">Pick the real medal division: Herald I–V through Divine I–V, then Immortal. The route is priced by exact medal steps, not just broad rank names.</p>
+            <p className="mt-3 text-[0.68rem] leading-5 text-mist">Medals are derived automatically from exact MMR. The quote prices each part of the route once across its actual bracket—there is no separate medal-step charge.</p>
             <div className="mt-5 overflow-x-auto pb-2">
               <div className="rank-medal-track grid min-w-[700px] grid-cols-8 gap-2">
                 {rankFamilies.map((family) => {
@@ -226,8 +251,17 @@ export function PricingConfigurator({ compact = false }: { compact?: boolean }) 
         ) : null}
 
         <div className="mt-7 grid gap-x-5 gap-y-5 sm:grid-cols-2">
-          {input.service === "mmr-boost" ? <label className="text-xs font-bold text-[#cdd1ce]">MMR amount<select className={inputClass} value={input.mmrAmount} onChange={(event) => update("mmrAmount", Number(event.target.value))}>{Array.from({ length: 30 }, (_, index) => (index + 1) * 100).map((amount) => <option key={amount} value={amount}>{amount.toLocaleString()} MMR</option>)}</select></label> : null}
-          {input.service === "mmr-calibration" ? <label className="text-xs font-bold text-[#cdd1ce]">Calibration matches<select className={inputClass} value={input.matchCount} onChange={(event) => update("matchCount", Number(event.target.value))}><option value={5}>5 matches</option><option value={10}>10 matches</option></select></label> : null}
+          {input.service === "mmr-boost" ? <div className="rounded-xl border border-amber/15 bg-amber/[0.04] p-4"><span className="text-[0.62rem] font-bold tracking-wider text-mist uppercase">Calculated route</span><strong className="mt-2 block text-lg">{input.mmrAmount.toLocaleString()} MMR</strong></div> : null}
+          {input.service === "mmr-calibration" ? <>
+            <label className="text-xs font-bold text-[#cdd1ce]">Calibration state<select className={inputClass} value={input.calibrationType} onChange={(event) => update("calibrationType", event.target.value as PricingInput["calibrationType"])}><option>New account</option><option>Recalibration activated</option><option>Returning player</option></select></label>
+            <label className="text-xs font-bold text-[#cdd1ce]">Current Rank Confidence<input className={inputClass} type="number" min={0} max={100} value={input.rankConfidence} onChange={(event) => update("rankConfidence", Number(event.target.value))} /></label>
+            <label className="text-xs font-bold text-[#cdd1ce]">Assisted games<select className={inputClass} value={input.matchCount} onChange={(event) => update("matchCount", Number(event.target.value))}>{Array.from({ length: 30 }, (_, index) => index + 1).map((count) => <option key={count} value={count}>{count} game{count === 1 ? "" : "s"}</option>)}</select></label>
+            <label className="text-xs font-bold text-[#cdd1ce]">Current behavior score<input className={inputClass} type="number" min={0} max={12000} step={100} value={input.currentBehaviorScore} onChange={(event) => update("currentBehaviorScore", Number(event.target.value))} /></label>
+          </> : null}
+          {input.service === "low-priority-recovery" ? <>
+            <label className="text-xs font-bold text-[#cdd1ce]">Required Single Draft wins<select className={inputClass} value={input.lowPriorityWins} onChange={(event) => update("lowPriorityWins", Number(event.target.value))}>{Array.from({ length: 10 }, (_, index) => index + 1).map((count) => <option key={count} value={count}>{count} required win{count === 1 ? "" : "s"}</option>)}</select></label>
+            <label className="text-xs font-bold text-[#cdd1ce]">Current behavior score<input className={inputClass} type="number" min={0} max={12000} step={100} value={input.currentBehaviorScore} onChange={(event) => update("currentBehaviorScore", Number(event.target.value))} /></label>
+          </> : null}
           {input.service === "behavior-score-boost" ? <label className="text-xs font-bold text-[#cdd1ce]">Behavior-score recovery<select className={inputClass} value={input.behaviorScoreAmount} onChange={(event) => update("behaviorScoreAmount", Number(event.target.value))}>{Array.from({ length: 12 }, (_, index) => (index + 1) * 500).map((amount) => <option key={amount} value={amount}>+{amount.toLocaleString()} score</option>)}</select></label> : null}
           {input.service === "win-boost" ? <label className="text-xs font-bold text-[#cdd1ce]">Assisted wins<select className={inputClass} value={input.winCount} onChange={(event) => update("winCount", Number(event.target.value))}>{[3, 5, 7, 10, 15, 20].map((count) => <option key={count} value={count}>{count} wins</option>)}</select></label> : null}
           {input.service === "coaching" ? <label className="text-xs font-bold text-[#cdd1ce]">Private sessions<select className={inputClass} value={input.sessionCount} onChange={(event) => update("sessionCount", Number(event.target.value))}>{[1, 2, 4, 6, 8].map((count) => <option key={count} value={count}>{count} session{count === 1 ? "" : "s"}</option>)}</select></label> : null}

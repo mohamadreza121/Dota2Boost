@@ -40,13 +40,17 @@ function describeScope(serviceSlug: string, requirements: Record<string, unknown
   const currentRank = textValue(requirements.current_rank) ?? textValue(requirements.currentRank);
   const targetRank = textValue(requirements.target_rank) ?? textValue(requirements.targetRank);
   const mmr = numberValue(requirements.mmr_amount) ?? numberValue(requirements.mmrAmount);
+  const currentMmr = numberValue(requirements.current_mmr) ?? numberValue(requirements.currentMmr);
+  const targetMmr = numberValue(requirements.target_mmr) ?? numberValue(requirements.targetMmr);
   const wins = numberValue(requirements.win_count) ?? numberValue(requirements.winCount);
   const matches = numberValue(requirements.match_count) ?? numberValue(requirements.matchCount);
+  const lowPriorityWins = numberValue(requirements.low_priority_wins) ?? numberValue(requirements.lowPriorityWins);
   const score = numberValue(requirements.behavior_score_amount) ?? numberValue(requirements.behaviorScoreAmount);
   const mode = textValue(requirements.boost_mode) ?? textValue(requirements.boostMode);
 
-  if (serviceSlug === "mmr-boost") return [currentRank && targetRank ? `${currentRank} → ${targetRank}` : null, mmr ? `+${mmr.toLocaleString()} MMR` : null, mode].filter(Boolean).join(" · ") || "Configured MMR climb";
-  if (serviceSlug === "mmr-calibration") return [matches ? `${matches} calibration matches` : "Calibration matches", mode].filter(Boolean).join(" · ");
+  if (serviceSlug === "mmr-boost") return [currentMmr !== null && targetMmr !== null ? `${currentMmr.toLocaleString()} → ${targetMmr.toLocaleString()} MMR` : currentRank && targetRank ? `${currentRank} → ${targetRank}` : null, mmr ? `+${mmr.toLocaleString()} MMR` : null, mode].filter(Boolean).join(" · ") || "Configured MMR climb";
+  if (serviceSlug === "mmr-calibration") return [matches ? `${matches} assisted calibration games` : "Calibration assistance", mode].filter(Boolean).join(" · ");
+  if (serviceSlug === "low-priority-recovery") return lowPriorityWins ? `${lowPriorityWins} required Single Draft wins · ${mode ?? "Guided self-play"}` : "Low Priority Recovery Assist";
   if (serviceSlug === "behavior-score-boost") return score ? `+${score.toLocaleString()} behavior score scope` : "Behavior score recovery";
   if (serviceSlug === "win-boost") return wins ? `${wins} assisted wins` : "Assisted win package";
   return "Private Dota 2 coaching";
