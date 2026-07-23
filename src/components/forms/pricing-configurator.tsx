@@ -57,6 +57,8 @@ function supportsMmr(service: PricingInput["service"]) {
 
 export function PricingConfigurator({ compact = false }: { compact?: boolean }) {
   const [input, setInput] = useState<PricingInput>(initialInput);
+  const [currentMmrDraft, setCurrentMmrDraft] = useState<string | null>(null);
+  const [targetMmrDraft, setTargetMmrDraft] = useState<string | null>(null);
   const [heroes, setHeroes] = useState("");
   const [discountCode, setDiscountCode] = useState("");
   const [serverQuote, setServerQuote] = useState<ServerQuote | null>(null);
@@ -140,6 +142,31 @@ export function PricingConfigurator({ compact = false }: { compact?: boolean }) 
     });
     setServerQuote(null);
     setError(null);
+  }
+
+  function handleCurrentMmrChange(value: string) {
+    setCurrentMmrDraft(value);
+    if (!/^\d+$/.test(value)) return;
+    const mmr = Number(value);
+    if (mmr >= 0 && mmr <= maximumPricedMmr - 100) {
+      setCurrentMmrDraft(null);
+      updateCurrentMmr(mmr);
+    }
+  }
+
+  function handleTargetMmrChange(value: string) {
+    setTargetMmrDraft(value);
+    if (!/^\d+$/.test(value)) return;
+    const mmr = Number(value);
+    if (mmr >= input.currentMmr + 100 && mmr <= maximumPricedMmr) {
+      setTargetMmrDraft(null);
+      updateTargetMmr(mmr);
+    }
+  }
+
+  function restoreMmrDraft(field: "current" | "target") {
+    if (field === "current") setCurrentMmrDraft(null);
+    else setTargetMmrDraft(null);
   }
 
   function checkoutPayload(promotion = serverQuote?.promotion?.code) {
@@ -234,9 +261,9 @@ export function PricingConfigurator({ compact = false }: { compact?: boolean }) 
             <div className={`mt-4 grid gap-4 ${input.service === "mmr-boost" ? "sm:grid-cols-2" : "max-w-sm"}`}>
               <label className="rounded-2xl border border-white/[0.08] bg-black/15 p-4 text-xs font-bold text-[#cdd1ce]">
                 <span className="flex items-center gap-4"><RankMedal rank={input.currentRank} size="sm" label={false} /><span>{input.service === "mmr-calibration" ? "Previous or estimated MMR" : "Current MMR"}<small className="mt-1 block font-normal text-mist">{input.currentRank}</small></span></span>
-                <input className={inputClass} type="number" min={0} max={maximumPricedMmr - 100} step={25} value={input.currentMmr} onChange={(event) => updateCurrentMmr(Number(event.target.value))} />
+                <input className={inputClass} type="number" inputMode="numeric" min={0} max={maximumPricedMmr - 100} step={1} value={currentMmrDraft ?? input.currentMmr} onChange={(event) => handleCurrentMmrChange(event.target.value)} onBlur={() => restoreMmrDraft("current")} />
               </label>
-              {input.service === "mmr-boost" ? <label className="rounded-2xl border border-white/[0.08] bg-black/15 p-4 text-xs font-bold text-[#cdd1ce]"><span className="flex items-center gap-4"><RankMedal rank={input.targetRank} size="sm" label={false} /><span>Target MMR<small className="mt-1 block font-normal text-mist">{input.targetRank}</small></span></span><input className={inputClass} type="number" min={input.currentMmr + 100} max={maximumPricedMmr} step={25} value={input.targetMmr} onChange={(event) => updateTargetMmr(Number(event.target.value))} /></label> : null}
+              {input.service === "mmr-boost" ? <label className="rounded-2xl border border-white/[0.08] bg-black/15 p-4 text-xs font-bold text-[#cdd1ce]"><span className="flex items-center gap-4"><RankMedal rank={input.targetRank} size="sm" label={false} /><span>Target MMR<small className="mt-1 block font-normal text-mist">{input.targetRank}</small></span></span><input className={inputClass} type="number" inputMode="numeric" min={input.currentMmr + 100} max={maximumPricedMmr} step={1} value={targetMmrDraft ?? input.targetMmr} onChange={(event) => handleTargetMmrChange(event.target.value)} onBlur={() => restoreMmrDraft("target")} /></label> : null}
             </div>
             <p className="mt-3 text-[0.68rem] leading-5 text-mist">Medals are derived automatically from exact MMR. The quote prices each part of the route once across its actual bracket—there is no separate medal-step charge.</p>
             <div className="mt-5 overflow-x-auto pb-2">

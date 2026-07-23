@@ -75,4 +75,17 @@ describe("calculateQuote", () => {
     expect(pricingInputSchema.safeParse({ ...input, currentRank: "Herald I" }).success).toBe(false);
     expect(pricingInputSchema.safeParse({ ...input, mmrAmount: 900 }).success).toBe(false);
   });
+
+  it("accepts arbitrary whole-number target MMR values", () => {
+    const result = pricingInputSchema.safeParse({
+      ...input,
+      currentMmr: 3500,
+      targetMmr: 3880,
+      mmrAmount: 380,
+      currentRank: "Legend III",
+      targetRank: "Ancient I"
+    });
+
+    expect(result.success).toBe(true);
+  });
 });

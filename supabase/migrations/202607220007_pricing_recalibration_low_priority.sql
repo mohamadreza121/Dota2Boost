@@ -132,7 +132,7 @@ where option_key in ('current_rank', 'target_rank', 'mmr_amount')
   and service_id in (select id from public.services where slug in ('mmr-boost', 'mmr-calibration', 'win-boost'));
 
 insert into public.service_options(service_id, option_key, label, option_type, configuration, is_required)
-select id, 'current_mmr', 'Current or previous MMR', 'number', '{"min":0,"max":6400,"step":25}', true
+select id, 'current_mmr', 'Current or previous MMR', 'number', '{"min":0,"max":6400,"step":1}', true
 from public.services where slug in ('mmr-boost', 'mmr-calibration', 'win-boost')
 on conflict (service_id, option_key) do update set
   label = excluded.label,
@@ -143,7 +143,7 @@ on conflict (service_id, option_key) do update set
   updated_at = now();
 
 insert into public.service_options(service_id, option_key, label, option_type, configuration, is_required)
-select id, 'target_mmr', 'Target MMR', 'number', '{"min":100,"max":6500,"step":25}', true
+select id, 'target_mmr', 'Target MMR', 'number', '{"min":100,"max":6500,"step":1}', true
 from public.services where slug = 'mmr-boost'
 on conflict (service_id, option_key) do update set
   label = excluded.label,
