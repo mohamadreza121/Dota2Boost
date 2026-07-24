@@ -7,13 +7,13 @@ import { ArrowUpRight, ChevronRight, Menu, ShieldCheck, X } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 
 const links = [
-  { number: "01", label: "MMR Boost", detail: "Exact medal and MMR route", href: "/services/mmr-boost" },
-  { number: "02", label: "Services", detail: "Select a ranked contract", href: "/services" },
-  { number: "03", label: "Roster", detail: "Inspect Immortal specialists", href: "/boosters" },
-  { number: "04", label: "How it works", detail: "Review the campaign flow", href: "/how-it-works" },
-  { number: "05", label: "Pricing", detail: "Build a live server quote", href: "/pricing" },
-  { number: "06", label: "Reviews", detail: "Open verified match history", href: "/reviews" },
-  { number: "07", label: "Work with us", detail: "Apply to join the roster", href: "/work-with-us" }
+  { label: "MMR Boost", detail: "Exact medal and MMR route", href: "/services/mmr-boost" },
+  { label: "Services", detail: "Select a ranked contract", href: "/services" },
+  { label: "Roster", detail: "Inspect Immortal specialists", href: "/boosters" },
+  { label: "How it works", detail: "Review the campaign flow", href: "/how-it-works" },
+  { label: "Pricing", detail: "Build a live server quote", href: "/pricing" },
+  { label: "Reviews", detail: "Open verified match history", href: "/reviews" },
+  { label: "Work with us", detail: "Apply to join the roster", href: "/work-with-us" }
 ] as const;
 
 export function MobileNav() {
@@ -111,7 +111,6 @@ export function MobileNav() {
                   data-active={isActive(link.href)}
                   aria-current={isActive(link.href) ? "page" : undefined}
                 >
-                  <span className="dota-mobile-menu__number">{link.number}</span>
                   <span><strong>{link.label}</strong><small>{link.detail}</small></span>
                   <ChevronRight />
                 </Link>
