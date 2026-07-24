@@ -439,7 +439,7 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
   border: 0;
   background: transparent;
   box-shadow: none;
-  color: #fff0bd;
+  color: #180400;
   filter: none;
   font-size: 0.61rem;
   font-weight: 900;
@@ -447,7 +447,7 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
   padding: 0.72rem 0.9rem;
   text-transform: uppercase;
   transition: filter 180ms ease, transform 180ms ease;
-  text-shadow: 0 1px 8px rgb(24 4 0 / 0.66);
+  text-shadow: 0 1px rgb(255 238 184 / 0.2);
   isolation: isolate;
 }
 
@@ -774,7 +774,7 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
   overflow: visible;
   border: 0;
   background: transparent;
-  color: #2b0b01;
+  color: #180400;
   filter: none;
   font-size: 0.65rem;
   font-weight: 950;

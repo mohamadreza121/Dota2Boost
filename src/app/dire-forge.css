@@ -137,8 +137,10 @@
   isolation: isolate;
   border: 0;
   background: transparent;
+  color: #180400;
   filter: none;
   padding-left: 1.3rem;
+  text-shadow: 0 1px rgb(255 238 184 / 0.2);
 }
 
 .molten-button--secondary {
