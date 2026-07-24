@@ -160,7 +160,6 @@ export function RankForge() {
     <section className="forge-section rank-forge" data-rank-forge>
       <div className="container-shell">
         <ForgeSectionHeading
-          chapter="01"
           eyebrow="Rank Forge"
           title={<>From current medal to <em>target territory.</em></>}
           description="Build the exact route before checkout. The configurator uses your selected medal, MMR scope, region, role, and Solo Assist or Duo Queue mode to produce the live quote."
@@ -251,7 +250,6 @@ export function CampaignFlow() {
     <section className="forge-section campaign-flow">
       <div className="container-shell">
         <ForgeSectionHeading
-          chapter="03"
           eyebrow="Campaign protocol"
           title={<>A clear route from <em>ready check to completion.</em></>}
           description="Every stage has a defined owner, visible status, and next action. The process is built to remove the uncertainty common to informal boosting arrangements."
