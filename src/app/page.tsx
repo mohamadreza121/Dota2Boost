@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CinematicHome } from "@/components/home/cinematic-home";
 import "./dire-forge.css";
+import "./dire-forge-ink.css";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
