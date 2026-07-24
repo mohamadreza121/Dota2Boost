@@ -87,7 +87,7 @@
   z-index: 0;
   height: calc(var(--header-height) + 2.55rem);
   overflow: visible;
-  filter: saturate(0.91) contrast(1.055);
+  filter: saturate(1.06);
   transform-origin: 50% 0;
   transition: height 300ms cubic-bezier(.2,.8,.2,1), filter 240ms ease;
 }
@@ -115,12 +115,11 @@
 .dota-command-header__heat-pool--two { animation-delay: -4.8s; animation-duration: 8.6s; }
 .dota-command-header__heat-pool--three { animation-delay: -2.3s; animation-duration: 6.9s; }
 
-.dota-command-header__metal-ripples {
-  transform-box: fill-box;
-  transform-origin: center;
-  opacity: 0.74;
-  mix-blend-mode: soft-light;
-  animation: command-navbar-ripple 8.6s ease-in-out infinite alternate;
+.dota-command-header__bubbles {
+  fill: #fff0a0;
+  opacity: 0.62;
+  filter: drop-shadow(0 0 5px rgb(255 224 113 / 0.7));
+  animation: command-navbar-bubbles 5.6s ease-in-out infinite alternate;
 }
 
 .dota-command-header.is-condensed {
@@ -130,7 +129,7 @@
 
 .dota-command-header.is-condensed .dota-command-header__melt {
   height: calc(var(--header-height) + 2.15rem);
-  filter: saturate(0.88) contrast(1.07) brightness(0.94);
+  filter: saturate(1.1) brightness(0.94);
 }
 
 .dota-command-header__ambient {
@@ -148,7 +147,7 @@
   width: 20rem;
   height: 4rem;
   border-radius: 50%;
-  background: #b88616;
+  background: #f0780d;
   content: "";
   filter: blur(46px);
   opacity: 0.14;
@@ -156,7 +155,7 @@
 }
 
 .dota-command-header__ambient::before { left: -13rem; }
-.dota-command-header__ambient::after { right: -13rem; background: #f1cf58; }
+.dota-command-header__ambient::after { right: -13rem; background: #ffc33c; }
 
 .dota-command-header__inner {
   position: relative;
@@ -249,9 +248,9 @@
   align-content: center;
   align-items: baseline;
   gap: 0.4rem;
-  overflow: visible;
+  overflow: hidden;
   border: 0;
-  border-radius: 0;
+  border-radius: 0.78rem;
   padding: 0.45rem clamp(0.48rem, 0.75vw, 0.72rem);
   color: #4b1b04;
   font-family: var(--forge-display, Georgia, serif);
@@ -264,20 +263,8 @@
 
 button.dota-command-nav__link { border: 0; background-color: transparent; cursor: pointer; }
 
-.dota-command-nav__link::before { display: none; }
-.dota-command-nav__link::after {
-  position: absolute;
-  right: 24%;
-  bottom: 0.22rem;
-  left: 24%;
-  height: 2px;
-  border-radius: 50%;
-  background: linear-gradient(90deg, transparent, rgb(59 34 1 / 0.7), transparent);
-  content: "";
-  opacity: 0;
-  transform: scaleX(0.45);
-  transition: opacity 180ms ease, transform 220ms ease;
-}
+.dota-command-nav__link::before,
+.dota-command-nav__link::after { display: none; }
 
 .dota-command-nav__link small {
   color: #7a3509;
@@ -288,15 +275,15 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
 
 .dota-command-nav__link:hover,
 .dota-command-nav__link[data-active="true"] {
-  background: transparent;
-  box-shadow: none;
+  background:
+    radial-gradient(circle at 50% 118%, rgb(94 23 1 / 0.2), transparent 60%),
+    linear-gradient(180deg, rgb(92 24 2 / 0.14), transparent);
+  box-shadow: inset 0 1px rgb(255 239 161 / 0.1), inset 0 -2px rgb(74 18 1 / 0.08);
   color: #280a01;
   transform: translateY(-1px);
 }
 
-.dota-command-nav__link:hover::after,
-.dota-command-nav__link[data-active="true"]::after { opacity: 0.8; transform: scaleX(1); }
-.dota-command-nav__link[data-active="true"] { background-color: transparent; }
+.dota-command-nav__link[data-active="true"] { background-color: rgb(86 21 1 / 0.11); }
 .dota-command-nav__link[data-active="true"] small { color: #4c1602; }
 
 .dota-command-nav__panel {
@@ -507,7 +494,7 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
 .dota-mobile-nav { display: none; justify-self: end; }
 .dota-mobile-trigger,
 .dota-mobile-close { display: grid; place-items: center; border: 1px solid rgb(255 213 114 / 0.28); background: linear-gradient(145deg, #18100d, #080504); color: #eadfcd; }
-.dota-mobile-trigger { position: relative; display: grid; width: 2.85rem; height: 2.85rem; place-items: center; overflow: visible; border: 0; border-radius: 0; background: transparent; box-shadow: none; color: #321f02; }
+.dota-mobile-trigger { position: relative; display: grid; width: 2.85rem; height: 2.85rem; place-items: center; overflow: visible; border: 0; border-radius: 0; background: transparent; box-shadow: none; color: #321002; }
 .dota-mobile-trigger::after { display: none; }
 .dota-mobile-trigger:hover { background: transparent; transform: translateY(-1px); }
 .dota-mobile-trigger svg { position: relative; z-index: 2; width: 1rem; }
@@ -910,12 +897,12 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
   to { transform: scaleY(1.025); }
 }
 @keyframes command-navbar-heat {
-  from { opacity: 0.34; transform: translateX(-3%) scaleX(0.94); }
-  to { opacity: 0.64; transform: translateX(3.5%) scaleX(1.055); }
+  from { opacity: 0.54; transform: translateX(-4%) scaleX(0.92); }
+  to { opacity: 0.92; transform: translateX(5%) scaleX(1.08); }
 }
-@keyframes command-navbar-ripple {
-  from { opacity: 0.55; transform: translateX(-1.2%) translateY(1px) scaleX(0.99); }
-  to { opacity: 0.82; transform: translateX(1.2%) translateY(-1px) scaleX(1.01); }
+@keyframes command-navbar-bubbles {
+  from { opacity: 0.42; transform: translateY(2px); }
+  to { opacity: 0.72; transform: translateY(-2px); }
 }
 @keyframes molten-vector-breathe {
   from { transform: scaleY(0.985) skewX(-0.12deg); }
@@ -1022,7 +1009,7 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
 @media (prefers-reduced-motion: reduce) {
   .dota-command-header__melt > svg,
   .dota-command-header__heat-pool,
-  .dota-command-header__metal-ripples,
+  .dota-command-header__bubbles,
   .dota-command-footer__crown-shape,
   .dota-command-footer__crown-heat,
   .dota-command-footer__crown-bubbles,
