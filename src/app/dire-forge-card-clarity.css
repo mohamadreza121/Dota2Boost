@@ -1,0 +1,21 @@
+/* Homepage card texture clarity overrides. */
+
+.dire-forge {
+  --forge-card-lava-opacity: 0.055;
+  --forge-card-lava-hover-opacity: 0.08;
+}
+
+.dire-forge :is(.forged-panel, .forged-card)::before {
+  opacity: var(--forge-card-lava-opacity);
+}
+
+.dire-forge .forged-card:hover::before {
+  opacity: var(--forge-card-lava-hover-opacity);
+}
+
+/* Campaign steps use the lava texture directly in their layered background. */
+.dire-forge .campaign-step {
+  background:
+    linear-gradient(90deg, rgb(13 7 5 / 0.97), rgb(7 4 3 / 0.95)),
+    url("/media/dire-forge/textures/lava-cracks.jpg") center 58% / cover no-repeat;
+}
