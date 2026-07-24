@@ -47,7 +47,6 @@ export function ServiceArsenal() {
     <section className="forge-section service-arsenal">
       <div className="container-shell">
         <ForgeSectionHeading
-          chapter="02"
           eyebrow="Service Arsenal"
           title={<>Six contracts. <em>One command system.</em></>}
           description="MMR Boost remains the primary route, supported by Rank Confidence calibration, account-safe Low Priority recovery, fixed assisted wins, behavior-score recovery, and focused coaching."
