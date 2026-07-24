@@ -19,11 +19,11 @@ import { MoltenNavSurface } from "@/components/layout/molten-nav-surface";
 import { MoltenSurface } from "@/components/ui/molten-surface";
 
 const links = [
-  { number: "01", label: "MMR Boost", href: "/services/mmr-boost", panel: false },
-  { number: "02", label: "Services", href: "/services", panel: true },
-  { number: "03", label: "Roster", href: "/boosters", panel: false },
-  { number: "04", label: "How it works", href: "/how-it-works", panel: false },
-  { number: "05", label: "Reviews", href: "/reviews", panel: false }
+  { label: "MMR Boost", href: "/services/mmr-boost", panel: false },
+  { label: "Services", href: "/services", panel: true },
+  { label: "Roster", href: "/boosters", panel: false },
+  { label: "How it works", href: "/how-it-works", panel: false },
+  { label: "Reviews", href: "/reviews", panel: false }
 ] as const;
 
 const serviceLinks = [
@@ -91,7 +91,6 @@ export function SiteHeader() {
                 aria-controls="desktop-services-panel"
                 onClick={() => setServicesOpen((current) => !current)}
               >
-                <small>{link.number}</small>
                 <span>{link.label}</span>
               </button> : <Link
                 href={link.href}
@@ -99,7 +98,6 @@ export function SiteHeader() {
                 data-active={isActive(link.href)}
                 aria-current={isActive(link.href) ? "page" : undefined}
               >
-                <small>{link.number}</small>
                 <span>{link.label}</span>
               </Link>}
 
