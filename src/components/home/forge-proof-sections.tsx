@@ -50,7 +50,6 @@ export function VictoryProof() {
     <section className="forge-section victory-proof">
       <div className="container-shell">
         <ForgeSectionHeading
-          chapter="04"
           eyebrow="Proof of victory"
           title={<>Proof lives in the <em>delivery record.</em></>}
           description="Trust is built from visible scope, attached milestones, direct communication, and reviews connected to a real service—not from oversized marketing claims."
@@ -111,7 +110,6 @@ export function RosterPreview() {
     <section className="forge-section roster-preview">
       <div className="container-shell">
         <ForgeSectionHeading
-          chapter="05"
           eyebrow="Verified roster"
           title={<>Choose specialists by <em>fit, not mystery.</em></>}
           description="Compare public profile details before a campaign begins. Operations then confirms compatibility for the selected rank, role, region, language, and delivery type."
@@ -168,7 +166,7 @@ export function WhyHighground() {
     <section className="forge-section why-highground">
       <div className="container-shell why-highground__layout">
         <div className="why-highground__intro" data-forge-reveal>
-          <p className="forge-kicker"><span>06</span><i /> Why Highground</p>
+          <p className="forge-kicker"><i /> Why Highground</p>
           <h2>A serious platform for a <em>high-risk category.</em></h2>
           <p>Clear boundaries, explicit scope, and a visible delivery system are product requirements—not decorative trust badges.</p>
           <Link href="/how-it-works" className="molten-button molten-button--secondary">
@@ -198,7 +196,7 @@ export function ForgeFaq() {
     <section className="forge-section forge-faq">
       <div className="container-shell forge-faq__layout">
         <div className="forge-faq__intro" data-forge-reveal>
-          <p className="forge-kicker"><span>07</span><i /> Campaign intelligence</p>
+          <p className="forge-kicker"><i /> Campaign intelligence</p>
           <h2>Know the rules <em>before ready check.</em></h2>
           <p>These are the questions that change eligibility, privacy, delivery, and expectations.</p>
           <div><Radio /><span><strong>Support route open</strong><small>More answers are available in the full FAQ.</small></span></div>
