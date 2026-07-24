@@ -137,10 +137,10 @@
   isolation: isolate;
   border: 0;
   background: transparent;
-  filter:
-    drop-shadow(0 13px 22px rgb(122 23 16 / 0.5))
-    drop-shadow(0 0 16px rgb(255 83 17 / 0.16));
+  color: #180400;
+  filter: none;
   padding-left: 1.3rem;
+  text-shadow: 0 1px rgb(255 238 184 / 0.2);
 }
 
 .molten-button--secondary {
@@ -148,7 +148,7 @@
   --melt-mid: #ae210d;
   --melt-hot: #ef4d14;
   --melt-glow: #ff9d32;
-  filter: drop-shadow(0 15px 24px rgb(112 20 10 / 0.36));
+  filter: none;
 }
 
 .molten-button > span:not(.molten-button__surface) {
@@ -197,9 +197,7 @@
 .molten-button:hover {
   filter:
     brightness(1.16)
-    saturate(1.2)
-    drop-shadow(0 19px 34px rgb(190 29 12 / 0.58))
-    drop-shadow(0 0 22px rgb(255 116 24 / 0.3));
+    saturate(1.2);
   transform: translateY(-3px) scale(1.012);
 }
 
