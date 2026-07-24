@@ -71,8 +71,6 @@ export function MoltenNavSurface() {
   const fillId = `nav-melt-fill-${instanceId}`;
   const depthId = `nav-melt-depth-${instanceId}`;
   const heatId = `nav-melt-heat-${instanceId}`;
-  const rippleId = `nav-melt-ripple-${instanceId}`;
-  const rippleShadeId = `nav-melt-ripple-shade-${instanceId}`;
   const shadowId = `nav-melt-shadow-${instanceId}`;
   const clipId = `nav-melt-clip-${instanceId}`;
 
@@ -81,46 +79,29 @@ export function MoltenNavSurface() {
       <svg viewBox="0 0 1400 154" preserveAspectRatio="none" role="presentation">
         <defs>
           <linearGradient id={fillId} x1="0" y1="0" x2="1400" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#4d3203" />
-            <stop offset=".12" stopColor="#bd8910" />
-            <stop offset=".26" stopColor="#f1cb4e" />
-            <stop offset=".39" stopColor="#8c5d06" />
-            <stop offset=".53" stopColor="#d0a020" />
-            <stop offset=".68" stopColor="#ffe17a" />
-            <stop offset=".82" stopColor="#a97309" />
-            <stop offset="1" stopColor="#442b02" />
+            <stop offset="0" stopColor="#6f2905" />
+            <stop offset=".12" stopColor="#d66b08" />
+            <stop offset=".26" stopColor="#ffc84a" />
+            <stop offset=".39" stopColor="#a74405" />
+            <stop offset=".53" stopColor="#f19a16" />
+            <stop offset=".68" stopColor="#ffd869" />
+            <stop offset=".82" stopColor="#c95c06" />
+            <stop offset="1" stopColor="#6a2504" />
           </linearGradient>
           <linearGradient id={depthId} x1="0" y1="0" x2="0" y2="154" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#fff3b0" stopOpacity=".27" />
-            <stop offset=".35" stopColor="#e5b932" stopOpacity=".035" />
-            <stop offset=".66" stopColor="#684204" stopOpacity=".34" />
-            <stop offset="1" stopColor="#2e1b01" stopOpacity=".8" />
+            <stop offset="0" stopColor="#fff1a0" stopOpacity=".3" />
+            <stop offset=".38" stopColor="#ffad21" stopOpacity=".04" />
+            <stop offset=".66" stopColor="#a53b03" stopOpacity=".32" />
+            <stop offset="1" stopColor="#531603" stopOpacity=".78" />
           </linearGradient>
           <radialGradient id={heatId}>
-            <stop offset="0" stopColor="#fff1aa" stopOpacity=".68" />
-            <stop offset=".35" stopColor="#e2b633" stopOpacity=".38" />
-            <stop offset="1" stopColor="#8c5a05" stopOpacity="0" />
+            <stop offset="0" stopColor="#ffe999" stopOpacity=".78" />
+            <stop offset=".35" stopColor="#ffc13b" stopOpacity=".48" />
+            <stop offset="1" stopColor="#e76407" stopOpacity="0" />
           </radialGradient>
-          <linearGradient id={rippleId} x1="-80" y1="0" x2="1480" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#fff6c6" stopOpacity="0" />
-            <stop offset=".14" stopColor="#fff2a5" stopOpacity=".14" />
-            <stop offset=".31" stopColor="#fff9d8" stopOpacity=".045" />
-            <stop offset=".5" stopColor="#fff0a0" stopOpacity=".2" />
-            <stop offset=".7" stopColor="#fff8d0" stopOpacity=".055" />
-            <stop offset=".87" stopColor="#ffe78a" stopOpacity=".13" />
-            <stop offset="1" stopColor="#fff6c6" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient id={rippleShadeId} x1="-80" y1="0" x2="1480" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#362000" stopOpacity="0" />
-            <stop offset=".18" stopColor="#473000" stopOpacity=".12" />
-            <stop offset=".4" stopColor="#2d1a00" stopOpacity=".04" />
-            <stop offset=".62" stopColor="#3b2500" stopOpacity=".14" />
-            <stop offset=".84" stopColor="#2f1c00" stopOpacity=".06" />
-            <stop offset="1" stopColor="#362000" stopOpacity="0" />
-          </linearGradient>
           <filter id={shadowId} x="-8%" y="-10%" width="116%" height="135%" colorInterpolationFilters="sRGB">
-            <feDropShadow dx="0" dy="8" stdDeviation="6" floodColor="#1d1100" floodOpacity=".68" />
-            <feDropShadow dx="0" dy="4" stdDeviation="5" floodColor="#d79a14" floodOpacity=".18" />
+            <feDropShadow dx="0" dy="8" stdDeviation="6" floodColor="#2c0801" floodOpacity=".62" />
+            <feDropShadow dx="0" dy="4" stdDeviation="5" floodColor="#ff8610" floodOpacity=".24" />
           </filter>
           <clipPath id={clipId}>
             <path d={moltenNavSilhouette} />
@@ -134,10 +115,13 @@ export function MoltenNavSurface() {
             <ellipse className="dota-command-header__heat-pool dota-command-header__heat-pool--one" cx="235" cy="28" rx="255" ry="72" fill={`url(#${heatId})`} />
             <ellipse className="dota-command-header__heat-pool dota-command-header__heat-pool--two" cx="735" cy="18" rx="320" ry="76" fill={`url(#${heatId})`} />
             <ellipse className="dota-command-header__heat-pool dota-command-header__heat-pool--three" cx="1210" cy="31" rx="250" ry="70" fill={`url(#${heatId})`} />
-            <g className="dota-command-header__metal-ripples">
-              <path d="M-90 18 C110 4 229 35 398 23 C572 10 680 1 850 19 C1025 38 1167 4 1490 18 L1490 32 C1200 20 1035 49 853 31 C680 14 554 26 397 36 C221 47 100 17 -90 31 Z" fill={`url(#${rippleId})`} />
-              <path d="M-80 43 C95 29 236 61 415 48 C589 35 719 27 891 47 C1062 66 1241 31 1480 44 L1480 57 C1238 45 1065 78 888 59 C713 40 595 48 414 61 C230 75 94 42 -80 56 Z" fill={`url(#${rippleShadeId})`} />
-              <path d="M-70 65 C132 51 267 81 459 69 C650 57 785 48 978 68 C1150 85 1284 58 1470 66 L1470 76 C1281 70 1147 96 976 80 C783 62 651 70 458 81 C268 93 129 64 -70 77 Z" fill={`url(#${rippleId})`} opacity=".72" />
+            <g className="dota-command-header__bubbles">
+              <circle cx="88" cy="37" r="4.5" />
+              <circle cx="312" cy="23" r="2.7" />
+              <circle cx="486" cy="42" r="3.3" />
+              <circle cx="874" cy="27" r="3.9" />
+              <circle cx="1075" cy="45" r="2.5" />
+              <circle cx="1322" cy="30" r="4.2" />
             </g>
           </g>
         </g>
