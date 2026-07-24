@@ -440,9 +440,7 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
   background: transparent;
   box-shadow: none;
   color: #fff0bd;
-  filter:
-    drop-shadow(0 9px 16px rgb(70 14 1 / 0.42))
-    drop-shadow(0 0 10px rgb(137 35 2 / 0.2));
+  filter: none;
   font-size: 0.61rem;
   font-weight: 900;
   letter-spacing: 0.055em;
@@ -466,9 +464,7 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
 .dota-header-core-button:hover {
   filter:
     brightness(1.12)
-    saturate(1.1)
-    drop-shadow(0 14px 24px rgb(74 13 1 / 0.5))
-    drop-shadow(0 0 16px rgb(202 67 6 / 0.27));
+    saturate(1.1);
   transform: translateY(-2px);
 }
 .dota-header-core-button:hover .molten-button__shape { animation-duration: 2.4s; }
@@ -779,7 +775,7 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
   border: 0;
   background: transparent;
   color: #2b0b01;
-  filter: drop-shadow(0 16px 24px rgb(100 25 1 / 0.52)) drop-shadow(0 0 19px rgb(255 126 10 / 0.18));
+  filter: none;
   font-size: 0.65rem;
   font-weight: 950;
   letter-spacing: 0.065em;
@@ -794,7 +790,7 @@ button.dota-command-nav__link { border: 0; background-color: transparent; cursor
 .dota-command-footer__forge-button > svg { position: relative; z-index: 2; }
 .dota-command-footer__forge-button > svg { width: 0.8rem; height: 0.8rem; }
 .dota-command-footer__forge-button > .molten-button__surface { position: absolute; top: -0.32rem; right: -0.08rem; left: -0.08rem; z-index: 0; height: 6.7rem; pointer-events: none; transition: filter 260ms ease, transform 620ms cubic-bezier(.16, .82, .18, 1); }
-.dota-command-footer__forge-button:hover { filter: brightness(1.13) saturate(1.15) drop-shadow(0 20px 33px rgb(128 29 1 / 0.58)) drop-shadow(0 0 25px rgb(255 139 15 / 0.26)); transform: translateY(-3px) scale(1.012); }
+.dota-command-footer__forge-button:hover { filter: brightness(1.13) saturate(1.15); transform: translateY(-3px) scale(1.012); }
 .dota-command-footer__forge-button:hover > .molten-button__surface { filter: brightness(1.08) saturate(1.12); transform: scale(1.015, 1.13); }
 .dota-command-footer__forge-button:hover .molten-button__shape { animation-duration: 2.6s; }
 .dota-command-footer__forge-button:hover .molten-button__flow { opacity: 0.76; }
