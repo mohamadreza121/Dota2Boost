@@ -13,6 +13,8 @@ import {
   Swords
 } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
+import { MoltenFooterCrown } from "@/components/layout/molten-footer-crown";
+import { MoltenSurface } from "@/components/ui/molten-surface";
 import { rankMedals } from "@/lib/data/ranks";
 
 const laneGroups = [
@@ -69,6 +71,7 @@ const legalLinks = [
 export function SiteFooter() {
   return (
     <footer className="dota-command-footer">
+      <MoltenFooterCrown />
       <div className="dota-command-footer__terrain" aria-hidden="true" />
       <div className="dota-command-footer__embers" aria-hidden="true" />
       <div className="dota-command-footer__magma" aria-hidden="true"><i /><i /><i /><i /><i /></div>
@@ -87,72 +90,77 @@ export function SiteFooter() {
             <span><Image src={rankMedals.Ancient.image} alt="Ancient rank medal" width={52} height={52} /><i><small>Target</small><strong>Ancient I</strong></i></span>
           </div>
 
-          <Link href="/pricing"><span>Forge rank route</span><ArrowUpRight /></Link>
+          <Link href="/pricing" className="dota-command-footer__forge-button">
+            <span>Forge rank route</span><ArrowUpRight />
+            <MoltenSurface />
+          </Link>
         </aside>
 
-        <div className="dota-command-footer__main">
-          <section className="dota-command-footer__brand" aria-label="Highground summary">
-            <Logo />
-            <p>
-              Dota 2 ranked campaigns built around exact medals, clear scope,
-              customer-operated delivery, and a private progress workspace.
-            </p>
-            <span className="dota-command-footer__status"><Radio /> Regional coverage active</span>
-            <div className="dota-command-footer__regions" aria-label="Supported regions">
-              <span>North America</span><span>Europe</span><span>SEA</span><span>South America</span><span>Australia</span>
+        <div className="dota-command-footer__deck">
+          <div className="dota-command-footer__main">
+            <section className="dota-command-footer__brand" aria-label="Highground summary">
+              <Logo />
+              <p>
+                Dota 2 ranked campaigns built around exact medals, clear scope,
+                customer-operated delivery, and a private progress workspace.
+              </p>
+              <span className="dota-command-footer__status"><Radio /> Regional coverage active</span>
+              <div className="dota-command-footer__regions" aria-label="Supported regions">
+                <span>North America</span><span>Europe</span><span>SEA</span><span>South America</span><span>Australia</span>
+              </div>
+            </section>
+
+            <div className="dota-command-footer__lanes" aria-label="Footer navigation">
+              {laneGroups.map((group, index) => {
+                const Icon = group.icon;
+                return (
+                  <section key={group.lane} className="dota-footer-lane" data-lane={`0${index + 1}`}>
+                    <div className="dota-footer-lane__head">
+                      <span><Icon /></span>
+                      <div><small>{group.lane}</small><strong>{group.title}</strong></div>
+                    </div>
+                    <nav aria-label={`${group.title} links`}>
+                      {group.links.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
+                    </nav>
+                  </section>
+                );
+              })}
             </div>
+
+            <div className="dota-command-footer__mobile-lanes" aria-label="Footer navigation">
+              {laneGroups.map((group, index) => {
+                const Icon = group.icon;
+                return (
+                  <details key={group.lane} className="dota-footer-accordion" data-lane={`0${index + 1}`}>
+                    <summary><span><Icon /> {group.lane} {"//"} {group.title}</span></summary>
+                    <nav aria-label={`${group.title} links`}>
+                      {group.links.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
+                    </nav>
+                  </details>
+                );
+              })}
+            </div>
+          </div>
+
+          <section className="dota-command-footer__inventory" aria-label="Service protections">
+            {trustItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div key={item.title} className={`dota-footer-item${item.secure ? " is-secure" : ""}`}>
+                  <span><Icon /></span>
+                  <div><strong>{item.title}</strong><small>{item.detail}</small></div>
+                </div>
+              );
+            })}
           </section>
 
-          <div className="dota-command-footer__lanes" aria-label="Footer navigation">
-            {laneGroups.map((group) => {
-              const Icon = group.icon;
-              return (
-                <section key={group.lane} className="dota-footer-lane">
-                  <div className="dota-footer-lane__head">
-                    <span><Icon /></span>
-                    <div><small>{group.lane}</small><strong>{group.title}</strong></div>
-                  </div>
-                  <nav aria-label={`${group.title} links`}>
-                    {group.links.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
-                  </nav>
-                </section>
-              );
-            })}
+          <div className="dota-command-footer__bottom">
+            <strong>© {new Date().getFullYear()} Highground Boosting</strong>
+            <nav aria-label="Legal navigation" className="dota-command-footer__legal">
+              {legalLinks.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
+            </nav>
+            <p>Not affiliated with or endorsed by Valve Corporation. Dota and Steam are trademarks of their respective owners.</p>
           </div>
-
-          <div className="dota-command-footer__mobile-lanes" aria-label="Footer navigation">
-            {laneGroups.map((group) => {
-              const Icon = group.icon;
-              return (
-                <details key={group.lane} className="dota-footer-accordion">
-                  <summary><span><Icon /> {group.lane} {"//"} {group.title}</span></summary>
-                  <nav aria-label={`${group.title} links`}>
-                    {group.links.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
-                  </nav>
-                </details>
-              );
-            })}
-          </div>
-        </div>
-
-        <section className="dota-command-footer__inventory" aria-label="Service protections">
-          {trustItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <div key={item.title} className={`dota-footer-item${item.secure ? " is-secure" : ""}`}>
-                <span><Icon /></span>
-                <div><strong>{item.title}</strong><small>{item.detail}</small></div>
-              </div>
-            );
-          })}
-        </section>
-
-        <div className="dota-command-footer__bottom">
-          <strong>© {new Date().getFullYear()} Highground Boosting</strong>
-          <nav aria-label="Legal navigation" className="dota-command-footer__legal">
-            {legalLinks.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
-          </nav>
-          <p>Not affiliated with or endorsed by Valve Corporation. Dota and Steam are trademarks of their respective owners.</p>
         </div>
       </div>
     </footer>
