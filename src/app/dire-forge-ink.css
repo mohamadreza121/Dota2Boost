@@ -1,0 +1,127 @@
+/* Homepage copy ink treatment.
+   Neutral copy is darkened without changing section/card headings or accent states. */
+
+.dire-forge {
+  --forge-copy-ink: #180400;
+  --forge-copy-ink-muted: #2a0d04;
+  --forge-copy-highlight: 0 1px rgb(255 238 184 / 0.14);
+}
+
+/* Section labels and descriptions */
+.dire-forge .forge-section-heading__title > p,
+.dire-forge .forge-kicker,
+.dire-forge .forge-section-heading__copy > p,
+.dire-forge .why-highground__intro > p:not(.forge-kicker),
+.dire-forge .forge-faq__intro > p:not(.forge-kicker),
+.dire-forge .siege-cta__copy > span {
+  color: var(--forge-copy-ink);
+  text-shadow: var(--forge-copy-highlight);
+}
+
+/* Trust rail */
+.dire-forge .forge-trust-rail__label,
+.dire-forge .forge-trust-rail__items strong,
+.dire-forge .forge-trust-rail__items small {
+  color: var(--forge-copy-ink);
+  text-shadow: var(--forge-copy-highlight);
+}
+
+/* Rank Forge */
+.dire-forge .rank-forge__brief-top small,
+.dire-forge .rank-forge__console-head > div > small,
+.dire-forge .rank-forge__brief > p,
+.dire-forge .rank-forge__specs small,
+.dire-forge .rank-forge__specs strong,
+.dire-forge .rank-forge__brief li,
+.dire-forge .rank-forge__medal small,
+.dire-forge .rank-forge__medal strong,
+.dire-forge .rank-forge__progress > div {
+  color: var(--forge-copy-ink);
+  text-shadow: var(--forge-copy-highlight);
+}
+
+/* Service Arsenal */
+.dire-forge .arsenal-card__topline > p,
+.dire-forge .arsenal-card__content > p:not(.arsenal-card__unit),
+.dire-forge .arsenal-card__rank-route small,
+.dire-forge .arsenal-card__rank-route strong,
+.dire-forge .arsenal-card__settings small,
+.dire-forge .arsenal-card__settings strong,
+.dire-forge .arsenal-card__price small,
+.dire-forge .arsenal-card__price strong,
+.dire-forge .arsenal-card__price i,
+.dire-forge .calibration-blocks small,
+.dire-forge .calibration-blocks > i,
+.dire-forge .coaching-board > span small,
+.dire-forge .arsenal-card__compact-content > div small,
+.dire-forge .arsenal-card__compact-content li,
+.dire-forge .service-arsenal__note p,
+.dire-forge .service-arsenal__note p strong {
+  color: var(--forge-copy-ink);
+  text-shadow: var(--forge-copy-highlight);
+}
+
+/* Campaign protocol */
+.dire-forge .campaign-step__number,
+.dire-forge .campaign-step p,
+.dire-forge .campaign-console__top > div small,
+.dire-forge .campaign-console__route small,
+.dire-forge .campaign-console__route strong,
+.dire-forge .campaign-console__timeline strong,
+.dire-forge .campaign-console__timeline small {
+  color: var(--forge-copy-ink);
+  text-shadow: var(--forge-copy-highlight);
+}
+
+/* Proof of victory */
+.dire-forge .victory-quote blockquote,
+.dire-forge .victory-quote__avatar,
+.dire-forge .victory-quote footer > div:nth-child(2) strong,
+.dire-forge .victory-quote footer > div:nth-child(2) small,
+.dire-forge .victory-ledger__head small,
+.dire-forge .victory-ledger__route div small,
+.dire-forge .victory-ledger__route div strong,
+.dire-forge .victory-ledger li strong,
+.dire-forge .victory-ledger li small,
+.dire-forge .victory-mini-review > div small,
+.dire-forge .victory-mini-review > p,
+.dire-forge .victory-mini-review footer strong,
+.dire-forge .victory-mini-review footer small {
+  color: var(--forge-copy-ink);
+  text-shadow: var(--forge-copy-highlight);
+}
+
+/* Verified roster */
+.dire-forge .roster-card__avatar > span,
+.dire-forge .roster-card__avatar > i,
+.dire-forge .roster-card__top small,
+.dire-forge .roster-card__rank small,
+.dire-forge .roster-card__rank strong,
+.dire-forge .roster-card__roles span,
+.dire-forge .roster-card__bio,
+.dire-forge .roster-card__footer small,
+.dire-forge .roster-card__footer strong {
+  color: var(--forge-copy-ink);
+  text-shadow: var(--forge-copy-highlight);
+}
+
+/* Why Highground and FAQ */
+.dire-forge .why-card > div span,
+.dire-forge .why-card p,
+.dire-forge .forge-faq__intro > div strong,
+.dire-forge .forge-faq__intro > div small,
+.dire-forge .forge-faq__item summary > span,
+.dire-forge .forge-faq__item > p {
+  color: var(--forge-copy-ink);
+  text-shadow: var(--forge-copy-highlight);
+}
+
+/* Final ready check */
+.dire-forge .siege-route__ranks small,
+.dire-forge .siege-route__ranks strong,
+.dire-forge .siege-route__health small,
+.dire-forge .siege-route__health strong,
+.dire-forge .siege-route li {
+  color: var(--forge-copy-ink);
+  text-shadow: var(--forge-copy-highlight);
+}
