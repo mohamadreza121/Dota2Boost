@@ -3,14 +3,12 @@ import type { ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 export function ForgeSectionHeading({
-  chapter,
   eyebrow,
   title,
   description,
   href,
   linkLabel
 }: {
-  chapter: string;
   eyebrow: string;
   title: ReactNode;
   description: string;
@@ -20,7 +18,7 @@ export function ForgeSectionHeading({
   return (
     <header className="forge-section-heading" data-forge-reveal>
       <div className="forge-section-heading__title">
-        <p><span>{chapter}</span><i />{eyebrow}</p>
+        <p><i />{eyebrow}</p>
         <h2>{title}</h2>
       </div>
       <div className="forge-section-heading__copy">
