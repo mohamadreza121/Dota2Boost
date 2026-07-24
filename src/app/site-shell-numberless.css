@@ -1,0 +1,11 @@
+/* Layout adjustments for navigation after removing decorative number columns. */
+
+.dota-command-nav__link {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 0;
+}
+
+.dota-mobile-menu__link {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
