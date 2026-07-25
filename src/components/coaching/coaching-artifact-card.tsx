@@ -17,24 +17,18 @@ interface CoachingArtifactCardProps {
 const BRICK_SRC = "/media/radiant-academy/painted-stone-brick.svg";
 
 const masonryPieces = [
-  "top-a",
-  "top-b",
-  "top-c",
-  "top-d",
-  "right-a",
-  "right-b",
-  "bottom-a",
-  "bottom-b",
-  "bottom-c",
-  "bottom-d",
-  "left-a",
-  "left-b"
+  "r1-a", "r1-b", "r1-c",
+  "r2-a", "r2-b", "r2-c",
+  "r3-a", "r3-b", "r3-c",
+  "r4-a", "r4-b", "r4-c",
+  "r5-a", "r5-b", "r5-c"
 ] as const;
 
-function MasonryFrame() {
+function MasonryWall() {
   return (
     <div className="coaching-artifact__masonry" aria-hidden="true">
-      <div className="coaching-artifact__contact-shadow" />
+      <div className="coaching-artifact__wall-shadow" />
+
       {masonryPieces.map((piece, index) => (
         <Image
           key={piece}
@@ -43,101 +37,53 @@ function MasonryFrame() {
           alt=""
           width={1000}
           height={563}
-          priority={index < 4}
+          priority={index < 3}
           draggable={false}
         />
       ))}
-      <span className="coaching-artifact__moss coaching-artifact__moss--a" />
-      <span className="coaching-artifact__moss coaching-artifact__moss--b" />
-      <span className="coaching-artifact__moss coaching-artifact__moss--c" />
-      <span className="coaching-artifact__moss coaching-artifact__moss--d" />
-      <span className="coaching-artifact__fragment coaching-artifact__fragment--a" />
-      <span className="coaching-artifact__fragment coaching-artifact__fragment--b" />
-      <span className="coaching-artifact__fragment coaching-artifact__fragment--c" />
+
+      <span className="coaching-artifact__joint-moss coaching-artifact__joint-moss--a" />
+      <span className="coaching-artifact__joint-moss coaching-artifact__joint-moss--b" />
+      <span className="coaching-artifact__joint-moss coaching-artifact__joint-moss--c" />
+      <span className="coaching-artifact__joint-moss coaching-artifact__joint-moss--d" />
+      <span className="coaching-artifact__wall-fragment coaching-artifact__wall-fragment--a" />
+      <span className="coaching-artifact__wall-fragment coaching-artifact__wall-fragment--b" />
+      <span className="coaching-artifact__wall-fragment coaching-artifact__wall-fragment--c" />
+      <span className="coaching-artifact__material-light" />
     </div>
   );
 }
 
-function SlatePanel({ id }: { id: string }) {
+function CarvedOrnaments() {
   return (
     <svg
-      className="coaching-artifact__slate"
-      viewBox="0 0 850 420"
+      className="coaching-artifact__carved-ornaments"
+      viewBox="0 0 1200 650"
       aria-hidden="true"
       focusable="false"
     >
-      <defs>
-        <linearGradient id={`${id}-slate`} x1=".08" y1="0" x2=".94" y2="1">
-          <stop stopColor="#31362f" />
-          <stop offset=".38" stopColor="#20251f" />
-          <stop offset=".72" stopColor="#141914" />
-          <stop offset="1" stopColor="#0a0e0b" />
-        </linearGradient>
-        <linearGradient id={`${id}-edge`} x1="0" y1="0" x2="0" y2="1">
-          <stop stopColor="#aaa993" stopOpacity=".54" />
-          <stop offset=".35" stopColor="#55594d" stopOpacity=".28" />
-          <stop offset="1" stopColor="#070a08" stopOpacity=".9" />
-        </linearGradient>
-        <linearGradient id={`${id}-sweep`} x1="0" y1="0" x2="1" y2="0">
-          <stop stopColor="#fff" stopOpacity="0" />
-          <stop offset=".5" stopColor="#fff4c8" stopOpacity=".22" />
-          <stop offset="1" stopColor="#fff" stopOpacity="0" />
-        </linearGradient>
-        <filter id={`${id}-grain`} x="-5%" y="-8%" width="110%" height="116%">
-          <feTurbulence type="fractalNoise" baseFrequency=".035 .12" numOctaves="2" seed="17" result="noise" />
-          <feColorMatrix
-            in="noise"
-            values=".35 0 0 0 .08  0 .38 0 0 .08  0 0 .31 0 .07  0 0 0 .28 0"
-            result="grain"
-          />
-          <feBlend in="SourceGraphic" in2="grain" mode="multiply" />
-        </filter>
-      </defs>
-      <path
-        className="coaching-artifact__slate-shadow"
-        d="M32 48 69 20l727 9 28 35-8 292-34 35-721 5-39-29Z"
-        fill="#020403"
-        transform="translate(0 13)"
-      />
-      <path
-        d="M25 39 70 14l724 9 34 34-9 292-39 34-716 6-43-29Z"
-        fill={`url(#${id}-slate)`}
-        stroke={`url(#${id}-edge)`}
-        strokeWidth="5"
-        filter={`url(#${id}-grain)`}
-      />
-      <path
-        d="m51 65 39-18 678 7 29 26-8 246-28 25-670 7-37-22Z"
-        fill="none"
-        stroke="#050806"
-        strokeOpacity=".84"
-        strokeWidth="13"
-      />
-      <path
-        className="coaching-artifact__engraving"
-        d="M145 96h186l16 12 16-12h278M145 318h184l18-12 18 12h277"
-        fill="none"
-        stroke="#9ca77d"
-        strokeWidth="1.6"
-      />
-      <path
-        className="coaching-artifact__engraving"
-        d="m340 96 8-8 8 8-8 8Zm0 222 8-8 8 8-8 8Z"
-        fill="#95a56f"
-      />
-      <path
-        className="coaching-artifact__slate-cracks"
-        d="m95 73 19 21-12 18 17 22-8 19m625 156 13 14-10 18 14 14M674 57l-11 19 12 14-17 19"
-        fill="none"
-        stroke="#080b08"
-        strokeLinecap="round"
-        strokeWidth="4"
-      />
-      <path
-        className="coaching-artifact__light-sweep"
-        d="m147 23 128 0 211 360-145 3Z"
-        fill={`url(#${id}-sweep)`}
-      />
+      <g className="coaching-artifact__groove coaching-artifact__groove--shadow" fill="none">
+        <path d="M435 204h164l14 11 14-11h333" />
+        <path d="M436 487h162l15-11 15 11h332" />
+        <path d="M354 237v-25l18-18M999 237v-25l-18-18" />
+        <path d="M355 458v23l18 18M998 458v23l-18 18" />
+      </g>
+      <g className="coaching-artifact__groove coaching-artifact__groove--edge" fill="none" transform="translate(0 2)">
+        <path d="M435 204h164l14 11 14-11h333" />
+        <path d="M436 487h162l15-11 15 11h332" />
+        <path d="M354 237v-25l18-18M999 237v-25l-18-18" />
+        <path d="M355 458v23l18 18M998 458v23l-18 18" />
+      </g>
+      <g className="coaching-artifact__carved-sigils">
+        <path d="m605 204 8-8 8 8-8 8Z" />
+        <path d="m605 487 8-8 8 8-8 8Z" />
+      </g>
+      <g className="coaching-artifact__wall-cracks" fill="none">
+        <path d="m330 166 18 19-11 17 16 20-8 26" />
+        <path d="m1032 274-17 18 12 21-16 18 9 27" />
+        <path d="m842 512 14 15-10 20 15 17" />
+        <path d="m447 521-11 17 13 16-9 18" />
+      </g>
     </svg>
   );
 }
@@ -212,23 +158,6 @@ function ReplayCrest({ id }: { id: string }) {
   );
 }
 
-function RuneTab({ id }: { id: string }) {
-  return (
-    <svg viewBox="0 0 300 82" aria-hidden="true" focusable="false">
-      <defs>
-        <linearGradient id={`${id}-tab`} x1=".08" y1="0" x2=".92" y2="1">
-          <stop stopColor="#6c6d5c" />
-          <stop offset=".42" stopColor="#353b33" />
-          <stop offset="1" stopColor="#171d18" />
-        </linearGradient>
-      </defs>
-      <path d="m20 17 23-11 222 5 24 17-8 37-25 11-218-4L11 54Z" fill="#020403" transform="translate(0 5)" />
-      <path d="m15 11 28-9 221 5 25 17-9 34-25 11-220-4L7 50Z" fill={`url(#${id}-tab)`} stroke="#aaa98d" strokeOpacity=".5" strokeWidth="2" />
-      <path className="coaching-artifact__cta-rune" d="m241 24 15 15-15 15m13-15h-35" fill="none" stroke="#dbe9b7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3.5" />
-    </svg>
-  );
-}
-
 export function CoachingArtifactCard({
   eyebrow,
   title,
@@ -277,13 +206,13 @@ export function CoachingArtifactCard({
     const { x, y } = pointerRef.current;
     node.style.setProperty("--artifact-tilt-x", `${(-y * 1.15).toFixed(2)}deg`);
     node.style.setProperty("--artifact-tilt-y", `${(x * 1.55).toFixed(2)}deg`);
-    node.style.setProperty("--artifact-frame-x", `${(x * 2.1).toFixed(2)}px`);
-    node.style.setProperty("--artifact-frame-y", `${(y * 1.6).toFixed(2)}px`);
-    node.style.setProperty("--artifact-panel-x", `${(x * 3.4).toFixed(2)}px`);
-    node.style.setProperty("--artifact-panel-y", `${(y * 2.4).toFixed(2)}px`);
+    node.style.setProperty("--artifact-wall-x", `${(x * 2.2).toFixed(2)}px`);
+    node.style.setProperty("--artifact-wall-y", `${(y * 1.6).toFixed(2)}px`);
+    node.style.setProperty("--artifact-etch-x", `${(x * 3.3).toFixed(2)}px`);
+    node.style.setProperty("--artifact-etch-y", `${(y * 2.4).toFixed(2)}px`);
     node.style.setProperty("--artifact-crest-x", `${(x * 5.1).toFixed(2)}px`);
     node.style.setProperty("--artifact-crest-y", `${(y * 4.2).toFixed(2)}px`);
-    node.style.setProperty("--artifact-light-shift", `${(x * 70).toFixed(1)}px`);
+    node.style.setProperty("--artifact-light-x", `${(x * 74).toFixed(1)}px`);
   }, []);
 
   const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
@@ -304,13 +233,13 @@ export function CoachingArtifactCard({
     [
       "--artifact-tilt-x",
       "--artifact-tilt-y",
-      "--artifact-frame-x",
-      "--artifact-frame-y",
-      "--artifact-panel-x",
-      "--artifact-panel-y",
+      "--artifact-wall-x",
+      "--artifact-wall-y",
+      "--artifact-etch-x",
+      "--artifact-etch-y",
       "--artifact-crest-x",
       "--artifact-crest-y",
-      "--artifact-light-shift"
+      "--artifact-light-x"
     ].forEach((property) => node.style.setProperty(property, property.includes("tilt") ? "0deg" : "0px"));
   };
 
@@ -322,11 +251,8 @@ export function CoachingArtifactCard({
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
     >
-      <MasonryFrame />
-
-      <div className="coaching-artifact__panel">
-        <SlatePanel id={id} />
-      </div>
+      <MasonryWall />
+      <CarvedOrnaments />
 
       <div className="coaching-artifact__crest">
         <ReplayCrest id={id} />
@@ -334,13 +260,15 @@ export function CoachingArtifactCard({
 
       <div className="coaching-artifact__content">
         <p className="coaching-artifact__eyebrow">{eyebrow}</p>
-        <h3>{title}</h3>
+        <h3 data-engraving={title}>{title}</h3>
         <span className="coaching-artifact__title-ornament" aria-hidden="true">
           <i />
           <b>◇</b>
           <i />
         </span>
-        <p className="coaching-artifact__description">{description}</p>
+        <p className="coaching-artifact__description" data-engraving={description}>
+          {description}
+        </p>
         <p className="coaching-artifact__best-for">
           <span>Best for</span>
           {bestFor}
@@ -356,8 +284,11 @@ export function CoachingArtifactCard({
       </div>
 
       <Link className="coaching-artifact__cta" href={href}>
-        <RuneTab id={id} />
         <span>{ctaLabel}</span>
+        <span className="coaching-artifact__cta-arrow" aria-hidden="true">
+          <i />
+          <b>›</b>
+        </span>
       </Link>
     </article>
   );
