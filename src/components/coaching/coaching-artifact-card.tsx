@@ -762,16 +762,15 @@ export function CoachingArtifactCard({
     if (event.pointerType !== "mouse" && event.pointerType !== "pen") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const rect = event.currentTarget.getBoundingClientRect();
+    const node = event.currentTarget;
+    const rect = node.getBoundingClientRect();
     pointerRef.current = {
       x: Math.max(-0.5, Math.min(0.5, (event.clientX - rect.left) / rect.width - 0.5)),
       y: Math.max(-0.5, Math.min(0.5, (event.clientY - rect.top) / rect.height - 0.5))
     };
 
     if (animationFrameRef.current !== null) return;
-    animationFrameRef.current = window.requestAnimationFrame(() =>
-      applyPointerPosition(event.currentTarget)
-    );
+    animationFrameRef.current = window.requestAnimationFrame(() => applyPointerPosition(node));
   }
 
   function handlePointerLeave(event: ReactPointerEvent<HTMLElement>) {
