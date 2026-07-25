@@ -1,0 +1,361 @@
+/* ========================================================================== 
+   FRACTURED DIRE WORLD — shared homepage terrain from Rank Forge through FAQ
+   ========================================================================== */
+
+.forge-world {
+  background:
+    radial-gradient(ellipse 56rem 34rem at 86% 5%, rgb(255 98 22 / 0.16), transparent 72%),
+    radial-gradient(ellipse 48rem 31rem at 8% 22%, rgb(183 34 12 / 0.12), transparent 74%),
+    radial-gradient(ellipse 54rem 34rem at 91% 39%, rgb(255 134 31 / 0.105), transparent 74%),
+    radial-gradient(ellipse 50rem 32rem at 7% 58%, rgb(173 28 10 / 0.12), transparent 73%),
+    radial-gradient(ellipse 58rem 36rem at 88% 76%, rgb(255 85 18 / 0.11), transparent 75%),
+    radial-gradient(ellipse 52rem 34rem at 15% 96%, rgb(199 43 13 / 0.12), transparent 74%),
+    linear-gradient(180deg, #020100 0%, #090402 15%, #040201 34%, #0a0402 54%, #040201 74%, #080302 91%, #020100 100%);
+}
+
+.forge-world::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgb(2 1 0 / 0.82), transparent 13%, transparent 87%, rgb(2 1 0 / 0.84)),
+    linear-gradient(180deg, rgb(2 1 0 / 0.3), transparent 5%, transparent 94%, rgb(2 1 0 / 0.48));
+  content: "";
+  pointer-events: none;
+}
+
+.forge-atmosphere--fractured {
+  z-index: 0;
+  overflow: hidden;
+}
+
+.forge-atmosphere__terrain,
+.forge-atmosphere__magma-haze,
+.forge-atmosphere__smoke--fractured,
+.forge-atmosphere__embers--fractured,
+.forge-atmosphere__vignette,
+.forge-fracture-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.forge-atmosphere__terrain {
+  background:
+    radial-gradient(ellipse 42rem 18rem at 76% 4%, rgb(255 179 59 / 0.07), transparent 74%),
+    radial-gradient(ellipse 39rem 19rem at 22% 19%, rgb(125 26 13 / 0.11), transparent 76%),
+    radial-gradient(ellipse 46rem 20rem at 74% 36%, rgb(151 34 13 / 0.09), transparent 76%),
+    radial-gradient(ellipse 42rem 20rem at 22% 55%, rgb(118 23 10 / 0.12), transparent 76%),
+    radial-gradient(ellipse 48rem 21rem at 79% 73%, rgb(143 30 11 / 0.1), transparent 76%),
+    radial-gradient(ellipse 44rem 20rem at 26% 93%, rgb(124 25 10 / 0.12), transparent 76%),
+    linear-gradient(112deg, transparent 0 37%, rgb(255 120 37 / 0.018) 37.2% 37.45%, transparent 37.7% 61%, rgb(255 90 24 / 0.015) 61.2% 61.42%, transparent 61.7%),
+    linear-gradient(180deg, rgb(21 12 8 / 0.28), rgb(3 2 1 / 0.12));
+  opacity: 0.98;
+}
+
+.forge-atmosphere__terrain::before {
+  position: absolute;
+  inset: 0;
+  background-image: url("/media/dire-forge/textures/lava-cracks.jpg");
+  background-position: center top;
+  background-repeat: repeat-y;
+  background-size: min(112rem, 132vw) auto;
+  content: "";
+  filter: saturate(0.78) contrast(1.42) brightness(0.58);
+  mix-blend-mode: screen;
+  opacity: 0.072;
+}
+
+.forge-atmosphere__terrain::after {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(23deg, transparent 0 49.7%, rgb(255 188 112 / 0.025) 49.85% 50%, transparent 50.15%),
+    linear-gradient(157deg, transparent 0 49.75%, rgb(96 49 32 / 0.05) 49.9% 50.05%, transparent 50.2%),
+    radial-gradient(circle at 30% 25%, rgb(255 198 129 / 0.04) 0 0.7px, transparent 1px);
+  background-size: 182px 146px, 226px 194px, 23px 29px;
+  content: "";
+  opacity: 0.35;
+  -webkit-mask-image: linear-gradient(180deg, transparent, black 4%, black 96%, transparent);
+  mask-image: linear-gradient(180deg, transparent, black 4%, black 96%, transparent);
+}
+
+.forge-atmosphere__magma-haze {
+  background:
+    radial-gradient(ellipse 31rem 18rem at 74% 7%, rgb(255 197 76 / 0.12), rgb(255 76 18 / 0.08) 32%, transparent 73%),
+    radial-gradient(ellipse 25rem 16rem at 22% 19%, rgb(255 114 26 / 0.11), rgb(133 23 9 / 0.06) 38%, transparent 73%),
+    radial-gradient(ellipse 33rem 18rem at 69% 33%, rgb(255 161 43 / 0.105), rgb(206 42 12 / 0.065) 35%, transparent 74%),
+    radial-gradient(ellipse 28rem 17rem at 28% 48%, rgb(255 104 23 / 0.12), rgb(143 24 8 / 0.07) 38%, transparent 73%),
+    radial-gradient(ellipse 34rem 19rem at 72% 63%, rgb(255 183 54 / 0.1), rgb(218 48 13 / 0.065) 35%, transparent 74%),
+    radial-gradient(ellipse 27rem 17rem at 25% 78%, rgb(255 111 25 / 0.12), rgb(139 24 9 / 0.07) 40%, transparent 74%),
+    radial-gradient(ellipse 32rem 18rem at 67% 94%, rgb(255 173 50 / 0.11), rgb(196 39 11 / 0.065) 38%, transparent 74%);
+  mix-blend-mode: screen;
+  opacity: 0.8;
+}
+
+.forge-atmosphere__smoke--fractured {
+  inset: 0 -18%;
+  background:
+    radial-gradient(ellipse at 18% 9%, rgb(142 82 59 / 0.07), transparent 18%),
+    radial-gradient(ellipse at 78% 24%, rgb(121 67 50 / 0.06), transparent 22%),
+    radial-gradient(ellipse at 25% 43%, rgb(154 75 48 / 0.055), transparent 21%),
+    radial-gradient(ellipse at 73% 61%, rgb(128 70 50 / 0.06), transparent 24%),
+    radial-gradient(ellipse at 28% 79%, rgb(154 61 36 / 0.055), transparent 22%),
+    radial-gradient(ellipse at 76% 94%, rgb(133 70 48 / 0.06), transparent 20%);
+  filter: blur(38px);
+  opacity: 0.78;
+  animation: forge-fractured-smoke 28s ease-in-out infinite alternate;
+}
+
+.forge-atmosphere__embers--fractured {
+  background-image:
+    radial-gradient(circle, rgb(255 142 31 / 0.48) 0 0.85px, transparent 1.35px),
+    radial-gradient(circle, rgb(255 210 111 / 0.34) 0 0.55px, transparent 1px),
+    radial-gradient(circle, rgb(197 47 14 / 0.38) 0 0.75px, transparent 1.2px);
+  background-position: 9% 44%, 84% 65%, 48% 18%;
+  background-size: 139px 181px, 211px 257px, 173px 223px;
+  opacity: 0.16;
+  animation: forge-fractured-embers 31s linear infinite;
+}
+
+.forge-atmosphere__vignette {
+  z-index: 4;
+  background:
+    radial-gradient(ellipse 70% 9rem at 50% 0, rgb(0 0 0 / 0.12), transparent 80%),
+    linear-gradient(90deg, rgb(0 0 0 / 0.54), transparent 10%, transparent 90%, rgb(0 0 0 / 0.58));
+}
+
+.forge-fracture-field {
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  shape-rendering: geometricPrecision;
+}
+
+.forge-world-lane,
+.forge-world-sigil :is(circle, path),
+.forge-fracture :is(path),
+.forge-vent :is(circle) {
+  vector-effect: non-scaling-stroke;
+}
+
+.forge-world-lane {
+  fill: none;
+  stroke: rgb(112 54 34 / 0.13);
+  stroke-width: 42;
+  stroke-dasharray: 3 18;
+  stroke-linecap: round;
+  opacity: 0.38;
+}
+
+.forge-world-lane--two { opacity: 0.28; }
+.forge-world-lane--three { opacity: 0.33; }
+
+.forge-world-sigil {
+  fill: none;
+  stroke: rgb(255 127 35 / 0.15);
+  stroke-width: 1.25;
+  opacity: 0.33;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.forge-world-sigil circle:nth-child(2) {
+  stroke: rgb(255 196 91 / 0.12);
+  stroke-dasharray: 5 8;
+}
+
+.forge-world-sigil path {
+  stroke: rgb(151 43 18 / 0.18);
+  stroke-dasharray: 2 6;
+}
+
+.forge-world-sigil--2,
+.forge-world-sigil--5 { transform: rotate(45deg); }
+
+.forge-fracture :is(.forge-fracture__bed, .forge-fracture__aura, .forge-fracture__magma, .forge-fracture__core, .forge-fracture__branch-bed, .forge-fracture__branch-magma, .forge-fracture__branch-core) {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.forge-fracture__bed {
+  stroke: rgb(18 7 4 / 0.96);
+  stroke-width: 54;
+  opacity: 0.95;
+}
+
+.forge-fracture__aura {
+  stroke: url("#forge-fracture-lava");
+  stroke-width: 24;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--forge-page-progress));
+  opacity: 0.14;
+  filter: drop-shadow(0 0 10px rgb(183 35 11 / 0.34));
+  animation: forge-rift-aura 7.5s ease-in-out infinite alternate;
+}
+
+.forge-fracture__magma {
+  stroke: url("#forge-fracture-lava");
+  stroke-width: 7.5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--forge-page-progress));
+  opacity: 0.58;
+  filter:
+    drop-shadow(0 0 4px rgb(255 128 28 / 0.58))
+    drop-shadow(0 0 14px rgb(255 54 14 / 0.32));
+}
+
+.forge-fracture__core {
+  stroke: url("#forge-fracture-core");
+  stroke-width: 2.2;
+  stroke-dasharray: 0.075 0.018 0.025 0.012;
+  stroke-dashoffset: calc(1 - var(--forge-page-progress));
+  opacity: 0.92;
+  filter: drop-shadow(0 0 3px rgb(255 225 142 / 0.8));
+  animation: forge-rift-core 4.8s ease-in-out infinite alternate;
+}
+
+.forge-fracture__branch-bed {
+  stroke: rgb(20 8 5 / 0.94);
+  stroke-width: 25;
+}
+
+.forge-fracture__branch-magma {
+  stroke: url("#forge-fracture-lava");
+  stroke-width: 5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--forge-page-progress));
+  opacity: 0.42;
+  filter: drop-shadow(0 0 8px rgb(255 67 16 / 0.25));
+}
+
+.forge-fracture__branch-core {
+  stroke: url("#forge-fracture-core");
+  stroke-width: 1.35;
+  stroke-dasharray: 0.08 0.028 0.02 0.016;
+  stroke-dashoffset: calc(1 - var(--forge-page-progress));
+  opacity: 0.7;
+}
+
+.forge-fracture--flank .forge-fracture__bed { stroke-width: 38; opacity: 0.9; }
+.forge-fracture--flank .forge-fracture__aura { stroke-width: 16; opacity: 0.11; }
+.forge-fracture--flank .forge-fracture__magma { stroke-width: 5.4; opacity: 0.46; }
+.forge-fracture--flank .forge-fracture__core { stroke-width: 1.65; opacity: 0.78; }
+
+.forge-fracture--crossing .forge-fracture__bed { stroke-width: 43; }
+.forge-fracture--crossing .forge-fracture__aura { stroke-width: 18; opacity: 0.1; }
+.forge-fracture--crossing .forge-fracture__magma { stroke-width: 5.8; opacity: 0.42; }
+.forge-fracture--crossing .forge-fracture__core { stroke-width: 1.8; opacity: 0.72; }
+
+.forge-fracture--upper-left .forge-fracture__aura,
+.forge-fracture--lower-right .forge-fracture__aura { animation-delay: -2.7s; }
+
+.forge-fracture--upper-right .forge-fracture__aura,
+.forge-fracture--lower-left .forge-fracture__aura { animation-delay: -5.1s; }
+
+.forge-vent__aura {
+  fill: url("#forge-vent-lava");
+  opacity: 0.12;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: forge-vent-breathe 6s ease-in-out infinite alternate;
+}
+
+.forge-vent__rim {
+  fill: rgb(17 7 4 / 0.92);
+  stroke: rgb(255 80 18 / 0.28);
+  stroke-width: 2.5;
+}
+
+.forge-vent__core {
+  fill: url("#forge-vent-lava");
+  opacity: 0.88;
+  filter: drop-shadow(0 0 7px rgb(255 89 18 / 0.52));
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: forge-vent-core 3.8s ease-in-out infinite alternate;
+}
+
+.forge-vent--2 :is(.forge-vent__aura, .forge-vent__core),
+.forge-vent--5 :is(.forge-vent__aura, .forge-vent__core) { animation-delay: -1.8s; }
+
+.forge-vent--3 :is(.forge-vent__aura, .forge-vent__core),
+.forge-vent--7 :is(.forge-vent__aura, .forge-vent__core) { animation-delay: -3.1s; }
+
+@keyframes forge-rift-aura {
+  from { opacity: 0.09; }
+  to { opacity: 0.19; }
+}
+
+@keyframes forge-rift-core {
+  from { opacity: 0.68; }
+  to { opacity: 0.98; }
+}
+
+@keyframes forge-vent-breathe {
+  from { opacity: 0.07; transform: scale(0.82); }
+  to { opacity: 0.17; transform: scale(1.16); }
+}
+
+@keyframes forge-vent-core {
+  from { opacity: 0.68; transform: scale(0.84); }
+  to { opacity: 0.95; transform: scale(1.08); }
+}
+
+@keyframes forge-fractured-smoke {
+  from { transform: translate3d(-2.5%, 0, 0) scale(1); }
+  to { transform: translate3d(2.5%, -0.7%, 0) scale(1.035); }
+}
+
+@keyframes forge-fractured-embers {
+  to { background-position: 9% 13%, 84% 31%, 48% -4%; }
+}
+
+@media (max-width: 980px) {
+  .forge-atmosphere__terrain::before {
+    background-size: 105rem auto;
+    opacity: 0.06;
+  }
+
+  .forge-world-lane { opacity: 0.24; }
+  .forge-world-sigil { opacity: 0.25; }
+  .forge-fracture--flank { opacity: 0.82; }
+}
+
+@media (max-width: 768px) {
+  .forge-atmosphere__magma-haze { opacity: 0.66; }
+  .forge-atmosphere__terrain::before { opacity: 0.052; }
+  .forge-atmosphere__embers--fractured { opacity: 0.11; }
+  .forge-fracture--crossing { display: none; }
+  .forge-world-lane { stroke-width: 28; opacity: 0.18; }
+  .forge-world-sigil { opacity: 0.2; }
+  .forge-fracture--flank { opacity: 0.72; }
+  .forge-fracture__aura { opacity: 0.11; }
+  .forge-fracture__magma { opacity: 0.5; }
+}
+
+@media (max-width: 520px) {
+  .forge-world-sigil:nth-of-type(even) { display: none; }
+  .forge-fracture--upper-left,
+  .forge-fracture--lower-right { opacity: 0.58; }
+  .forge-atmosphere__vignette {
+    background: linear-gradient(90deg, rgb(0 0 0 / 0.38), transparent 7%, transparent 93%, rgb(0 0 0 / 0.42));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forge-atmosphere__smoke--fractured,
+  .forge-atmosphere__embers--fractured,
+  .forge-fracture__aura,
+  .forge-fracture__core,
+  .forge-vent__aura,
+  .forge-vent__core {
+    animation: none;
+  }
+
+  .forge-fracture :is(.forge-fracture__aura, .forge-fracture__magma, .forge-fracture__branch-magma) {
+    stroke-dashoffset: 0;
+  }
+}

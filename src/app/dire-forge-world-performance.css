@@ -1,0 +1,26 @@
+/* Keep the long SVG terrain scalable and inexpensive while scrolling. */
+
+.forge-world-lane,
+.forge-world-sigil :is(circle, path),
+.forge-fracture :is(path),
+.forge-vent :is(circle) {
+  vector-effect: none;
+}
+
+.forge-fracture--flank :is(.forge-fracture__aura, .forge-fracture__magma, .forge-fracture__core),
+.forge-fracture--crossing :is(.forge-fracture__aura, .forge-fracture__magma, .forge-fracture__core),
+.forge-fracture :is(.forge-fracture__branch-magma, .forge-fracture__branch-core) {
+  filter: none;
+}
+
+@media (max-width: 768px) {
+  .forge-fracture--flank .forge-fracture__aura,
+  .forge-fracture--flank .forge-fracture__core,
+  .forge-vent__aura {
+    animation: none;
+  }
+
+  .forge-vent__core {
+    filter: none;
+  }
+}
