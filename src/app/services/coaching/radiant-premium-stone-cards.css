@@ -1,0 +1,635 @@
+/* ========================================================================== 
+   RADIANT ACADEMY — premium overflowing stone cards
+   Concept: irregular dry-stacked stone frame + quiet dark content slab.
+   ========================================================================== */
+
+.radiant-academy {
+  --ra-card-ink: #080d09;
+  --ra-card-ink-soft: #111812;
+  --ra-card-copy: #dedcca;
+  --ra-card-muted: #b6b9a8;
+  --ra-moss-deep: #294624;
+  --ra-moss-mid: #5b7c3b;
+  --ra-moss-light: #98ae4e;
+  --ra-radiant-gold: #e6cc82;
+  --ra-radiant-jade: #9ccf8d;
+}
+
+/* --------------------------------------------------------------------------
+   Shared frame construction
+   -------------------------------------------------------------------------- */
+
+.radiant-academy :is(
+  .surface,
+  .radiant-improvement-map,
+  .radiant-progress-report,
+  .radiant-price-rail
+) {
+  --stone-frame-top: -1.55rem;
+  --stone-frame-right: -1.45rem;
+  --stone-frame-bottom: -1.7rem;
+  --stone-frame-left: -1.45rem;
+  --stone-frame-rotate: -0.12deg;
+  --stone-frame-position: 50% 48%;
+  --stone-frame-size: 48rem auto;
+  --stone-panel-clip: polygon(1% 0, 99% 0.8%, 100% 98%, 98.4% 100%, 1.1% 99.2%, 0 2%);
+  position: relative;
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  clip-path: none !important;
+  isolation: isolate;
+}
+
+.radiant-academy :is(
+  .surface,
+  .radiant-improvement-map,
+  .radiant-progress-report,
+  .radiant-price-rail
+)::before {
+  position: absolute;
+  top: var(--stone-frame-top);
+  right: var(--stone-frame-right);
+  bottom: var(--stone-frame-bottom);
+  left: var(--stone-frame-left);
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 17% 7% at 11% 7%, rgb(145 174 71 / 0.8) 0 17%, rgb(84 119 54 / 0.78) 35%, rgb(37 66 31 / 0.6) 57%, transparent 74%),
+    radial-gradient(ellipse 13% 6% at 52% 4%, rgb(137 165 66 / 0.72) 0 16%, rgb(81 113 50 / 0.75) 35%, rgb(37 64 30 / 0.58) 59%, transparent 74%),
+    radial-gradient(ellipse 12% 17% at 98% 42%, rgb(131 159 65 / 0.72) 0 16%, rgb(73 107 47 / 0.74) 35%, rgb(34 61 29 / 0.58) 60%, transparent 74%),
+    radial-gradient(ellipse 16% 7% at 84% 96%, rgb(139 166 67 / 0.68) 0 15%, rgb(78 111 49 / 0.72) 34%, rgb(35 62 29 / 0.56) 60%, transparent 74%),
+    url("/media/radiant-academy/premium-moss-stone.svg") var(--stone-frame-position) / var(--stone-frame-size) repeat;
+  clip-path: polygon(
+    2.2% 8%,
+    7% 2.1%,
+    20% 0,
+    34% 2.7%,
+    48% 0.7%,
+    63% 2.1%,
+    79% 0,
+    94% 2.8%,
+    99% 9%,
+    97.7% 23%,
+    100% 39%,
+    98.4% 55%,
+    99.4% 75%,
+    96% 94%,
+    82% 98.5%,
+    67% 96.3%,
+    52% 100%,
+    36% 97.1%,
+    20% 99%,
+    5% 95.2%,
+    0.7% 82%,
+    2.1% 64%,
+    0 46%,
+    1.5% 26%
+  );
+  content: "";
+  filter:
+    contrast(1.08)
+    saturate(0.88)
+    brightness(0.96)
+    drop-shadow(0 8px 0 rgb(4 8 5 / 0.62))
+    drop-shadow(0 23px 34px rgb(0 0 0 / 0.62));
+  pointer-events: none;
+  transform: rotate(var(--stone-frame-rotate));
+  transform-origin: center;
+  transition: filter 320ms ease, transform 420ms cubic-bezier(.2, .74, .2, 1);
+}
+
+.radiant-academy :is(
+  .surface,
+  .radiant-improvement-map,
+  .radiant-progress-report,
+  .radiant-price-rail
+)::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 58% 42% at 14% 0, rgb(228 205 137 / 0.075), transparent 72%),
+    radial-gradient(ellipse 36% 48% at 100% 100%, rgb(74 116 68 / 0.075), transparent 73%),
+    linear-gradient(132deg, rgb(22 30 22 / 0.97), rgb(7 12 8 / 0.985) 56%, rgb(11 17 12 / 0.97));
+  box-shadow:
+    inset 0 1px rgb(247 231 181 / 0.055),
+    inset 0 -1px rgb(0 0 0 / 0.72),
+    inset 18px 0 38px rgb(0 0 0 / 0.11),
+    inset -18px 0 38px rgb(0 0 0 / 0.18),
+    0 16px 32px rgb(0 0 0 / 0.28);
+  clip-path: var(--stone-panel-clip);
+  content: "";
+  pointer-events: none;
+}
+
+.radiant-academy :is(
+  .surface,
+  .radiant-improvement-map,
+  .radiant-progress-report,
+  .radiant-price-rail
+) > * {
+  position: relative;
+  z-index: 2;
+}
+
+.radiant-academy :is(
+  .surface,
+  .radiant-improvement-map,
+  .radiant-progress-report,
+  .radiant-price-rail
+):hover::before {
+  filter:
+    contrast(1.1)
+    saturate(0.96)
+    brightness(1.035)
+    drop-shadow(0 9px 0 rgb(4 8 5 / 0.68))
+    drop-shadow(0 28px 40px rgb(0 0 0 / 0.68));
+  transform: translateY(-2px) rotate(calc(var(--stone-frame-rotate) * -0.5));
+}
+
+/* --------------------------------------------------------------------------
+   Irregular frame variants — asymmetric overflow and different silhouettes
+   -------------------------------------------------------------------------- */
+
+.radiant-academy :is(
+  .radiant-diagnostic-grid,
+  .radiant-program-grid,
+  .radiant-skill-tree,
+  .radiant-progress-grid,
+  .radiant-path-grid
+) > :nth-child(3n + 2) {
+  --stone-frame-top: -1.25rem;
+  --stone-frame-right: -1.9rem;
+  --stone-frame-bottom: -1.55rem;
+  --stone-frame-left: -1.1rem;
+  --stone-frame-rotate: 0.22deg;
+  --stone-frame-position: 18% 72%;
+  --stone-panel-clip: polygon(0.7% 1.4%, 98.8% 0, 100% 2.8%, 99.2% 98.2%, 97.6% 100%, 0 98.9%);
+}
+
+.radiant-academy :is(
+  .radiant-diagnostic-grid,
+  .radiant-program-grid,
+  .radiant-skill-tree,
+  .radiant-progress-grid,
+  .radiant-path-grid
+) > :nth-child(3n + 2)::before {
+  background:
+    radial-gradient(ellipse 12% 15% at 2% 33%, rgb(143 172 70 / 0.76) 0 17%, rgb(82 116 52 / 0.76) 34%, rgb(37 65 30 / 0.58) 58%, transparent 74%),
+    radial-gradient(ellipse 15% 7% at 31% 4%, rgb(154 181 75 / 0.76) 0 15%, rgb(87 120 53 / 0.74) 34%, rgb(40 67 31 / 0.58) 59%, transparent 74%),
+    radial-gradient(ellipse 17% 7% at 91% 10%, rgb(139 168 68 / 0.72) 0 16%, rgb(79 113 50 / 0.74) 35%, rgb(35 63 29 / 0.58) 60%, transparent 74%),
+    radial-gradient(ellipse 14% 7% at 59% 96%, rgb(133 162 65 / 0.66) 0 15%, rgb(75 108 48 / 0.7) 34%, rgb(34 61 28 / 0.54) 60%, transparent 74%),
+    url("/media/radiant-academy/premium-moss-stone.svg") var(--stone-frame-position) / var(--stone-frame-size) repeat;
+  clip-path: polygon(
+    0.8% 14%, 5.8% 4%, 19% 1.6%, 32% 3.3%, 47% 0, 61% 2.4%, 77% 1%, 92% 0,
+    99% 7%, 97.8% 25%, 100% 43%, 98% 59%, 99% 80%, 95% 96%, 80% 99%, 65% 97%,
+    50% 99%, 35% 96.8%, 19% 100%, 3% 93%, 1.8% 76%, 0 60%, 2% 41%, 0.8% 24%
+  );
+}
+
+.radiant-academy :is(
+  .radiant-diagnostic-grid,
+  .radiant-program-grid,
+  .radiant-skill-tree,
+  .radiant-progress-grid,
+  .radiant-path-grid
+) > :nth-child(3n) {
+  --stone-frame-top: -1.85rem;
+  --stone-frame-right: -1.15rem;
+  --stone-frame-bottom: -1.25rem;
+  --stone-frame-left: -1.75rem;
+  --stone-frame-rotate: -0.28deg;
+  --stone-frame-position: 82% 24%;
+  --stone-panel-clip: polygon(1.6% 0, 100% 1%, 99.2% 99%, 1% 100%, 0 97%, 0.8% 2.4%);
+}
+
+.radiant-academy :is(
+  .radiant-diagnostic-grid,
+  .radiant-program-grid,
+  .radiant-skill-tree,
+  .radiant-progress-grid,
+  .radiant-path-grid
+) > :nth-child(3n)::before {
+  background:
+    radial-gradient(ellipse 16% 7% at 15% 3%, rgb(142 171 68 / 0.74) 0 16%, rgb(81 114 50 / 0.75) 35%, rgb(36 64 29 / 0.58) 59%, transparent 74%),
+    radial-gradient(ellipse 12% 15% at 99% 31%, rgb(145 174 70 / 0.74) 0 16%, rgb(82 116 52 / 0.76) 35%, rgb(37 65 30 / 0.58) 60%, transparent 74%),
+    radial-gradient(ellipse 17% 7% at 75% 96%, rgb(135 163 65 / 0.68) 0 15%, rgb(76 109 48 / 0.7) 34%, rgb(34 61 28 / 0.55) 60%, transparent 74%),
+    radial-gradient(ellipse 11% 14% at 2% 75%, rgb(128 157 63 / 0.64) 0 15%, rgb(72 104 46 / 0.68) 34%, rgb(32 59 28 / 0.52) 60%, transparent 74%),
+    url("/media/radiant-academy/premium-moss-stone.svg") var(--stone-frame-position) / var(--stone-frame-size) repeat;
+  clip-path: polygon(
+    2% 9%, 8% 1%, 23% 3%, 38% 0, 53% 2%, 69% 0.7%, 84% 3%, 96% 1%, 99% 13%,
+    98% 29%, 100% 48%, 98% 67%, 99% 86%, 93% 97%, 78% 99%, 63% 96%, 47% 100%,
+    31% 97%, 15% 99%, 3% 94%, 0 79%, 2% 60%, 0.7% 42%, 2% 24%
+  );
+}
+
+/* --------------------------------------------------------------------------
+   Grid spacing — room for the protruding stones
+   -------------------------------------------------------------------------- */
+
+.radiant-diagnostic-grid {
+  row-gap: 3.8rem !important;
+  column-gap: 2.25rem !important;
+}
+
+.radiant-program-grid {
+  row-gap: 4.8rem !important;
+  column-gap: 3.2rem !important;
+}
+
+.radiant-skill-tree {
+  gap: 3.7rem 2.8rem !important;
+}
+
+.radiant-progress-grid,
+.radiant-path-grid {
+  row-gap: 4.4rem !important;
+  column-gap: 3rem !important;
+}
+
+.radiant-journey {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.radiant-journey li {
+  --stone-frame-top: -0.9rem;
+  --stone-frame-right: -1.25rem;
+  --stone-frame-bottom: -1rem;
+  --stone-frame-left: -1.1rem;
+  margin-left: calc(var(--journey-step, 0) * 0.8rem);
+}
+
+.radiant-faq-list {
+  display: grid;
+  gap: 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   Programs — reset the old single-card prototype and use the shared system
+   -------------------------------------------------------------------------- */
+
+.radiant-program-grid > article:first-child {
+  display: block;
+  grid-column: auto;
+  min-height: 28rem;
+  padding: 1.75rem !important;
+  transform: none;
+}
+
+.radiant-program-grid > article:first-child > div:first-child {
+  display: flex;
+}
+
+.radiant-program-grid > article:first-child > div:first-child > .radiant-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.35rem !important;
+  transform: rotate(-1.5deg);
+}
+
+.radiant-program-grid > article:first-child > div:first-child > .radiant-icon::before,
+.radiant-program-grid > article:first-child > div:first-child > .radiant-icon::after {
+  display: none;
+}
+
+.radiant-program-grid > article:first-child > div:first-child > .radiant-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke-width: 2;
+}
+
+.radiant-program-grid > article:first-child > div:first-child > span:last-child {
+  margin: 0;
+  color: var(--ra-card-muted);
+  font-family: inherit;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+}
+
+.radiant-program-grid > article:first-child > h3 {
+  margin-top: 1.75rem;
+  color: var(--ra-ivory);
+  font-family: inherit;
+  font-size: 1.875rem;
+  font-weight: 900;
+  letter-spacing: normal;
+  line-height: 1.15;
+}
+
+.radiant-program-grid > article:first-child > p:nth-of-type(1) {
+  margin-top: 1rem;
+  color: var(--ra-card-muted);
+  font-size: 0.875rem;
+  line-height: 1.75;
+}
+
+.radiant-program-grid > article:first-child > p:nth-of-type(2) {
+  margin-top: 1.25rem;
+  border-left: 2px solid rgb(156 207 141 / 0.34) !important;
+  padding-left: 1rem;
+  color: #d9dfcf;
+  font-size: 0.75rem;
+  line-height: 1.5rem;
+}
+
+.radiant-program-grid > article:first-child > p:nth-of-type(2)::before {
+  display: none;
+}
+
+.radiant-program-grid > article:first-child > .radiant-program-includes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Premium inner typography and material details
+   -------------------------------------------------------------------------- */
+
+.radiant-academy :is(
+  .radiant-diagnostic-grid article,
+  .radiant-program-grid article,
+  .radiant-skill-card,
+  .radiant-coach-card,
+  .radiant-progress-grid article,
+  .radiant-path-grid article,
+  .radiant-match-panel,
+  .radiant-intake
+) h3 {
+  color: #f0ead4;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  text-shadow: 0 2px 12px rgb(0 0 0 / 0.64);
+}
+
+.radiant-academy :is(
+  .radiant-diagnostic-grid article,
+  .radiant-program-grid article,
+  .radiant-skill-card,
+  .radiant-coach-card,
+  .radiant-progress-grid article,
+  .radiant-path-grid article,
+  .radiant-match-panel,
+  .radiant-intake
+) p {
+  color: var(--ra-card-muted);
+  text-shadow: 0 2px 10px rgb(0 0 0 / 0.48);
+}
+
+.radiant-icon,
+.radiant-coach-seal {
+  overflow: visible;
+  border: 0 !important;
+  border-radius: 0.38rem !important;
+  background:
+    radial-gradient(circle at 32% 22%, rgb(233 216 157 / 0.16), transparent 38%),
+    linear-gradient(145deg, #697064, #343e36 58%, #1d2820) !important;
+  box-shadow:
+    inset 0 1px rgb(255 241 193 / 0.14),
+    inset 0 -4px 9px rgb(4 8 5 / 0.48),
+    0 6px 0 rgb(6 11 7 / 0.52),
+    0 12px 20px rgb(0 0 0 / 0.33),
+    0 0 20px rgb(137 180 95 / 0.07);
+  color: #a9ca7f !important;
+}
+
+.radiant-icon::after,
+.radiant-coach-seal::after {
+  position: absolute;
+  inset: -0.32rem;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 12% 10%, #6d8245 0 7%, transparent 8%),
+    radial-gradient(circle at 84% 18%, #496333 0 8%, transparent 9%),
+    radial-gradient(circle at 90% 82%, #758b49 0 6%, transparent 7%),
+    linear-gradient(145deg, #6f7566, #343d35);
+  clip-path: polygon(7% 0, 93% 4%, 100% 15%, 96% 91%, 88% 100%, 5% 96%, 0 84%, 3% 9%);
+  content: "";
+  filter: drop-shadow(0 4px 5px rgb(0 0 0 / 0.42));
+  opacity: 0.82;
+}
+
+.radiant-badge {
+  border: 0 !important;
+  border-radius: 0.26rem !important;
+  background:
+    radial-gradient(circle at 20% 0, rgb(240 221 159 / 0.18), transparent 40%),
+    linear-gradient(180deg, #767867, #3b453b) !important;
+  box-shadow:
+    inset 0 1px rgb(255 243 198 / 0.13),
+    inset 0 -3px 8px rgb(4 8 5 / 0.38),
+    0 5px 0 rgb(7 12 8 / 0.5),
+    0 10px 18px rgb(0 0 0 / 0.26);
+  color: #edf0d5 !important;
+}
+
+.radiant-program-includes li,
+.radiant-tag {
+  border: 0 !important;
+  border-radius: 0.22rem !important;
+  background:
+    linear-gradient(180deg, rgb(67 76 60 / 0.82), rgb(24 34 27 / 0.92)) !important;
+  box-shadow:
+    inset 0 1px rgb(236 220 169 / 0.07),
+    0 4px 0 rgb(4 8 5 / 0.42),
+    0 8px 13px rgb(0 0 0 / 0.18);
+  color: #dfe1ca;
+}
+
+.radiant-program-includes li {
+  padding: 0.75rem 0.8rem !important;
+}
+
+.radiant-academy :is(.surface, .radiant-improvement-map, .radiant-progress-report, .radiant-price-rail) :is(
+  .border-b,
+  .border-t,
+  .border-l-2
+) {
+  border-color: rgb(214 204 164 / 0.1) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Special panels and the hero intake
+   -------------------------------------------------------------------------- */
+
+.radiant-intake {
+  --stone-frame-top: -2.15rem;
+  --stone-frame-right: -1.85rem;
+  --stone-frame-bottom: -2rem;
+  --stone-frame-left: -1.9rem;
+  --stone-frame-rotate: 0.16deg;
+  transform: translateY(1.3rem) !important;
+}
+
+.radiant-improvement-map,
+.radiant-progress-report,
+.radiant-price-rail {
+  --stone-frame-size: 60rem auto;
+  padding: 2rem !important;
+}
+
+.radiant-match-panel,
+.radiant-coach-card {
+  --stone-frame-size: 54rem auto;
+}
+
+.radiant-coach-card {
+  margin-bottom: 2.5rem;
+}
+
+.radiant-faq-list details[open]::after {
+  background:
+    radial-gradient(ellipse 52% 44% at 16% 0, rgb(232 207 132 / 0.095), transparent 72%),
+    radial-gradient(ellipse 38% 48% at 100% 100%, rgb(89 133 73 / 0.09), transparent 73%),
+    linear-gradient(132deg, rgb(26 35 25 / 0.985), rgb(8 13 9 / 0.99) 56%, rgb(13 20 14 / 0.98));
+}
+
+.radiant-faq-list summary span:last-child {
+  border: 0 !important;
+  border-radius: 0.25rem !important;
+  background: linear-gradient(145deg, #68705f, #303a31);
+  box-shadow:
+    inset 0 1px rgb(244 227 174 / 0.1),
+    0 4px 0 rgb(5 9 6 / 0.5),
+    0 7px 12px rgb(0 0 0 / 0.22);
+}
+
+/* --------------------------------------------------------------------------
+   Hover motion remains restrained and architectural
+   -------------------------------------------------------------------------- */
+
+.radiant-academy :is(
+  .radiant-diagnostic-grid article,
+  .radiant-program-grid article,
+  .radiant-skill-card,
+  .radiant-progress-grid article,
+  .radiant-path-grid article,
+  .radiant-coach-card
+) {
+  transition: transform 360ms cubic-bezier(.2, .72, .2, 1);
+}
+
+.radiant-academy :is(
+  .radiant-diagnostic-grid article,
+  .radiant-program-grid article,
+  .radiant-skill-card,
+  .radiant-progress-grid article,
+  .radiant-path-grid article,
+  .radiant-coach-card
+):hover {
+  transform: translateY(-5px) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive scaling
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1180px) {
+  .radiant-academy :is(.surface, .radiant-improvement-map, .radiant-progress-report, .radiant-price-rail) {
+    --stone-frame-top: -1.25rem;
+    --stone-frame-right: -1.2rem;
+    --stone-frame-bottom: -1.35rem;
+    --stone-frame-left: -1.2rem;
+    --stone-frame-size: 42rem auto;
+  }
+
+  .radiant-program-grid,
+  .radiant-skill-tree,
+  .radiant-progress-grid,
+  .radiant-path-grid {
+    column-gap: 2.4rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .radiant-academy :is(.surface, .radiant-improvement-map, .radiant-progress-report, .radiant-price-rail) {
+    --stone-frame-top: -0.85rem;
+    --stone-frame-right: -0.75rem;
+    --stone-frame-bottom: -0.95rem;
+    --stone-frame-left: -0.75rem;
+    --stone-frame-size: 34rem auto;
+  }
+
+  .radiant-academy :is(.surface, .radiant-improvement-map, .radiant-progress-report, .radiant-price-rail)::before {
+    filter:
+      contrast(1.06)
+      saturate(0.86)
+      brightness(0.95)
+      drop-shadow(0 5px 0 rgb(4 8 5 / 0.56))
+      drop-shadow(0 16px 24px rgb(0 0 0 / 0.52));
+  }
+
+  .radiant-diagnostic-grid,
+  .radiant-program-grid,
+  .radiant-skill-tree,
+  .radiant-progress-grid,
+  .radiant-path-grid {
+    row-gap: 2.8rem !important;
+    column-gap: 1.4rem !important;
+  }
+
+  .radiant-journey,
+  .radiant-faq-list {
+    gap: 1.6rem;
+  }
+
+  .radiant-program-grid > article:first-child {
+    min-height: auto;
+  }
+
+  .radiant-program-grid > article:first-child > .radiant-program-includes {
+    grid-template-columns: 1fr;
+  }
+
+  .radiant-intake {
+    --stone-frame-top: -1.1rem;
+    --stone-frame-right: -0.9rem;
+    --stone-frame-bottom: -1.05rem;
+    --stone-frame-left: -0.9rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .radiant-academy :is(.surface, .radiant-improvement-map, .radiant-progress-report, .radiant-price-rail) {
+    --stone-frame-top: -0.6rem;
+    --stone-frame-right: -0.52rem;
+    --stone-frame-bottom: -0.65rem;
+    --stone-frame-left: -0.52rem;
+    --stone-frame-size: 29rem auto;
+  }
+
+  .radiant-academy :is(.surface, .radiant-improvement-map, .radiant-progress-report, .radiant-price-rail)::before {
+    background:
+      radial-gradient(ellipse 17% 7% at 11% 7%, rgb(139 166 67 / 0.67) 0 17%, rgb(78 111 49 / 0.66) 35%, rgb(35 62 29 / 0.5) 57%, transparent 74%),
+      radial-gradient(ellipse 12% 17% at 98% 42%, rgb(127 154 62 / 0.6) 0 16%, rgb(70 103 46 / 0.62) 35%, rgb(32 59 28 / 0.48) 60%, transparent 74%),
+      url("/media/radiant-academy/premium-moss-stone.svg") var(--stone-frame-position) / var(--stone-frame-size) repeat;
+  }
+
+  .radiant-academy :is(.surface, .radiant-improvement-map, .radiant-progress-report, .radiant-price-rail)::after {
+    clip-path: polygon(0.8% 0, 99% 0.7%, 100% 99%, 1% 100%, 0 97%, 0.5% 2%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .radiant-academy :is(
+    .surface,
+    .radiant-improvement-map,
+    .radiant-progress-report,
+    .radiant-price-rail
+  )::before,
+  .radiant-academy :is(
+    .radiant-diagnostic-grid article,
+    .radiant-program-grid article,
+    .radiant-skill-card,
+    .radiant-progress-grid article,
+    .radiant-path-grid article,
+    .radiant-coach-card
+  ) {
+    transition: none !important;
+  }
+}
