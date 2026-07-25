@@ -1,0 +1,751 @@
+/* ==========================================================================
+   RADIANT ACADEMY — Coaching Artifact
+   One production-ready master card. All visible structure is layered SVG.
+   ========================================================================== */
+
+.coaching-artifact {
+  --artifact-tilt-x: 0deg;
+  --artifact-tilt-y: 0deg;
+  --artifact-far-x: 0px;
+  --artifact-far-y: 0px;
+  --artifact-mid-x: 0px;
+  --artifact-mid-y: 0px;
+  --artifact-near-x: 0px;
+  --artifact-near-y: 0px;
+  --artifact-crest-x: 0px;
+  --artifact-crest-y: 0px;
+  --artifact-light-shift: 0px;
+  position: relative !important;
+  z-index: 6;
+  display: block !important;
+  grid-column: 1 / -1 !important;
+  width: 100%;
+  min-height: 0 !important;
+  aspect-ratio: 1240 / 700;
+  margin-block: clamp(1.5rem, 3vw, 3.25rem);
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  clip-path: none !important;
+  padding: 0 !important;
+  color: #eee3ce;
+  isolation: isolate;
+  transform:
+    perspective(1250px)
+    rotateX(var(--artifact-tilt-x))
+    rotateY(var(--artifact-tilt-y))
+    translate3d(0, 0, 0) !important;
+  transform-origin: 50% 52%;
+  transition:
+    opacity 700ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 520ms cubic-bezier(0.2, 0.72, 0.2, 1);
+  will-change: transform;
+}
+
+.coaching-artifact[data-revealed="false"] {
+  opacity: 0.001;
+  transform:
+    perspective(1250px)
+    rotateX(1.3deg)
+    translate3d(0, 2rem, 0)
+    scale(0.988) !important;
+}
+
+.coaching-artifact[data-revealed="true"] {
+  opacity: 1;
+}
+
+.coaching-artifact__art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: brightness(0.38) saturate(0.74) contrast(1.08);
+  pointer-events: none;
+  transform-origin: center;
+  transition:
+    filter 920ms cubic-bezier(0.2, 0.72, 0.2, 1),
+    opacity 740ms ease;
+}
+
+.coaching-artifact[data-revealed="true"] .coaching-artifact__art {
+  filter: brightness(1) saturate(0.96) contrast(1.02);
+}
+
+.coaching-artifact__art--mobile {
+  display: none;
+}
+
+.coaching-artifact__layer {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    transform 460ms cubic-bezier(0.2, 0.72, 0.2, 1),
+    opacity 400ms ease;
+}
+
+.coaching-artifact__layer--far {
+  transform: translate3d(var(--artifact-far-x), var(--artifact-far-y), 0);
+}
+
+.coaching-artifact__layer--mid {
+  transform: translate3d(var(--artifact-mid-x), var(--artifact-mid-y), 0);
+}
+
+.coaching-artifact__layer--near {
+  transform: translate3d(var(--artifact-near-x), var(--artifact-near-y), 0);
+}
+
+.coaching-artifact__light-sweep {
+  opacity: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transform: translateX(calc(-5rem + var(--artifact-light-shift)));
+  transform-origin: center;
+  transition:
+    opacity 420ms ease,
+    transform 620ms cubic-bezier(0.16, 0.72, 0.2, 1);
+}
+
+.coaching-artifact__seam {
+  transition:
+    opacity 360ms ease,
+    stroke 360ms ease,
+    stroke-width 360ms ease;
+}
+
+.coaching-artifact__seam--glow {
+  opacity: 0.18;
+}
+
+.coaching-artifact__seam--core {
+  opacity: 0.7;
+}
+
+.coaching-artifact__seam--violet {
+  opacity: 0.38;
+}
+
+.coaching-artifact__engraving {
+  opacity: 0;
+  transition: opacity 650ms ease 620ms;
+}
+
+.coaching-artifact[data-revealed="true"] .coaching-artifact__engraving {
+  opacity: 1;
+}
+
+.coaching-artifact__scratches {
+  opacity: 0.13;
+  stroke-linecap: round;
+  stroke-width: 1.1;
+}
+
+.coaching-artifact__particles {
+  opacity: 0.58;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    opacity 360ms ease,
+    transform 700ms cubic-bezier(0.18, 0.7, 0.2, 1);
+}
+
+/* Forged crest */
+
+.coaching-artifact__crest {
+  position: absolute;
+  top: 17.5%;
+  left: 5.2%;
+  z-index: 4;
+  width: 23%;
+  max-width: 18.5rem;
+  pointer-events: none;
+  transform:
+    translate3d(var(--artifact-crest-x), var(--artifact-crest-y), 2.5rem)
+    rotate(-2.25deg);
+  transform-origin: 50% 56%;
+  transition:
+    opacity 650ms ease 250ms,
+    transform 500ms cubic-bezier(0.2, 0.72, 0.2, 1);
+}
+
+.coaching-artifact[data-revealed="false"] .coaching-artifact__crest {
+  opacity: 0;
+  transform: translate3d(-0.8rem, 1.15rem, 2.5rem) rotate(-5deg) scale(0.94);
+}
+
+.coaching-artifact__crest-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter:
+    drop-shadow(0 0.8rem 0 rgb(1 1 2 / 0.74))
+    drop-shadow(0 1.8rem 1.6rem rgb(0 0 0 / 0.52));
+}
+
+.coaching-artifact__crest-rune,
+.coaching-artifact__crest-core,
+.coaching-artifact__crest-seam {
+  transition:
+    opacity 360ms ease,
+    filter 360ms ease,
+    stroke 360ms ease;
+}
+
+.coaching-artifact__crest-caption {
+  position: absolute;
+  right: 8%;
+  bottom: 4%;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #d7c9af;
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.16em;
+  text-shadow: 0 2px 8px #000;
+  text-transform: uppercase;
+}
+
+.coaching-artifact__crest-caption small {
+  color: #887b72;
+  font-size: 0.48rem;
+  font-style: normal;
+}
+
+.coaching-artifact__crest-caption b {
+  color: #bd8c5a;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Editorial content */
+
+.coaching-artifact__content {
+  position: relative !important;
+  z-index: 5 !important;
+  display: grid;
+  width: 59%;
+  height: 100%;
+  margin-left: 31%;
+  align-content: center;
+  padding-block: clamp(4.3rem, 6.8vw, 6.2rem);
+  pointer-events: none;
+}
+
+.coaching-artifact__content > * {
+  opacity: 0;
+  transform: translateY(0.9rem);
+  transition:
+    opacity 560ms ease,
+    transform 650ms cubic-bezier(0.18, 0.72, 0.2, 1);
+}
+
+.coaching-artifact[data-revealed="true"] .coaching-artifact__content > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.coaching-artifact[data-revealed="true"] .coaching-artifact__content > :nth-child(1) {
+  transition-delay: 250ms;
+}
+
+.coaching-artifact[data-revealed="true"] .coaching-artifact__content > :nth-child(2) {
+  transition-delay: 340ms;
+}
+
+.coaching-artifact[data-revealed="true"] .coaching-artifact__content > :nth-child(3) {
+  transition-delay: 430ms;
+}
+
+.coaching-artifact[data-revealed="true"] .coaching-artifact__content > :nth-child(4) {
+  transition-delay: 500ms;
+}
+
+.coaching-artifact[data-revealed="true"] .coaching-artifact__content > :nth-child(5) {
+  transition-delay: 570ms;
+}
+
+.coaching-artifact[data-revealed="true"] .coaching-artifact__content > :nth-child(6) {
+  transition-delay: 650ms;
+}
+
+.coaching-artifact__eyebrow {
+  display: grid;
+  grid-template-columns: clamp(2.25rem, 4vw, 4.25rem) auto 1fr;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: clamp(0.7rem, 1.3vw, 1rem);
+}
+
+.coaching-artifact__eyebrow > span {
+  height: 1px;
+  background: linear-gradient(90deg, #51312d, #bd8350 58%, #47615b);
+  box-shadow: 0 1px #000;
+}
+
+.coaching-artifact__eyebrow p {
+  margin: 0 !important;
+  color: #d8c8ac !important;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(0.57rem, 0.73vw, 0.72rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  line-height: 1;
+  text-shadow: 0 2px 8px #000 !important;
+  text-transform: uppercase;
+}
+
+.coaching-artifact__eyebrow em {
+  justify-self: end;
+  color: #756a6f;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(0.48rem, 0.6vw, 0.62rem);
+  font-style: normal;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.radiant-academy .radiant-program-grid .coaching-artifact h3 {
+  max-width: 50rem;
+  margin: 0 !important;
+  color: #f2e8d5 !important;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: clamp(3.05rem, 5.6vw, 5.55rem) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.052em !important;
+  line-height: 0.88 !important;
+  text-wrap: balance;
+  text-shadow:
+    0 1px 0 #57443e,
+    0 4px 0 rgb(0 0 0 / 0.7),
+    0 1.2rem 2.2rem rgb(0 0 0 / 0.55) !important;
+}
+
+.radiant-academy .radiant-program-grid .coaching-artifact__description {
+  max-width: 44rem;
+  margin: clamp(0.75rem, 1.35vw, 1.2rem) 0 0 !important;
+  color: #c9c0b4 !important;
+  font-size: clamp(0.82rem, 1.08vw, 1.04rem) !important;
+  line-height: 1.72 !important;
+  text-shadow: 0 2px 11px #000 !important;
+}
+
+.radiant-academy .radiant-program-grid .coaching-artifact__best-for {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  max-width: 46rem;
+  margin: clamp(0.65rem, 1.2vw, 1rem) 0 0 !important;
+  align-items: start;
+  gap: 0.7rem;
+  border: 0 !important;
+  padding: 0 !important;
+  color: #a99fa0 !important;
+  font-size: clamp(0.68rem, 0.8vw, 0.78rem) !important;
+  line-height: 1.55 !important;
+  text-shadow: 0 2px 9px #000 !important;
+}
+
+.coaching-artifact__best-for > span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.55rem;
+  color: #c9955d;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.coaching-artifact__benefits {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: clamp(0.6rem, 1.1vw, 1rem) !important;
+  margin: clamp(0.85rem, 1.4vw, 1.25rem) 0 0 !important;
+}
+
+.radiant-academy .radiant-program-grid .coaching-artifact__benefits li {
+  display: grid;
+  grid-template-columns: 1.7rem 1fr;
+  min-width: 0;
+  align-items: center;
+  gap: 0.55rem;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  color: #dcd0bc !important;
+  font-size: clamp(0.6rem, 0.72vw, 0.7rem) !important;
+  font-weight: 650;
+  letter-spacing: 0.015em;
+  line-height: 1.3;
+  text-transform: none;
+}
+
+.coaching-artifact__benefits li + li {
+  border-left: 1px solid rgb(176 119 82 / 0.18) !important;
+  padding-left: clamp(0.55rem, 1vw, 0.95rem) !important;
+}
+
+.coaching-artifact__benefits svg {
+  width: 1.55rem;
+  height: 1.55rem;
+  overflow: visible;
+  color: #9f6bb6;
+  filter: drop-shadow(0 0.25rem 0.3rem rgb(0 0 0 / 0.62));
+}
+
+.coaching-artifact__benefits span {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.coaching-artifact__benefits small {
+  color: #796e6e;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.48rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+/* The CTA is a moving forged tab, not a conventional button. */
+
+.coaching-artifact__cta {
+  position: relative;
+  display: grid;
+  width: min(100%, 22.5rem);
+  min-height: clamp(3.25rem, 4.8vw, 4.45rem);
+  margin-top: clamp(0.85rem, 1.55vw, 1.35rem);
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  color: #efe2c8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(0.61rem, 0.78vw, 0.76rem);
+  font-weight: 750;
+  letter-spacing: 0.13em;
+  pointer-events: auto;
+  text-decoration: none;
+  text-shadow: 0 2px 8px #000;
+  text-transform: uppercase;
+  transform: translateX(-0.3rem);
+  transition:
+    color 260ms ease,
+    filter 320ms ease,
+    transform 380ms cubic-bezier(0.2, 0.72, 0.2, 1);
+}
+
+.coaching-artifact__cta > svg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter:
+    drop-shadow(0 0.38rem 0 rgb(1 1 2 / 0.62))
+    drop-shadow(0 0.75rem 0.7rem rgb(0 0 0 / 0.38));
+}
+
+.coaching-artifact__cta > span:nth-of-type(1) {
+  padding-left: clamp(1.25rem, 2vw, 1.8rem);
+}
+
+.coaching-artifact__cta-arrow {
+  display: flex;
+  min-width: 4.1rem;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 1.25rem;
+  color: #dcab65;
+}
+
+.coaching-artifact__cta-arrow i {
+  width: 1.55rem;
+  height: 1px;
+  background: currentColor;
+  box-shadow: 0 0 0.6rem rgb(224 154 79 / 0.42);
+  transform-origin: right;
+  transition: transform 300ms cubic-bezier(0.2, 0.72, 0.2, 1);
+}
+
+.coaching-artifact__cta-arrow b {
+  margin-left: -0.08rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 0;
+  transition: transform 300ms cubic-bezier(0.2, 0.72, 0.2, 1);
+}
+
+.coaching-artifact__cta-seam {
+  transition:
+    stroke 280ms ease,
+    stroke-width 280ms ease;
+}
+
+/* Tactile interaction */
+
+@media (hover: hover) and (pointer: fine) {
+  .radiant-academy .radiant-program-grid .coaching-artifact[data-revealed="true"]:hover {
+    transform:
+      perspective(1250px)
+      rotateX(var(--artifact-tilt-x))
+      rotateY(var(--artifact-tilt-y))
+      translate3d(0, -0.48rem, 1.25rem) !important;
+  }
+
+  .coaching-artifact:hover .coaching-artifact__art {
+    filter: brightness(1.055) saturate(1.02) contrast(1.045);
+  }
+
+  .coaching-artifact:hover .coaching-artifact__layer--far {
+    opacity: 0.96;
+  }
+
+  .coaching-artifact:hover .coaching-artifact__light-sweep,
+  .coaching-artifact:focus-within .coaching-artifact__light-sweep {
+    opacity: 0.72;
+    transform: translateX(calc(5rem + var(--artifact-light-shift)));
+  }
+
+  .coaching-artifact:hover .coaching-artifact__seam--glow,
+  .coaching-artifact:focus-within .coaching-artifact__seam--glow {
+    opacity: 0.48;
+  }
+
+  .coaching-artifact:hover .coaching-artifact__seam--core,
+  .coaching-artifact:focus-within .coaching-artifact__seam--core {
+    opacity: 1;
+    stroke-width: 3.2;
+  }
+
+  .coaching-artifact:hover .coaching-artifact__seam--violet,
+  .coaching-artifact:focus-within .coaching-artifact__seam--violet {
+    opacity: 0.74;
+  }
+
+  .coaching-artifact:hover .coaching-artifact__particles {
+    opacity: 0.9;
+    transform: translate3d(0, -0.3rem, 0);
+  }
+
+  .coaching-artifact:hover .coaching-artifact__crest,
+  .coaching-artifact:focus-within .coaching-artifact__crest {
+    transform:
+      translate3d(
+        calc(var(--artifact-crest-x) - 0.16rem),
+        calc(var(--artifact-crest-y) - 0.3rem),
+        3rem
+      )
+      rotate(-1.2deg);
+  }
+
+  .coaching-artifact:hover .coaching-artifact__crest-rune,
+  .coaching-artifact:focus-within .coaching-artifact__crest-rune {
+    filter: drop-shadow(0 0 0.4rem rgb(164 102 194 / 0.5));
+    stroke: #c692db;
+  }
+
+  .coaching-artifact:hover .coaching-artifact__crest-core,
+  .coaching-artifact:focus-within .coaching-artifact__crest-core {
+    filter: drop-shadow(0 0 0.5rem rgb(224 146 77 / 0.42));
+  }
+
+  .coaching-artifact:hover .coaching-artifact__engraving,
+  .coaching-artifact:focus-within .coaching-artifact__engraving {
+    opacity: 1;
+  }
+
+  .coaching-artifact__cta:hover {
+    color: #fff0cf;
+    filter: drop-shadow(0 0 0.8rem rgb(138 73 159 / 0.14));
+    transform: translateX(0.25rem);
+  }
+
+  .coaching-artifact__cta:hover .coaching-artifact__cta-arrow i {
+    transform: scaleX(1.28);
+  }
+
+  .coaching-artifact__cta:hover .coaching-artifact__cta-arrow b {
+    transform: translateX(0.28rem);
+  }
+
+  .coaching-artifact__cta:hover .coaching-artifact__cta-seam {
+    stroke: #eac475;
+    stroke-width: 3;
+  }
+}
+
+.coaching-artifact__cta:focus-visible {
+  border-radius: 0.15rem;
+  outline: 2px solid #f0dfbd;
+  outline-offset: 0.45rem;
+  color: #fff1d2;
+  filter:
+    drop-shadow(0 0 0.55rem rgb(187 135 210 / 0.45))
+    drop-shadow(0 0.65rem 0.8rem rgb(0 0 0 / 0.5));
+}
+
+/* The tall SVG is a separately composed mobile relic, not a scaled desktop card. */
+
+@media (max-width: 900px) {
+  .coaching-artifact {
+    width: min(100%, 38.75rem);
+    aspect-ratio: 620 / 1140;
+    justify-self: center;
+    margin-block: 2rem 3rem;
+  }
+
+  .coaching-artifact__art--desktop {
+    display: none;
+  }
+
+  .coaching-artifact__art--mobile {
+    display: block;
+  }
+
+  .coaching-artifact__crest {
+    top: 5.1%;
+    left: 10.5%;
+    width: 35%;
+    max-width: none;
+  }
+
+  .coaching-artifact__content {
+    width: auto;
+    height: 100%;
+    margin: 0;
+    align-content: start;
+    padding: 31.5% 17.5% 12%;
+  }
+
+  .coaching-artifact__eyebrow {
+    grid-template-columns: 2rem auto;
+    margin-bottom: 0.65rem;
+  }
+
+  .coaching-artifact__eyebrow em {
+    display: none;
+  }
+
+  .radiant-academy .radiant-program-grid .coaching-artifact h3 {
+    font-size: clamp(2.55rem, 9.1vw, 4.2rem) !important;
+    line-height: 0.92 !important;
+  }
+
+  .radiant-academy .radiant-program-grid .coaching-artifact__description {
+    margin-top: clamp(0.75rem, 2vw, 1rem) !important;
+    font-size: clamp(0.78rem, 1.95vw, 0.98rem) !important;
+    line-height: 1.62 !important;
+  }
+
+  .radiant-academy .radiant-program-grid .coaching-artifact__best-for {
+    margin-top: clamp(0.65rem, 1.7vw, 0.9rem) !important;
+    font-size: clamp(0.65rem, 1.72vw, 0.8rem) !important;
+  }
+
+  .coaching-artifact__benefits {
+    grid-template-columns: 1fr !important;
+    gap: clamp(0.42rem, 1.1vw, 0.65rem) !important;
+    margin-top: clamp(0.75rem, 2vw, 1rem) !important;
+  }
+
+  .radiant-academy .radiant-program-grid .coaching-artifact__benefits li {
+    grid-template-columns: 1.55rem 1fr;
+    gap: 0.5rem;
+    font-size: clamp(0.62rem, 1.65vw, 0.76rem) !important;
+  }
+
+  .coaching-artifact__benefits li + li {
+    border-left: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  .coaching-artifact__benefits span {
+    grid-template-columns: 1.7rem 1fr;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .coaching-artifact__cta {
+    width: min(100%, 20rem);
+    min-height: clamp(3rem, 8.7vw, 4rem);
+    margin-top: clamp(0.75rem, 2vw, 1.05rem);
+    font-size: clamp(0.58rem, 1.6vw, 0.72rem);
+  }
+}
+
+@media (max-width: 520px) {
+  .coaching-artifact {
+    width: calc(100% + 1rem);
+    margin-left: -0.5rem;
+  }
+
+  .coaching-artifact__content {
+    padding-right: 15%;
+    padding-left: 15%;
+  }
+
+  .coaching-artifact__crest {
+    left: 8.5%;
+    width: 38%;
+  }
+
+  .coaching-artifact__crest-caption {
+    right: 4%;
+    bottom: 2%;
+  }
+
+  .coaching-artifact__best-for > span {
+    font-size: 0.5rem;
+  }
+
+  .coaching-artifact__cta-arrow {
+    min-width: 3.55rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coaching-artifact,
+  .coaching-artifact *,
+  .coaching-artifact *::before,
+  .coaching-artifact *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .coaching-artifact,
+  .coaching-artifact[data-revealed="false"],
+  .coaching-artifact[data-revealed="true"],
+  .radiant-academy .radiant-program-grid .coaching-artifact:hover {
+    opacity: 1;
+    transform: none !important;
+  }
+
+  .coaching-artifact__art,
+  .coaching-artifact[data-revealed="true"] .coaching-artifact__art {
+    filter: brightness(1) saturate(0.96) contrast(1.02);
+  }
+
+  .coaching-artifact__content > *,
+  .coaching-artifact[data-revealed="false"] .coaching-artifact__crest {
+    opacity: 1;
+    transform: none;
+  }
+
+  .coaching-artifact__light-sweep {
+    display: none;
+  }
+}

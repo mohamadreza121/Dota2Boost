@@ -1,0 +1,15 @@
+.radiant-academy .surface::before,
+.radiant-stone-card::before {
+  z-index: 0;
+}
+
+.radiant-academy .surface > *,
+.radiant-stone-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.radiant-academy .surface::after,
+.radiant-stone-card::after {
+  z-index: 3;
+}

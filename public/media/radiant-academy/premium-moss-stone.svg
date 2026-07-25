@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="stoneA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b0b3aa"/>
+      <stop offset="0.34" stop-color="#858a84"/>
+      <stop offset="0.72" stop-color="#626864"/>
+      <stop offset="1" stop-color="#3d4340"/>
+    </linearGradient>
+    <linearGradient id="stoneB" x1="0.12" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#9da19b"/>
+      <stop offset="0.45" stop-color="#727873"/>
+      <stop offset="1" stop-color="#454b47"/>
+    </linearGradient>
+    <linearGradient id="stoneC" x1="0" y1="0.2" x2="1" y2="0.8">
+      <stop offset="0" stop-color="#c0bfb2"/>
+      <stop offset="0.28" stop-color="#92958d"/>
+      <stop offset="0.66" stop-color="#676c67"/>
+      <stop offset="1" stop-color="#414744"/>
+    </linearGradient>
+    <linearGradient id="stoneD" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0" stop-color="#858b87"/>
+      <stop offset="0.5" stop-color="#5d6460"/>
+      <stop offset="1" stop-color="#363d39"/>
+    </linearGradient>
+    <filter id="stoneTexture" x="-8%" y="-8%" width="116%" height="122%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.025 0.12" numOctaves="4" seed="32" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G" result="rough"/>
+      <feDropShadow in="rough" dx="0" dy="7" stdDeviation="4.5" flood-color="#07100a" flood-opacity="0.82"/>
+    </filter>
+    <filter id="surfaceGrain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.58" numOctaves="3" seed="11" result="grain"/>
+      <feColorMatrix in="grain" type="saturate" values="0" result="gray"/>
+      <feComponentTransfer in="gray" result="soft">
+        <feFuncA type="table" tableValues="0 0.16"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="soft" mode="soft-light"/>
+    </filter>
+    <filter id="mossDepth" x="-25%" y="-70%" width="150%" height="240%">
+      <feGaussianBlur stdDeviation="0.35" result="soft"/>
+      <feDropShadow in="soft" dx="0" dy="2" stdDeviation="2.2" flood-color="#071108" flood-opacity="0.88"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="600" fill="#141a16"/>
+
+  <g filter="url(#stoneTexture)" stroke="#242c27" stroke-width="8" stroke-linejoin="round">
+    <path fill="url(#stoneA)" d="M-24 8 L146 -8 L184 22 L176 132 L146 157 L-18 145 Z"/>
+    <path fill="url(#stoneC)" d="M181 20 L346 3 L378 28 L370 132 L344 153 L176 132 Z"/>
+    <path fill="url(#stoneB)" d="M376 27 L563 2 L600 31 L590 132 L561 153 L370 132 Z"/>
+    <path fill="url(#stoneA)" d="M598 30 L756 8 L792 34 L783 134 L754 155 L590 132 Z"/>
+    <path fill="url(#stoneD)" d="M790 32 L925 6 L928 152 L783 134 Z"/>
+
+    <path fill="url(#stoneD)" d="M-25 155 L111 143 L144 173 L135 291 L106 316 L-18 304 Z"/>
+    <path fill="url(#stoneB)" d="M141 171 L305 150 L342 179 L333 296 L302 320 L135 291 Z"/>
+    <path fill="url(#stoneC)" d="M339 177 L507 151 L545 181 L536 295 L505 319 L333 296 Z"/>
+    <path fill="url(#stoneA)" d="M542 180 L720 154 L758 184 L748 300 L718 322 L536 295 Z"/>
+    <path fill="url(#stoneB)" d="M756 183 L925 157 L927 314 L748 300 Z"/>
+
+    <path fill="url(#stoneB)" d="M-22 317 L160 296 L198 329 L188 448 L156 475 L-18 460 Z"/>
+    <path fill="url(#stoneA)" d="M195 327 L377 303 L414 335 L405 452 L374 477 L188 448 Z"/>
+    <path fill="url(#stoneD)" d="M411 333 L579 306 L619 339 L608 456 L576 480 L405 452 Z"/>
+    <path fill="url(#stoneC)" d="M616 337 L790 310 L826 343 L817 462 L785 486 L608 456 Z"/>
+    <path fill="url(#stoneA)" d="M823 341 L927 321 L930 484 L817 462 Z"/>
+
+    <path fill="url(#stoneC)" d="M-24 472 L128 458 L165 492 L154 620 L-18 624 Z"/>
+    <path fill="url(#stoneD)" d="M162 490 L326 467 L366 500 L355 618 L153 620 Z"/>
+    <path fill="url(#stoneA)" d="M363 498 L535 472 L575 503 L565 620 L355 618 Z"/>
+    <path fill="url(#stoneB)" d="M572 501 L746 476 L786 507 L776 621 L565 620 Z"/>
+    <path fill="url(#stoneC)" d="M783 505 L927 480 L930 624 L776 621 Z"/>
+  </g>
+
+  <g fill="none" stroke="#d7d6c7" stroke-width="2.2" stroke-linecap="round" opacity="0.24">
+    <path d="M6 24 L137 10 L168 31"/><path d="M201 35 L337 17 L366 38"/>
+    <path d="M397 41 L550 18 L585 42"/><path d="M621 43 L745 24 L777 46"/>
+    <path d="M10 172 L103 159 L132 183"/><path d="M162 188 L295 166 L329 190"/>
+    <path d="M360 195 L496 170 L529 193"/><path d="M563 198 L710 171 L744 196"/>
+    <path d="M4 335 L149 313 L184 340"/><path d="M217 344 L366 321 L401 348"/>
+    <path d="M434 350 L569 325 L604 350"/><path d="M638 355 L779 329 L813 355"/>
+    <path d="M8 490 L117 476 L151 503"/><path d="M185 507 L317 484 L352 511"/>
+    <path d="M388 514 L526 490 L561 515"/><path d="M600 518 L737 494 L773 519"/>
+  </g>
+
+  <g fill="none" stroke="#353d39" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <path stroke-width="3" d="M66 46 L86 66 L77 91 L96 112"/>
+    <path stroke-width="2.2" d="M276 43 L258 67 L268 92 L252 114"/>
+    <path stroke-width="2.8" d="M480 38 L460 61 L472 85 L455 110"/>
+    <path stroke-width="2.3" d="M690 49 L707 72 L698 101"/>
+    <path stroke-width="2.7" d="M83 193 L65 220 L77 248 L61 278"/>
+    <path stroke-width="2.2" d="M258 197 L277 221 L266 253"/>
+    <path stroke-width="3" d="M464 194 L443 220 L456 246 L438 276"/>
+    <path stroke-width="2.4" d="M675 204 L693 231 L682 264"/>
+    <path stroke-width="2.8" d="M110 352 L89 378 L102 410 L84 438"/>
+    <path stroke-width="2.2" d="M308 348 L326 374 L315 408"/>
+    <path stroke-width="2.8" d="M525 352 L503 380 L516 417"/>
+    <path stroke-width="2.3" d="M735 360 L752 387 L742 430"/>
+    <path stroke-width="2.5" d="M230 520 L211 547 L223 580"/>
+    <path stroke-width="2.8" d="M452 522 L431 548 L443 584"/>
+    <path stroke-width="2.3" d="M672 529 L689 552 L680 586"/>
+  </g>
+
+  <g fill="#b8b5a0" opacity="0.09">
+    <ellipse cx="118" cy="83" rx="42" ry="17"/><ellipse cx="317" cy="78" rx="39" ry="15"/>
+    <ellipse cx="523" cy="81" rx="45" ry="18"/><ellipse cx="723" cy="88" rx="38" ry="15"/>
+    <ellipse cx="225" cy="231" rx="47" ry="18"/><ellipse cx="460" cy="234" rx="42" ry="17"/>
+    <ellipse cx="665" cy="238" rx="44" ry="17"/><ellipse cx="111" cy="390" rx="45" ry="18"/>
+    <ellipse cx="348" cy="393" rx="46" ry="18"/><ellipse cx="563" cy="398" rx="42" ry="17"/>
+    <ellipse cx="770" cy="405" rx="38" ry="16"/><ellipse cx="269" cy="550" rx="44" ry="17"/>
+    <ellipse cx="501" cy="552" rx="48" ry="18"/>
+  </g>
+
+  <g filter="url(#mossDepth)">
+    <g fill="#334f29"><circle cx="34" cy="151" r="19"/><circle cx="57" cy="154" r="23"/><circle cx="84" cy="150" r="18"/><circle cx="112" cy="153" r="24"/><circle cx="143" cy="148" r="19"/></g>
+    <g fill="#59783a"><circle cx="40" cy="145" r="12"/><circle cx="65" cy="148" r="15"/><circle cx="92" cy="145" r="13"/><circle cx="118" cy="147" r="16"/><circle cx="143" cy="144" r="11"/></g>
+    <g fill="#8da64b"><circle cx="46" cy="140" r="5"/><circle cx="70" cy="143" r="6"/><circle cx="96" cy="140" r="5"/><circle cx="122" cy="141" r="6"/><circle cx="145" cy="140" r="4"/></g>
+
+    <g fill="#2d4826"><circle cx="338" cy="154" r="16"/><circle cx="365" cy="151" r="23"/><circle cx="395" cy="153" r="19"/><circle cx="425" cy="150" r="24"/><circle cx="456" cy="153" r="17"/></g>
+    <g fill="#607d3d"><circle cx="344" cy="147" r="10"/><circle cx="370" cy="144" r="15"/><circle cx="398" cy="146" r="12"/><circle cx="425" cy="143" r="16"/><circle cx="452" cy="147" r="10"/></g>
+    <g fill="#9aaf50"><circle cx="350" cy="142" r="4"/><circle cx="375" cy="139" r="6"/><circle cx="402" cy="141" r="5"/><circle cx="429" cy="138" r="6"/><circle cx="453" cy="142" r="4"/></g>
+
+    <g fill="#2b4625"><circle cx="702" cy="157" r="18"/><circle cx="730" cy="153" r="25"/><circle cx="762" cy="154" r="21"/><circle cx="792" cy="150" r="18"/></g>
+    <g fill="#5c7d3b"><circle cx="708" cy="149" r="11"/><circle cx="734" cy="145" r="16"/><circle cx="763" cy="147" r="13"/><circle cx="790" cy="144" r="11"/></g>
+    <g fill="#95ad4d"><circle cx="714" cy="144" r="4"/><circle cx="739" cy="140" r="6"/><circle cx="767" cy="142" r="5"/><circle cx="791" cy="140" r="4"/></g>
+
+    <g fill="#294624"><circle cx="130" cy="306" r="17"/><circle cx="157" cy="303" r="23"/><circle cx="186" cy="304" r="18"/><circle cx="214" cy="301" r="21"/></g>
+    <g fill="#5a7b39"><circle cx="136" cy="298" r="10"/><circle cx="162" cy="295" r="15"/><circle cx="188" cy="297" r="11"/><circle cx="212" cy="294" r="14"/></g>
+    <g fill="#91a94a"><circle cx="141" cy="293" r="4"/><circle cx="166" cy="290" r="6"/><circle cx="191" cy="292" r="4"/><circle cx="214" cy="289" r="5"/></g>
+
+    <g fill="#2c4925"><circle cx="515" cy="313" r="19"/><circle cx="546" cy="309" r="24"/><circle cx="579" cy="311" r="20"/><circle cx="609" cy="307" r="23"/><circle cx="640" cy="311" r="16"/></g>
+    <g fill="#5e7f3d"><circle cx="521" cy="304" r="12"/><circle cx="550" cy="301" r="15"/><circle cx="580" cy="303" r="12"/><circle cx="609" cy="299" r="15"/><circle cx="636" cy="304" r="10"/></g>
+    <g fill="#98ae4e"><circle cx="527" cy="299" r="5"/><circle cx="554" cy="296" r="6"/><circle cx="584" cy="298" r="5"/><circle cx="613" cy="294" r="6"/><circle cx="638" cy="299" r="4"/></g>
+
+    <g fill="#294523"><circle cx="34" cy="461" r="17"/><circle cx="60" cy="458" r="22"/><circle cx="89" cy="459" r="19"/><circle cx="116" cy="455" r="21"/></g>
+    <g fill="#58783a"><circle cx="39" cy="453" r="10"/><circle cx="65" cy="450" r="14"/><circle cx="91" cy="452" r="12"/><circle cx="114" cy="448" r="13"/></g>
+    <g fill="#8fa648"><circle cx="44" cy="448" r="4"/><circle cx="69" cy="445" r="5"/><circle cx="94" cy="447" r="4"/><circle cx="116" cy="443" r="5"/></g>
+
+    <g fill="#2a4724"><circle cx="742" cy="475" r="18"/><circle cx="772" cy="471" r="25"/><circle cx="804" cy="473" r="20"/><circle cx="835" cy="469" r="23"/><circle cx="866" cy="472" r="17"/></g>
+    <g fill="#5b7b3b"><circle cx="748" cy="466" r="11"/><circle cx="776" cy="463" r="16"/><circle cx="806" cy="465" r="12"/><circle cx="835" cy="461" r="15"/><circle cx="862" cy="466" r="10"/></g>
+    <g fill="#94aa4b"><circle cx="754" cy="461" r="4"/><circle cx="780" cy="458" r="6"/><circle cx="810" cy="460" r="5"/><circle cx="839" cy="456" r="6"/><circle cx="864" cy="461" r="4"/></g>
+  </g>
+
+  <g fill="#9da26f" opacity="0.24">
+    <circle cx="214" cy="78" r="4"/><circle cx="222" cy="84" r="2"/><circle cx="206" cy="87" r="2.4"/>
+    <circle cx="611" cy="92" r="4.5"/><circle cx="620" cy="96" r="2.2"/><circle cx="603" cy="100" r="2.6"/>
+    <circle cx="292" cy="250" r="4.2"/><circle cx="301" cy="254" r="2.1"/><circle cx="284" cy="258" r="2.4"/>
+    <circle cx="738" cy="406" r="4.5"/><circle cx="747" cy="411" r="2.2"/><circle cx="730" cy="414" r="2.4"/>
+  </g>
+
+  <rect width="900" height="600" filter="url(#surfaceGrain)" opacity="0.72"/>
+</svg>

@@ -1,0 +1,8 @@
+.radiant-academy :is(
+  .surface,
+  .radiant-improvement-map,
+  .radiant-progress-report,
+  .radiant-price-rail
+):hover::before {
+  transform: translateY(-2px) rotate(0deg);
+}
