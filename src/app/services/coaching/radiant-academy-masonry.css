@@ -1,0 +1,544 @@
+/* ========================================================================== 
+   RADIANT ACADEMY — authentic ancient masonry refinement
+   Loaded after radiant-academy.css so the original layout remains intact.
+   ========================================================================== */
+
+.radiant-academy {
+  --ra-forest-950: #040a07;
+  --ra-forest-900: #07110c;
+  --ra-forest-850: #0b1710;
+  --ra-forest-800: #111f16;
+  --ra-forest-700: #1d3424;
+  --ra-moss: #526445;
+  --ra-leaf: #71845a;
+  --ra-leaf-bright: #9aaa73;
+  --ra-jade: #72c694;
+  --ra-emerald: #3f8d62;
+  --ra-stone-dark: #2f342e;
+  --ra-stone: #777b6b;
+  --ra-stone-light: #aaa98f;
+  --ra-limestone: #d0c9a8;
+  --ra-ivory: #f4efd8;
+  --ra-sun: #e8c46f;
+  --ra-sun-hot: #fff0b2;
+  --ra-muted: #bdc0ae;
+  background:
+    radial-gradient(ellipse 62rem 38rem at 84% 7%, rgb(236 203 112 / 0.115), transparent 72%),
+    radial-gradient(ellipse 42rem 31rem at 5% 40%, rgb(74 101 67 / 0.12), transparent 75%),
+    linear-gradient(180deg, #040a07 0%, #07110c 18%, #0b1710 45%, #122117 70%, #243525 100%);
+}
+
+.radiant-academy::before {
+  background-image:
+    radial-gradient(circle at 16% 12%, rgb(208 199 153 / 0.075) 0 0.8px, transparent 1.25px),
+    radial-gradient(circle at 78% 34%, rgb(236 215 147 / 0.07) 0 0.7px, transparent 1.15px),
+    linear-gradient(rgb(225 218 186 / 0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(225 218 186 / 0.01) 1px, transparent 1px);
+  opacity: 0.38;
+}
+
+.radiant-academy .eyebrow { color: #a8bb7b; }
+.radiant-academy .text-cyan { color: #82c9a0; }
+.radiant-academy .bg-cyan { background-color: #82c9a0; }
+
+/* --------------------------------------------------------------------------
+   Dry-stacked wall construction
+   -------------------------------------------------------------------------- */
+
+.radiant-academy .surface,
+.radiant-stone-card {
+  --masonry-position: 50% 50%;
+  --masonry-scale: 620px 362px;
+  --masonry-darkness: 0.48;
+  overflow: hidden;
+  border: 1px solid rgb(205 199 164 / 0.24);
+  border-radius: 0.62rem !important;
+  clip-path: polygon(
+    1.2% 0,
+    97.8% 0,
+    100% 3.2%,
+    100% 96.4%,
+    97.2% 100%,
+    2.1% 100%,
+    0 97%,
+    0 2.5%
+  );
+  background:
+    linear-gradient(135deg, rgb(245 234 190 / 0.065), transparent 34%),
+    linear-gradient(180deg, rgb(9 14 10 / var(--masonry-darkness)), rgb(11 18 12 / calc(var(--masonry-darkness) + 0.08))),
+    url("/media/radiant-academy/ancient-masonry.svg") var(--masonry-position) / var(--masonry-scale) repeat,
+    #343a32;
+  box-shadow:
+    inset 0 1px rgb(255 248 210 / 0.14),
+    inset 0 -1px rgb(9 13 9 / 0.92),
+    inset 12px 0 24px rgb(9 14 10 / 0.13),
+    inset -12px 0 24px rgb(9 14 10 / 0.17),
+    0 7px 0 rgb(7 11 8 / 0.48),
+    0 24px 62px rgb(0 0 0 / 0.32);
+  isolation: isolate;
+}
+
+/* Stone-face shade and recessed perimeter. This replaces the painted crack grid. */
+.radiant-academy .surface::before,
+.radiant-stone-card::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 1px solid rgb(244 232 190 / 0.035);
+  background:
+    linear-gradient(90deg, rgb(0 0 0 / 0.18), transparent 7%, transparent 92%, rgb(0 0 0 / 0.23)),
+    linear-gradient(180deg, rgb(255 247 205 / 0.035), transparent 16%, transparent 78%, rgb(0 0 0 / 0.19));
+  box-shadow:
+    inset 0 0 0 5px rgb(13 18 13 / 0.1),
+    inset 0 18px 28px rgb(255 245 205 / 0.018),
+    inset 0 -22px 34px rgb(5 9 6 / 0.19);
+  content: "";
+  opacity: 1;
+  pointer-events: none;
+}
+
+/* Moss follows one low, damp seam. It is deliberately sparse and desaturated. */
+.radiant-academy .surface::after,
+.radiant-stone-card::after {
+  position: absolute;
+  top: auto;
+  right: auto;
+  bottom: -1px;
+  left: 7%;
+  z-index: 4;
+  width: 42%;
+  height: 12px;
+  background:
+    radial-gradient(ellipse 10px 4px at 4% 72%, #687653 0 68%, transparent 72%),
+    radial-gradient(ellipse 14px 5px at 17% 60%, #536745 0 68%, transparent 72%),
+    radial-gradient(ellipse 11px 4px at 31% 75%, #77805a 0 67%, transparent 72%),
+    radial-gradient(ellipse 16px 5px at 48% 62%, #4c6140 0 69%, transparent 73%),
+    radial-gradient(ellipse 12px 4px at 66% 72%, #6f7954 0 68%, transparent 72%),
+    radial-gradient(ellipse 15px 5px at 84% 65%, #4d623f 0 68%, transparent 73%),
+    linear-gradient(180deg, transparent 0 42%, #394c34 48% 76%, transparent 86%);
+  content: "";
+  filter: drop-shadow(0 -1px 1px rgb(9 16 10 / 0.8));
+  opacity: 0.58;
+  pointer-events: none;
+  transform: none;
+}
+
+.radiant-academy .surface:nth-child(2n)::after {
+  right: 8%;
+  left: auto;
+  width: 31%;
+  opacity: 0.46;
+  transform: none;
+}
+
+.radiant-academy .surface:nth-child(3n)::after {
+  right: auto;
+  bottom: -1px;
+  left: 14%;
+  width: 24%;
+  opacity: 0.38;
+  transform: none;
+}
+
+.radiant-academy .surface:hover {
+  border-color: rgb(225 211 166 / 0.38);
+  box-shadow:
+    inset 0 1px rgb(255 248 210 / 0.17),
+    inset 0 -1px rgb(8 12 8 / 0.94),
+    inset 12px 0 24px rgb(9 14 10 / 0.11),
+    inset -12px 0 24px rgb(9 14 10 / 0.15),
+    0 8px 0 rgb(6 10 7 / 0.54),
+    0 31px 72px rgb(0 0 0 / 0.36),
+    0 0 24px rgb(190 179 123 / 0.045);
+}
+
+/* Shift the repeat so adjacent cards never look stamped from one template. */
+.radiant-diagnostic-grid article:nth-child(2n),
+.radiant-program-grid article:nth-child(3n),
+.radiant-progress-grid article:nth-child(2n),
+.radiant-path-grid article:nth-child(3n) { --masonry-position: 18% 73%; }
+
+.radiant-diagnostic-grid article:nth-child(3n),
+.radiant-program-grid article:nth-child(2n),
+.radiant-skill-card:nth-child(2n),
+.radiant-path-grid article:nth-child(2n) { --masonry-position: 82% 24%; }
+
+.radiant-diagnostic-grid article:nth-child(4n),
+.radiant-program-grid article:nth-child(4n),
+.radiant-progress-grid article:nth-child(3n) { --masonry-position: 41% 12%; }
+
+.radiant-program-grid article,
+.radiant-path-grid article,
+.radiant-coach-card { --masonry-scale: 760px 443px; }
+
+.radiant-intake,
+.radiant-match-panel,
+.radiant-improvement-map,
+.radiant-progress-report,
+.radiant-price-rail { --masonry-scale: 820px 478px; }
+
+/* Real wall cards are built, not inflated: remove soft pebble silhouettes. */
+.radiant-diagnostic-grid article,
+.radiant-program-grid article,
+.radiant-skill-card,
+.radiant-journey li,
+.radiant-match-panel,
+.radiant-coach-card,
+.radiant-progress-grid article,
+.radiant-path-grid article,
+.radiant-faq-list details,
+.radiant-intake {
+  border-radius: 0.62rem !important;
+}
+
+.radiant-diagnostic-grid article:nth-child(2n),
+.radiant-program-grid article:nth-child(2n),
+.radiant-coach-card,
+.radiant-path-grid article:nth-child(2) {
+  clip-path: polygon(2% 0, 98.5% 0.8%, 100% 4%, 99.2% 97%, 96.8% 100%, 1.3% 99%, 0 96%, 0.8% 2.2%);
+}
+
+/* --------------------------------------------------------------------------
+   Moss, lichen and carved details
+   -------------------------------------------------------------------------- */
+
+.radiant-icon,
+.radiant-coach-seal {
+  border-color: rgb(185 178 139 / 0.34) !important;
+  border-radius: 0.38rem !important;
+  background:
+    radial-gradient(circle at 34% 23%, rgb(255 239 180 / 0.15), transparent 40%),
+    linear-gradient(145deg, rgb(109 111 91 / 0.84), rgb(51 61 50 / 0.94)) !important;
+  box-shadow:
+    inset 0 1px rgb(255 247 207 / 0.13),
+    inset 0 -5px 10px rgb(13 20 14 / 0.28),
+    0 6px 12px rgb(0 0 0 / 0.25);
+  color: #b7d49a !important;
+  transform: rotate(-1.5deg);
+}
+
+.radiant-badge {
+  border-color: rgb(194 184 139 / 0.34) !important;
+  border-radius: 0.34rem !important;
+  background:
+    linear-gradient(180deg, rgb(137 137 109 / 0.86), rgb(62 70 57 / 0.94)) !important;
+  box-shadow:
+    inset 0 1px rgb(255 246 203 / 0.15),
+    inset 0 -3px 8px rgb(13 19 14 / 0.28),
+    0 6px 14px rgb(0 0 0 / 0.24);
+  color: #eef0cf !important;
+}
+
+.radiant-tag,
+.radiant-program-includes li {
+  border-color: rgb(196 187 151 / 0.16) !important;
+  border-radius: 0.35rem !important;
+  background: rgb(22 29 22 / 0.62) !important;
+  box-shadow: inset 0 1px rgb(255 245 205 / 0.035);
+  color: #dedcc6;
+}
+
+/* --------------------------------------------------------------------------
+   Hero ruins: visible courses of stacked stone rather than green silhouettes
+   -------------------------------------------------------------------------- */
+
+.radiant-hero {
+  background:
+    radial-gradient(ellipse 46rem 31rem at 80% 8%, rgb(242 207 111 / 0.18), transparent 68%),
+    radial-gradient(ellipse 34rem 27rem at 16% 82%, rgb(74 108 70 / 0.13), transparent 72%),
+    linear-gradient(118deg, #040a07 0%, #07120c 38%, #101f15 72%, #293728 100%);
+}
+
+.radiant-hero__canopy {
+  opacity: 0.76;
+  filter: saturate(0.62);
+}
+
+.radiant-hero__canopy::after { opacity: 0.2; }
+
+.radiant-hero__ruins {
+  inset: 18% -5% -8%;
+  background:
+    linear-gradient(180deg, rgb(8 13 9 / 0.08), rgb(8 13 9 / 0.45)),
+    url("/media/radiant-academy/ancient-masonry.svg") 50% 78% / 520px 303px repeat,
+    #30382f;
+  filter:
+    drop-shadow(0 -1px 0 rgb(236 220 173 / 0.12))
+    drop-shadow(0 22px 24px rgb(0 0 0 / 0.36));
+  opacity: 0.82;
+}
+
+.radiant-hero__mist { opacity: 0.58; }
+.radiant-hero__pollen { opacity: 0.1; }
+
+.radiant-intake {
+  --masonry-darkness: 0.43;
+  border-radius: 0.62rem !important;
+  transform: translateY(1.5rem) rotate(0.18deg);
+}
+
+/* --------------------------------------------------------------------------
+   Less frog-lake, more temple and highground
+   -------------------------------------------------------------------------- */
+
+.radiant-principles {
+  background:
+    linear-gradient(90deg, rgb(9 15 11 / 0.97), rgb(21 29 21 / 0.95) 50%, rgb(10 17 12 / 0.97)) !important;
+  border-color: rgb(199 188 146 / 0.16) !important;
+}
+
+.radiant-band {
+  background:
+    linear-gradient(180deg, rgb(6 12 8 / 0.94), rgb(13 22 15 / 0.93)) !important;
+  border-color: rgb(188 180 141 / 0.12) !important;
+}
+
+.radiant-band--journey {
+  background:
+    linear-gradient(180deg, rgb(10 18 12 / 0.95), rgb(23 32 22 / 0.92)) !important;
+}
+
+.radiant-band--results {
+  background:
+    radial-gradient(ellipse 50rem 26rem at 78% 5%, rgb(231 200 112 / 0.065), transparent 72%),
+    linear-gradient(180deg, rgb(13 22 15 / 0.95), rgb(29 39 26 / 0.91)) !important;
+}
+
+.radiant-band--faq {
+  background:
+    radial-gradient(ellipse 45rem 24rem at 18% 100%, rgb(79 100 66 / 0.09), transparent 70%),
+    linear-gradient(180deg, rgb(19 28 19 / 0.94), rgb(37 45 30 / 0.9)) !important;
+}
+
+.radiant-program-includes li,
+.radiant-tag { color: #dedcc6; }
+
+.radiant-improvement-map,
+.radiant-progress-report,
+.radiant-price-rail {
+  border-color: rgb(215 200 151 / 0.25) !important;
+  background:
+    linear-gradient(135deg, rgb(245 231 184 / 0.045), transparent 36%),
+    linear-gradient(180deg, rgb(8 14 10 / 0.43), rgb(10 17 12 / 0.52)),
+    url("/media/radiant-academy/ancient-masonry.svg") 66% 36% / 820px 478px repeat,
+    #3d4339 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Skill tree and ascending path use carved stone, with vegetation as accent
+   -------------------------------------------------------------------------- */
+
+.radiant-skill-tree::before {
+  width: 1.25rem;
+  border: 1px solid rgb(180 170 130 / 0.26);
+  background:
+    linear-gradient(90deg, rgb(27 32 26 / 0.92), rgb(111 109 84 / 0.88) 45%, rgb(43 49 39 / 0.94));
+  box-shadow:
+    inset 2px 0 rgb(255 244 200 / 0.08),
+    inset -2px 0 rgb(8 12 8 / 0.32),
+    0 0 22px rgb(104 120 78 / 0.1);
+}
+
+.radiant-skill-tree::after {
+  border-color: rgb(233 205 119 / 0.44);
+  background:
+    radial-gradient(circle, #fff2b5 0 5%, #d8b65f 16%, rgb(105 126 78 / 0.74) 43%, rgb(31 43 30 / 0.92) 72%);
+  box-shadow:
+    inset 0 0 0 10px rgb(32 42 31 / 0.58),
+    0 0 34px rgb(224 191 103 / 0.14),
+    0 0 68px rgb(100 125 77 / 0.08);
+}
+
+.radiant-journey::before {
+  background: linear-gradient(180deg, #4a5640, #7f8a61, #d3b45e);
+  box-shadow: 0 0 14px rgb(195 173 99 / 0.12);
+}
+
+.radiant-step-number {
+  border-color: rgb(204 190 140 / 0.38) !important;
+  background:
+    radial-gradient(circle at 35% 25%, rgb(255 236 165 / 0.17), transparent 42%),
+    linear-gradient(145deg, #73745e, #414a3c) !important;
+  box-shadow:
+    0 0 0 5px rgb(17 24 18 / 0.72),
+    inset 0 1px rgb(255 245 203 / 0.1),
+    0 7px 14px rgb(0 0 0 / 0.24);
+  color: #f3dda0 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Cards and package hierarchy
+   -------------------------------------------------------------------------- */
+
+.radiant-diagnostic-grid article,
+.radiant-progress-grid article {
+  --masonry-darkness: 0.51;
+}
+
+.radiant-program-grid article,
+.radiant-skill-card,
+.radiant-path-grid article {
+  --masonry-darkness: 0.47;
+}
+
+.radiant-program-grid article:nth-child(2n) {
+  border-radius: 0.62rem !important;
+}
+
+.radiant-path-grid article:nth-child(2) {
+  border-color: rgb(223 199 127 / 0.36) !important;
+  background:
+    linear-gradient(135deg, rgb(251 226 151 / 0.09), transparent 38%),
+    linear-gradient(180deg, rgb(7 12 8 / 0.39), rgb(10 16 11 / 0.5)),
+    url("/media/radiant-academy/ancient-masonry.svg") 82% 24% / 760px 443px repeat,
+    #4b4c3d !important;
+  box-shadow:
+    inset 0 1px rgb(255 246 203 / 0.15),
+    inset 0 -1px rgb(8 12 8 / 0.94),
+    0 8px 0 rgb(6 10 7 / 0.54),
+    0 31px 75px rgb(0 0 0 / 0.34),
+    0 0 30px rgb(224 193 107 / 0.055);
+}
+
+.radiant-coach-card { --masonry-darkness: 0.44; }
+.radiant-match-panel { --masonry-darkness: 0.54; }
+
+.radiant-faq-list summary span:last-child {
+  border-color: rgb(201 189 145 / 0.28) !important;
+  border-radius: 0.3rem !important;
+  background: linear-gradient(145deg, #626756, #343d32);
+  color: #e7d394 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons: engraved academy controls, not bright pond-green pills
+   -------------------------------------------------------------------------- */
+
+.radiant-academy .forge-shared-button {
+  border-color: rgb(209 193 143 / 0.36);
+  border-radius: 0.38rem;
+  clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+}
+
+.radiant-academy .forge-shared-button--primary {
+  background:
+    radial-gradient(circle at 22% 0, rgb(255 238 174 / 0.24), transparent 36%),
+    linear-gradient(180deg, #8c9a65, #536b4b 56%, #344d3a);
+  box-shadow:
+    inset 0 1px rgb(255 247 202 / 0.3),
+    inset 0 -8px 18px rgb(15 29 17 / 0.28),
+    0 6px 0 rgb(12 20 14 / 0.6),
+    0 16px 34px rgb(0 0 0 / 0.3);
+  color: #f7efcf;
+  text-shadow: 0 1px 2px rgb(8 14 9 / 0.72);
+}
+
+.radiant-academy .forge-shared-button--secondary {
+  background:
+    linear-gradient(135deg, rgb(223 211 169 / 0.1), transparent 46%),
+    linear-gradient(180deg, #444b3f, #252e27);
+  box-shadow:
+    inset 0 1px rgb(255 246 206 / 0.08),
+    0 6px 0 rgb(10 15 11 / 0.58),
+    0 14px 28px rgb(0 0 0 / 0.24);
+  color: #e6e0c8;
+}
+
+.radiant-academy .forge-shared-button:hover {
+  border-color: rgb(235 211 145 / 0.58);
+  box-shadow:
+    inset 0 1px rgb(255 249 210 / 0.18),
+    0 8px 0 rgb(9 14 10 / 0.64),
+    0 20px 38px rgb(0 0 0 / 0.34),
+    0 0 22px rgb(218 191 109 / 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   Sunlit Highground: limestone terraces, not saturated green water
+   -------------------------------------------------------------------------- */
+
+.radiant-final {
+  background:
+    radial-gradient(circle 9rem at 50% 2%, rgb(255 250 215 / 0.95) 0 3%, rgb(239 205 111 / 0.5) 20%, transparent 64%),
+    radial-gradient(ellipse 43rem 29rem at 50% 22%, rgb(235 205 121 / 0.2), transparent 68%),
+    radial-gradient(ellipse 58rem 24rem at 50% 108%, rgb(93 115 75 / 0.18), transparent 72%),
+    linear-gradient(180deg, #344634 0%, #5c654a 46%, #8a845f 100%);
+}
+
+.radiant-final::before {
+  background:
+    repeating-conic-gradient(from 184deg at 50% -5%, transparent 0 7deg, rgb(255 240 181 / 0.12) 8deg 13deg, transparent 14deg 23deg),
+    radial-gradient(ellipse 36rem 14rem at 10% 95%, rgb(24 42 27 / 0.5), transparent 72%),
+    radial-gradient(ellipse 36rem 14rem at 90% 95%, rgb(22 40 26 / 0.48), transparent 72%);
+}
+
+.radiant-final::after {
+  background:
+    linear-gradient(180deg, rgb(18 25 18 / 0.08), rgb(18 25 18 / 0.46)),
+    url("/media/radiant-academy/ancient-masonry.svg") center top / 560px 327px repeat !important;
+  filter: drop-shadow(0 -12px 22px rgb(16 22 16 / 0.25));
+  opacity: 0.58;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive and accessibility
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 980px) {
+  .radiant-academy .surface,
+  .radiant-stone-card {
+    --masonry-scale: 540px 315px;
+  }
+
+  .radiant-hero__ruins { background-size: auto, 440px 257px, auto; }
+}
+
+@media (max-width: 768px) {
+  .radiant-academy .surface,
+  .radiant-stone-card {
+    --masonry-scale: 480px 280px;
+    clip-path: polygon(1.5% 0, 98% 0, 100% 3%, 100% 97%, 98% 100%, 1.5% 100%, 0 97%, 0 2.5%);
+    box-shadow:
+      inset 0 1px rgb(255 248 210 / 0.12),
+      inset 0 -1px rgb(8 12 8 / 0.9),
+      0 5px 0 rgb(6 10 7 / 0.48),
+      0 18px 42px rgb(0 0 0 / 0.28);
+  }
+
+  .radiant-academy .surface::after,
+  .radiant-stone-card::after {
+    width: 32%;
+    height: 10px;
+    opacity: 0.42;
+  }
+
+  .radiant-hero__ruins {
+    inset: 30% -10% -7%;
+    background-size: auto, 380px 222px, auto;
+    opacity: 0.68;
+  }
+
+  .radiant-hero__canopy::after { opacity: 0.12; }
+  .radiant-hero__pollen { display: none; }
+}
+
+@media (max-width: 520px) {
+  .radiant-academy .surface,
+  .radiant-stone-card {
+    --masonry-scale: 420px 245px;
+    --masonry-darkness: 0.52;
+  }
+
+  .radiant-academy .forge-shared-button {
+    border-radius: 0.32rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .radiant-academy .surface,
+  .radiant-stone-card,
+  .radiant-icon,
+  .radiant-coach-seal {
+    transition: none !important;
+  }
+}
