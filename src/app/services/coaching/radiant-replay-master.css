@@ -1,0 +1,336 @@
+/* ========================================================================== 
+   RADIANT ACADEMY — master Replay Analysis card prototype
+   Only the first coaching-program card receives this treatment.
+   ========================================================================== */
+
+.radiant-program-grid > article:first-child {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(9rem, 0.42fr) minmax(0, 1.58fr);
+  grid-template-areas:
+    "seal eyebrow"
+    "seal title"
+    "seal description"
+    "seal audience"
+    "seal includes";
+  min-height: 34rem;
+  align-content: center;
+  column-gap: clamp(2rem, 5vw, 5rem);
+  overflow: visible;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  clip-path: none !important;
+  padding: clamp(4.25rem, 7vw, 6.6rem) clamp(3.5rem, 8vw, 8rem) !important;
+  isolation: isolate;
+  transition: transform 420ms cubic-bezier(.2, .75, .2, 1);
+}
+
+.radiant-program-grid > article:first-child::before {
+  position: absolute;
+  inset: -7% -4% -9%;
+  z-index: -2;
+  border: 0;
+  background:
+    radial-gradient(ellipse 42% 34% at 74% 12%, rgb(255 229 146 / 0.12), transparent 72%),
+    radial-gradient(ellipse 52% 48% at 51% 54%, transparent 16%, rgb(8 14 10 / 0.2) 82%),
+    linear-gradient(90deg, rgb(6 11 8 / 0.58), rgb(9 14 10 / 0.24) 31%, rgb(8 13 9 / 0.13) 70%, rgb(4 8 5 / 0.54)),
+    url("/media/radiant-academy/ancient-masonry.svg") 50% 46% / 51rem auto repeat;
+  box-shadow: none;
+  clip-path: polygon(
+    1.4% 11%,
+    4.7% 4.2%,
+    19% 1.2%,
+    31% 3%,
+    43% 0,
+    57% 2.8%,
+    71% 0.8%,
+    84% 3%,
+    96% 1.8%,
+    99.1% 9%,
+    98.2% 25%,
+    100% 43%,
+    98.4% 61%,
+    99.2% 83%,
+    95.6% 96%,
+    82% 98.8%,
+    69% 96.8%,
+    56% 100%,
+    42% 97.2%,
+    29% 99%,
+    16% 96.8%,
+    3.4% 91%,
+    0.5% 75%,
+    1.8% 58%,
+    0 39%
+  );
+  content: "";
+  filter:
+    contrast(1.08)
+    saturate(0.72)
+    drop-shadow(0 15px 0 rgb(4 7 5 / 0.46))
+    drop-shadow(0 32px 42px rgb(0 0 0 / 0.64));
+  opacity: 1;
+  pointer-events: none;
+  transform: rotate(-0.18deg);
+}
+
+/* Dense seam moss inspired by old shaded retaining walls. */
+.radiant-program-grid > article:first-child::after {
+  position: absolute;
+  inset: -10% -5% -12%;
+  z-index: 4;
+  width: auto;
+  height: auto;
+  background:
+    radial-gradient(ellipse 9.2rem 2.4rem at 8% 13%, #879d43 0 18%, #627a35 31%, #334c27 56%, transparent 71%),
+    radial-gradient(ellipse 6.8rem 2rem at 19% 8%, #9bad4e 0 15%, #6e833b 32%, #3d552b 58%, transparent 72%),
+    radial-gradient(ellipse 9rem 2.3rem at 53% 8%, #879d42 0 16%, #607634 33%, #344a27 58%, transparent 72%),
+    radial-gradient(ellipse 7.5rem 2.3rem at 94% 15%, #91a747 0 17%, #657a37 34%, #354c28 59%, transparent 73%),
+    radial-gradient(ellipse 3.3rem 6.8rem at 98% 38%, #849b42 0 17%, #5e7534 35%, #314827 60%, transparent 73%),
+    radial-gradient(ellipse 7.8rem 2rem at 14% 52%, #7f963f 0 16%, #5c7133 35%, #314527 60%, transparent 73%),
+    radial-gradient(ellipse 6rem 1.8rem at 66% 53%, #829941 0 16%, #5c7334 34%, #314827 60%, transparent 72%),
+    radial-gradient(ellipse 8.6rem 2.2rem at 8% 91%, #94a94a 0 15%, #687d38 34%, #354c29 61%, transparent 74%),
+    radial-gradient(ellipse 8rem 2.3rem at 86% 91%, #899f43 0 16%, #607536 34%, #324928 60%, transparent 73%),
+    radial-gradient(circle 0.42rem at 11% 10%, #bed06a 0 55%, transparent 60%),
+    radial-gradient(circle 0.34rem at 13% 12%, #a8bd59 0 55%, transparent 60%),
+    radial-gradient(circle 0.4rem at 18% 8%, #b7c961 0 55%, transparent 60%),
+    radial-gradient(circle 0.36rem at 52% 7%, #b3c660 0 55%, transparent 60%),
+    radial-gradient(circle 0.42rem at 95% 15%, #b9ca63 0 55%, transparent 60%),
+    radial-gradient(circle 0.36rem at 97% 35%, #a9bd58 0 55%, transparent 60%),
+    radial-gradient(circle 0.4rem at 10% 89%, #b8c961 0 55%, transparent 60%),
+    radial-gradient(circle 0.34rem at 87% 90%, #a9bc57 0 55%, transparent 60%);
+  background-repeat: no-repeat;
+  content: "";
+  filter:
+    drop-shadow(0 3px 2px rgb(5 11 6 / 0.82))
+    drop-shadow(0 9px 12px rgb(0 0 0 / 0.34));
+  opacity: 0.94;
+  pointer-events: none;
+  transform: none;
+}
+
+.radiant-program-grid > article:first-child > * {
+  position: relative;
+  z-index: 2;
+}
+
+.radiant-program-grid > article:first-child > div:first-child {
+  display: contents;
+}
+
+.radiant-program-grid > article:first-child > div:first-child > .radiant-icon {
+  grid-area: seal;
+  align-self: center;
+  width: clamp(8.5rem, 15vw, 12rem);
+  height: clamp(8.5rem, 15vw, 12rem);
+  border: 1px solid rgb(221 204 143 / 0.24) !important;
+  border-radius: 50% !important;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 34%, rgb(153 142 96 / 0.16) 35% 36%, transparent 37% 47%, rgb(28 39 30 / 0.7) 48% 58%, transparent 59%),
+    conic-gradient(from 22deg, #313b31, #77775f, #2e382f, #8a8060, #303a31) !important;
+  box-shadow:
+    inset 0 0 0 5px rgb(15 22 17 / 0.7),
+    inset 0 0 0 7px rgb(211 193 133 / 0.12),
+    inset 0 0 28px rgb(4 9 6 / 0.84),
+    0 12px 22px rgb(0 0 0 / 0.36),
+    0 0 28px rgb(183 201 102 / 0.055);
+  color: #a8c16a !important;
+  transform: rotate(-2.5deg);
+}
+
+.radiant-program-grid > article:first-child > div:first-child > .radiant-icon::before,
+.radiant-program-grid > article:first-child > div:first-child > .radiant-icon::after {
+  position: absolute;
+  inset: 13%;
+  border: 1px solid rgb(222 204 143 / 0.15);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.radiant-program-grid > article:first-child > div:first-child > .radiant-icon::after {
+  inset: 25%;
+  border-color: rgb(132 158 84 / 0.3);
+  box-shadow: 0 0 20px rgb(117 168 84 / 0.11);
+}
+
+.radiant-program-grid > article:first-child > div:first-child > .radiant-icon svg {
+  width: 3.2rem;
+  height: 3.2rem;
+  filter: drop-shadow(0 2px 1px rgb(4 8 5 / 0.9));
+  stroke-width: 1.35;
+}
+
+.radiant-program-grid > article:first-child > div:first-child > span:last-child {
+  grid-area: eyebrow;
+  align-self: end;
+  justify-self: start;
+  margin-bottom: 0.65rem;
+  color: #b7c57f;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.19em;
+  text-shadow: 0 2px 10px rgb(0 0 0 / 0.7);
+}
+
+.radiant-program-grid > article:first-child > h3 {
+  grid-area: title;
+  margin: 0;
+  color: #f2ebd2;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.65rem, 5vw, 5.2rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.94;
+  text-shadow:
+    0 2px 0 rgb(26 31 25 / 0.88),
+    0 12px 30px rgb(0 0 0 / 0.54);
+}
+
+.radiant-program-grid > article:first-child > p:nth-of-type(1) {
+  grid-area: description;
+  max-width: 43rem;
+  margin-top: 1.35rem;
+  color: #d5d4c2;
+  font-size: clamp(0.96rem, 1.35vw, 1.12rem);
+  line-height: 1.8;
+  text-shadow: 0 2px 13px rgb(0 0 0 / 0.68);
+}
+
+.radiant-program-grid > article:first-child > p:nth-of-type(2) {
+  grid-area: audience;
+  max-width: 42rem;
+  margin-top: 1.2rem;
+  border: 0 !important;
+  padding: 0;
+  color: #c5c7ae;
+  font-size: 0.75rem;
+  letter-spacing: 0.015em;
+  line-height: 1.7;
+  text-shadow: 0 2px 10px rgb(0 0 0 / 0.65);
+}
+
+.radiant-program-grid > article:first-child > p:nth-of-type(2)::before {
+  display: inline-block;
+  width: 1.8rem;
+  height: 1px;
+  margin-right: 0.65rem;
+  background: linear-gradient(90deg, #9fb15e, transparent);
+  vertical-align: middle;
+  content: "";
+}
+
+.radiant-program-grid > article:first-child > .radiant-program-includes {
+  grid-area: includes;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1.7rem;
+}
+
+.radiant-program-grid > article:first-child > .radiant-program-includes li {
+  border: 0 !important;
+  border-radius: 0.25rem !important;
+  background:
+    linear-gradient(180deg, rgb(71 81 60 / 0.84), rgb(28 39 30 / 0.9)) !important;
+  box-shadow:
+    inset 0 1px rgb(241 224 171 / 0.1),
+    inset 0 -2px rgb(7 12 8 / 0.46),
+    0 5px 9px rgb(0 0 0 / 0.22);
+  padding: 0.7rem 0.95rem;
+  color: #e0ddc7;
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.radiant-program-grid > article:first-child:hover {
+  transform: translateY(-5px) rotate(0.06deg);
+}
+
+.radiant-program-grid > article:first-child:hover::before {
+  filter:
+    contrast(1.1)
+    saturate(0.78)
+    brightness(1.035)
+    drop-shadow(0 17px 0 rgb(4 7 5 / 0.46))
+    drop-shadow(0 38px 50px rgb(0 0 0 / 0.68));
+}
+
+@media (max-width: 900px) {
+  .radiant-program-grid > article:first-child {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "seal"
+      "eyebrow"
+      "title"
+      "description"
+      "audience"
+      "includes";
+    min-height: 44rem;
+    padding: 5.4rem 3rem !important;
+  }
+
+  .radiant-program-grid > article:first-child > div:first-child > .radiant-icon {
+    justify-self: start;
+    width: 8rem;
+    height: 8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .radiant-program-grid > article:first-child > div:first-child > span:last-child {
+    align-self: auto;
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .radiant-program-grid {
+    padding-inline: 0.45rem;
+  }
+
+  .radiant-program-grid > article:first-child {
+    min-height: 47rem;
+    padding: 5.5rem 2rem 5.8rem !important;
+  }
+
+  .radiant-program-grid > article:first-child::before {
+    inset: -4% -7% -6%;
+    background-size: auto, auto, auto, 37rem auto;
+    clip-path: polygon(2% 8%, 8% 2%, 32% 0, 52% 2%, 72% 0, 96% 4%, 100% 14%, 98% 40%, 100% 68%, 96% 95%, 71% 99%, 48% 97%, 25% 100%, 4% 94%, 0 70%, 2% 42%, 0 20%);
+  }
+
+  .radiant-program-grid > article:first-child::after {
+    inset: -6% -8% -8%;
+    opacity: 0.78;
+  }
+
+  .radiant-program-grid > article:first-child > div:first-child > .radiant-icon {
+    width: 7rem;
+    height: 7rem;
+  }
+
+  .radiant-program-grid > article:first-child > div:first-child > .radiant-icon svg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .radiant-program-grid > article:first-child > h3 {
+    font-size: clamp(2.45rem, 12vw, 3.55rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .radiant-program-grid > article:first-child,
+  .radiant-program-grid > article:first-child::before {
+    transition: none !important;
+  }
+
+  .radiant-program-grid > article:first-child:hover {
+    transform: none;
+  }
+}
