@@ -3,6 +3,7 @@ import { CinematicHome } from "@/components/home/cinematic-home";
 import "./dire-forge.css";
 import "./dire-forge-card-clarity.css";
 import "./dire-forge-world.css";
+import "./dire-forge-world-performance.css";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
