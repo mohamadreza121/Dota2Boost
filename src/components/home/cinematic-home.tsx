@@ -1,7 +1,6 @@
 import { ForgeHero } from "@/components/home/forge-hero";
 import {
   CampaignFlow,
-  ForgeAtmosphere,
   ForgeTrustRail,
   RankForge
 } from "@/components/home/forge-core-sections";
@@ -13,6 +12,7 @@ import {
   VictoryProof,
   WhyHighground
 } from "@/components/home/forge-proof-sections";
+import { ForgeWorldAtmosphere } from "@/components/home/forge-world-atmosphere";
 import { HomeMotion } from "@/components/home/home-motion";
 
 export function CinematicHome() {
@@ -21,7 +21,7 @@ export function CinematicHome() {
       <ForgeHero />
 
       <div className="forge-world">
-        <ForgeAtmosphere />
+        <ForgeWorldAtmosphere />
         <ForgeTrustRail />
         <RankForge />
         <ServiceArsenal />
