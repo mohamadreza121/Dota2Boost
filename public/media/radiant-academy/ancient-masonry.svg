@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Original weathered dry-stone masonry texture">
+  <defs>
+    <linearGradient id="s1" x1="0" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#9a9a83"/>
+      <stop offset="0.42" stop-color="#777b69"/>
+      <stop offset="1" stop-color="#4b5147"/>
+    </linearGradient>
+    <linearGradient id="s2" x1="0.08" y1="0" x2="0.86" y2="1">
+      <stop offset="0" stop-color="#aaa58b"/>
+      <stop offset="0.5" stop-color="#85816d"/>
+      <stop offset="1" stop-color="#565a4c"/>
+    </linearGradient>
+    <linearGradient id="s3" x1="0" y1="0.12" x2="1" y2="0.88">
+      <stop offset="0" stop-color="#858b77"/>
+      <stop offset="0.48" stop-color="#686f60"/>
+      <stop offset="1" stop-color="#41483e"/>
+    </linearGradient>
+    <linearGradient id="s4" x1="0.18" y1="0" x2="0.82" y2="1">
+      <stop offset="0" stop-color="#b2ad91"/>
+      <stop offset="0.38" stop-color="#87836f"/>
+      <stop offset="1" stop-color="#53584b"/>
+    </linearGradient>
+    <linearGradient id="s5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#777d6a"/>
+      <stop offset="0.52" stop-color="#5f6658"/>
+      <stop offset="1" stop-color="#3d443b"/>
+    </linearGradient>
+    <filter id="cast" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="2.4" flood-color="#050805" flood-opacity="0.72"/>
+    </filter>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="3" seed="17" result="n"/>
+      <feColorMatrix in="n" type="saturate" values="0" result="mono"/>
+      <feComponentTransfer in="mono" result="faded">
+        <feFuncA type="table" tableValues="0 0.12"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="faded" mode="soft-light"/>
+    </filter>
+    <filter id="mossSoft" x="-30%" y="-60%" width="160%" height="220%">
+      <feGaussianBlur stdDeviation="0.65"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1.4" flood-color="#0a160b" flood-opacity="0.65"/>
+    </filter>
+  </defs>
+
+  <rect width="720" height="420" fill="#111711"/>
+  <rect width="720" height="420" fill="url(#s5)" opacity="0.1"/>
+
+  <g filter="url(#cast)" stroke="#252d25" stroke-width="6" stroke-linejoin="round">
+    <!-- upper course -->
+    <path fill="url(#s2)" d="M-18 4 L108 -4 L132 13 L127 76 L106 91 L-12 86 Z"/>
+    <path fill="url(#s1)" d="M131 10 L272 2 L292 20 L285 80 L263 91 L128 77 Z"/>
+    <path fill="url(#s4)" d="M291 19 L428 4 L451 18 L444 75 L424 91 L286 80 Z"/>
+    <path fill="url(#s3)" d="M451 18 L575 7 L601 22 L594 79 L574 91 L444 76 Z"/>
+    <path fill="url(#s2)" d="M600 22 L737 5 L742 88 L594 79 Z"/>
+
+    <!-- second course, offset -->
+    <path fill="url(#s3)" d="M-20 92 L74 84 L96 103 L91 167 L70 183 L-14 178 Z"/>
+    <path fill="url(#s4)" d="M95 101 L226 87 L250 104 L244 170 L222 184 L91 168 Z"/>
+    <path fill="url(#s1)" d="M249 104 L385 89 L409 108 L401 171 L380 184 L244 170 Z"/>
+    <path fill="url(#s2)" d="M408 108 L545 92 L569 108 L562 171 L540 185 L401 172 Z"/>
+    <path fill="url(#s5)" d="M568 108 L692 91 L739 103 L738 178 L692 188 L562 171 Z"/>
+
+    <!-- third course -->
+    <path fill="url(#s2)" d="M-18 186 L121 174 L142 193 L136 264 L114 280 L-15 274 Z"/>
+    <path fill="url(#s5)" d="M141 193 L264 179 L289 199 L281 267 L260 281 L136 264 Z"/>
+    <path fill="url(#s3)" d="M288 199 L449 181 L474 198 L466 265 L444 282 L281 267 Z"/>
+    <path fill="url(#s4)" d="M473 198 L600 183 L626 201 L618 268 L596 281 L466 265 Z"/>
+    <path fill="url(#s1)" d="M625 201 L738 186 L742 277 L618 268 Z"/>
+
+    <!-- lower course -->
+    <path fill="url(#s5)" d="M-18 283 L86 273 L109 293 L102 399 L-14 412 Z"/>
+    <path fill="url(#s1)" d="M108 293 L245 277 L271 299 L262 398 L239 414 L102 399 Z"/>
+    <path fill="url(#s4)" d="M270 299 L404 282 L432 302 L422 399 L397 415 L262 398 Z"/>
+    <path fill="url(#s2)" d="M431 302 L573 285 L600 304 L592 399 L568 416 L422 399 Z"/>
+    <path fill="url(#s3)" d="M599 304 L741 285 L742 420 L592 399 Z"/>
+  </g>
+
+  <!-- worn upper edges -->
+  <g fill="none" stroke="#d0c9a5" stroke-width="2" stroke-linecap="round" opacity="0.22">
+    <path d="M-4 10 L105 2 L124 16"/>
+    <path d="M143 16 L268 8 L285 23"/>
+    <path d="M304 24 L425 10 L444 22"/>
+    <path d="M107 108 L222 94 L242 108"/>
+    <path d="M263 111 L381 96 L402 111"/>
+    <path d="M421 115 L541 99 L561 112"/>
+    <path d="M-4 193 L117 181 L134 197"/>
+    <path d="M154 200 L260 186 L281 203"/>
+    <path d="M302 205 L445 188 L466 202"/>
+    <path d="M121 300 L241 284 L263 303"/>
+    <path d="M284 306 L400 290 L423 306"/>
+  </g>
+
+  <!-- chips, weathering and hairline fractures -->
+  <g fill="none" stroke="#333b32" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke-width="2.2" d="M52 25 L68 39 L61 53 L76 66"/>
+    <path stroke-width="1.6" d="M235 20 L224 35 L231 49"/>
+    <path stroke-width="2" d="M377 32 L359 46 L365 64 L350 75"/>
+    <path stroke-width="1.8" d="M520 29 L531 43 L523 59"/>
+    <path stroke-width="2.1" d="M168 119 L181 132 L174 148 L187 160"/>
+    <path stroke-width="1.6" d="M350 110 L339 125 L346 143"/>
+    <path stroke-width="2" d="M507 121 L491 137 L499 156"/>
+    <path stroke-width="1.8" d="M75 210 L62 228 L70 247"/>
+    <path stroke-width="2.2" d="M228 205 L213 222 L222 241 L210 256"/>
+    <path stroke-width="1.8" d="M397 211 L382 228 L391 246"/>
+    <path stroke-width="2" d="M547 206 L532 225 L540 247"/>
+    <path stroke-width="1.8" d="M190 319 L175 339 L184 360 L170 380"/>
+    <path stroke-width="2.1" d="M360 314 L347 333 L354 351"/>
+    <path stroke-width="1.7" d="M520 318 L505 337 L514 358"/>
+  </g>
+
+  <!-- stone-face variation -->
+  <g fill="#d8d1aa" opacity="0.07">
+    <ellipse cx="86" cy="48" rx="28" ry="12"/>
+    <ellipse cx="333" cy="53" rx="31" ry="13"/>
+    <ellipse cx="667" cy="46" rx="26" ry="11"/>
+    <ellipse cx="177" cy="137" rx="34" ry="13"/>
+    <ellipse cx="486" cy="143" rx="29" ry="12"/>
+    <ellipse cx="75" cy="234" rx="32" ry="14"/>
+    <ellipse cx="359" cy="234" rx="38" ry="14"/>
+    <ellipse cx="526" cy="347" rx="35" ry="14"/>
+  </g>
+
+  <!-- lichen: sparse, mineral and desaturated -->
+  <g fill="#9c9b6c" opacity="0.22">
+    <circle cx="92" cy="61" r="3.5"/><circle cx="99" cy="65" r="1.8"/><circle cx="84" cy="67" r="1.4"/>
+    <circle cx="320" cy="39" r="2.8"/><circle cx="328" cy="43" r="1.6"/>
+    <circle cx="214" cy="150" r="3.2"/><circle cx="220" cy="155" r="1.4"/><circle cx="205" cy="157" r="1.7"/>
+    <circle cx="480" cy="226" r="3.8"/><circle cx="488" cy="230" r="1.6"/><circle cx="472" cy="233" r="1.3"/>
+    <circle cx="322" cy="355" r="3.1"/><circle cx="330" cy="358" r="1.5"/>
+    <circle cx="664" cy="366" r="3.4"/><circle cx="655" cy="370" r="1.5"/>
+  </g>
+
+  <!-- moss stays in damp joints and horizontal ledges -->
+  <g filter="url(#mossSoft)" stroke-linecap="round" fill="none">
+    <path d="M12 88 C55 82 94 91 132 79 C172 70 211 84 255 82" stroke="#3e5f37" stroke-width="8" opacity="0.76"/>
+    <path d="M19 86 C64 82 96 88 128 79 C170 72 213 82 253 81" stroke="#718058" stroke-width="3" opacity="0.78"/>
+    <path d="M405 175 C448 168 500 181 551 171 C590 164 629 176 688 184" stroke="#385534" stroke-width="7" opacity="0.72"/>
+    <path d="M410 173 C455 169 499 178 548 170 C590 165 631 175 685 182" stroke="#69784f" stroke-width="2.7" opacity="0.74"/>
+    <path d="M-5 277 C38 270 80 280 119 269 C157 260 197 277 238 275" stroke="#45623a" stroke-width="7" opacity="0.65"/>
+    <path d="M470 282 C510 273 553 286 599 276 C641 268 679 280 725 276" stroke="#4b663d" stroke-width="8" opacity="0.7"/>
+    <path d="M469 280 C512 274 553 283 597 275 C640 270 682 279 722 275" stroke="#7b8458" stroke-width="2.5" opacity="0.68"/>
+  </g>
+
+  <!-- small moss tufts rooted inside joints -->
+  <g fill="#60764d" opacity="0.78">
+    <path d="M98 86 q8-16 13 0 q6-13 11 1 q7-11 12 1 Z"/>
+    <path d="M522 174 q7-17 12 0 q6-11 10 1 q8-14 13 0 Z"/>
+    <path d="M76 275 q8-14 12 0 q7-12 11 1 Z"/>
+    <path d="M646 276 q7-16 12 0 q5-12 10 1 q7-10 12 0 Z"/>
+  </g>
+
+  <rect width="720" height="420" filter="url(#grain)" opacity="0.7"/>
+</svg>
