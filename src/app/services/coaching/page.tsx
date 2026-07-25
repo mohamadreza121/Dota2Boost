@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { LinkButton } from "@/components/ui/button";
+import { CoachingArtifactCard } from "@/components/coaching/coaching-artifact-card";
 import { boosters, services } from "@/lib/data/content";
 import { formatCurrency } from "@/lib/utils";
 import "./radiant-academy.css";
@@ -473,7 +474,22 @@ export default function CoachingPage() {
             />
 
             <div className="radiant-program-grid mt-12 grid gap-5 lg:grid-cols-2">
-              {coachingPrograms.map((program) => {
+              {coachingPrograms.map((program, index) => {
+                if (index === 0) {
+                  return (
+                    <CoachingArtifactCard
+                      key={program.title}
+                      eyebrow={program.label}
+                      title={program.title}
+                      description={program.description}
+                      bestFor={program.bestFor}
+                      benefits={program.includes}
+                      href="/pricing"
+                      ctaLabel="Begin replay review"
+                    />
+                  );
+                }
+
                 const Icon = program.icon;
                 return (
                   <article key={program.title} className="surface p-6 sm:p-7">
