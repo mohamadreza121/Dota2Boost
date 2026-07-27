@@ -20,7 +20,14 @@
   --splash-mask-12: url("/media/dire-forge/masks/splash-stone-12.svg");
 }
 
-.dire-forge :is(.forged-panel, .forged-card, .campaign-step) {
+.dire-forge :is(
+  .forged-panel,
+  .forged-card,
+  .campaign-step,
+  .service-arsenal__note,
+  .forge-faq__item,
+  .forge-trust-rail__items > div
+) {
   --lava-mask: var(--splash-mask-01);
   --drip-1-x: 20%;
   --drip-2-x: 44%;
@@ -77,7 +84,14 @@
   backdrop-filter: none;
 }
 
-.dire-forge :is(.forged-panel, .forged-card, .campaign-step)::before {
+.dire-forge :is(
+  .forged-panel,
+  .forged-card,
+  .campaign-step,
+  .service-arsenal__note,
+  .forge-faq__item,
+  .forge-trust-rail__items > div
+)::before {
   position: absolute;
   inset: -9%;
   z-index: -2;
@@ -107,7 +121,14 @@
     transform 900ms cubic-bezier(.2, .72, .2, 1);
 }
 
-.dire-forge :is(.forged-panel, .forged-card, .campaign-step)::after {
+.dire-forge :is(
+  .forged-panel,
+  .forged-card,
+  .campaign-step,
+  .service-arsenal__note,
+  .forge-faq__item,
+  .forge-trust-rail__items > div
+)::after {
   position: absolute;
   inset: 0;
   z-index: -1;
@@ -267,21 +288,25 @@
   padding-bottom: clamp(1.4rem, 2.2vw, 2rem);
 }
 
+.dire-forge .rank-forge :is(.rank-forge__brief, .rank-forge__console) {
+  padding-inline: max(2rem, 4.8%);
+}
+
 .dire-forge .service-arsenal .arsenal-card__topline {
-  padding-inline: clamp(1.5rem, 2.4vw, 1.8rem);
+  padding-inline: max(1.8rem, 4.8%);
 }
 
 .dire-forge .service-arsenal :is(
   .arsenal-card__content,
   .arsenal-card__compact-content
 ) {
-  padding-inline: clamp(1.5rem, 2.4vw, 1.8rem);
+  padding-inline: max(1.8rem, 4.8%);
 }
 
 .dire-forge .service-arsenal .arsenal-card__footer {
-  right: clamp(1.5rem, 2.4vw, 1.8rem);
+  right: max(1.8rem, 4.8%);
   bottom: 2.25rem;
-  left: clamp(1.5rem, 2.4vw, 1.8rem);
+  left: max(1.8rem, 4.8%);
 }
 
 .dire-forge .service-arsenal__grid > :nth-child(1) {
@@ -346,6 +371,28 @@
   --lava-art-rotation: 0.62deg;
 }
 
+/* The protection note is a real splash surface, not a bordered strip. */
+
+.dire-forge .service-arsenal__note {
+  --lava-mask: var(--splash-mask-05);
+  --drip-1-x: 36%;
+  --drip-2-x: 65%;
+  --drip-3-x: 90%;
+  --drip-4-x: 92%;
+  --lava-heat: 0.72;
+  --lava-art-opacity: 0.76;
+  --lava-art-hover-opacity: 0.82;
+  --lava-saturation: 1.05;
+  --lava-brightness: 0.56;
+  --lava-shadow-alpha: 0.14;
+  --lava-veil-left: 0.76;
+  --lava-veil-right: 0.56;
+  min-height: 6.5rem;
+  margin-top: 1.5rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  padding: 1.4rem max(3.5rem, 5%);
+}
+
 /* Cooling sequence: orange fades, stone and brushwork become dominant. */
 
 .dire-forge .campaign-flow :is(.campaign-step, .forged-panel) {
@@ -358,6 +405,16 @@
   --lava-shadow-alpha: 0.12;
   --lava-veil-left: 0.76;
   --lava-veil-right: 0.56;
+}
+
+.dire-forge .campaign-flow .campaign-step {
+  min-height: 9.5rem;
+  padding-inline: max(1.5rem, 4.8%);
+}
+
+.dire-forge .campaign-flow .campaign-console {
+  min-height: 37rem;
+  padding-inline: max(1.75rem, 4.8%);
 }
 
 .dire-forge .campaign-flow .campaign-step:nth-child(1) {
@@ -419,10 +476,14 @@
 
 .dire-forge .victory-quote {
   --lava-mask: var(--splash-mask-09);
+  min-height: 37rem;
+  padding-inline: max(2rem, 4.8%);
 }
 
 .dire-forge .victory-ledger {
   --lava-mask: var(--splash-mask-10);
+  min-height: 27rem;
+  padding-inline: max(1.75rem, 4.8%);
 }
 
 .dire-forge .victory-reviews > :nth-child(1) {
@@ -435,6 +496,11 @@
 
 .dire-forge .victory-reviews > :nth-child(3) {
   --lava-mask: var(--splash-mask-07);
+}
+
+.dire-forge .victory-mini-review {
+  min-height: 19rem;
+  padding: 1.5rem max(1.5rem, 4.8%) 2rem;
 }
 
 .dire-forge .victory-proof :is(.victory-ledger, .victory-mini-review) {
@@ -452,6 +518,8 @@
   --lava-shadow-alpha: 0.055;
   --lava-veil-left: 0.67;
   --lava-veil-right: 0.66;
+  min-height: 37rem;
+  padding: 1.75rem max(1.75rem, 4.8%) 2.5rem;
 }
 
 .dire-forge .roster-preview__grid > :nth-child(1) {
@@ -470,6 +538,12 @@
   --lava-art-rotation: -0.6deg;
 }
 
+.dire-forge .roster-card__footer {
+  right: max(1.75rem, 4.8%);
+  bottom: 2.25rem;
+  left: max(1.75rem, 4.8%);
+}
+
 .dire-forge .why-highground .forged-panel {
   --lava-heat: 0.14;
   --lava-art-opacity: 0.44;
@@ -480,6 +554,8 @@
   --lava-shadow-alpha: 0.035;
   --lava-veil-left: 0.7;
   --lava-veil-right: 0.7;
+  min-height: 22rem;
+  padding: 1.75rem max(1.75rem, 4.8%) 2.1rem;
 }
 
 .dire-forge .why-highground__grid > :nth-child(1) {
@@ -514,6 +590,109 @@
   --lava-shadow-alpha: 0.07;
   --lava-veil-left: 0.68;
   --lava-veil-right: 0.62;
+  min-height: 23rem;
+  padding: 1.75rem max(1.75rem, 4.8%) 2.25rem;
+}
+
+/* Every remaining card surface now belongs to the same painted world. */
+
+.dire-forge .forge-trust-rail__items {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.dire-forge .forge-trust-rail__items > div {
+  --lava-heat: 0.82;
+  --lava-art-opacity: 0.8;
+  --lava-art-hover-opacity: 0.86;
+  --lava-saturation: 1.12;
+  --lava-brightness: 0.58;
+  --lava-shadow-alpha: 0.13;
+  --lava-veil-left: 0.75;
+  --lava-veil-right: 0.55;
+  min-height: 7rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  padding: 1.35rem max(1.75rem, 4.8%);
+}
+
+.dire-forge .forge-trust-rail__items > :nth-child(1) {
+  --lava-mask: var(--splash-mask-01);
+  --lava-art-position: 18% 45%;
+}
+
+.dire-forge .forge-trust-rail__items > :nth-child(2) {
+  --lava-mask: var(--splash-mask-02);
+  --lava-art-position: 77% 42%;
+}
+
+.dire-forge .forge-trust-rail__items > :nth-child(3) {
+  --lava-mask: var(--splash-mask-03);
+  --lava-art-position: 28% 74%;
+}
+
+.dire-forge .forge-trust-rail__items > :nth-child(4) {
+  --lava-mask: var(--splash-mask-04);
+  --lava-art-position: 82% 61%;
+}
+
+.dire-forge .forge-trust-rail__items small {
+  overflow: visible;
+  line-height: 1.45;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.dire-forge .forge-faq__list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.dire-forge .forge-faq__item {
+  --lava-heat: 0.12;
+  --lava-art-opacity: 0.42;
+  --lava-art-hover-opacity: 0.48;
+  --lava-saturation: 0.4;
+  --lava-brightness: 0.42;
+  --lava-grayscale: 0.5;
+  --lava-shadow-alpha: 0.03;
+  --lava-veil-left: 0.72;
+  --lava-veil-right: 0.72;
+  min-height: 7rem;
+  padding: 0.45rem max(2rem, 4.8%) 1rem;
+}
+
+.dire-forge .forge-faq__item > summary {
+  min-height: 6rem;
+}
+
+.dire-forge .forge-faq__item > p {
+  max-width: none;
+  margin-right: 2.4rem;
+  margin-left: 3.2rem;
+}
+
+.dire-forge .forge-faq__list > :nth-child(1) {
+  --lava-mask: var(--splash-mask-06);
+}
+
+.dire-forge .forge-faq__list > :nth-child(2) {
+  --lava-mask: var(--splash-mask-07);
+}
+
+.dire-forge .forge-faq__list > :nth-child(3) {
+  --lava-mask: var(--splash-mask-08);
+}
+
+.dire-forge .forge-faq__list > :nth-child(4) {
+  --lava-mask: var(--splash-mask-09);
+}
+
+.dire-forge .forge-faq__list > :nth-child(5) {
+  --lava-mask: var(--splash-mask-10);
+}
+
+.dire-forge .forge-faq__list > :nth-child(6) {
+  --lava-mask: var(--splash-mask-11);
 }
 
 /* Secondary modules are painted into the stone instead of floating as cards. */
@@ -553,7 +732,14 @@
 }
 
 @media (max-width: 760px) {
-  .dire-forge :is(.forged-panel, .forged-card, .campaign-step) {
+  .dire-forge :is(
+    .forged-panel,
+    .forged-card,
+    .campaign-step,
+    .service-arsenal__note,
+    .forge-faq__item,
+    .forge-trust-rail__items > div
+  ) {
     --lava-art-scale: 1.18;
     --lava-shadow-alpha: 0.11;
     filter:
@@ -581,6 +767,49 @@
     .arsenal-card--coaching
   ) {
     min-height: 30rem;
+  }
+
+  .dire-forge .service-arsenal__note {
+    min-height: 9rem;
+    grid-template-columns: auto minmax(0, 1fr);
+    padding-inline: max(1.75rem, 5%);
+  }
+
+  .dire-forge .service-arsenal__note a {
+    grid-column: 2;
+  }
+
+  .dire-forge .campaign-flow .campaign-step {
+    min-height: 11rem;
+  }
+
+  .dire-forge .campaign-flow .campaign-console {
+    min-height: 39rem;
+  }
+
+  .dire-forge .victory-mini-review {
+    min-height: 20rem;
+  }
+
+  .dire-forge .roster-preview .roster-card {
+    min-height: 38rem;
+  }
+
+  .dire-forge .why-highground .why-card {
+    min-height: 20rem;
+  }
+
+  .dire-forge .siege-route {
+    min-height: 38rem;
+  }
+
+  .dire-forge .forge-trust-rail__items {
+    grid-template-columns: 1fr;
+  }
+
+  .dire-forge .forge-faq__item {
+    min-height: 7.5rem;
+    padding-inline: max(1.5rem, 5%);
   }
 }
 
@@ -616,6 +845,19 @@
     .arsenal-card__compact-content
   ) {
     padding-inline: 1.35rem;
+  }
+
+  .dire-forge .roster-preview .roster-card {
+    min-height: 41rem;
+  }
+
+  .dire-forge .siege-route {
+    min-height: 42rem;
+  }
+
+  .dire-forge .forge-faq__item > p {
+    margin-right: 1.5rem;
+    margin-left: 2.2rem;
   }
 }
 
