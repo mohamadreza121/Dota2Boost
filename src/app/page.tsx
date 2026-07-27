@@ -4,6 +4,7 @@ import "./dire-forge.css";
 import "./dire-forge-card-clarity.css";
 import "./dire-forge-world.css";
 import "./dire-forge-world-performance.css";
+import "./painted-lava-cards.css";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
