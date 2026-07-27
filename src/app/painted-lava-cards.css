@@ -6,13 +6,26 @@
 
 .dire-forge {
   --painted-magma: url("/media/dire-forge/textures/painted-magma-stone.webp");
-  --painted-mask-a: url("/media/dire-forge/masks/painted-card-hot-a.svg");
-  --painted-mask-b: url("/media/dire-forge/masks/painted-card-hot-b.svg");
-  --painted-mask-cool: url("/media/dire-forge/masks/painted-card-cool.svg");
+  --splash-mask-01: url("/media/dire-forge/masks/splash-stone-01.svg");
+  --splash-mask-02: url("/media/dire-forge/masks/splash-stone-02.svg");
+  --splash-mask-03: url("/media/dire-forge/masks/splash-stone-03.svg");
+  --splash-mask-04: url("/media/dire-forge/masks/splash-stone-04.svg");
+  --splash-mask-05: url("/media/dire-forge/masks/splash-stone-05.svg");
+  --splash-mask-06: url("/media/dire-forge/masks/splash-stone-06.svg");
+  --splash-mask-07: url("/media/dire-forge/masks/splash-stone-07.svg");
+  --splash-mask-08: url("/media/dire-forge/masks/splash-stone-08.svg");
+  --splash-mask-09: url("/media/dire-forge/masks/splash-stone-09.svg");
+  --splash-mask-10: url("/media/dire-forge/masks/splash-stone-10.svg");
+  --splash-mask-11: url("/media/dire-forge/masks/splash-stone-11.svg");
+  --splash-mask-12: url("/media/dire-forge/masks/splash-stone-12.svg");
 }
 
 .dire-forge :is(.forged-panel, .forged-card, .campaign-step) {
-  --lava-mask: var(--painted-mask-a);
+  --lava-mask: var(--splash-mask-01);
+  --drip-1-x: 20%;
+  --drip-2-x: 44%;
+  --drip-3-x: 69%;
+  --drip-4-x: 86%;
   --lava-heat: 0.9;
   --lava-art-opacity: 0.86;
   --lava-art-hover-opacity: 0.98;
@@ -119,26 +132,26 @@
       transparent 76%
     ),
     radial-gradient(
-      ellipse 4.5% 13% at 15% 96%,
+      ellipse 4.5% 13% at var(--drip-1-x) 96%,
       rgb(255 244 187 / calc(var(--lava-heat) * 0.82)),
       rgb(255 123 25 / calc(var(--lava-heat) * 0.56)) 34%,
       rgb(180 31 8 / calc(var(--lava-heat) * 0.28)) 63%,
       transparent 78%
     ),
     radial-gradient(
-      ellipse 5% 15% at 39% 97%,
+      ellipse 5% 15% at var(--drip-2-x) 97%,
       rgb(255 237 166 / calc(var(--lava-heat) * 0.76)),
       rgb(255 96 19 / calc(var(--lava-heat) * 0.52)) 38%,
       transparent 76%
     ),
     radial-gradient(
-      ellipse 4.5% 14% at 67% 97%,
+      ellipse 4.5% 14% at var(--drip-3-x) 97%,
       rgb(255 239 173 / calc(var(--lava-heat) * 0.72)),
       rgb(255 106 22 / calc(var(--lava-heat) * 0.48)) 40%,
       transparent 77%
     ),
     radial-gradient(
-      ellipse 4% 12% at 88% 96%,
+      ellipse 4% 12% at var(--drip-4-x) 96%,
       rgb(255 221 136 / calc(var(--lava-heat) * 0.66)),
       rgb(242 72 16 / calc(var(--lava-heat) * 0.42)) 42%,
       transparent 78%
@@ -203,7 +216,11 @@
 }
 
 .dire-forge .rank-forge__brief {
-  --lava-mask: var(--painted-mask-a);
+  --lava-mask: var(--splash-mask-01);
+  --drip-1-x: 23%;
+  --drip-2-x: 25%;
+  --drip-3-x: 69%;
+  --drip-4-x: 72%;
   --lava-art-position: 18% 45%;
   --lava-art-scale: 1.14;
   --lava-art-rotation: -0.7deg;
@@ -212,7 +229,11 @@
 }
 
 .dire-forge .rank-forge__console {
-  --lava-mask: var(--painted-mask-b);
+  --lava-mask: var(--splash-mask-02);
+  --drip-1-x: 11%;
+  --drip-2-x: 44%;
+  --drip-3-x: 89%;
+  --drip-4-x: 91%;
   --lava-art-position: 76% 51%;
   --lava-art-scale: 1.18;
   --lava-art-rotation: 0.8deg;
@@ -236,29 +257,73 @@
 
 .dire-forge .rank-forge :is(.rank-forge__brief, .rank-forge__console),
 .dire-forge .service-arsenal .forged-card {
-  padding-bottom: clamp(2.75rem, 5vw, 4rem);
+  padding-bottom: clamp(1.4rem, 2.2vw, 2rem);
 }
 
 .dire-forge .service-arsenal .arsenal-card__footer {
-  bottom: clamp(2.6rem, 4vw, 3.35rem);
+  bottom: clamp(1.65rem, 2.2vw, 2rem);
 }
 
-.dire-forge .service-arsenal__grid > :nth-child(odd) {
-  --lava-mask: var(--painted-mask-a);
+.dire-forge .service-arsenal__grid > :nth-child(1) {
+  --lava-mask: var(--splash-mask-03);
+  --drip-1-x: 29%;
+  --drip-2-x: 58%;
+  --drip-3-x: 82%;
+  --drip-4-x: 84%;
   --lava-art-position: 18% 38%;
   --lava-art-rotation: -0.55deg;
 }
 
-.dire-forge .service-arsenal__grid > :nth-child(even) {
-  --lava-mask: var(--painted-mask-b);
+.dire-forge .service-arsenal__grid > :nth-child(2) {
+  --lava-mask: var(--splash-mask-04);
+  --drip-1-x: 17%;
+  --drip-2-x: 19%;
+  --drip-3-x: 75%;
+  --drip-4-x: 77%;
   --lava-art-position: 81% 62%;
   --lava-art-rotation: 0.7deg;
 }
 
-.dire-forge .service-arsenal__grid > :nth-child(3n) {
+.dire-forge .service-arsenal__grid > :nth-child(3) {
+  --lava-mask: var(--splash-mask-05);
+  --drip-1-x: 36%;
+  --drip-2-x: 65%;
+  --drip-3-x: 90%;
+  --drip-4-x: 92%;
   --lava-art-position: 48% 16%;
   --lava-art-scale: 1.2;
   --lava-saturation: 1.08;
+}
+
+.dire-forge .service-arsenal__grid > :nth-child(4) {
+  --lava-mask: var(--splash-mask-06);
+  --drip-1-x: 8%;
+  --drip-2-x: 50%;
+  --drip-3-x: 80%;
+  --drip-4-x: 82%;
+  --lava-art-position: 72% 58%;
+  --lava-art-rotation: 0.42deg;
+}
+
+.dire-forge .service-arsenal__grid > :nth-child(5) {
+  --lava-mask: var(--splash-mask-07);
+  --drip-1-x: 24%;
+  --drip-2-x: 27%;
+  --drip-3-x: 72%;
+  --drip-4-x: 74%;
+  --lava-art-position: 31% 72%;
+  --lava-art-rotation: -0.65deg;
+}
+
+.dire-forge .service-arsenal__grid > :nth-child(6) {
+  --lava-mask: var(--splash-mask-08);
+  --drip-1-x: 16%;
+  --drip-2-x: 46%;
+  --drip-3-x: 87%;
+  --drip-4-x: 89%;
+  --lava-art-position: 86% 22%;
+  --lava-art-scale: 1.16;
+  --lava-art-rotation: 0.62deg;
 }
 
 /* Cooling sequence: orange fades, stone and brushwork become dominant. */
@@ -275,19 +340,52 @@
   --lava-veil-right: 0.56;
 }
 
-.dire-forge .campaign-flow .campaign-step:nth-child(odd) {
-  --lava-mask: var(--painted-mask-a);
+.dire-forge .campaign-flow .campaign-step:nth-child(1) {
+  --lava-mask: var(--splash-mask-09);
+  --drip-1-x: 33%;
+  --drip-2-x: 35%;
+  --drip-3-x: 74%;
+  --drip-4-x: 76%;
   --lava-art-position: 12% 62%;
 }
 
-.dire-forge .campaign-flow .campaign-step:nth-child(even),
+.dire-forge .campaign-flow .campaign-step:nth-child(2) {
+  --lava-mask: var(--splash-mask-10);
+  --drip-1-x: 12%;
+  --drip-2-x: 54%;
+  --drip-3-x: 91%;
+  --drip-4-x: 93%;
+  --lava-art-position: 82% 38%;
+}
+
+.dire-forge .campaign-flow .campaign-step:nth-child(3) {
+  --lava-mask: var(--splash-mask-11);
+  --drip-1-x: 25%;
+  --drip-2-x: 27%;
+  --drip-3-x: 67%;
+  --drip-4-x: 69%;
+  --lava-art-position: 28% 71%;
+}
+
+.dire-forge .campaign-flow .campaign-step:nth-child(4) {
+  --lava-mask: var(--splash-mask-12);
+  --drip-1-x: 7%;
+  --drip-2-x: 41%;
+  --drip-3-x: 81%;
+  --drip-4-x: 83%;
+  --lava-art-position: 76% 45%;
+}
+
 .dire-forge .campaign-flow .campaign-console {
-  --lava-mask: var(--painted-mask-b);
+  --lava-mask: var(--splash-mask-02);
+  --drip-1-x: 11%;
+  --drip-2-x: 44%;
+  --drip-3-x: 89%;
+  --drip-4-x: 91%;
   --lava-art-position: 82% 38%;
 }
 
 .dire-forge .victory-proof .forged-panel {
-  --lava-mask: var(--painted-mask-cool);
   --lava-heat: 0.4;
   --lava-art-opacity: 0.58;
   --lava-art-hover-opacity: 0.66;
@@ -299,13 +397,32 @@
   --lava-veil-right: 0.6;
 }
 
+.dire-forge .victory-quote {
+  --lava-mask: var(--splash-mask-09);
+}
+
+.dire-forge .victory-ledger {
+  --lava-mask: var(--splash-mask-10);
+}
+
+.dire-forge .victory-reviews > :nth-child(1) {
+  --lava-mask: var(--splash-mask-11);
+}
+
+.dire-forge .victory-reviews > :nth-child(2) {
+  --lava-mask: var(--splash-mask-12);
+}
+
+.dire-forge .victory-reviews > :nth-child(3) {
+  --lava-mask: var(--splash-mask-07);
+}
+
 .dire-forge .victory-proof :is(.victory-ledger, .victory-mini-review) {
   --lava-art-position: 80% 70%;
   --lava-art-rotation: 0.7deg;
 }
 
 .dire-forge .roster-preview .forged-card {
-  --lava-mask: var(--painted-mask-cool);
   --lava-heat: 0.24;
   --lava-art-opacity: 0.52;
   --lava-art-hover-opacity: 0.62;
@@ -317,18 +434,23 @@
   --lava-veil-right: 0.66;
 }
 
+.dire-forge .roster-preview__grid > :nth-child(1) {
+  --lava-mask: var(--splash-mask-09);
+}
+
 .dire-forge .roster-preview__grid > :nth-child(2) {
+  --lava-mask: var(--splash-mask-10);
   --lava-art-position: 86% 32%;
   --lava-art-rotation: 0.65deg;
 }
 
 .dire-forge .roster-preview__grid > :nth-child(3) {
+  --lava-mask: var(--splash-mask-11);
   --lava-art-position: 36% 84%;
   --lava-art-rotation: -0.6deg;
 }
 
 .dire-forge .why-highground .forged-panel {
-  --lava-mask: var(--painted-mask-cool);
   --lava-heat: 0.14;
   --lava-art-opacity: 0.44;
   --lava-art-hover-opacity: 0.52;
@@ -340,13 +462,29 @@
   --lava-veil-right: 0.7;
 }
 
-.dire-forge .why-highground__grid > :nth-child(even) {
+.dire-forge .why-highground__grid > :nth-child(1) {
+  --lava-mask: var(--splash-mask-12);
+}
+
+.dire-forge .why-highground__grid > :nth-child(2) {
+  --lava-mask: var(--splash-mask-08);
   --lava-art-position: 82% 55%;
   --lava-art-rotation: 0.55deg;
 }
 
+.dire-forge .why-highground__grid > :nth-child(3) {
+  --lava-mask: var(--splash-mask-09);
+  --lava-art-position: 32% 76%;
+}
+
+.dire-forge .why-highground__grid > :nth-child(4) {
+  --lava-mask: var(--splash-mask-10);
+  --lava-art-position: 72% 32%;
+  --lava-art-rotation: -0.45deg;
+}
+
 .dire-forge .siege-route {
-  --lava-mask: var(--painted-mask-cool);
+  --lava-mask: var(--splash-mask-11);
   --lava-heat: 0.3;
   --lava-art-opacity: 0.56;
   --lava-art-hover-opacity: 0.62;
@@ -407,6 +545,47 @@
     --lava-art-opacity: 0.8;
     --lava-veil-left: 0.83;
     --lava-veil-right: 0.46;
+  }
+
+  .dire-forge .service-arsenal :is(
+    .arsenal-card--mmr,
+    .arsenal-card--wins,
+    .arsenal-card--behavior,
+    .arsenal-card--low-priority
+  ) {
+    min-height: 38rem;
+  }
+
+  .dire-forge .service-arsenal :is(
+    .arsenal-card--calibration,
+    .arsenal-card--coaching
+  ) {
+    min-height: 30rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .dire-forge .service-arsenal .arsenal-card--mmr {
+    min-height: 42rem;
+  }
+
+  .dire-forge .service-arsenal :is(
+    .arsenal-card--calibration,
+    .arsenal-card--coaching
+  ) {
+    min-height: 32rem;
+  }
+
+  .dire-forge .service-arsenal :is(
+    .arsenal-card--wins,
+    .arsenal-card--behavior,
+    .arsenal-card--low-priority
+  ) {
+    min-height: 39rem;
+  }
+
+  .dire-forge .service-arsenal .arsenal-card__footer {
+    bottom: 1.75rem;
   }
 }
 
