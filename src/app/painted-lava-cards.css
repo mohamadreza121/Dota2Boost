@@ -255,13 +255,33 @@
   --lava-veil-right: 0.25;
 }
 
+.dire-forge .service-arsenal :is(
+  .arsenal-card--calibration,
+  .arsenal-card--coaching
+) {
+  min-height: 24rem;
+}
+
 .dire-forge .rank-forge :is(.rank-forge__brief, .rank-forge__console),
 .dire-forge .service-arsenal .forged-card {
   padding-bottom: clamp(1.4rem, 2.2vw, 2rem);
 }
 
+.dire-forge .service-arsenal .arsenal-card__topline {
+  padding-inline: clamp(1.5rem, 2.4vw, 1.8rem);
+}
+
+.dire-forge .service-arsenal :is(
+  .arsenal-card__content,
+  .arsenal-card__compact-content
+) {
+  padding-inline: clamp(1.5rem, 2.4vw, 1.8rem);
+}
+
 .dire-forge .service-arsenal .arsenal-card__footer {
-  bottom: clamp(1.65rem, 2.2vw, 2rem);
+  right: clamp(1.5rem, 2.4vw, 1.8rem);
+  bottom: 2.25rem;
+  left: clamp(1.5rem, 2.4vw, 1.8rem);
 }
 
 .dire-forge .service-arsenal__grid > :nth-child(1) {
@@ -585,7 +605,17 @@
   }
 
   .dire-forge .service-arsenal .arsenal-card__footer {
-    bottom: 1.75rem;
+    right: 1.35rem;
+    bottom: 2rem;
+    left: 1.35rem;
+  }
+
+  .dire-forge .service-arsenal :is(
+    .arsenal-card__topline,
+    .arsenal-card__content,
+    .arsenal-card__compact-content
+  ) {
+    padding-inline: 1.35rem;
   }
 }
 
